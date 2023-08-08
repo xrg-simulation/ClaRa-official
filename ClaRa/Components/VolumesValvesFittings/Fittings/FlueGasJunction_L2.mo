@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model FlueGasJunction_L2 "Adiabatic junction volume"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -149,8 +149,8 @@ PressureLossC pressureLossC;
 
 public
   Basics.Interfaces.EyeOutGas
-                           eye1(each medium=medium) if
-                                  showData
+                           eye1(each medium=medium)
+                               if showData
     annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -161,8 +161,8 @@ protected
     annotation (Placement(transformation(extent={{55,-51},{57,-49}})));
 public
   Basics.Interfaces.EyeOutGas
-                           eye2(each medium=medium) if
-                                  showData
+                           eye2(each medium=medium)
+                               if showData
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={30,-110}),
@@ -255,7 +255,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

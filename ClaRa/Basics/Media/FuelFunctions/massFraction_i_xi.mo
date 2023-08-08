@@ -1,7 +1,7 @@
 within ClaRa.Basics.Media.FuelFunctions;
 function massFraction_i_xi "Elementary composition as function of fuel xi"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.7.0                            //
+  // Component of the ClaRa library, version: 1.8.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -17,7 +17,7 @@ function massFraction_i_xi "Elementary composition as function of fuel xi"
 
   input ClaRa.Basics.Units.MassFraction xi_c[:] "Composition of fuel";
    input Integer compNo "Component number";
-   input ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
+   input ClaRa.Basics.Media.FuelTypes.BaseFuel fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
 
   output ClaRa.Basics.Units.MassFraction xi_element "Composition of elements";
 
@@ -45,7 +45,7 @@ algorithm
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

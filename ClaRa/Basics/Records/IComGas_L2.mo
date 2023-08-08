@@ -9,7 +9,7 @@ record IComGas_L2 "Basic internal communication record for heat transfer"
   Units.Mass mass "Mass of system"
                                   annotation (Dialog(tab="Bulk"));
 
-  replaceable parameter TILMedia.GasTypes.FlueGasTILMedia mediumModel "Used medium model" annotation(Dialog(tab="System"));
+  replaceable parameter TILMedia.GasTypes.BaseGas mediumModel "Used medium model" annotation(Dialog(tab="System"));
 
 //____Inlet_____________________________________________________________________________
   TILMedia.Internals.TILMediaExternalObject fluidPointer_in "Pointer to inlet gas object"     annotation(Dialog(tab="Inlet"));
@@ -26,7 +26,7 @@ record IComGas_L2 "Basic internal communication record for heat transfer"
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

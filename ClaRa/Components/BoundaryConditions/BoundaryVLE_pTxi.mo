@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_pTxi "A boundary defining pressure, temperature and composition"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -21,7 +21,7 @@ extends ClaRa.Basics.Icons.FlowSink;
     powerIn=if energyType == 1 then -steam_a.m_flow*actualStream(steam_a.h_outflow) else 0,
     powerOut_th=if energyType == 2 then steam_a.m_flow*actualStream(steam_a.h_outflow) else 0,
     powerOut_elMech=0,
-    powerAux=0) if  contributeToCycleSummary;
+    powerAux=0)  if contributeToCycleSummary;
 
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used"
                                                                                               annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -48,12 +48,12 @@ protected
 public
   ClaRa.Basics.Interfaces.FluidPortIn steam_a(Medium=medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealInput p(value=p_in) if (variable_p) "Variable mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput p=p_in if (variable_p) "Variable mass flow rate"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-  Modelica.Blocks.Interfaces.RealInput T(value=T_in) if (variable_T) "Variable specific temperature"
+  Modelica.Blocks.Interfaces.RealInput T=T_in if (variable_T) "Variable specific temperature"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Blocks.Interfaces.RealInput xi[medium.nc-1](value=xi_in) if
-       (variable_xi) "Variable composition"
+  Modelica.Blocks.Interfaces.RealInput xi[medium.nc-1]=xi_in
+    if (variable_xi) "Variable composition"
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
   Basics.Interfaces.EyeOut       eye if showData
     annotation (Placement(transformation(extent={{94,-86},{106,-74}}),
@@ -104,7 +104,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

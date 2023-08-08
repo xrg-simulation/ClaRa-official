@@ -1,10 +1,10 @@
 within ClaRa.Components.Utilities.Blocks;
 block VariableGradientLimiter "Limit the range of a signal with variable limits"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -25,10 +25,10 @@ block VariableGradientLimiter "Limit the range of a signal with variable limits"
   parameter Real maxGrad_const = 1 "Constant max gradient" annotation (Dialog(enable = constantLimits));
   parameter Real minGrad_const = -1 "Constant min gradient" annotation (Dialog(enable = constantLimits));
 
-  Modelica.Blocks.Interfaces.RealInput maxGrad(value=maxGrad_) if not constantLimits "Maximum Gradient allowd"
+  Modelica.Blocks.Interfaces.RealInput maxGrad=maxGrad_ if not constantLimits "Maximum Gradient allowd"
                               annotation (Placement(transformation(extent={{
             -140,60},{-100,100}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput minGrad(value=minGrad_) if not constantLimits "Minimum Gradient allowd"
+  Modelica.Blocks.Interfaces.RealInput minGrad=minGrad_ if not constantLimits "Minimum Gradient allowd"
                               annotation (Placement(transformation(extent={{
             -140,-100},{-100,-60}}, rotation=0)));
 
@@ -65,7 +65,7 @@ is passed as output.
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

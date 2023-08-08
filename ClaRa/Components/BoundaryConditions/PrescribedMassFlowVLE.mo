@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -61,7 +61,7 @@ end Summary;
     h_out=actualStream(outlet.h_outflow))
     annotation (Placement(transformation(extent={{-75,17},{-55,37}})));
 
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(value=m_flow) if (
+  Modelica.Blocks.Interfaces.RealInput m_flow_in=m_flow if (
     m_flowInputIsActive) annotation (Placement(transformation(
         origin={0,70},
         extent={{-20,-20},{20,20}},
@@ -72,6 +72,14 @@ end Summary;
   ClaRa.Basics.Interfaces.EyeOut eye
     annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
         iconTransformation(extent={{90,-50},{110,-30}})));
+
+protected
+   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+    vleFluidType=medium,
+    p=outlet.p,
+    h=noEvent(actualStream(outlet.h_outflow)), xi = noEvent(actualStream(outlet.xi_outflow)))
+     annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+
 equation
   if (not m_flowInputIsActive) then
     m_flow = m_flow_const;
@@ -97,11 +105,10 @@ equation
   //   refrigerant.h=outlet.h_outflow;
   //   refrigerant.p=outlet.p;
 
-  eye.m_flow = summary.m_flow_in;
-
-  //eye_int.T=volume.refOutlet.T-273.15;
-  //eye_int.s=volume.refOutlet.s/1000;
-  //eye_int.h=volume.refOutlet.h/1000;
+  eye.m_flow = -summary.m_flow_out;
+  eye.T=fluidOut.T-273.15;
+  eye.s=fluidOut.s/1000;
+  eye.h=summary.h_out/1000;
   eye.p = summary.p_out/100000;
 
   annotation (
@@ -123,7 +130,7 @@ a simple model of a variable pressure loss is needed.</p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

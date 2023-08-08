@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model Drum_L3 "Drum : separated volume approach | level-dependent phase separation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -231,8 +231,8 @@ protected
   Basics.Interfaces.EyeIn       eye_int[3]
     annotation (Placement(transformation(extent={{139,-51},{141,-49}})));
 public
-  Basics.Interfaces.EyeOut eye_down[3] if
-                                        showData annotation (Placement(transformation(
+  Basics.Interfaces.EyeOut eye_down[3]
+                                     if showData annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={140,-110}), iconTransformation(
@@ -243,7 +243,7 @@ protected
   Basics.Interfaces.EyeIn       eye_int1[1]
     annotation (Placement(transformation(extent={{-9,91},{-7,93}})));
 public
-  Basics.Interfaces.EyeOut eye_sat if   showData
+  Basics.Interfaces.EyeOut eye_sat   if showData
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,98}),
@@ -256,7 +256,7 @@ public
         rotation=270,
         origin={0,8})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then summary.outline.level_abs else summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={220,-110})));
@@ -271,16 +271,16 @@ public
     stateLocation=2,
     initOption=initOptionInsulation,
     T_start=T_startInsulation*ones(1),
-    CF_lambda=CF_lambda) if                                           includeInsulation annotation (Placement(transformation(extent={{-10,56},{10,64}})));
-  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb)) if
-                       enableAmbientLosses==true annotation (Placement(transformation(extent={{-90,64},{-70,84}})));
+    CF_lambda=CF_lambda)                                           if includeInsulation annotation (Placement(transformation(extent={{-10,56},{10,64}})));
+  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb))
+                    if enableAmbientLosses==true annotation (Placement(transformation(extent={{-90,64},{-70,84}})));
   BoundaryConditions.PrescribedHeatFlow                  prescribedHeatFlow(
     length=length,
     N_axial=1,
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0},
         length,
-        1)) if         enableAmbientLosses==true annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
+        1))         if enableAmbientLosses==true annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
   Basics.Interfaces.FluidPortOut down_2(Medium=medium) "Downcomer outlet" annotation (Placement(transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
   Basics.Interfaces.FluidPortOut down_3(Medium=medium) "Downcomer outlet" annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}), iconTransformation(extent={{-70,-110},{-50,-90}})));
   Basics.Interfaces.FluidPortIn riser_2(Medium=medium) "Riser inlet" annotation (Placement(transformation(extent={{-210,-110},{-190,-90}}), iconTransformation(extent={{-210,-110},{-190,-90}})));
@@ -384,7 +384,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

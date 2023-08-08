@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -136,10 +136,10 @@ model Summary
   parameter Boolean showExpertSummary;
   input SI.HeatFlowRate Q_flow[3] "Heat flow rate of zones |1|2|3|";
   input SI.HeatFlowRate Q_flow_tot "Total heat flow rate";
-  input Real C_flow_low[3] if  showExpertSummary "Lower heat capacity flow in zones |1|2|3|";
-  input Real C_flow_high[3] if  showExpertSummary "Higher heat capacity flow in zones |1|2|3|";
-  input Real C_flow_i[3] if  showExpertSummary "Inner side heat capacity flow in zones |1|2|3|";
-  input Real C_flow_o[3] if  showExpertSummary "Outer side heat capacity flow in zones |1|2|3|";
+  input Real C_flow_low[3]  if showExpertSummary "Lower heat capacity flow in zones |1|2|3|";
+  input Real C_flow_high[3]  if showExpertSummary "Higher heat capacity flow in zones |1|2|3|";
+  input Real C_flow_i[3]  if showExpertSummary "Inner side heat capacity flow in zones |1|2|3|";
+  input Real C_flow_o[3]  if showExpertSummary "Outer side heat capacity flow in zones |1|2|3|";
 
   input SI.Temperature T_i[6] "Temperatures (i/o) of outer flow zones |1|2|3|";
   input SI.Temperature T_o[6] "Temperatures (i/o) of outer flow zones |1|2|3|";
@@ -403,7 +403,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

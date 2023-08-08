@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with static momentum balance and simple energy balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -35,22 +35,22 @@ model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and tw
 
     input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference between outlet and inlet" annotation (Dialog);
     input Units.Mass mass_tot "Total fluid mass in system mass" annotation (Dialog(show));
-    input Units.Enthalpy H_tot if        showExpertSummary "Total system enthalpy" annotation (Dialog(show));
+    input Units.Enthalpy H_tot        if showExpertSummary "Total system enthalpy" annotation (Dialog(show));
     input Units.HeatFlowRate Q_flow_tot "Heat flow through entire pipe wall" annotation (Dialog);
 
-    input Units.Mass mass[N_cv] if        showExpertSummary "Fluid mass in cells" annotation (Dialog(show));
-    input Units.Momentum I[N_cv + 1] if        showExpertSummary "Momentum of fluid flow volumes through cell borders" annotation (Dialog(show));
-    input Units.Force I_flow[N_cv + 2] if        showExpertSummary "Momentum flow through cell borders" annotation (Dialog(show));
-    input Units.MassFlowRate m_flow[N_cv + 1] if        showExpertSummary "Mass flow through cell borders" annotation (Dialog(show));
-    input Units.Velocity w[N_cv + 1] if        showExpertSummary "Velocity of flow in cells" annotation (Dialog(show));
+    input Units.Mass mass[N_cv]        if showExpertSummary "Fluid mass in cells" annotation (Dialog(show));
+    input Units.Momentum I[N_cv + 1]        if showExpertSummary "Momentum of fluid flow volumes through cell borders" annotation (Dialog(show));
+    input Units.Force I_flow[N_cv + 2]        if showExpertSummary "Momentum flow through cell borders" annotation (Dialog(show));
+    input Units.MassFlowRate m_flow[N_cv + 1]        if showExpertSummary "Mass flow through cell borders" annotation (Dialog(show));
+    input Units.Velocity w[N_cv + 1]        if showExpertSummary "Velocity of flow in cells" annotation (Dialog(show));
   end Outline;
 
   model Wall_L4
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary annotation (Dialog(hide));
     parameter Integer N_wall "Number of wall segments" annotation (Dialog(hide));
-    input Units.Temperature T[N_wall] if        showExpertSummary "Temperatures of wall segments" annotation (Dialog);
-    input Units.HeatFlowRate Q_flow[N_wall] if        showExpertSummary "Heat flows through wall segments" annotation (Dialog);
+    input Units.Temperature T[N_wall]        if showExpertSummary "Temperatures of wall segments" annotation (Dialog);
+    input Units.HeatFlowRate Q_flow[N_wall]        if showExpertSummary "Heat flows through wall segments" annotation (Dialog);
   end Wall_L4;
 
   model Summary
@@ -507,7 +507,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

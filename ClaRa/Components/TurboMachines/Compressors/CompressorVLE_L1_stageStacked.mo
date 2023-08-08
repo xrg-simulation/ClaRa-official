@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Compressors;
 model CompressorVLE_L1_stageStacked "Advanced compressor or fan for VLE mixtures using the stage stacking method  according to N. Gasparovic"
   import ClaRa;
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -24,7 +24,7 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
     powerIn=0,
     powerOut_th=0,
     powerOut_elMech=0,
-    powerAux=P_shaft) if  contributeToCycleSummary;
+    powerAux=P_shaft)  if contributeToCycleSummary;
 
   model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
@@ -83,7 +83,7 @@ public
     xi=VLEFluid_inlet.xi)
     annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
-  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input(value=Delta_alpha) if useExternalVIGVangle "VIGV angle input"
+  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input=Delta_alpha if useExternalVIGVangle "VIGV angle input"
                        annotation (Placement(transformation(extent={{-128,60},{-88,100}})));
 
       parameter Boolean showExpertSummary = simCenter.showExpertSummary "True, if expert summary should be applied"
@@ -307,8 +307,8 @@ public
       p=fluid_inlet.p,
       h=VLEFluid_inlet.h,
       s=VLEFluid_inlet.s,
-      steamQuality=fluidOut.q,
-      H_flow=-VLEFluid_inlet.h*inlet.m_flow,
+      steamQuality=VLEFluid_inlet.q,
+      H_flow=-VLEFluid_inlet.h*fluid_inlet.m_flow,
       rho=VLEFluid_inlet.d),
     outlet(      showExpertSummary=showExpertSummary,
       m_flow=-fluid_inlet.m_flow,
@@ -317,7 +317,7 @@ public
       h=VLEFluid_outlet.h,
       s=VLEFluid_outlet.s,
       steamQuality=VLEFluid_outlet.q,
-      H_flow=-VLEFluid_outlet.h*outlet.m_flow,
+      H_flow=-VLEFluid_outlet.h*fluid_outlet.m_flow,
       rho=VLEFluid_outlet.d)) annotation (Placement(transformation(extent={{-100,
             -114},{-80,-94}})));
 
@@ -950,7 +950,7 @@ end if;
   P_shaft = P_hyd*1/eta_mech;
   V_flow = fluid_inlet.m_flow / VLEFluid_inlet.d;
   der(fluid_inlet.m_flow) = 1/0.01*(m_flow_aux-fluid_inlet.m_flow);
-  Y=sum(Y_st[i]);
+  Y=sum(Y_st);
   fluid_inlet.m_flow + fluid_outlet.m_flow = 0.0;
   fluid_outlet.xi_outflow = inStream(fluid_inlet.xi_outflow);
   fluid_inlet.xi_outflow = inStream(fluid_outlet.xi_outflow);
@@ -992,7 +992,7 @@ end if;
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

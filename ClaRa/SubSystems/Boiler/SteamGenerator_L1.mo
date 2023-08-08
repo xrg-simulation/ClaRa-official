@@ -1,10 +1,10 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L1 "A steam generation and reaheater model using characteristic lines and transfer functions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -82,7 +82,7 @@ model SteamGenerator_L1 "A steam generation and reaheater model using characteri
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
   Modelica.Blocks.Math.Product turbineValveModel "Effect of steam flow throtteling"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Modelica.Blocks.Interfaces.RealInput yT_(value=turbineValveCharacteristics.u[1]) if yTInputIsActive "Turbine valve position"
+  Modelica.Blocks.Interfaces.RealInput yT_=turbineValveCharacteristics.u[1] if yTInputIsActive "Turbine valve position"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -143,7 +143,7 @@ public
     m_flow_LS=-livesteam.m_flow,
     m_flow_hRH=-reheat_out.m_flow) "Values as seen at connectors"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Basics.Interfaces.EyeOut eye_LS if    showData
+  Basics.Interfaces.EyeOut eye_LS    if showData
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-28,188}), iconTransformation(
@@ -154,7 +154,7 @@ protected
   Basics.Interfaces.EyeIn eye_intLS[1]
     annotation (Placement(transformation(extent={{-31,159},{-29,161}})));
 public
-  Basics.Interfaces.EyeOut eye_RH if    showData
+  Basics.Interfaces.EyeOut eye_RH    if showData
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
         origin={100,188}), iconTransformation(
@@ -341,7 +341,7 @@ This steam generator model is based on transfer functions and characteristic lin
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

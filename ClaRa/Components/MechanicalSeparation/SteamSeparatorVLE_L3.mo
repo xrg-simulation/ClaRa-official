@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L3
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -109,16 +109,16 @@ model SteamSeparatorVLE_L3
   parameter Boolean levelOutput = false "True, if Real level connector shall be addded"  annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean outputAbs = false "True, if absolute level is at output"  annotation(Dialog(enable = levelOutput, tab="Summary and Visualisation"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation" annotation (Dialog(tab="Expert Settings"));
-  ClaRa.Basics.Interfaces.EyeOut eye_out1 if
-                                            showData annotation (Placement(transformation(
+  ClaRa.Basics.Interfaces.EyeOut eye_out1
+                                         if showData annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-110})));
-  ClaRa.Basics.Interfaces.EyeOut eye_out2 if
-                                            showData annotation (Placement(transformation(
+  ClaRa.Basics.Interfaces.EyeOut eye_out2
+                                         if showData annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={40,100}), iconTransformation(
@@ -131,7 +131,7 @@ protected
     annotation (Placement(transformation(extent={{39,77},{41,75}})));
 
 public
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then volume.summary.outline.level_abs else volume.summary.outline.level_rel) if levelOutput
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then volume.summary.outline.level_abs else volume.summary.outline.level_rel if levelOutput
   annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
                     iconTransformation(extent={{100,-90},{120,-70}})));
 equation
@@ -176,7 +176,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

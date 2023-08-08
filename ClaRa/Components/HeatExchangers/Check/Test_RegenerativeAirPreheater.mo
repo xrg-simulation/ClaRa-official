@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers.Check;
 model Test_RegenerativeAirPreheater
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -49,10 +49,19 @@ model Test_RegenerativeAirPreheater
     diameter_reg=10,
     height_reg=3,
     N_sp=1000,
-    T_start_freshAir={340,340},
-    T_start_flueGas={450,340},
+    T_start_freshAir=linspace(
+        340,
+        340,
+        regenerativeAirPreheater.N_cv),
+    T_start_flueGas=linspace(
+        450,
+        340,
+        regenerativeAirPreheater.N_cv),
     m_flow_flueGas_nom=565,
-    p_start_flueGas={108600,100900},
+    p_start_flueGas=linspace(
+        108600,
+        100900,
+        regenerativeAirPreheater.N_cv),
     redeclare model PressureLoss =
         ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     N_cv=10,
@@ -62,7 +71,11 @@ model Test_RegenerativeAirPreheater
     frictionAtFlueGasOutlet=true,
     frictionAtFreshAirInlet=false,
     frictionAtFreshAirOutlet=true,
-    p_start_freshAir={110000,104700}) annotation (Placement(transformation(extent={{8,-16},{28,4}})));
+    p_start_freshAir=linspace(
+        110000,
+        104700,
+        regenerativeAirPreheater.N_cv))
+                                      annotation (Placement(transformation(extent={{8,-16},{28,4}})));
 
   Modelica.Blocks.Sources.Step step1(
     offset=40 + 273.15,
@@ -70,11 +83,26 @@ model Test_RegenerativeAirPreheater
     height=20)
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 airPreheater(
-    T_start_primaryAir={400,400},
-    T_start_secondaryAir={400,400},
-    T_start_flueGas={400,400},
-    T_start_primary_wall={400,400},
-    T_start_secondary_wall={400,400},
+    T_start_primaryAir=linspace(
+        400,
+        400,
+        airPreheater.N_cv),
+    T_start_secondaryAir=linspace(
+        400,
+        400,
+        airPreheater.N_cv),
+    T_start_flueGas=linspace(
+        400,
+        400,
+        airPreheater.N_cv),
+    T_start_primary_wall=linspace(
+        400,
+        400,
+        airPreheater.N_cv),
+    T_start_secondary_wall=linspace(
+        400,
+        400,
+        airPreheater.N_cv),
     N_cv=10,
     xi_start_primaryAir={0,0,0,0,0.79,0.21,0,0,0},
     xi_start_secondaryAir={0,0,0,0,0.79,0.21,0,0,0},

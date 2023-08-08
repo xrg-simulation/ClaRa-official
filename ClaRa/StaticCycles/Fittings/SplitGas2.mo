@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Fittings;
 model SplitGas2 "orange | orange | orange"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -29,17 +29,17 @@ model SplitGas2 "orange | orange | orange"
   end Summary;
 
   Summary summary(
-  inlet(
+  inlet(mediumModel=gas,
      m_flow=m_flow_in,
      T=T_in1,
      p=p,
      xi=xi_in1),
-  outlet1(
+  outlet1(mediumModel=gas,
      m_flow=m_flow_out1,
      T=T_out,
      p=p,
      xi=xi_out),
-  outlet2(
+  outlet2(mediumModel=gas,
      m_flow=m_flow_out2,
      T=T_out,
      p=p,
@@ -51,7 +51,7 @@ model SplitGas2 "orange | orange | orange"
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out1(fixed = false) "Mass flow at outlet 1";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out2(fixed = false) "Mass flow at outlet 2";
 
-  final parameter ClaRa.Basics.Units.MassFraction xi_in1[gas.nc - 1](fixed = false) "Gas composition inlet 1";
+  final parameter ClaRa.Basics.Units.MassFraction xi_in1[gas.nc - 1](each fixed = false) "Gas composition inlet 1";
   final parameter ClaRa.Basics.Units.MassFraction xi_out[gas.nc - 1] = xi_in1;
 
   final parameter ClaRa.Basics.Units.Temperature T_in1(fixed=false);

@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesignInlet "Running the  L1 pump in off design inlet conditions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -19,7 +19,6 @@ model TestPump_L1_OffDesignInlet "Running the  L1 pump in off design inlet condi
   inner ClaRa.SimCenter simCenter(                                                              showExpertSummary=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1)
                                                                                                                             annotation (Placement(transformation(extent={{-160,-200},{-120,-180}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump2(
-    useDensityAffinity=true,
     useHead=true,
     Head_max=1000,
     steadyStateTorque=false,

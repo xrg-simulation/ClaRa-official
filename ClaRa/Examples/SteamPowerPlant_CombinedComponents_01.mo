@@ -1,7 +1,7 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.7.0                            //
+  // Component of the ClaRa library, version: 1.8.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -1176,9 +1176,18 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
     N_sp=1000,
     Delta_p_flueGas_nom=1000,
     Delta_p_freshAir_nom=1000,
-    T_start_wall={385,675},
-    T_start_flueGas={677,398},
-    T_start_freshAir={376,673},
+    T_start_wall=linspace(
+        385,
+        675,
+        regenerativeAirPreheater.N_cv),
+    T_start_flueGas=linspace(
+        677,
+        398,
+        regenerativeAirPreheater.N_cv),
+    T_start_freshAir=linspace(
+        376,
+        673,
+        regenerativeAirPreheater.N_cv),
     frictionAtFlueGasOutlet=false,
     frictionAtFreshAirInlet=false,
     frictionAtFreshAirOutlet=true,
@@ -1192,9 +1201,15 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
     xi_start_flueGas=INIT.eco.xi_fg_out,
     p_freshAir_nom=12000,
     p_flueGas_nom=10500,
-    p_start_freshAir(displayUnit="bar") = {135000,134000},
+    p_start_freshAir(each displayUnit="bar") = linspace(
+      1.35e5,
+      1.34e5,
+      regenerativeAirPreheater.N_cv),
     stateLocation=1,
-    p_start_flueGas(displayUnit="bar") = {100000,99000},
+    p_start_flueGas(each displayUnit="bar") = linspace(
+      1e5,
+      0.99e5,
+      regenerativeAirPreheater.N_cv),
     frictionAtFlueGasInlet=true)      annotation (Placement(transformation(extent={{-396,-58},{-376,-38}})));
   ClaRa.Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex splitGas_L2_flex(
     N_ports_out=4,

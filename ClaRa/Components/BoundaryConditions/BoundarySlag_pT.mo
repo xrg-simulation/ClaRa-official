@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_pT "A source defining pressure and temperature"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,7 @@ model BoundarySlag_pT "A source defining pressure and temperature"
     powerIn=if energyType == 1 then -slag_inlet.m_flow*h_slag else 0,
     powerOut_th=if energyType == 2 then  slag_inlet.m_flow*h_slag else 0,
     powerOut_elMech=0,
-    powerAux=0) if  contributeToCycleSummary;
+    powerAux=0)  if contributeToCycleSummary;
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
   parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
@@ -44,9 +44,9 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-12},{110,8}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(value=p_in) if (variable_p) "Variable mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput p=p_in if (variable_p) "Variable mass flow rate"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-  Modelica.Blocks.Interfaces.RealInput T(value=T_in) if (variable_T) "Variable specific enthalpy"
+  Modelica.Blocks.Interfaces.RealInput T=T_in if (variable_T) "Variable specific enthalpy"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
 
 equation
@@ -71,7 +71,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

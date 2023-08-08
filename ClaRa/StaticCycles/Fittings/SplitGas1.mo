@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Fittings;
 model SplitGas1 "brown | brown | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -28,17 +28,17 @@ model SplitGas1 "brown | brown | green"
   end Summary;
 
   Summary summary(
-  inlet(
+  inlet(mediumModel=gas,
      m_flow=m_flow_in,
      T=T,
      p=p,
      xi=xi),
-  outlet1(
+  outlet1(mediumModel=gas,
      m_flow=m_flow_out1,
      T=T,
      p=p,
      xi=xi),
-  outlet2(
+  outlet2(mediumModel=gas,
      m_flow=m_flow_out2_nom,
      T=T,
      p=p,
@@ -49,7 +49,7 @@ model SplitGas1 "brown | brown | green"
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_out2_nom= 1 "Nominal mass flow through outlet 2";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out1(fixed = false) "Mass flow at outlet 1";
-  final parameter ClaRa.Basics.Units.MassFraction xi[gas.nc - 1](fixed = false) "Gas composition";
+  final parameter ClaRa.Basics.Units.MassFraction xi[gas.nc - 1](each fixed = false) "Gas composition";
   final parameter ClaRa.Basics.Units.Temperature T(fixed = false);
     final parameter ClaRa.Basics.Units.Pressure p(fixed = false);
 

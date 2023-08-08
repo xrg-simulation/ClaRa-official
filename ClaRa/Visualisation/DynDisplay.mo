@@ -1,10 +1,10 @@
 within ClaRa.Visualisation;
 model DynDisplay "Dynamic Display of one variable"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -25,9 +25,8 @@ model DynDisplay "Dynamic Display of one variable"
   outer ClaRa.SimCenter simCenter;
 
 
-  Modelica.Blocks.Interfaces.RealOutput y(value=u_aux) if provideConnector annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput u(value=u_aux) if provideConnector annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
-                                                                                                                                             iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealOutput y=u_aux if provideConnector annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput u=u_aux if provideConnector annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),      iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
   Real u_aux  annotation(Hide=false);
 equation
@@ -41,7 +40,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

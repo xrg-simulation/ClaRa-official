@@ -7,7 +7,7 @@ model FlangeVLE "A summary of flange flow properties"
   input Units.Temperature T "Temperature" annotation (Dialog);
   input Units.Pressure p "Pressure" annotation (Dialog);
   input Units.EnthalpyMassSpecific h "Specific enthalpy" annotation (Dialog);
-  input Units.EntropyMassSpecific s if  showExpertSummary "Specific entropy" annotation (Dialog);
+  input Units.EntropyMassSpecific s  if showExpertSummary "Specific entropy" annotation (Dialog);
   input Units.MassFraction steamQuality if showExpertSummary "Steam quality" annotation (Dialog);
   input Units.Power H_flow if showExpertSummary "Enthalpy flow rate" annotation (Dialog);
   input Units.DensityMassSpecific rho if showExpertSummary "Density" annotation (Dialog);
@@ -16,7 +16,7 @@ annotation (Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

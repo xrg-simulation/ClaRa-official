@@ -1,7 +1,7 @@
 within ClaRa.Basics.Media.FuelFunctions;
 function heatCapacity_pTxi "Heat capacity as function of p, T and xi"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.7.0                            //
+  // Component of the ClaRa library, version: 1.8.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -18,7 +18,7 @@ function heatCapacity_pTxi "Heat capacity as function of p, T and xi"
   input ClaRa.Basics.Units.Pressure p "Pressure";
   input ClaRa.Basics.Units.Temperature T "Temperature";
   input ClaRa.Basics.Units.MassFraction xi_c[:] "Mass fraction of components";
-  input ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
+  input ClaRa.Basics.Media.FuelTypes.BaseFuel fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
   output ClaRa.Basics.Units.HeatCapacityMassSpecific cp;
 algorithm
         cp:= sum({xi_c[i]*fuelType.C_cp[i] for i in 1:fuelType.N_c-1}) + (1-sum(xi_c))*fuelType.C_cp[fuelType.N_c];
@@ -27,7 +27,7 @@ algorithm
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

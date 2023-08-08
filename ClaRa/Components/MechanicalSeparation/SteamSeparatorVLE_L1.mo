@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L1
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -60,8 +60,8 @@ model SteamSeparatorVLE_L1
     p=outlet2.p,
     xi=actualStream(outlet2.xi_outflow)) annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
-  ClaRa.Basics.Interfaces.EyeOut eye_out2 if
-                                            showData annotation (Placement(transformation(
+  ClaRa.Basics.Interfaces.EyeOut eye_out2
+                                         if showData annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,100}),  iconTransformation(
@@ -69,8 +69,8 @@ model SteamSeparatorVLE_L1
         rotation=90,
         origin={40,110})));
 
-  ClaRa.Basics.Interfaces.EyeOut eye_out1 if
-                                            showData annotation (Placement(transformation(
+  ClaRa.Basics.Interfaces.EyeOut eye_out1
+                                         if showData annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={40,-102}),iconTransformation(
@@ -172,7 +172,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

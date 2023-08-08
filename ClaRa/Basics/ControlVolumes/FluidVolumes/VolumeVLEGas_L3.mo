@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -291,7 +291,7 @@ equation
   //_______Asserts_______________________________________
   assert(geo.volume > 0, "The system volume must be greater than zero!");
   assert(geo.A_heat[heatSurfaceAlloc] >= 0, "The area of heat transfer must be greater than zero!");
-  assert(level_abs < max(max(geo.z_in[1]), max(geo.z_out[1])), "Air in water flanges");
+  assert(level_abs < max(max(geo.z_in), max(geo.z_out)), "Air in water flanges");
 
   //_____________________________________________________
   //_______System definition_____________________________
@@ -423,7 +423,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

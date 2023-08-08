@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -24,8 +24,8 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
     parameter Boolean showExpertSummary;
     input Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
     input Basics.Units.PressureDifference Delta_p "Pressure difference p_out - p_in";
-    input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
-    input Real PR_crit if   showExpertSummary "Critical pressure ratio";
+    input Real PR  if showExpertSummary "Pressure ration p_out/p_in";
+    input Real PR_crit   if showExpertSummary "Critical pressure ratio";
     input Real flowIsChoked "1 if flow is choked, 0 if not";
     input Real opening_ "Valve opening in p.u.";
   end Outline;
@@ -92,8 +92,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
 
   Modelica.Blocks.Interfaces.RealInput opening_in(
     min=0,
-    max=1,
-    value=opening_) if (openingInputIsActive) "=1: completely open, =0: completely closed"
+    max=1)=opening_ if (openingInputIsActive) "=1: completely open, =0: completely closed"
                                                  annotation (Placement(
         transformation(
         origin={0,90},
@@ -252,7 +251,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

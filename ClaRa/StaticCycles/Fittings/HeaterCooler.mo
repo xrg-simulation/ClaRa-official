@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Fittings;
 model HeaterCooler "orange | orange"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -44,7 +44,7 @@ model HeaterCooler "orange | orange"
   parameter ClaRa.Basics.Units.HeatFlowRate Q_flow  "Heat flow rate";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out(fixed = false) "Mass flow at outlet 1";
-  final parameter ClaRa.Basics.Units.MassFraction xi_in[gas.nc - 1](fixed = false) "Gas composition inlet 1";
+  final parameter ClaRa.Basics.Units.MassFraction xi_in[gas.nc - 1](each fixed = false) "Gas composition inlet 1";
   final parameter ClaRa.Basics.Units.MassFraction xi_out[gas.nc - 1] = xi_in;
 
   final parameter ClaRa.Basics.Units.Temperature T_in(fixed=false);

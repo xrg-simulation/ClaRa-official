@@ -1,7 +1,7 @@
 within ClaRa.Basics.Records;
 model StaCyFlangeGas "A summary record for gas flanges"
     extends ClaRa.Basics.Icons.RecordIcon;
-    replaceable parameter TILMedia.GasTypes.FlueGasTILMedia mediumModel "Used medium model" annotation(Dialog(tab="System"));
+    replaceable parameter TILMedia.GasTypes.BaseGas mediumModel "Used medium model" annotation(Dialog(tab="System"));
 
   parameter ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
   parameter ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
@@ -12,7 +12,7 @@ annotation (Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

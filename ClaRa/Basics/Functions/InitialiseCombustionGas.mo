@@ -1,7 +1,7 @@
 within ClaRa.Basics.Functions;
 function InitialiseCombustionGas "A simple function to find feasible start values for combustion product gases"
  //___________________________________________________________________________//
- // Component of the ClaRa library, version: 1.7.0                            //
+ // Component of the ClaRa library, version: 1.8.0                            //
  //                                                                           //
  // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
  // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -153,14 +153,14 @@ algorithm
 
   // pass part-size (nc-1) vector back
   for i in 1:9 loop
-  xi_exhaustGas[i] := y_exh[i] .* M_i_combustionGas[i] ./ sum(y_exh*M_i_combustionGas);
+  xi_exhaustGas[i] := y_exh[i] .* M_i_combustionGas[i] ./ sum(y_exh.*M_i_combustionGas);
   end for;
     annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

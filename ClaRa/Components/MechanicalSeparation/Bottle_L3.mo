@@ -162,7 +162,7 @@ model Bottle_L3 "A bottle"
         rotation=270,
         origin={0,8})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then summary.outline.level_abs else summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,-50}})));
 
   Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 insulation(
     redeclare model Material = insulationMaterial,
@@ -174,8 +174,8 @@ model Bottle_L3 "A bottle"
     stateLocation=2,
     initOption=initOptionInsulation,
     T_start=T_startInsulation*ones(1)) if includeInsulation annotation (Placement(transformation(extent={{-10,56},{10,64}})));
-  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb)) if
-                       enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb))
+                    if enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,120})));
   BoundaryConditions.PrescribedHeatFlow  prescribedHeatFlow(
@@ -184,7 +184,7 @@ model Bottle_L3 "A bottle"
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0},
         length,
-        1)) if         enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        1))         if enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,92})));
 
@@ -259,7 +259,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

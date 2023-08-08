@@ -2,10 +2,10 @@ within ClaRa.Components.BoundaryConditions;
 model Ambience
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -26,8 +26,7 @@ protected
 
 public
   ClaRa.Basics.Interfaces.HeatPort_a heat annotation (Placement(transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Blocks.Interfaces.RealInput T(value=T_amb_int) if (variable_T_amb) "Variable temperature"
-                                                                                                    annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
+  Modelica.Blocks.Interfaces.RealInput T=T_amb_int if (variable_T_amb) "Variable temperature"       annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
 
 equation
 

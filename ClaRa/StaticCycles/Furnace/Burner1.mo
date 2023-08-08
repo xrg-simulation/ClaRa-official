@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Furnace;
 model Burner1
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -152,10 +152,10 @@ model Burner1
 
   final parameter ClaRa.Basics.Units.Temperature T_fg_in(fixed=false) "Temperature of primary air";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_in(fixed=false) "Mass flow rate primary air";
-  final parameter ClaRa.Basics.Units.MassFraction xi_fg_in[flueGas.nc - 1](fixed=false) "Inlet composition flue gas";
+  final parameter ClaRa.Basics.Units.MassFraction xi_fg_in[flueGas.nc - 1](each fixed=false) "Inlet composition flue gas";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fuel(fixed=false) "Mass flow rate fuel";
-  final parameter ClaRa.Basics.Units.MassFraction xi_fuel[fuelModel.N_c - 1](fixed=false) "Elemental composition of fuel";
+  final parameter ClaRa.Basics.Units.MassFraction xi_fuel[fuelModel.N_c - 1](each fixed=false) "Elemental composition of fuel";
   final parameter ClaRa.Basics.Units.MassFraction xi_fuel_e[fuelModel.N_e - 1]={massFraction_i_xi(
       xi_fuel,
       i,
@@ -167,7 +167,7 @@ model Burner1
       fuelModel) "Lower heating value fuel";
 
   final parameter ClaRa.Basics.Units.Temperature T_pa_in(fixed=false) "Temperature of primary air";
-  final parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc - 1](fixed=false) "Inlet composition primary air";
+  final parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc - 1](each fixed=false) "Inlet composition primary air";
 
   final parameter Real n_flow_C_primary= xi_fuel_e[1]*m_flow_fuel/ClaRa.Basics.Constants.M_C "Inlet molar flow rate fuel C";
   final parameter Real n_flow_H_primary= xi_fuel_e[2]*m_flow_fuel/ClaRa.Basics.Constants.M_H "Inlet molar flow rate fuel H";
@@ -294,7 +294,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

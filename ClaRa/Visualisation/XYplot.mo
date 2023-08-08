@@ -40,13 +40,13 @@ end DecimalSpaces;
 
 protected
   Real xy1[:,:] = [(x1.-x_min)./(x_max-x_min)*200, (y1.-y_min)./(y_max-y_min)*200] annotation(Hide=false);
-  Real xy2[:,:](value=[(x2.-x_min)./(x_max-x_min)*200, (y2.-y_min)./(y_max-y_min)*200]) if activateSecondSet annotation(Hide=false);
+  Real xy2[:,:] = [(x2.-x_min)./(x_max-x_min)*200, (y2.-y_min)./(y_max-y_min)*200] if activateSecondSet annotation(Hide=false);
     annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

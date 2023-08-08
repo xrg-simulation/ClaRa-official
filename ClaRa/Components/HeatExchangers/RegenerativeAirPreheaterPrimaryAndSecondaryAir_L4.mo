@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerative air preheater with primary and secondary air"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -93,32 +93,32 @@ model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerativ
       choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_primaryAir[:]={293.15,293.15} "Start value of primary air system Temperature"
+  parameter ClaRa.Basics.Units.Temperature T_start_primaryAir[N_cv]=ones(N_cv)*293.15 "Start value of primary air system Temperature"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_primaryAir[:]={1.013e5,1.013e5} "Start value of primary air system pressure"
+  parameter ClaRa.Basics.Units.Pressure p_start_primaryAir[N_cv]=ones(N_cv)*1.013e5 "Start value of primary air system pressure"
     annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_primaryAir[medium.nc - 1]=
       medium.xi_default "Start value of primary air system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_secondaryAir[:]={293.15,293.15} "Start value of secondary air system Temperature"
+  parameter ClaRa.Basics.Units.Temperature T_start_secondaryAir[N_cv]=ones(N_cv)*293.15 "Start value of secondary air system Temperature"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_secondaryAir[:]={1.013e5,1.013e5} "Start value of secondary air system pressure"
+  parameter ClaRa.Basics.Units.Pressure p_start_secondaryAir[N_cv]=ones(N_cv)*1.013e5 "Start value of secondary air system pressure"
     annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_secondaryAir[medium.nc - 1]=
       medium.xi_default "Start value of secondary air system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[:]={400,400} "Start value of flue gas system Temperature"
+  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[N_cv]=ones(N_cv)*400 "Start value of flue gas system Temperature"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[:]={1.013e5,1.013e5} "Start value of flue gas system pressure"
+  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[N_cv]=ones(N_cv)*1.013e5 "Start value of flue gas system pressure"
     annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas[medium.nc - 1]=medium.xi_default "Start value of flue gas system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_primary_wall[:]={350,350} "Start value of primary wall Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_primary_wall[N_cv]=ones(N_cv)*350 "Start value of primary wall Temperature" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_secondary_wall[:]={350,350} "Start value of secondary wall Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_secondary_wall[N_cv]=ones(N_cv)*350 "Start value of secondary wall Temperature" annotation (Dialog(tab="Initialisation"));
 
   parameter Integer stateLocation=2 "Location of wall states" annotation (
       Dialog(group="Numerical Efficiency"), choices(
@@ -267,8 +267,8 @@ public
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 
   Basics.ControlVolumes.GasVolumes.VolumeGas_L4 flueGasCellSecondary(
-    T_start=T_start_flueGas[:],
-    p_start=p_start_flueGas[:],
+    T_start=T_start_flueGas,
+    p_start=p_start_flueGas,
     Delta_p_nom=Delta_p_flueGas_nom,
     each xi_start=xi_start_flueGas,
     each xi_nom=xi_nom_flueGas,
@@ -294,8 +294,8 @@ public
         origin={-28,0})));
 
   Basics.ControlVolumes.GasVolumes.VolumeGas_L4 secondaryAirCell(
-    T_start=T_start_secondaryAir[:],
-    p_start=p_start_secondaryAir[:],
+    T_start=T_start_secondaryAir,
+    p_start=p_start_secondaryAir,
     Delta_p_nom=Delta_p_secondaryAir_nom,
     each xi_start=xi_start_secondaryAir,
     each xi_nom=xi_nom_secondaryAir,
@@ -321,8 +321,8 @@ public
         origin={-82,0})));
 
   Basics.ControlVolumes.GasVolumes.VolumeGas_L4 flueGasCellPrimary(
-    T_start=T_start_flueGas[:],
-    p_start=p_start_flueGas[:],
+    T_start=T_start_flueGas,
+    p_start=p_start_flueGas,
     Delta_p_nom=Delta_p_flueGas_nom,
     each xi_start=xi_start_flueGas,
     each xi_nom=xi_nom_flueGas,
@@ -348,8 +348,8 @@ public
         origin={80,0})));
 
   Basics.ControlVolumes.GasVolumes.VolumeGas_L4 primaryAirCell(
-    T_start=T_start_primaryAir[:],
-    p_start=p_start_primaryAir[:],
+    T_start=T_start_primaryAir,
+    p_start=p_start_primaryAir,
     Delta_p_nom=Delta_p_primaryAir_nom,
     each xi_start=xi_start_primaryAir,
     each xi_nom=xi_nom_primaryAir,
@@ -669,7 +669,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

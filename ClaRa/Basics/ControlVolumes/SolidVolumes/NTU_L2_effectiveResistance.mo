@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L2_effectiveResistance "NTU  using an effective nominal  value for the product of heat transport coefficient and the heat transfer area"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -97,7 +97,7 @@ public
                                                    R_1=R_1) annotation (Placement(transformation(
           extent={{20,20},{40,40}},   rotation=0)));
 
-protected
+
   Modelica.Blocks.Tables.CombiTable1Dv partLoad_kA(columns={2}, table=CL_kA_mflow) annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
 public
@@ -175,7 +175,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

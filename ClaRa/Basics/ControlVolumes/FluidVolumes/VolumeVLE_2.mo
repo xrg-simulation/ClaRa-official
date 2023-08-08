@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_2 "A lumped control volume for vapour/liquid equilibrium"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -194,7 +194,7 @@ equation
   mass= if useHomotopy then geo.volume*homotopy(bulk.d,rho_nom) else geo.volume*bulk.d;
  // der(mass)=drhodt*geo.V;
   drhodt*geo.volume=inlet.m_flow + outlet.m_flow "Mass balance";
-  drhodt=der(p)*bulk.drhodp_hxi + der(h)*bulk.drhodh_pxi + sum(der(xi)*bulk.drhodxi_ph) "calculating drhodt from state variables";
+  drhodt=der(p)*bulk.drhodp_hxi + der(h)*bulk.drhodh_pxi + sum(der(xi).*bulk.drhodxi_ph) "calculating drhodt from state variables";
 
   der(h) =  if useHomotopy then homotopy((inlet.m_flow*h_in + outlet.m_flow*h_out + geo.volume*der(p) + heat.Q_flow - h*geo.volume*drhodt), (m_flow_nom*h_in - m_flow_nom*h_out  + geo.volume*der(p) + heat.Q_flow - h*geo.volume*drhodt))/mass
   else (inlet.m_flow*h_in + outlet.m_flow*h_out  + geo.volume*der(p) + heat.Q_flow - h*geo.volume*drhodt)/mass "Energy balance";
@@ -262,7 +262,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

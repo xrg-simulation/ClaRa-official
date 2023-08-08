@@ -1,10 +1,10 @@
 within ClaRa.Visualisation;
 model XYYplot "Same as ClaRa's XY plot but with one additional line"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -63,8 +63,8 @@ end DecimalSpaces;
 
 protected
   Real xy1[:,:] = [(x1.-x_min)./(x_max-x_min)*200, (y1.-y_min)./(y_max-y_min)*200] annotation(Hide=false);
-  Real xy2[:,:](value=[(x2.-x_min)./(x_max-x_min)*200, (y2.-y_min)./(y_max-y_min)*200]) if activateSecondSet annotation(Hide=false);
- Real xy3[:,:](value=[(x3.-x_min)./(x_max-x_min)*200, (y3.-y_min)./(y_max-y_min)*200]) if activateThirdSet annotation(Hide=false);
+  Real xy2[:,:] = [(x2.-x_min)./(x_max-x_min)*200, (y2.-y_min)./(y_max-y_min)*200] if activateSecondSet annotation(Hide=false);
+  Real xy3[:,:] = [(x3.-x_min)./(x_max-x_min)*200, (y3.-y_min)./(y_max-y_min)*200] if activateThirdSet annotation(Hide=false);
 
   annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>

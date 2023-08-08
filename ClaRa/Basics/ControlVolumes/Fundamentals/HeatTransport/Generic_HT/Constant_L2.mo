@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model Constant_L2 "All Geo || L2 || HTC || Constant"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -16,6 +16,7 @@ model Constant_L2 "All Geo || L2 || HTC || Constant"
 //__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L2;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBasePlateVLE_L2;
   final parameter Integer HT_type = 0;
 
   //   extends
@@ -52,12 +53,12 @@ model Constant_L2 "All Geo || L2 || HTC || Constant"
        choice = "Outlet",
        choice = "Bulk"));
 
-  Units.TemperatureDifference Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
-  Units.TemperatureDifference Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
-  Units.TemperatureDifference Delta_T_mean "Mean temperature difference used for heat transfer calculation";
+  ClaRa.Basics.Units.TemperatureDifference Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
+  ClaRa.Basics.Units.TemperatureDifference Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
+  ClaRa.Basics.Units.TemperatureDifference Delta_T_mean "Mean temperature difference used for heat transfer calculation";
 
-  Units.TemperatureDifference Delta_T_U "Upper temperature difference";
-  Units.TemperatureDifference Delta_T_L "Lower temperature difference";
+  ClaRa.Basics.Units.TemperatureDifference Delta_T_U "Upper temperature difference";
+  ClaRa.Basics.Units.TemperatureDifference Delta_T_L "Lower temperature difference";
 
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
   ClaRa.Basics.Units.ThermalResistance HR "Convective heat resistance";
@@ -70,9 +71,19 @@ equation
 
    if temperatureDifference == "Logarithmic mean" then
      //The following equation is only supported due to an backward compatibility issue - avoid its usage
-     Delta_T_mean = noEvent(if floor(abs(Delta_T_wo)*1/eps) <= 1 or floor(abs(Delta_T_wi)*1/eps) <= 1 then 0 elseif (heat.T < iCom.T_out and heat.T > iCom.T_in) or (heat.T > iCom.T_out and heat.T < iCom.T_in) then 0 elseif floor(abs(Delta_T_wo - Delta_T_wi)*1/eps) < 1 then Delta_T_wi else (Delta_T_U - Delta_T_L)/log(Delta_T_U/Delta_T_L));
+    Delta_T_mean = noEvent(if floor(abs(Delta_T_wo)*1/Modelica.Constants.eps) <= 1 or floor(abs(Delta_T_wi)*1/Modelica.Constants.eps) <= 1 then 0 elseif (heat.T < iCom.T_out and heat.T > iCom.T_in) or (heat.T > iCom.T_out and heat.T < iCom.T_in) then 0 elseif floor(abs(Delta_T_wo - Delta_T_wi)*1/Modelica.Constants.eps) < 1 then Delta_T_wi else (Delta_T_U - Delta_T_L)/log(Delta_T_U/Delta_T_L));
    elseif temperatureDifference == "Logarithmic mean - smoothed" then
-     Delta_T_mean = SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, (abs(Delta_T_U)-abs(Delta_T_L))-0.01, 0.001);
+    Delta_T_mean = SM(
+      0.1,
+      Modelica.Constants.eps,
+      abs(Delta_T_L))*SM(
+      0.01,
+      Modelica.Constants.eps,
+      Delta_T_U*Delta_T_L)*SZT(
+      (Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L) + 1e-9)),
+      Delta_T_wi,
+      (abs(Delta_T_U) - abs(Delta_T_L)) - 0.01,
+      0.001);
    elseif temperatureDifference == "Arithmetic mean" then
      Delta_T_mean = heat.T - (iCom.T_in + iCom.T_out)/2;
    elseif temperatureDifference == "Bulk" then
@@ -93,7 +104,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

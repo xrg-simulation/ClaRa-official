@@ -12,3 +12,7 @@ HollowCylinderWithTubes
 PipeGeometry
 PipeWithHotwell
 PipeGeometry_N_cv
+PlateGeometry
+PlateGeometry_N_cv
+FlatTubeFinnedGeometry_N_cv
+FlatTubeGeometry_N_cv

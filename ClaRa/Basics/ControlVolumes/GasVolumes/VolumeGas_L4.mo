@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4 "An array of flue gas cells."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -96,29 +96,21 @@ public
       choice=208 "Steady pressure and enthalpy"));
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "true, if homotopy method is used during initialisation" annotation(Dialog(tab="Initialisation",group="Model Settings"));
 
-  parameter Units.Temperature T_start[:]=293.15*ones(geo.N_cv) "Initial temperature for single tube" annotation (Dialog(tab="Initialisation"));
-  parameter Units.Pressure p_start[:]=1e5*ones(geo.N_cv) "Initial pressure" annotation (Dialog(tab="Initialisation"));
+  parameter Units.Temperature T_start[geo.N_cv]=293.15*ones(geo.N_cv) "Initial temperature for single tube" annotation (Dialog(tab="Initialisation"));
+  parameter Units.Pressure p_start[geo.N_cv]=1e5*ones(geo.N_cv) "Initial pressure" annotation (Dialog(tab="Initialisation"));
 
   parameter Units.MassFraction xi_start[medium.nc - 1]=medium.xi_default "Initial gas composition" annotation (Dialog(tab="Initialisation"));
-protected
-  parameter Units.Pressure p_start_internal[geo.N_cv]=if size(p_start, 1) == 2 then linspace(
-      p_start[1],
-      p_start[2],
-      geo.N_cv) else p_start "Internal p_start array which allows the user to either state p_inlet, p_outlet if p_start has length 2, otherwise the user can specify an individual pressure profile for initialisation";
-  parameter Units.Temperature T_start_internal[geo.N_cv]=if size(T_start, 1) == 2 then linspace(
-      T_start[1],
-      T_start[2],
-      geo.N_cv) else T_start "Internal T_start array which allows the user to either state T_inlet, T_outlet if T_start has length 2, otherwise the user can specify an individual Temperature profile for initialisation";
 
+protected
   parameter Units.EnthalpyMassSpecific h_start[geo.N_cv]=TILMedia.GasFunctions.specificEnthalpy_pTxi(
       medium,
-      p_start_internal,
-      T_start_internal,
+      p_start,
+      T_start,
       xi_start) "Initial specific enthalpy";
   parameter Units.DensityMassSpecific d_start[geo.N_cv]=TILMedia.GasFunctions.density_pTxi(
       medium,
-      p_start_internal,
-      T_start_internal,
+      p_start,
+      T_start,
       xi_start) "Initial density";
 
   //## V A R I A B L E   P A R T#######################################################################################
@@ -127,11 +119,11 @@ protected
 public
   Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start, each stateSelect=StateSelect.prefer) "Cell enthalpy";
 
-  Units.Temperature T[geo.N_cv](start=T_start_internal) "Cell Temperature";
+  Units.Temperature T[geo.N_cv](start=T_start) "Cell Temperature";
 
   //____Pressure__________________________________________________________________________________________________
 protected
-  Units.Pressure p[geo.N_cv](start=p_start_internal) "Cell pressure";        //nominal=p_nom,
+  Units.Pressure p[geo.N_cv](start=p_start) "Cell pressure";        //nominal=p_nom,
   Units.PressureDifference Delta_p_fric[geo.N_cv + 1] "Pressure difference due to friction";
   Units.PressureDifference Delta_p_grav[geo.N_cv + 1] "Pressure difference due to gravity";
 
@@ -224,6 +216,8 @@ public
       xi=fluidOutlet.xi,
       H_flow=-outlet.m_flow*fluidOutlet.h)) annotation (Placement(transformation(extent={{-60,-54},{-40,-34}})));
 
+  inner Geometry geo annotation (Placement(transformation(extent={{44,0},{64,20}})));
+
 protected
   inner Basics.Records.IComGas_L3 iCom(
     mediumModel=medium,
@@ -257,8 +251,6 @@ protected
     fluidPointer=fluid.gasPointer,
     final N_inlet=1,
     final N_outlet=1) annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
-
-  inner Geometry geo annotation (Placement(transformation(extent={{44,0},{64,20}})));
 
   //### E Q U A T I O N P A R T #######################################################################################
   //-------------------------------------------
@@ -504,7 +496,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

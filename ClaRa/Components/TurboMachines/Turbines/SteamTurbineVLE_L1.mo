@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Turbines;
 model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -23,7 +23,7 @@ model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
     powerIn=0,
     powerOut_elMech=-P_t,
     powerOut_th=0,
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerAux=0)                                                                                                     if contributeToCycleSummary;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
 
 //_______________________ Mechanics ________________________________________
@@ -120,13 +120,13 @@ model Outline
   input Real eta_mech "Mechanic efficiency" annotation(Dialog);
     input ClaRa.Basics.Units.EnthalpyMassSpecific h_isen "Isentropic steam enthalpy at turbine outlet" annotation (Dialog);
     input ClaRa.Basics.Units.RPM rpm "Pump revolutions per minute";
-    input ClaRa.Basics.Units.Pressure p_nom if
-                                             showExpertSummary "Nominal inlet perssure" annotation (Dialog);
+    input ClaRa.Basics.Units.Pressure p_nom
+                                          if showExpertSummary "Nominal inlet perssure" annotation (Dialog);
   input Real Pi if showExpertSummary "Nominal pressure ratio" annotation(Dialog);
-    input ClaRa.Basics.Units.MassFlowRate m_flow_nom if
-                                                      showExpertSummary "Nominal mass flow rate" annotation (Dialog);
-    input ClaRa.Basics.Units.DensityMassSpecific rho_nom if
-                                                          showExpertSummary "Nominal inlet density" annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow_nom
+                                                   if showExpertSummary "Nominal mass flow rate" annotation (Dialog);
+    input ClaRa.Basics.Units.DensityMassSpecific rho_nom
+                                                       if showExpertSummary "Nominal inlet density" annotation (Dialog);
   parameter Boolean showExpertSummary;
 end Outline;
 
@@ -163,7 +163,7 @@ Summary summary(outline(showExpertSummary = showExpertSummary,p_nom= p_nom,m_flo
         transformation(extent={{-60,-100},{-40,-80}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a if useMechanicalPort
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b if                                                                useMechanicalPort
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b                                                                if useMechanicalPort
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 public
   ClaRa.Basics.Interfaces.EyeOut eye if showData annotation (Placement(transformation(extent={{40,-70},{60,-50}}), iconTransformation(extent={{40,-70},{60,-50}})));
@@ -257,7 +257,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

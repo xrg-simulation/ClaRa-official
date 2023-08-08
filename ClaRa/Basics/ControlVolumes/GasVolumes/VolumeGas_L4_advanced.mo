@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4_advanced "An array of  gas cells with dynamic momentum balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -242,6 +242,8 @@ public
       xi=fluidOutlet.xi,
       H_flow=-outlet.m_flow*fluidOutlet.h)) annotation (Placement(transformation(extent={{-60,-54},{-40,-34}})));
 
+  inner Geometry geo annotation (Placement(transformation(extent={{44,0},{64,20}})));
+
 protected
   inner ClaRa.Basics.Records.IComGas_L3 iCom(
     mediumModel=medium,
@@ -275,8 +277,6 @@ protected
     fluidPointer=fluid.gasPointer,
     final N_inlet=1,
     final N_outlet=1) annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
-
-  inner Geometry geo annotation (Placement(transformation(extent={{44,0},{64,20}})));
 
   //### E Q U A T I O N P A R T #######################################################################################
   //-------------------------------------------
@@ -588,7 +588,7 @@ Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

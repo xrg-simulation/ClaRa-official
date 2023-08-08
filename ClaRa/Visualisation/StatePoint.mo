@@ -1,10 +1,10 @@
 within ClaRa.Visualisation;
 model StatePoint "State Point of fluid without visualisation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -31,7 +31,7 @@ model StatePoint "State Point of fluid without visualisation"
   input ClaRa.Basics.Units.MassFlowRate m_flow_in=1 "Mass flow rate" annotation (Dialog(group="Input", enable=not useEyeIn));
   outer ClaRa.SimCenter simCenter;
 
-  ClaRa.Basics.Interfaces.EyeIn eye(p(value=p), h(value=h), s(value=s), T(value=T), m_flow(value=m_flow)) if useEyeIn  annotation (Placement(transformation(extent={{-40,-10},{-20,10}}), iconTransformation(extent={{-40,-10},{-20,10}})));
+  ClaRa.Basics.Interfaces.EyeIn eye(p=p, h=h, s=s, T=T, m_flow=m_flow) if useEyeIn  annotation (Placement(transformation(extent={{-40,-10},{-20,10}}), iconTransformation(extent={{-40,-10},{-20,10}})));
 
 equation
   if useEyeIn==false then
@@ -46,7 +46,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

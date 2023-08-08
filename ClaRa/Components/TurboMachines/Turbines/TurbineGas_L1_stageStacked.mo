@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Turbines;
 model TurbineGas_L1_stageStacked "Advanced gas turbine model using the stage stacking method according to N. Gasparovic"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -60,8 +60,8 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
           allow_reverseFlow then Modelica.Constants.inf else -1e-5)) "outlet flow"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 
-   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a if
-                                                              useMechanicalPort annotation (Placement(transformation(extent={{32,-10},{52,10}}),   iconTransformation(extent={{32,-10},{52,10}})));
+   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a
+                                                           if useMechanicalPort annotation (Placement(transformation(extent={{32,-10},{52,10}}),   iconTransformation(extent={{32,-10},{52,10}})));
 protected
   Fundamentals.GetInputsRotary2 getInputsRotary
                                                annotation (Placement(
@@ -76,7 +76,7 @@ public
   TILMedia.Gas_pT flueGas_outlet( gasType = medium, T = T_out, p = outlet.p,  xi = flueGas_inlet.xi)
     annotation (Placement(transformation(extent={{10,-98},{30,-78}})));
 
-  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input(value=Delta_alpha) if useExternalVIGVangle "VIGV angle input"
+  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input=Delta_alpha if useExternalVIGVangle "VIGV angle input"
                        annotation (Placement(transformation(extent={{-90,60},{-50,
             100}}), iconTransformation(extent={{-70,70},{-50,90}})));
 
@@ -263,7 +263,7 @@ protected
             {-8,-52}}),           iconTransformation(extent={{90,-84},{84,-78}})));
 
 public
-   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b if  useMechanicalPort annotation (Placement(transformation(extent={{-70,-10},{-50,10}}),
+   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b  if useMechanicalPort annotation (Placement(transformation(extent={{-70,-10},{-50,10}}),
                                                                                                                                                  iconTransformation(extent={{-70,-10},{-50,10}})));
 
 protected
@@ -823,6 +823,7 @@ end if;
   eye_int[1].s = flueGas_outlet.s/1e3;
   eye_int[1].p = flueGas_outlet.p/1e5;
   eye_int[1].h = flueGas_outlet.h/1e3;
+  eye_int[1].xi=flueGas_outlet.xi;
 
   connect(eye_int[1],eyeOut)  annotation (Line(
       points={{0,-60},{40,-60}},
@@ -855,7 +856,7 @@ end if;
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -2,10 +2,10 @@ within ClaRa.SubSystems.Furnace;
 model ConvectiveSlice_L4 "Convective furnaces slice"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -209,8 +209,8 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
         medium_FTW,
         p_start_FTW[i],
         h_start_FTW[i]) + 5 for i in 1:N_cv_FTW},
-    suppressChattering="False") if
-                            FTWisCooled
+    suppressChattering="False")
+                         if FTWisCooled
                      annotation (Placement(transformation(
         extent={{-14,5},{14,-5}},
         rotation=270,

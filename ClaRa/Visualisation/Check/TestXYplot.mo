@@ -34,8 +34,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   Modelica.Blocks.Sources.Constant const2(k=20) annotation (Placement(transformation(extent={{6,-96},{26,-76}})));
   Scope scope(hideInterface=false) annotation (Placement(transformation(extent={{26,54},{40,66}})));
   Modelica.Blocks.Sources.Ramp ramp3[3](
-    duration=0.5,
-    startTime=0.2,
+    each duration=0.5,
+    each startTime=0.2,
     height={20,15,10},
     offset={0,5,10}) annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
 equation
@@ -55,7 +55,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

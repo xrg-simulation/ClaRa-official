@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   //
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -26,7 +26,7 @@ partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
     powerIn=0,
     powerOut_elMech=0,
     powerOut_th=0,
-    powerAux=P_shaft) if  contributeToCycleSummary;
+    powerAux=P_shaft)  if contributeToCycleSummary;
 
   parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation(Dialog(group="Fundamental Definitions"));
   parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
@@ -55,7 +55,7 @@ public
 
 
 public
-  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft if  useMechanicalPort
+  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft  if useMechanicalPort
     annotation (Placement(transformation(extent={{-10,62},{10,82}}),
         iconTransformation(extent={{-10,89},{10,109}})));
 
@@ -95,7 +95,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -11,3 +11,6 @@ Test_HEXvle2vle_L3_2ph_CU_simple
 Test_HEXvle2vle_L3_2ph_CU_ntu
 Test_RegenerativeAirPreheater
 EvaluateDesuperheater
+Test_PlateHEXvle2vle_L4
+Test_PlateHEXvle2vle_L3_2ph_ntu
+Test_FlatTubeFinnedHEXvle2gas_L4

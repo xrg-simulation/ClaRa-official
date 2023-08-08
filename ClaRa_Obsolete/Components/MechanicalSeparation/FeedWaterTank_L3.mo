@@ -211,7 +211,7 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
     mass_struc=mass_struc + 2*diameter^2/4*Modelica.Constants.pi*thickness_wall*wall.solid[1].d,
     initOption=if ((if ((initOptionWall) == 0) then 213 else (initOptionWall)) == 0) then 213 else (if ((initOptionWall) == 0) then 213 else (initOptionWall))) annotation (Placement(transformation(extent={{-8,6},{12,26}})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then summary.outline.level_abs else summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={240,-110})));

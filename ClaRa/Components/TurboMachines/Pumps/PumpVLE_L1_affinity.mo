@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -30,7 +30,7 @@ model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 
   extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase;
 
-  final parameter Boolean useDensityAffinity=true "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic Field"));
+//  final parameter Boolean useDensityAffinity=true "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic Field"));
   parameter Boolean useHead=false "True, if a pump head (height) | False, if pump head (pressure) should be used" annotation(Dialog(group="Characteristic Field", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharField1.png"));
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_max = 1 "Volume flow where Delta_p/head = 0 for rpm_nom" annotation(Dialog(group="Characteristic Field"));
   parameter ClaRa.Basics.Units.PressureDifference Delta_p_max = 1e5 "Constant pressure difference at flow = 0 for rpm_nom, rho_nom" annotation(Dialog(group="Characteristic Field", enable=not useHead));
@@ -173,15 +173,15 @@ equation
   tau_fluid = energetics.tau_fluid;
 
 //_______________Pressure head _______________
-    if useDensityAffinity then
-      if useHead then Delta_p_max_var = Head_max*rho_nom*Modelica.Constants.g_n*rho_CF_ps;
+//     if useDensityAffinity then
+    if useHead then Delta_p_max_var = Head_max*rho_nom*Modelica.Constants.g_n*rho_CF_ps;
       else Delta_p_max_var=Delta_p_max*rho_CF_ps;
-      end if;
-    else
-      if useHead then Delta_p_max_var=Head_max*rho_nom*Modelica.Constants.g_n;
-      else Delta_p_max_var=Delta_p_max;
-      end if;
     end if;
+//     else
+//       if useHead then Delta_p_max_var=Head_max*rho_nom*Modelica.Constants.g_n;
+//       else Delta_p_max_var=Delta_p_max;
+//       end if;
+//     end if;
 
 //  Delta_p_max_var = if useHead then Head_max*rho_nom*Modelica.Constants.g_n*rho_CF else Delta_p_max*rho_CF;
   rho_CF = SM(-V_flow_eps/1000, -V_flow_eps, iCom.V_flow) * SM(V_flow_eps/1000, V_flow_eps, iCom.V_flow) * 1
@@ -217,7 +217,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

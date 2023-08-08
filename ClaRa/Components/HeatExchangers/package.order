@@ -16,3 +16,6 @@ HEXvle2gas_L3_1ph_BU_ntu
 HEXvle2gas_L3_2ph_BU_simple
 RegenerativeAirPreheater_L4
 RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4
+PlateHEXvle2vle_L4
+PlateHEXvle2vle_L3_2ph_ntu
+FlatTubeFinnedHEXvle2gas_L4

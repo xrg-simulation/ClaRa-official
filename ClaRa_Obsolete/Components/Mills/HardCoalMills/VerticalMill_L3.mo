@@ -157,7 +157,7 @@ public
                                                     annotation(Placement(transformation(extent={{100,22},
             {140,62}})));
 
-  Modelica.Blocks.Interfaces.RealInput grindingStatus(value=grindingStatus_) if (activateGrindingStatus) "Input to stop grinding process, when mill is shutdown" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput grindingStatus=grindingStatus_ if (activateGrindingStatus) "Input to stop grinding process, when mill is shutdown" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-40,108})));

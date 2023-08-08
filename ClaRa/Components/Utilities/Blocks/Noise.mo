@@ -1,10 +1,10 @@
 within ClaRa.Components.Utilities.Blocks;
 model Noise "Adds a normally distributed noise to a given mean value"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -37,9 +37,9 @@ public
   Modelica.Blocks.Interfaces.RealOutput y annotation (Placement(transformation(extent={{100,-10},
             {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput mean(value=m_in) if (varMeanValue) "Variable mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput mean=m_in if (varMeanValue) "Variable mass flow rate"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-  Modelica.Blocks.Interfaces.RealInput sigma(value=stdDev_in) if (varStandardDeviation) "Variable standard deviation"
+  Modelica.Blocks.Interfaces.RealInput sigma=stdDev_in if (varStandardDeviation) "Variable standard deviation"
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}}),
         iconTransformation(extent={{-120,-62},{-80,-22}})));
 algorithm
@@ -76,7 +76,7 @@ This random generator combines ideas from:
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

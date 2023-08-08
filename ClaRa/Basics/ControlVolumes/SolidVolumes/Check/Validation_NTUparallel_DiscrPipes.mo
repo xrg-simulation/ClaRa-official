@@ -18,6 +18,7 @@ model Validation_NTUparallel_DiscrPipes "Validation: NTU method vs. discretized 
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   import SI = ClaRa.Basics.Units;
+  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
   parameter SI.Temperature T_i_in=20 + 273.15 "Temperature of cold side";
   parameter SI.Temperature T_o_in=100 + 273.15 "Temperature of hot side";
   parameter SI.MassFlowRate m_flow_i=1 "Mass flow of cold side";
@@ -46,6 +47,10 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
       p_o,
       T_o_in);
 
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_o_in(vleFluidType=simCenter.fluid1);
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_i_in(vleFluidType=simCenter.fluid1);
+
+
   inner ClaRa.SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
@@ -53,6 +58,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(
     frictionAtOutlet=true,
+    Delta_p_nom=100,
     length=length,
     N_tubes=N_tubes,
     N_cv=N_cv,
@@ -65,7 +71,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
         1328.89e3,
         1080.51e3,
         N_cv),
-    redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 (Delta_p_nom(displayUnit="Pa") = 100),
+    redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     diameter_i=diameter_o,
     p_start=linspace(
         p_o + 100,
@@ -80,6 +86,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
     initOption=0) annotation (Placement(transformation(extent={{-104,-25},{-76,-35}})));
   ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_InnerSide(
     frictionAtOutlet=true,
+    Delta_p_nom=100,
     length=length,
     N_tubes=N_tubes,
     N_cv=N_cv,
@@ -92,7 +99,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
         419240,
         450e3,
         N_cv),
-    redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 (Delta_p_nom(displayUnit="Pa") = 100),
+    redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     diameter_i=diameter_i,
     p_start=linspace(
         p_i + 100,
@@ -156,8 +163,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
     alpha_i=alpha_i,
     alpha_o=alpha_o,
     initOption=0,
-    cp_mean_i=pipe_InnerSide.fluidInlet.cp,
-    cp_mean_a=pipe_OuterSide.fluidInlet.cp)
+    cp_mean_i=fluidObjectFunction_cp(pipe_InnerSide.summary.inlet.p,pipe_InnerSide.summary.inlet.h,noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i_in.vleFluidPointer),
+    cp_mean_a=fluidObjectFunction_cp(pipe_OuterSide.summary.inlet.p,pipe_OuterSide.summary.inlet.h,noEvent(actualStream(pipe_OuterSide.inlet.xi_outflow[:])),ptr_o_in.vleFluidPointer))
                     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(pipe_OuterSide.outlet, OuterSide_outletTemp.port)

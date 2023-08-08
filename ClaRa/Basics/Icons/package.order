@@ -91,3 +91,6 @@ PressureSensor
 TemperatureSensor
 FlowSensor
 PowerSensor
+HEX01Plate
+HEX01PlateDiscretized
+HEX01FlatTubeFinnedDiscretized

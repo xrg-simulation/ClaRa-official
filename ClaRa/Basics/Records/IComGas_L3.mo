@@ -2,7 +2,7 @@ within ClaRa.Basics.Records;
 record IComGas_L3
   extends IComBase_L3;
 
-  replaceable parameter TILMedia.GasTypes.FlueGasTILMedia mediumModel "Used medium model" annotation(Dialog(tab="General"));
+  replaceable parameter TILMedia.GasTypes.BaseGas mediumModel "Used medium model" annotation(Dialog(tab="General"));
   TILMedia.Internals.TILMediaExternalObject fluidPointer_in[N_inlet] "|Inlet||Fluid pointer of inlet ports";
   TILMedia.Internals.TILMediaExternalObject fluidPointer_out[N_outlet] "|Outlet||Fluid pointer of outlet ports";
   ClaRa.Basics.Units.EnthalpyMassSpecific h[N_cv] "|System||Specific enthalpy of liquid and vapour zone";
@@ -20,7 +20,7 @@ annotation (Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

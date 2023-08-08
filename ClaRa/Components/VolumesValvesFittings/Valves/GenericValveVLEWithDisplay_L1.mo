@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveVLEWithDisplay_L1 "Same as ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 but with dynamic opening display and opening output"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -17,7 +17,7 @@ model GenericValveVLEWithDisplay_L1 "Same as ClaRa.Components.VolumesValvesFitti
 
   extends ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1;
   parameter Boolean showOpening = false "|Summary and Visualisation||True, if a data port for opening shall be shown, else false";
-  Modelica.Blocks.Interfaces.RealOutput actOpening(value = opening_) if showOpening annotation (Placement(transformation(extent={{90,50},{110,70}})));
+  Modelica.Blocks.Interfaces.RealOutput actOpening = opening_ if showOpening annotation (Placement(transformation(extent={{90,50},{110,70}})));
   annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>

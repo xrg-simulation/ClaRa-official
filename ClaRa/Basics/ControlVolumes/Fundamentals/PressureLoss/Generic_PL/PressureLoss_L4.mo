@@ -12,7 +12,7 @@ partial model PressureLoss_L4 "VLE || PL Base Class"
 
   final parameter Units.MassFlowRate m_flow_nom=iCom.m_flow_nom "Nominal mass flow rate";
 
-  final parameter Units.PressureDifference Delta_p_nom=iCom.Delta_p_nom "Nominal pressure loss wrt. all parallel tubes";
+  final parameter Units.PressureDifference Delta_p_nom=iCom.Delta_p_nom "Nominal pressure loss wrt. all parallel tubes" annotation(Evaluate=true);
 
   Units.PressureDifference Delta_p[iCom.N_cv + 1] "Pressure difference";
   //   Basics.Units.DensityMassSpecific
@@ -24,7 +24,7 @@ partial model PressureLoss_L4 "VLE || PL Base Class"
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearPressureLoss_L2 "All geo || Linear pressure loss || Nominal pressure difference"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -18,8 +18,9 @@ model LinearPressureLoss_L2 "All geo || Linear pressure loss || Nominal pressure
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBasePlateVLE_L2;
 
-  parameter Units.Pressure Delta_p_nom=1000 "Nominal pressure loss";
+  parameter ClaRa.Basics.Units.Pressure Delta_p_nom=1000 "Nominal pressure loss";
 
 equation
   Delta_p = Delta_p_nom/iCom.m_flow_nom*iCom.m_flow_in;
@@ -28,7 +29,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L3_TwoZonesNPort "A volume element balancing liquid and vapour phase with n inlet and outlet ports"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -305,9 +305,9 @@ equation
   //_______System definition_____________________________
   mass_liq = if useHomotopy then homotopy(volume_liq*liq.d, volume_liq*rho_liq_nom) else volume_liq*liq.d;
   mass_vap = if useHomotopy then homotopy(volume_vap*vap.d, volume_vap*rho_vap_nom) else volume_vap*vap.d;
-  drho_liqdt = der(p_liq)*liq.drhodp_hxi + der(h_liq)*liq.drhodh_pxi + sum(der(xi_liq)*liq.drhodxi_ph);
+  drho_liqdt = der(p_liq)*liq.drhodp_hxi + der(h_liq)*liq.drhodh_pxi + sum(der(xi_liq).*liq.drhodxi_ph);
   //calculating drhodt from state variables
-  drho_vapdt = der(p_vap)*vap.drhodp_hxi + der(h_vap)*vap.drhodh_pxi + sum(der(xi_vap)*vap.drhodxi_ph);
+  drho_vapdt = der(p_vap)*vap.drhodp_hxi + der(h_vap)*vap.drhodh_pxi + sum(der(xi_vap).*vap.drhodxi_ph);
   //calculating drhodt from state variables
   volume_liq = geo.volume - volume_vap;
 
@@ -452,7 +452,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

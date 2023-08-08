@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L3 "Feedwater tank : separated volume approach | level-dependent phase separation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -273,7 +273,7 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
     annotation (Placement(transformation(extent={{-10,88},{10,108}}),
         iconTransformation(extent={{-10,88},{10,108}})));
 public
-  Basics.Interfaces.EyeOut eye_sat if   showData
+  Basics.Interfaces.EyeOut eye_sat   if showData
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -292,7 +292,7 @@ public
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={22,8})));
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then summary.outline.level_abs else summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={242,-110})));
@@ -305,16 +305,16 @@ public
     N_ax=1,
     stateLocation=2,
     initOption=initOptionInsulation,
-    T_start=T_startInsulation*ones(1)) if                             includeInsulation annotation (Placement(transformation(extent={{12,52},{32,60}})));
+    T_start=T_startInsulation*ones(1))                             if includeInsulation annotation (Placement(transformation(extent={{12,52},{32,60}})));
   BoundaryConditions.PrescribedHeatFlow                  prescribedHeatFlow(
     length=length,
     N_axial=1,
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0},
         length,
-        1)) if         enableAmbientLosses==true annotation (Placement(transformation(extent={{-38,54},{-18,74}})));
-  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb)) if
-                       enableAmbientLosses==true annotation (Placement(transformation(extent={{-68,54},{-48,74}})));
+        1))         if enableAmbientLosses==true annotation (Placement(transformation(extent={{-38,54},{-18,74}})));
+  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb))
+                    if enableAmbientLosses==true annotation (Placement(transformation(extent={{-68,54},{-48,74}})));
 equation
   eye_int1[1].m_flow=-vent.m_flow;
   eye_int1[1].T=volume.summary.outlet[2].T-273.15;
@@ -387,7 +387,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

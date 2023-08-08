@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesign "Running the  L1 pump in off design, including reverse flow and switch off"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -32,13 +32,13 @@ model TestPump_L1_OffDesign "Running the  L1 pump in off design, including rever
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.5),
         drp_exp=(0),
-        Delta_p_eps=(100)),
+        Delta_p_eps=(50)),
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
         eta_hyd_nom=(0.82),
         exp_rpm=(0.15),
         V_flow_opt_=(0.6),
         exp_flow=(2.8),
-        Delta_p_eps=(100),
+        Delta_p_eps=(50),
         V_flow_leak=(0.00002),
         stabiliseDelta_p=(false),
         Tau_stab=(1e-2))) annotation (Placement(transformation(extent={{-30,-150},{-10,-130}})));
@@ -124,7 +124,10 @@ ______________________________________
 Note: Running the pump in turbine mode is not featured, i.e. the shaft power becomes zero for P_hyd<0
 The behaviour of the pump way be affected by the (electric) motor or driving turbine and should be modelled appropriately when tackling simulation of off-design operation
 ______________________________________")}),
-    experiment(StopTime=500),
+    experiment(
+      StopTime=500,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput(equidistant=false),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));

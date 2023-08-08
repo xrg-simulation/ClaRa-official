@@ -15,11 +15,11 @@ model DynamicBar
 
 
 
-  Modelica.Blocks.Interfaces.RealInput u_in(value=u_int) if provideInputConnectors annotation (Placement(transformation(extent={{-20,-10},{0,10}}),   iconTransformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Interfaces.RealInput u_set_in(value=u_set_int) if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,90},{0,110}}),   iconTransformation(extent={{-20,90},{0,110}})));
-  Modelica.Blocks.Interfaces.RealInput u_low_in(value=u_low_int) if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,50},{0,70}}),    iconTransformation(extent={{-20,50},{0,70}})));
-  Modelica.Blocks.Interfaces.RealInput u_high_in(value=u_high_int) if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,130},{0,150}}),  iconTransformation(extent={{-20,130},{0,150}})));
-  Modelica.Blocks.Interfaces.RealOutput y(value=u_int) if provideOutputConnector annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput u_in=u_int if provideInputConnectors annotation (Placement(transformation(extent={{-20,-10},{0,10}}),   iconTransformation(extent={{-20,-10},{0,10}})));
+  Modelica.Blocks.Interfaces.RealInput u_set_in=u_set_int if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,90},{0,110}}),   iconTransformation(extent={{-20,90},{0,110}})));
+  Modelica.Blocks.Interfaces.RealInput u_low_in=u_low_int if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,50},{0,70}}),    iconTransformation(extent={{-20,50},{0,70}})));
+  Modelica.Blocks.Interfaces.RealInput u_high_in=u_high_int if provideLimitsConnectors annotation (Placement(transformation(extent={{-20,130},{0,150}}),  iconTransformation(extent={{-20,130},{0,150}})));
+  Modelica.Blocks.Interfaces.RealOutput y=u_int if provideOutputConnector annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
   Real u_int annotation(Hide=false);
@@ -45,7 +45,7 @@ annotation (  Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

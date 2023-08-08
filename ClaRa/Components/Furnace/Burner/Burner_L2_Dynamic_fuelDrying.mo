@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic_fuelDrying "Model for a burner section inside a combustion chamber which is able to regard drying of unburnt fuel which contained water at burner inlet"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -99,6 +99,7 @@ protected
   Modelica.Units.SI.MolarFlowRate n_flow_H_primary "Primary molar flow of H";
   Modelica.Units.SI.MolarFlowRate n_flow_O_primary "Primary molar flow of O";
   Modelica.Units.SI.MolarFlowRate n_flow_S_primary "Primary molar flow of S";
+  Modelica.Units.SI.MolarFlowRate n_flow_N_primary "Primary molar flow of N";
 
   Real drhodt "Density derivative";
 
@@ -332,8 +333,10 @@ equation
     /Basics.Constants.M_O;
   n_flow_S_primary =fuelBurnerInlet.xi_e[5]*fuelFlueGas_inlet.fuel.m_flow
     /Basics.Constants.M_S;
+  n_flow_N_primary =fuelBurnerInlet.xi_e[4]*fuelFlueGas_inlet.fuel.m_flow
+    /Basics.Constants.M_N;
 
-  m_flow_oxygen_req_primary = (n_flow_C_primary + n_flow_H_primary/4.0 + n_flow_S_primary - n_flow_O_primary/2)*Basics.Constants.M_O
+  m_flow_oxygen_req_primary = (n_flow_C_primary + n_flow_H_primary/4.0 + n_flow_S_primary  + n_flow_N_primary*reactionZone.xi_NOx/2- n_flow_O_primary/2)*Basics.Constants.M_O
                                                                                             *2.0;
   m_flow_air_req_primary*max(1e-32,primaryAir_inlet.xi[6]) = m_flow_oxygen_req_primary;
 
@@ -345,7 +348,7 @@ equation
 
   //_______________/ determination of lambda (overall volume, regarding unburnt fuel and oxygen)\_________________________
   // theoretically required oxygen mass flow rate to burn all the fuel
-   m_flow_oxygen_req = (1-unburntFraction)*(n_flow_C + n_flow_H/4.0 + n_flow_S - n_flow_O/2)*Basics.Constants.M_O
+   m_flow_oxygen_req = (1-unburntFraction)*(n_flow_C + n_flow_H/4.0 + n_flow_S  + n_flow_N*reactionZone.xi_NOx/2- n_flow_O/2)*Basics.Constants.M_O
                                                                                             *2.0;
    m_flow_air_req*max(1e-32,primaryAir_inlet.xi[6]) = m_flow_oxygen_req;
 
@@ -555,7 +558,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -9,6 +9,9 @@ TubeType_L2
 ShellType_L2
 TubeType_L3
 ShellType_L3
+HeatTransferBasePlateVLE_L4
+HeatTransferBasePlateVLE_L2
+HeatTransferBaseFlatTubeFinnedGas_L4
 Generic_HT
 Gas_HT
 VLE_HT

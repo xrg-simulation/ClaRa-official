@@ -1,10 +1,10 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L3 "A steam generation and reaheater model using lumped balance equations for mass and energy and two spray attemperators"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,7 @@ model SteamGenerator_L3 "A steam generation and reaheater model using lumped bal
     powerIn=heatRelease.y*Q_flow_F_nom,
     powerOut_th=0,
     powerOut_elMech=0,
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerAux=0)                                                                                                     if contributeToCycleSummary;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
   parameter Modelica.Units.SI.Pressure p_LS_nom=300e5 "Nominal life steam pressure" annotation (Dialog(group="Nominal values"));
@@ -138,7 +138,7 @@ public
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D calculateEfficiency(columns={2}, table=
         CL_etaF_QF_)
     annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
-  Basics.Interfaces.EyeOut eye_LS if    showData
+  Basics.Interfaces.EyeOut eye_LS    if showData
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-40,188}), iconTransformation(
@@ -149,7 +149,7 @@ protected
   Basics.Interfaces.EyeIn eye_intLS[1]
     annotation (Placement(transformation(extent={{-43,159},{-41,161}})));
 public
-  Basics.Interfaces.EyeOut eye_RH if    showData
+  Basics.Interfaces.EyeOut eye_RH    if showData
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
         origin={88,188}), iconTransformation(
@@ -306,7 +306,7 @@ This steam generator is based on lumped balance equations for mass and energy (f
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

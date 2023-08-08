@@ -11,8 +11,7 @@ public
   outer ClaRa.SimCenter simCenter;
   Basics.Interfaces.ElectricPortIn electricPortIn annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput f(value=f_in) if (variable_f) "Variable fequency"
-                                                                                        annotation (Placement(transformation(extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealInput f=f_in if (variable_f) "Variable fequency"       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
 equation
   if (not variable_f) then
     f_in = f_const;
@@ -23,7 +22,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

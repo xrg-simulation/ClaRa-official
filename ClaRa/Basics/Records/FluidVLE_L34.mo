@@ -12,15 +12,15 @@ model FluidVLE_L34 "A record for basic VLE fluid data from L3 and L4-type models
   input Units.EnthalpyMassSpecific h_dew[N_cv] if showExpertSummary "Dew specific enthalpy" annotation (Dialog(show));
   input Units.EntropyMassSpecific s[N_cv] if showExpertSummary "System specific entropy" annotation (Dialog);
   input Units.MassFraction steamQuality[N_cv] if showExpertSummary annotation (Dialog);
-  input Modelica.Units.SI.Enthalpy H[N_cv] if
-                                             showExpertSummary "System enthalpy" annotation (Dialog(show));
+  input Modelica.Units.SI.Enthalpy H[N_cv]
+                                          if showExpertSummary "System enthalpy" annotation (Dialog(show));
   input Units.DensityMassSpecific rho[N_cv] if showExpertSummary annotation (Dialog);
 annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,7 +1,7 @@
 within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Transport_Velocity;
 model Transport_complex "Coal transport velocity depending on pile friction angle"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.7.0                            //
+  // Component of the ClaRa library, version: 1.8.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -25,7 +25,7 @@ public
   parameter ClaRa.Basics.Units.Angle alpha_start_vec[n-1] = alpha_start * linspace(1,0.7,n-1) "";
 
   ClaRa.Basics.Units.Length delta_height[n-1] "height of (i)th transported volume element";
-  ClaRa.Basics.Units.Angle alpha[n-1](start = alpha_start_vec,fixed=true) "angle auf coal pile between two ring elements";
+  ClaRa.Basics.Units.Angle alpha[n-1](start = alpha_start_vec,each fixed=true) "angle auf coal pile between two ring elements";
   ClaRa.Basics.Units.Velocity w_r[n] "radial transport velocity of coal on table due to pile angle";
   ClaRa.Basics.Units.Angle delta_height_crit;
 
@@ -49,7 +49,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

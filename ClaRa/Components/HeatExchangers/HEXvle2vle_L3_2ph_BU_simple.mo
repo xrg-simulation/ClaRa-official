@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_BU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Block shape |  U-type | simple HT"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -320,7 +320,7 @@ public
         origin={20,0})));
   ClaRa.Basics.Interfaces.FluidPortIn aux1(Medium=medium_shell) annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   ClaRa.Basics.Interfaces.FluidPortIn aux2(Medium=medium_shell) annotation (Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{80,-90},{100,-110}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then summary.outline.level_abs else summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{80,-90},{100,-110}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
@@ -394,7 +394,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Dynamic "Model for a flame room section inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -224,7 +224,7 @@ equation
 
    //_______________/ determination of lambda \_________________________
    // theoretically required oxygen mass flow rate to burn all the fuel
-   m_flow_oxygen_req = (1-unburntFraction)*(n_flow_C + n_flow_H/4.0 + n_flow_S - n_flow_O/2)*ClaRa.Basics.Constants.M_O
+   m_flow_oxygen_req = (1-unburntFraction)*(n_flow_C + n_flow_H/4.0 + n_flow_S + n_flow_N*reactionZone.xi_NOx/2 - n_flow_O/2)*ClaRa.Basics.Constants.M_O
                                                                                             *2.0;
    m_flow_air_req*max(1e-32,flueGasInlet.xi[6]) = m_flow_oxygen_req;
 
@@ -361,7 +361,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

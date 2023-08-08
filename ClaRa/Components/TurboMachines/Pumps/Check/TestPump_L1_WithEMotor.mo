@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -36,7 +36,6 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
                               "modelica://ClaRa/Resources/TableBase/Power_mflow_5100.mif"};
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
-    useDensityAffinity=false,
     Delta_p_max=380e5,
     useMechanicalPort=true,
     showExpertSummary=true,
@@ -45,7 +44,7 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.40),
         drp_exp=(-0.04/(5000 - 3000)),
-        Delta_p_eps=(100)),
+        Delta_p_eps=(1000)),
     J=10,
     steadyStateTorque=false,
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
@@ -53,7 +52,7 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
         exp_rpm=(-0.01),
         V_flow_opt_=(0.5),
         exp_flow=(2.45),
-        Delta_p_eps=(100),
+        Delta_p_eps=(1000),
         V_flow_leak=(0.00002),
         Tau_stab=(1),
         stabiliseDelta_p=false)) annotation (Placement(transformation(extent={{-24,-80},{-4,-60}})));

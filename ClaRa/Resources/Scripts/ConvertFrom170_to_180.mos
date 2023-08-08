@@ -1,0 +1,19 @@
+﻿//Convert Package from ClaRa 1.7.0 to 1.8.0
+convertClear();
+// remove parameter useDensityAffinity in PumpVLE_L1_affinity
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", {"useDensityAffinity"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4", {"T_start_freshAir","N_cv"}, {"T_start_freshAir=linspace(%T_start_freshAir%[1],%T_start_freshAir%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4", {"p_start_freshAir","N_cv"}, {"p_start_freshAir=linspace(%p_start_freshAir%[1],%p_start_freshAir%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4", {"T_start_flueGas","N_cv"}, {"T_start_flueGas=linspace(%T_start_flueGas%[1],%T_start_flueGas%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4", {"p_start_flueGas","N_cv"}, {"p_start_flueGas=linspace(%p_start_flueGas%[1],%p_start_flueGas%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4", {"T_start_wall","N_cv"}, {"T_start_wall=linspace(%T_start_wall%[1],%T_start_wall%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4", {"T_start_primaryAir","N_cv"}, {"T_start_primaryAir=linspace(%T_start_primaryAir%[1],%T_start_primaryAir%[2],%N_cv%)", "N_cv=%N_cv%"},true); 
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4", {"p_start_primaryAir","N_cv"}, {"p_start_primaryAir=linspace(%p_start_primaryAir%[1],%p_start_primaryAir%[2],%N_cv%)", "N_cv=%N_cv%"},true); 
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheatersecondaryAndSecondaryAir_L4", {"T_start_secondaryAir","N_cv"}, {"T_start_secondaryAir=linspace(%T_start_secondaryAir%[1],%T_start_secondaryAir%[2],%N_cv%)", "N_cv=%N_cv%"},true); 
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheatersecondaryAndSecondaryAir_L4", {"p_start_secondaryAir","N_cv"}, {"p_start_secondaryAir=linspace(%p_start_secondaryAir%[1],%p_start_secondaryAir%[2],%N_cv%)", "N_cv=%N_cv%"},true); 
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheatersecondaryAndSecondaryAir_L4", {"T_start_flueGas","N_cv"}, {"T_start_flueGas=linspace(%T_start_flueGas%[1],%T_start_flueGas%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheatersecondaryAndSecondaryAir_L4", {"p_start_flueGas","N_cv"}, {"p_start_flueGas=linspace(%p_start_flueGas%[1],%p_start_flueGas%[2],%N_cv%)", "N_cv=%N_cv%"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.Regenerative_wallPreheaterPrimaryAndSecondary_wall_L4", {"T_start_primary_wall","N_cv"}, {"T_start_primary_wall=linspace(%T_start_primary_wall%[1],%T_start_primary_wall%[2],%N_cv%)", "N_cv=%N_cv%"},true); 
+convertModifiers("ClaRa.Components.HeatExchangers.Regenerative_wallPreheatersecondaryAndSecondary_wall_L4", {"T_start_secondary_wall","N_cv"}, {"T_start_secondary_wall=linspace(%T_start_secondary_wall%[1],%T_start_secondary_wall%[2],%N_cv%)", "N_cv=%N_cv%"},true); 

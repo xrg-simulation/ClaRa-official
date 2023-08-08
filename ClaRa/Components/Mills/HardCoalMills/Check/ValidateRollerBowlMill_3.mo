@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.HardCoalMills.Check;
 model ValidateRollerBowlMill_3 "A test scenario derived from the paper Niemczyk: 'Derivation and validation of a coal mill model for control'"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -129,8 +129,8 @@ model ValidateRollerBowlMill_3 "A test scenario derived from the paper Niemczyk:
         rotation=90,
         origin={20,-70})));
 equation
-  der(Dev1)=(Mill2.T_out-(T_out_meas.y[1]+273.15))^2;
-  der(Dev2)=((Mill2.P_grind - E_meas.y[1])^2)*1e4;
+  der(Dev1)=(Mill2.summary.T_out-(T_out_meas.y[1]+273.15))^2;
+  der(Dev2)=((Mill2.summary.P_grind - E_meas.y[1])^2)*1e4;
   Omega=Dev1+Dev2;
 
   connect(omega.y[1], Mill2.classifierSpeed) annotation (Line(

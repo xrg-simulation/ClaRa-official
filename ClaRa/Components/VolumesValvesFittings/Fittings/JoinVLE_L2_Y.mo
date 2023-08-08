@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_Y "A join for two inputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -91,12 +91,12 @@ PressureLossIn1 pressureLossIn1;
 PressureLossIn2 pressureLossIn2;
 PressureLossOut pressureLossOut;
 public
-  ClaRa.Basics.Interfaces.FluidPortIn inlet1(each Medium=medium) "First inlet port"
+  ClaRa.Basics.Interfaces.FluidPortIn inlet1(Medium=medium) "First inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(each vleFluidType = medium, p = outlet.p, h=h) annotation (Placement(transformation(extent={{-10,-12},
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType = medium, p = outlet.p, h=h) annotation (Placement(transformation(extent={{-10,-12},
             {10,8}},                                                                                                    rotation=0)));
 
 public
@@ -106,22 +106,22 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1]
     annotation (Placement(transformation(extent={{45,-81},{47,-79}})));
 public
-  ClaRa.Basics.Interfaces.FluidPortIn inlet2(each Medium=medium) "First inlet port"
+  ClaRa.Basics.Interfaces.FluidPortIn inlet2(Medium=medium) "First inlet port"
     annotation (Placement(transformation(extent={{-10,70},{10,90}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn1(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(inlet1.h_outflow)),
     p=inlet1.p)                                                          annotation (Placement(transformation(extent={{-90,-12},
             {-70,8}},                                                                                                   rotation=0)));
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn2(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(inlet2.h_outflow)),
     p=inlet2.p)                                                          annotation (Placement(transformation(extent={{-10,50},
             {10,70}},                                                                                                   rotation=0)));
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
     p=outlet.p)                                                          annotation (Placement(transformation(extent={{70,-12},
             {90,8}},                                                                                                    rotation=0)));
@@ -202,7 +202,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

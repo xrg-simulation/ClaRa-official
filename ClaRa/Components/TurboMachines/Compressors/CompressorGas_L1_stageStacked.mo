@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_stageStacked "Advanced compressor or fan for ideal gas mixtures using the stage stacking method according to N. Gasparovic"
   import ClaRa;
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -24,7 +24,7 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
     powerIn=0,
     powerOut_th=0,
     powerOut_elMech=0,
-    powerAux=P_shaft) if  contributeToCycleSummary;
+    powerAux=P_shaft)  if contributeToCycleSummary;
 
   model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
@@ -77,7 +77,7 @@ public
   TILMedia.Gas_pT flueGas_outlet( gasType = medium, T = T_out, p = outlet.p,  xi = flueGas_inlet.xi)
     annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
-  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input(value=Delta_alpha) if useExternalVIGVangle "VIGV angle input"
+  Modelica.Blocks.Interfaces.RealInput Delta_alpha_input=Delta_alpha if useExternalVIGVangle "VIGV angle input"
                        annotation (Placement(transformation(extent={{-128,60},{-88,100}})));
 
   //__________________________/ Parameters \_____________________________
@@ -797,7 +797,7 @@ end if;
  //___________________________________________________
   P_hyd = (flueGas_outlet.h - flueGas_inlet.h) * inlet.m_flow;
   P_shaft = P_hyd*1/eta_mech;
-  Y=sum(Y_st[i]);
+  Y=sum(Y_st);
   V_flow = inlet.m_flow / flueGas_inlet.d;
 
   der(inlet.m_flow) = 1/0.01*(m_flow_aux-inlet.m_flow);
@@ -845,7 +845,7 @@ end if;
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

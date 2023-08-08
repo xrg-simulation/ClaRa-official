@@ -57,11 +57,11 @@ protected
 public
   Basics.Interfaces.Fuel_inlet fuel_a(final fuelType=fuelType) annotation (Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(value=p_in) if (variable_p) "Variable mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput p=p_in if (variable_p) "Variable mass flow rate"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-  Modelica.Blocks.Interfaces.RealInput T(value=T_in) if (variable_T) "Variable specific temperature"
+  Modelica.Blocks.Interfaces.RealInput T=T_in if (variable_T) "Variable specific temperature"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Blocks.Interfaces.RealInput xi[fuelType.nc-1](value=xi_in) if
+  Modelica.Blocks.Interfaces.RealInput xi[fuelType.nc-1]=xi_in if
        (variable_xi) "Variable composition"
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
 equation

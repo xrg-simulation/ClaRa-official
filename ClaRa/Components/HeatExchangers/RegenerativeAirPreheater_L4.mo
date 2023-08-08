@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -85,18 +85,18 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
       choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_freshAir[:]={293.15,293.15} "Start value of fresh air system Temperature" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_freshAir[:]={1.013e5,1.013e5} "Start value of fresh air system pressure"
+  parameter ClaRa.Basics.Units.Temperature T_start_freshAir[N_cv]=ones(N_cv)*293.15 "Start value of fresh air system Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_freshAir[N_cv]=ones(N_cv)*1.013e5 "Start value of fresh air system pressure"
     annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_freshAir[medium.nc - 1]=
       medium.xi_default "Start value of fresh air system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[:]={400,400} "Start value of flue gas system Temperature" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[:]={1.013e5,1.013e5} "Start value of flue gas system pressure" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[N_cv]=ones(N_cv)*400 "Start value of flue gas system Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[N_cv]=ones(N_cv)*1.013e5 "Start value of flue gas system pressure" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas[medium.nc - 1]=medium.xi_default "Start value of flue gas system mass fraction" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_wall[:]={350,350} "Start value of wall Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_wall[N_cv]=ones(N_cv)*350 "Start value of wall Temperature" annotation (Dialog(tab="Initialisation"));
 
   parameter Integer stateLocation=2 "Location of wall states" annotation (
       Dialog(group="Numerical Efficiency"), choices(
@@ -206,8 +206,8 @@ public
     each m_flow_nom=m_flow_flueGas_nom,
     each xi_nom=xi_nom_flueGas,
     each T_nom=293.15*ones(N_cv),
-    T_start=T_start_flueGas[:],
-    p_start=p_start_flueGas[:],
+    T_start=T_start_flueGas,
+    p_start=p_start_flueGas,
     Delta_p_nom=Delta_p_flueGas_nom,
     frictionAtInlet=frictionAtFlueGasInlet,
     frictionAtOutlet=frictionAtFlueGasOutlet,
@@ -235,8 +235,8 @@ public
     each p_nom=p_freshAir_nom*ones(N_cv),
     each xi_nom=xi_nom_freshAir,
     each T_nom=293.15*ones(N_cv),
-    T_start=T_start_freshAir[:],
-    p_start=p_start_freshAir[:],
+    T_start=T_start_freshAir,
+    p_start=p_start_freshAir,
     Delta_p_nom=Delta_p_freshAir_nom,
     frictionAtInlet=frictionAtFreshAirInlet,
     frictionAtOutlet=frictionAtFreshAirOutlet,
@@ -430,7 +430,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

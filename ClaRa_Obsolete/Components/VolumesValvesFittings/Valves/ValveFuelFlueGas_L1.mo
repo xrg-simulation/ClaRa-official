@@ -92,8 +92,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
 
   Modelica.Blocks.Interfaces.RealInput opening_in(
     min=0,
-    max=1,
-    value=opening_) if (openingInputIsActive) "=1: completely open, =0: completely closed"
+    max=1)=opening_ if (openingInputIsActive) "=1: completely open, =0: completely closed"
                                                  annotation (Placement(
         transformation(
         origin={0,90},

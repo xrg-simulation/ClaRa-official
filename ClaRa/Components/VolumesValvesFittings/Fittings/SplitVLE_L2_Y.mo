@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_Y "A voluminous split for 2 outputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -90,30 +90,30 @@ public
 
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium) "Inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  ClaRa.Basics.Interfaces.FluidPortOut outlet1(each Medium=medium) "Outlet port"
+  ClaRa.Basics.Interfaces.FluidPortOut outlet1(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(each vleFluidType = medium, p = p,h=h) annotation (Placement(transformation(extent={{-10,-12},
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType = medium, p = p,h=h) annotation (Placement(transformation(extent={{-10,-12},
             {10,8}},                                                                                                    rotation=0)));
 
 public
-  ClaRa.Basics.Interfaces.FluidPortOut outlet2(each Medium=medium) "Outlet port"
+  ClaRa.Basics.Interfaces.FluidPortOut outlet2(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(outlet1.h_outflow)),
     p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},
             {90,10}},                                                                                                   rotation=0)));
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
     p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
             {-70,8}},                                                                                                   rotation=0)));
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(outlet2.h_outflow)),
     p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
             {10,-50}},                                                                                                  rotation=0)));
@@ -192,7 +192,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

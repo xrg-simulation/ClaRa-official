@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Boundaries;
 model SinkGas_green
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -19,7 +19,7 @@ model SinkGas_green
   parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component";
 
   final parameter ClaRa.Basics.Units.Temperature T(fixed=false);
-  final parameter ClaRa.Basics.Units.MassFraction xi[flueGas.nc-1](fixed=false);
+  final parameter ClaRa.Basics.Units.MassFraction xi[flueGas.nc-1](each fixed=false);
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false);
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false);
 

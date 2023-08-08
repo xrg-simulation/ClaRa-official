@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Check;
 model Test_CombustionChamber_control
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -56,7 +56,8 @@ model Test_CombustionChamber_control
     y_inactive=15,
     Tau_lag_I=5,
     y_ref=100,
-    y_min=0.0)
+    y_min=0.0,
+    Tau_out=0.1)
     annotation (Placement(transformation(extent={{-40,-60},{-60,-80}})));
   Modelica.Blocks.Sources.RealExpression setPoint_lambda(y=1.10) annotation (
       Placement(transformation(

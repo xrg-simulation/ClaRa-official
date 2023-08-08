@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowGas "A mass flow anchor with prescribed mass flow rate"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -57,7 +57,7 @@ end Summary;
     h_out=gasOut.h)
     annotation (Placement(transformation(extent={{-75,17},{-55,37}})));
 
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(value=m_flow) if (
+  Modelica.Blocks.Interfaces.RealInput m_flow_in=m_flow if (
     m_flowInputIsActive) annotation (Placement(transformation(
         origin={0,70},
         extent={{-20,-20},{20,20}},

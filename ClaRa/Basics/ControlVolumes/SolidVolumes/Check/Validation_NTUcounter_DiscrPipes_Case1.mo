@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -18,6 +18,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   import SI = ClaRa.Basics.Units;
+  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
   parameter Units.Temperature T_i_in=100 + 273.15 "Temperature of cold side";
   parameter Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
   parameter Units.MassFlowRate m_flow_i=10 "Mass flow of cold side";
@@ -47,11 +48,16 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
       p_o,
       T_o_in);
 
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_o[N_cv](each vleFluidType=simCenter.fluid1);
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_i[N_cv](each vleFluidType=simCenter.fluid1);
+
   Units.HeatFlowRate Q_flow_tot;
   Units.HeatCapacityMassSpecific cp_o_m;
   Units.HeatCapacityMassSpecific cp_i_m;
   Units.HeatCapacityMassSpecific cp_o[N_cv];
   Units.HeatCapacityMassSpecific cp_i[N_cv];
+  Units.HeatCapacityMassSpecific cp_o_[N_cv];
+  Units.HeatCapacityMassSpecific cp_i_[N_cv];
 
   Real x[N_cv];
   Real val=pipe_InnerSide.summary.fluid.h_dew[1];
@@ -173,6 +179,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
     redeclare model HeatCapacityAveraging = ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.ArithmeticMean,
     radius_i=radius_i,
     radius_o=radius_o,
+    gain_eff=2,
     p_o=p_o,
     p_i=p_i,
     h_i_inlet=h_i_in,
@@ -196,9 +203,11 @@ equation
   end for;
 
   for i in 1:N_cv loop
+      cp_o_[i]=fluidObjectFunction_cp(pipe_OuterSide.summary.fluid.p[i],pipe_OuterSide.summary.fluid.h[i],noEvent(actualStream(pipe_OuterSide.inlet.xi_outflow[:])),ptr_o[i].vleFluidPointer);
+      cp_i_[i]=fluidObjectFunction_cp(pipe_InnerSide.summary.fluid.p[i],pipe_InnerSide.summary.fluid.h[i],noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i[i].vleFluidPointer);
     if i >= Cell_hv then
-      cp_o[i] = pipe_OuterSide.fluid[i].cp;
-      cp_i[i] = pipe_InnerSide.fluid[i].cp;
+      cp_o[i] = cp_o_[i];//pipe_OuterSide.fluid[i].cp;
+      cp_i[i] = cp_i_[i];//pipe_InnerSide.fluid[i].cp;
     else
       cp_o[i] = 0;
       cp_i[i] = 0;

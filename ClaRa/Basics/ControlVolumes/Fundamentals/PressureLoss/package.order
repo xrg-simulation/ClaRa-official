@@ -6,6 +6,9 @@ TubeType_L2
 ShellType_L2
 TubeType_L3
 ShellType_L3
+PressureLossBasePlateVLE_L4
+PressureLossBasePlateVLE_L2
+PressureLossBaseFlatTubeFinnedGas_L4
 Generic_PL
 VLE_PL
 Gas_PL

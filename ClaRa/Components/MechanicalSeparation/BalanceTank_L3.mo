@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model BalanceTank_L3 "A balance tank with a vent"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -115,7 +115,7 @@ model BalanceTank_L3 "A balance tank with a vent"
     annotation (Placement(transformation(extent={{40,190},{60,210}}),
         iconTransformation(extent={{40,190},{60,210}})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then volume.level_abs else volume.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then volume.level_abs else volume.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={160,-110})));
@@ -156,7 +156,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

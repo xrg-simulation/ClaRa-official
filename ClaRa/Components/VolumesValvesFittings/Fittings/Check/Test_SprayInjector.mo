@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_SprayInjector
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -66,7 +66,7 @@ Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.s
     annotation (Placement(transformation(extent={{98,-94},{78,-74}})));
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
-        m_flow_nominal=300,
+        m_flow_nom=300,
         rho_in_nom=20)) annotation (Placement(transformation(extent={{2,-56},{22,-44}})));
   Visualisation.Quadruple quadruple
     annotation (Placement(transformation(extent={{-8,-74},{12,-64}})));
@@ -88,7 +88,7 @@ Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.s
     variable_p=true) annotation (Placement(transformation(extent={{60,14},{40,34}})));
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve1(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
-        m_flow_nominal=300,
+        m_flow_nom=300,
         rho_in_nom=20)) annotation (Placement(transformation(extent={{4,18},{24,30}})));
   Visualisation.Quadruple quadruple1
     annotation (Placement(transformation(extent={{-8,0},{12,10}})));

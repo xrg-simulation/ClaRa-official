@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block shape | U-type"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -23,7 +23,7 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
     powerIn=0,
     powerOut_th=if not heatFlowIsLoss then -heat.Q_flow else 0,
     powerOut_elMech=0,
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerAux=0)                                                                                                     if contributeToCycleSummary;
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
@@ -214,7 +214,7 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
         rotation=0,
         origin={-50,-92})));
 public
-   Basics.Interfaces.EyeOut eye if  showData annotation (Placement(
+   Basics.Interfaces.EyeOut eye  if showData annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=270,
@@ -238,7 +238,7 @@ public
   Adapters.Scalar2VectorHeatPort scalar2VectorHeatPort(N=2, final equalityMode="Equal Temperatures")
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then shell.summary.outline.level_abs else shell.summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{78,-90},{98,-110}}), iconTransformation(
+  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then shell.summary.outline.level_abs else shell.summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{78,-90},{98,-110}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
@@ -291,7 +291,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

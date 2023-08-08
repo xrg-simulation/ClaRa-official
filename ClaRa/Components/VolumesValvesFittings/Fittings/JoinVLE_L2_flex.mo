@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_flex "A join for an arbitrary number of inputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -85,7 +85,7 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(each vleFluidType =    medium, p = p,h=h) annotation (Placement(transformation(extent={{-8,-12},
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType =    medium, p = p,h=h) annotation (Placement(transformation(extent={{-8,-12},
             {12,8}},                                                                                                    rotation=0)));
 
 public
@@ -102,7 +102,7 @@ TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph flu
             {-66,10}},                                                                                                  rotation=0)));
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
-    each vleFluidType=medium,
+    vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
     p=outlet.p)                                                          annotation (Placement(transformation(extent={{70,-10},
             {90,10}},                                                                                                   rotation=0)));
@@ -114,7 +114,7 @@ equation
 // System definition ~~~~~~~~
    mass= if useHomotopy then volume*homotopy(bulk.d,rho_nom) else volume*bulk.d;
 
-   drhodt*volume=sum(inlet.m_flow) + sum(outlet.m_flow) "Mass balance";
+   drhodt*volume=sum(inlet.m_flow) + outlet.m_flow "Mass balance";
    drhodt = der(p)*bulk.drhodp_hxi
           + der(h)*bulk.drhodh_pxi
           + sum(der(xi).*bulk.drhodxi_ph);
@@ -171,7 +171,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

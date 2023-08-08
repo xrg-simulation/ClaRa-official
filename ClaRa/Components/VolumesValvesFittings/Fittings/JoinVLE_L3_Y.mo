@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L3_Y "A Y-join with non-ideal mixing"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -54,11 +54,11 @@ model JoinVLE_L3_Y "A Y-join with non-ideal mixing"
   parameter Real expHT_phases=0 "|Mixing Process||Exponent for volume dependency on inter phase HT";
 
 public
-  Basics.Interfaces.FluidPortIn       inlet2(each Medium=medium) "First inlet port"
+  Basics.Interfaces.FluidPortIn       inlet2(Medium=medium) "First inlet port"
     annotation (Placement(transformation(extent={{-10,70},{10,90}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 public
-  Basics.Interfaces.FluidPortIn       inlet1(each Medium=medium) "First inlet port"
+  Basics.Interfaces.FluidPortIn       inlet1(Medium=medium) "First inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Basics.Interfaces.FluidPortOut       outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -119,7 +119,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

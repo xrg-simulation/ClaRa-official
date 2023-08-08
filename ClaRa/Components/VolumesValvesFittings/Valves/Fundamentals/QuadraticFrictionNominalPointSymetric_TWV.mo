@@ -2,10 +2,10 @@ within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticFrictionNominalPointSymetric_TWV "| Quadratic Pressure Dependency | Nominal Point | Opening Characteristics | Symetrical |"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.7.0                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2021, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -35,10 +35,10 @@ model QuadraticFrictionNominalPointSymetric_TWV "| Quadratic Pressure Dependency
       enable=useStabilisedMassFlow));
   parameter Basics.Units.PressureDifference Delta_p_smooth=100 "Below this value, root function is approximated linearly" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
-  final parameter Real Kvs[2](unit="m3/h") = 3600 * m_flow_nom./rho_in_nom .* sqrt(rho_in_nom/1000*1e5./Delta_p_nom) "|Valve Characteristics|Flow Coefficient at nominal opening (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
+  final parameter Real Kvs[2](each unit="m3/h") = 3600 * m_flow_nom./rho_in_nom .* sqrt(rho_in_nom/1000*1e5./Delta_p_nom) "|Valve Characteristics|Flow Coefficient at nominal opening (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
   final parameter Basics.Units.DensityMassSpecific rho_in_nom=1000 "|Valve Characteristics|Nominal density for Kv definition";
 
-  Real Kv[2](unit="m3/h") "|Valve Characteristics|Flow Coefficient (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
+  Real Kv[2](each unit="m3/h") "|Valve Characteristics|Flow Coefficient (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
   Basics.Units.Pressure Delta_p[2](start={10,10}) "Pressure differences";
 equation
 //////////// Simple hydraulics: ///////////////////////////////
@@ -64,7 +64,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
