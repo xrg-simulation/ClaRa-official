@@ -1,8 +1,8 @@
 within ClaRa.Components.HeatExchangers;
 package Check "Check and test Heat Exchangers"
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.5.0                              //
-// Models of the ClaRa library are tested under DYMOLA v2019.           //
+// Package of the ClaRa library, version: 1.5.1                              //
+// Models of the ClaRa library are tested under DYMOLA v2020x.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //
 //___________________________________________________________________________//

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_carrierTubes_turbulent_L2 "Carrier Tube Geo || L2 || Convection Carrier Tubes"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.0                            //
+  // Component of the ClaRa library, version: 1.5.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

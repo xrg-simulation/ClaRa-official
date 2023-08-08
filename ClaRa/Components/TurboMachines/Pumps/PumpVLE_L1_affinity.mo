@@ -2,7 +2,7 @@ within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.0                            //
+// Component of the ClaRa library, version: 1.5.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
@@ -41,7 +41,7 @@ model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
   parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = density_pTxi(iCom.medium,1e5,293.15,medium.xi_default) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic Field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_eps = V_flow_max/100 "Minimum volumetric flow rate for which hydraulic characteristic is still scaled with respect to density | For V_flow < abs(V_flow_eps) no density scalling is used." annotation(Dialog(tab="Expert Settings", enable = useDensityAffinity));
   final parameter Basics.Units.Time Tau_rho_CF_ps=1e-4 "Time constant for pseudo state for correction ratio of density.";
-  final parameter Basics.Units.Time Tau_rho_upstream_ps=1e-1 "Time constant for pseudo state for upstream density.";
+  final parameter Basics.Units.Time Tau_rho_upstream_ps=1e-2 "Time constant for pseudo state for upstream density.";
 
   replaceable model Hydraulics =   ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 constrainedby ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.BaseHydraulics "Hydraulic characteristic" annotation(choicesAllMatching, Dialog(group= "Characteristic Field", groupImage="modelica://ClaRaPlus/Resources/Images/ParameterDialog/PumpCharacteristicsDialogue.png"));
   replaceable model Energetics =  ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1  constrainedby ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.BaseEnergetics "Model for losses"         annotation(choicesAllMatching, Dialog(group= "Characteristic Field"));

@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesignInlet "Running the  L1 pump in off design inlet conditions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.0                            //
+// Component of the ClaRa library, version: 1.5.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThickWall_L4 "A thick cylindric wall with radial discretisation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.0                            //
+// Component of the ClaRa library, version: 1.5.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

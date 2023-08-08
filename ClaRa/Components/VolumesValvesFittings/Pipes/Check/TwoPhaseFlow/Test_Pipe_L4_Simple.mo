@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.TwoPhaseFlow;
 model Test_Pipe_L4_Simple
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.0                            //
+  // Component of the ClaRa library, version: 1.5.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

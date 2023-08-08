@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate depending on drive power and pressure difference only"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.0                            //
+// Component of the ClaRa library, version: 1.5.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

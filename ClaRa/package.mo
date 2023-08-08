@@ -26,10 +26,10 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
 
 
 
-  annotation (preferedView="info",version="1.5.0",
+  annotation (preferedView="info",version="1.5.1",
                            uses(
-      ClaRa_Obsolete(version="1.5.0"),
-    TILMedia(version="1.5.0 ClaRa"),
+      ClaRa_Obsolete(version="1.5.1"),
+    TILMedia(version="1.5.1 ClaRa"),
     Modelica(version="3.2.3")),  Icon(graphics,
                                       coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}})),

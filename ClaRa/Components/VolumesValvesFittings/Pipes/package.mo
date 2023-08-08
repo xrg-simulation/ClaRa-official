@@ -1,8 +1,8 @@
 within ClaRa.Components.VolumesValvesFittings;
 package Pipes "Models for tube-like elements"
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.5.0                              //
-// Models of the ClaRa library are tested under DYMOLA v2019.           //
+// Package of the ClaRa library, version: 1.5.1                              //
+// Models of the ClaRa library are tested under DYMOLA v2020x.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //
 //___________________________________________________________________________//

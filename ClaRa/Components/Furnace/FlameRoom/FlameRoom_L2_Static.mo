@@ -1,7 +1,7 @@
 within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Static "Model for a flame room section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.0                            //
+// Component of the ClaRa library, version: 1.5.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

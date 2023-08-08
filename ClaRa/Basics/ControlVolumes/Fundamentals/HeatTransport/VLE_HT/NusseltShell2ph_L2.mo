@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltShell2ph_L2 "Shell Geo, Horizontal Piping || L2 || HTC || Nusselt || 2ph"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.0                            //
+  // Component of the ClaRa library, version: 1.5.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //

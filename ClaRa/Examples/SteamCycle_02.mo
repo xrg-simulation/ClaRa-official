@@ -1,7 +1,7 @@
 within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.0                            //
+  // Component of the ClaRa library, version: 1.5.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
