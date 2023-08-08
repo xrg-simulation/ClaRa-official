@@ -2,9 +2,9 @@ within ClaRa.SubSystems.Furnace;
 model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -61,7 +61,7 @@ model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
 
 // Finned Tube Walls (FTW)///
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_FTW = simCenter.fluid1 "FTW medium model" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FinnedWallSketchEmpty.png"));
-  replaceable model Material_FTW = TILMedia.SolidTypes.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "FTW material" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
+  replaceable model Material_FTW = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "FTW material" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet_FTW = false "True if pressure loss at inlet" annotation (choices(checkBox=true), Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet_FTW = false "True if pressure loss at outlet" annotation (choices(checkBox=true), Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   replaceable model PressureLoss_FTW = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4 "Pressure loss model" annotation (Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"), choicesAllMatching=true);
@@ -261,7 +261,7 @@ annotation (Documentation(info="<html>
 <p><a href=\"http://
 <a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
 </html>",
         revisions="<html>
 <body>

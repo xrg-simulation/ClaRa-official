@@ -1,0 +1,15 @@
+﻿//Convert Package from ClaRa 1.4.0
+convertClear();
+
+//Solids moved
+convertClass("TILMedia.SolidTypes.Steel10CrMo9_10", "ClaRa.Basics.Media.Solids.Steel10CrMo9_10");
+convertClass("TILMedia.SolidTypes.Steel13CrMo4_5", "ClaRa.Basics.Media.Solids.Steel13CrMo4_5");
+convertClass("TILMedia.SolidTypes.Steel16Mo3", "ClaRa.Basics.Media.Solids.Steel16Mo3");
+convertClass("TILMedia.SolidTypes.Steel42CrMo4", "ClaRa.Basics.Media.Solids.Steel42CrMo4");
+convertClass("TILMedia.SolidTypes.SteelAISI_904L", "ClaRa.Basics.Media.Solids.SteelAISI_904L");
+convertClass("TILMedia.SolidTypes.SteelX2CrNi19_11", "ClaRa.Basics.Media.Solids.SteelX2CrNi19_11");
+convertClass("TILMedia.SolidTypes.SteelX2CrNiMo17_12_2", "ClaRa.Basics.Media.Solids.SteelX2CrNiMo17_12_2");
+convertClass("TILMedia.SolidTypes.SteelX5CrNi18_10", "ClaRa.Basics.Media.Solids.SteelX5CrNi18_10");
+convertClass("TILMedia.SolidTypes.SteelX5CrNiMo17_12_2", "ClaRa.Basics.Media.Solids.SteelX5CrNiMo17_12_2");
+convertClass("TILMedia.SolidTypes.SteelX8CrNiTi18_10", "ClaRa.Basics.Media.Solids.SteelX8CrNiTi18_10");
+convertClass("TILMedia.SolidTypes.InsulationOrstechLSP_H_const", "ClaRa.Basics.Media.Solids.InsulationOrstechLSP_H_const");

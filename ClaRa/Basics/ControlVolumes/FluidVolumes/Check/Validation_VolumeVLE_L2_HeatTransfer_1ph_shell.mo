@@ -1,9 +1,9 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //

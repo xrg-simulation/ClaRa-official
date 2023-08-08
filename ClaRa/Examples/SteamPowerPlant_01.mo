@@ -1,9 +1,9 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -1313,10 +1313,10 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{14,-5},{-14,5}},
         rotation=90,
         origin={229,78})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill4(initOption=1) annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(initOption=1) annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill2(initOption=1) annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill3(initOption=1) annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill4(    initOption=1) annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(    initOption=1) annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill2(    initOption=1) annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill3(    initOption=1) annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=10,
     offset=1.50,
@@ -2765,6 +2765,10 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={596,70})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=1,
+    T=100) annotation (Placement(transformation(extent={{-416,-400},{-408,-392}})));
 equation
   totalHeat =burner1.Q_flow_wall + burner2.Q_flow_wall + burner3.Q_flow_wall + burner4.Q_flow_wall + flameRoom_evap_1.Q_flow_wall + flameRoom_evap_2.Q_flow_wall + flameRoom_sh_1.Q_flow_wall + flameRoom_sh_2.Q_flow_wall + flameRoom_sh_4.Q_flow_wall + flameRoom_rh_2.Q_flow_wall;
 
@@ -3582,7 +3586,7 @@ equation
       color={167,25,48},
       thickness=0.5));
   connect(splitVLE_L2_flex.outlet[1], eco_riser.inlet) annotation (Line(
-      points={{644,-249.25},{644,-250},{482,-250},{482,-356},{123,-356},{123,-350}},
+      points={{644,-249.625},{644,-250},{482,-250},{482,-356},{123,-356},{123,-350}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3629,19 +3633,19 @@ equation
   connect(gain.y, coalFlowSource_burner3.m_flow) annotation (Line(points={{-379,-142},{-344,-142},{-344,-90},{-244,-90}}, color={0,0,127}));
   connect(gain.y, coalFlowSource_burner4.m_flow) annotation (Line(points={{-379,-142},{-344,-142},{-344,-64},{-244,-64}}, color={0,0,127}));
   connect(splitGas_L2_flex.outlet[1], coalGas_join_burner4.flueGas_inlet) annotation (Line(
-      points={{-380,-106.75},{-376,-106.75},{-376,-82},{-204,-82}},
+      points={{-380,-106.375},{-376,-106.375},{-376,-82},{-204,-82}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[2], coalGas_join_burner3.flueGas_inlet) annotation (Line(
-      points={{-380,-106.25},{-376,-106.25},{-376,-108},{-204,-108}},
+      points={{-380,-106.125},{-376,-106.125},{-376,-108},{-204,-108}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[3], coalGas_join_burner2.flueGas_inlet) annotation (Line(
-      points={{-380,-105.75},{-376,-105.75},{-376,-134},{-204,-134}},
+      points={{-380,-105.875},{-376,-105.875},{-376,-134},{-204,-134}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[4], coalGas_join_burner1.flueGas_inlet) annotation (Line(
-      points={{-380,-105.25},{-376,-105.25},{-376,-160},{-204,-160}},
+      points={{-380,-105.625},{-376,-105.625},{-376,-160},{-204,-160}},
       color={118,106,98},
       thickness=0.5));
   connect(PID_lambda.y, firstOrder.u) annotation (Line(points={{-493,36},{-480,36}}, color={0,0,127}));
@@ -3833,8 +3837,6 @@ equation
   connect(boilerZpositions2.y, xYplot.x2) annotation (Line(points={{-186,137},{-186,147.857},{-195.933,147.857}},            color={0,0,127}));
   connect(boilervleTemperatures.y, xYplot.y2) annotation (Line(points={{-219,19},{-219,29.7857},{-218.667,29.7857}},           color={0,0,127}));
   connect(PTarget.y, feedForwardBlock_3508_1.P_G_target_) annotation (Line(points={{-455,-396},{-444,-396}}, color={0,0,127}));
-  connect(feedForwardBlock_3508_1.QF_FF_, gain.u) annotation (Line(points={{-421,-396},{-414,-396},{-414,-142},{-402,-142}}, color={0,0,127}));
-  connect(feedForwardBlock_3508_1.QF_FF_, rollerBowlMill_L1_1.rawCoal) annotation (Line(points={{-421,-396},{-390.8,-396}}, color={0,0,127}));
   connect(rollerBowlMill_L1_1.coalDust, Nominal_PowerFeedwaterPump1.u) annotation (Line(points={{-369,-396},{865.2,-396}}, color={0,0,127}));
   connect(feedForwardBlock_3508_1.P_max_, P_max_.y) annotation (Line(points={{-440,-380},{-440,-364},{-457,-364}}, color={0,0,127}));
   connect(feedForwardBlock_3508_1.P_min_, P_min_.y) annotation (Line(points={{-436,-380},{-436,-346},{-457,-346}}, color={0,0,127}));
@@ -3870,7 +3872,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_sh2.inlet, splitVLE_L2_flex.outlet[3]) annotation (Line(
-      points={{482,-141},{482,-250.25},{644,-250.25}},
+      points={{482,-141},{482,-250.125},{644,-250.125}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3885,7 +3887,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_sh4.inlet, splitVLE_L2_flex.outlet[4]) annotation (Line(
-      points={{518,-141},{518,-250.75},{644,-250.75}},
+      points={{518,-141},{518,-250.375},{644,-250.375}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3910,7 +3912,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_rh2.inlet, splitVLE_L2_flex.outlet[2]) annotation (Line(
-      points={{620,-141},{620,-249.75},{644,-249.75}},
+      points={{620,-141},{620,-249.875},{644,-249.875}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3933,6 +3935,9 @@ equation
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
+  connect(feedForwardBlock_3508_1.QF_FF_, firstOrder1.u) annotation (Line(points={{-421,-396},{-416.8,-396}}, color={0,0,127}));
+  connect(firstOrder1.y, rollerBowlMill_L1_1.rawCoal) annotation (Line(points={{-407.6,-396},{-390.8,-396}}, color={0,0,127}));
+  connect(firstOrder1.y, gain.u) annotation (Line(points={{-407.6,-396},{-406,-396},{-406,-142},{-402,-142}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-580,-480},{1540,460}}),
                       graphics={
         Rectangle(
@@ -3992,8 +3997,10 @@ ________________________________________________________________________________
     experiment(
       StopTime=10000,
       __Dymola_NumberOfIntervals=1000,
-      Tolerance=1e-005,
+      Tolerance=1e-05,
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, initialScale=0.1)));
+    Icon(coordinateSystem(preserveAspectRatio=true, initialScale=0.1)),
+__Dymola_experimentFlags(
+    Hidden(SmallerDAEIncidence=false)));
 end SteamPowerPlant_01;

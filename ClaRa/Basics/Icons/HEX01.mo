@@ -1,10 +1,10 @@
 within ClaRa.Basics.Icons;
 model HEX01
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
+// Component of the ClaRa library, version: 1.7.0                            //
 //                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
+// Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
+// Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //

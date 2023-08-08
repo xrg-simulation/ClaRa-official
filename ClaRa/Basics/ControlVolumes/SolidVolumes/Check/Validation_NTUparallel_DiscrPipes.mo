@@ -3,7 +3,7 @@ model Validation_NTUparallel_DiscrPipes "Validation: NTU method vs. discretized 
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 0.1 alpha                        //
 //                                                                           //
-// Licensed by the DYNCAP research team under Modelica License 2.            //
+// Licensed by the DYNCAP research team under the 3-clause BSD License.            //
 // Copyright © 2013, DYNCAP research team.                                   //
 //___________________________________________________________________________//
 // DYNCAP is a research project supported by the German Federal Ministry of  //

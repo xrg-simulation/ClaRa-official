@@ -1,10 +1,10 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
+  // Component of the ClaRa library, version: 1.7.0                            //
   //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
+  // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
+  // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -2506,6 +2506,10 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
     h_nom=(NOM.ct.h_vle_wall_out - NOM.ct.h_vle_wall_in)/7*1 + NOM.ct.h_vle_wall_in,
     p_nom_CT=(NOM.ct.p_vle_wall_out - NOM.ct.p_vle_wall_in)/7*1 + NOM.ct.p_vle_wall_in,
     Delta_p_nom_CT=NOM.ct.Delta_p_vle_wall/7) annotation (Placement(transformation(extent={{-88,4},{-148,24}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=1,
+    T=100) annotation (Placement(transformation(extent={{-412,-400},{-404,-392}})));
 equation
   totalHeat =burner1.burner.Q_flow_wall + burner2.burner.Q_flow_wall + burner3.burner.Q_flow_wall + burner4.burner.Q_flow_wall + flameRoom_evap_1.flameRoom.Q_flow_wall + flameRoom_evap_2.flameRoom.Q_flow_wall + flameRoom_sh_1.flameRoom.Q_flow_wall + flameRoom_sh_2.flameRoom.Q_flow_wall + flameRoom_sh_4.flameRoom.Q_flow_wall + flameRoom_rh_2.flameRoom.Q_flow_wall;
 
@@ -2879,7 +2883,7 @@ equation
       color={167,25,48},
       thickness=0.5));
   connect(splitVLE_L2_flex.outlet[1], eco_riser.inlet) annotation (Line(
-      points={{400,-249.25},{400,-250},{322,-250},{322,-194},{321,-194},{321,-138}},
+      points={{400,-249.625},{400,-250},{322,-250},{322,-194},{321,-194},{321,-138}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -2917,19 +2921,19 @@ equation
   connect(gain.y, coalFlowSource_burner3.m_flow) annotation (Line(points={{182,-215},{182,-90},{46,-90}},                 color={0,0,127}));
   connect(gain.y, coalFlowSource_burner4.m_flow) annotation (Line(points={{182,-215},{182,-64},{46,-64}},                 color={0,0,127}));
   connect(splitGas_L2_flex.outlet[1], coalGas_join_burner4.flueGas_inlet) annotation (Line(
-      points={{92,-108.75},{92,-82},{12,-82}},
+      points={{92,-108.375},{92,-82},{12,-82}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[2], coalGas_join_burner3.flueGas_inlet) annotation (Line(
-      points={{92,-108.25},{92,-108},{12,-108}},
+      points={{92,-108.125},{92,-108},{12,-108}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[3], coalGas_join_burner2.flueGas_inlet) annotation (Line(
-      points={{92,-107.75},{92,-134},{12,-134}},
+      points={{92,-107.875},{92,-134},{12,-134}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[4], coalGas_join_burner1.flueGas_inlet) annotation (Line(
-      points={{92,-107.25},{92,-160},{12,-160}},
+      points={{92,-107.625},{92,-160},{12,-160}},
       color={118,106,98},
       thickness=0.5));
   connect(PID_lambda.y, firstOrder.u) annotation (Line(points={{-497,-36},{-484,-36}},
@@ -3041,8 +3045,6 @@ equation
   connect(boilerZpositions2.y, xYplot.x2) annotation (Line(points={{-364,201},{-364,209.857},{-377.933,209.857}},            color={0,0,127}));
   connect(boilervleTemperatures.y, xYplot.y2) annotation (Line(points={{-401,81},{-401,91.7857},{-400.667,91.7857}},           color={0,0,127}));
   connect(PTarget.y, feedForwardBlock_3508_1.P_G_target_) annotation (Line(points={{-455,-396},{-444,-396}}, color={0,0,127}));
-  connect(feedForwardBlock_3508_1.QF_FF_, gain.u) annotation (Line(points={{-421,-396},{182,-396},{182,-238}},               color={0,0,127}));
-  connect(feedForwardBlock_3508_1.QF_FF_, rollerBowlMill_L1_1.rawCoal) annotation (Line(points={{-421,-396},{-390.8,-396}}, color={0,0,127}));
   connect(rollerBowlMill_L1_1.coalDust, Nominal_PowerFeedwaterPump1.u) annotation (Line(points={{-369,-396},{621.2,-396}}, color={0,0,127}));
   connect(feedForwardBlock_3508_1.P_max_, P_max_.y) annotation (Line(points={{-440,-380},{-440,-364},{-457,-364}}, color={0,0,127}));
   connect(feedForwardBlock_3508_1.P_min_, P_min_.y) annotation (Line(points={{-436,-380},{-436,-346},{-457,-346}}, color={0,0,127}));
@@ -3068,12 +3070,12 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_sh2.inlet, splitVLE_L2_flex.outlet[3]) annotation (Line(
-      points={{232,-139},{232,-250.25},{400,-250.25}},
+      points={{232,-139},{232,-250.125},{400,-250.125}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_sh4.inlet, splitVLE_L2_flex.outlet[4]) annotation (Line(
-      points={{254,-139},{254,-250.75},{400,-250.75}},
+      points={{254,-139},{254,-250.375},{400,-250.375}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3088,7 +3090,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(injectionControl_rh2.inlet, splitVLE_L2_flex.outlet[2]) annotation (Line(
-      points={{278,-139},{278,-249.75},{400,-249.75}},
+      points={{278,-139},{278,-249.875},{400,-249.875}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3444,6 +3446,9 @@ equation
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
+  connect(feedForwardBlock_3508_1.QF_FF_, firstOrder1.u) annotation (Line(points={{-421,-396},{-412.8,-396}}, color={0,0,127}));
+  connect(firstOrder1.y, rollerBowlMill_L1_1.rawCoal) annotation (Line(points={{-403.6,-396},{-390.8,-396}}, color={0,0,127}));
+  connect(firstOrder1.y, gain.u) annotation (Line(points={{-403.6,-396},{-398,-396},{-398,-364},{182,-364},{182,-238}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-580,-480},{1300,460}}),
                       graphics={
         Rectangle(
@@ -3503,8 +3508,10 @@ ________________________________________________________________________________
     experiment(
       StopTime=10000,
       __Dymola_NumberOfIntervals=1000,
-      Tolerance=1e-005,
+      Tolerance=1e-05,
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true)));
+    Icon(coordinateSystem(preserveAspectRatio=true)),
+    __Dymola_experimentFlags(
+    Hidden(SmallerDAEIncidence=false)));
 end SteamPowerPlant_CombinedComponents_01;

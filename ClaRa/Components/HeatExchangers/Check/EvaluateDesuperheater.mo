@@ -1,9 +1,9 @@
 within ClaRa.Components.HeatExchangers.Check;
 model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 featuring part load. Comparing against an EBSILON model"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -82,7 +82,9 @@ model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 f
     redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0.01,0.5025; 0.4,0.6; 0.6,0.8; 1,1], alpha_nom=62.5),
     redeclare model HeatExchangerType = Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes.CrossFlow,
     initOptionShell=1,
-    initOptionTubes=0) annotation (Placement(transformation(
+    initOptionTubes=0,
+    wall(stateLocation=2))
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={32,2})));

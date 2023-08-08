@@ -1,9 +1,9 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -125,18 +125,18 @@ protected
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     p=outlet.p,
     vleFluidType=medium,
-    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_ then outlet.h_outflow else noEvent(actualStream(outlet.h_outflow)),
-    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then outlet.xi_outflow else noEvent(actualStream(outlet.xi_outflow)))
+    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
+        opening_leak_) then outlet.h_outflow else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*outlet.h_outflow + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inStream(outlet.h_outflow),
+    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then outlet.xi_outflow else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*outlet.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inStream(outlet.xi_outflow))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 protected
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     p=inlet.p,
-    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_ then inStream(inlet.h_outflow) else noEvent(actualStream(inlet.h_outflow)),
-    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then inStream(inlet.xi_outflow) else noEvent(actualStream(inlet.xi_outflow)))
+    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
+        opening_leak_) then inStream(inlet.h_outflow) else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*inStream(inlet.h_outflow) + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inlet.h_outflow,
+    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then inStream(inlet.xi_outflow) else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*inStream(inlet.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inlet.xi_outflow)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 protected
@@ -144,8 +144,8 @@ protected
     p_in=inlet.p,
     p_out=outlet.p,
     opening_leak_=opening_leak_,
-    rho_in(start=1)=if (checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_ then fluidIn.d else (if useHomotopy then homotopy(
+    rho_in(start=1)=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
+        opening_leak_) then fluidIn.d else (if useHomotopy then homotopy(
         ClaRa.Basics.Functions.Stepsmoother(
         10,
         -10,
@@ -262,12 +262,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

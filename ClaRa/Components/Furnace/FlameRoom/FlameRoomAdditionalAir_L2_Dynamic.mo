@@ -1,9 +1,9 @@
 within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomAdditionalAir_L2_Dynamic "Model for a flame room section with additional secondary air inlet inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -244,7 +244,7 @@ equation
   mass = geo.volume * (bulk.d + flueGasInlet.d)/2;
 
   //____________/ Resulting Xi for entire fuel mass in the volume \______________
-   if (inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow <= 0.0) then
+   if noEvent(inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow <= 0.0) then
        elementaryComposition_fuel_in =fuelInlet.xi_e; //inStream(inlet.fuel.xi_outflow);
    else
     (inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow) * elementaryComposition_fuel_in =fuelSideInlet.xi_e * fuelFlueGas_inlet.fuel.m_flow +fuelInlet.xi_e * inlet.fuel.m_flow;
@@ -311,7 +311,7 @@ equation
 
   //_______________/ Energy Balance flueGasCombustion \__________________________
 
-  der(h_flueGas_out) =(geo.volume*der(p) + Q_flow_wall + Q_flow_top + Q_flow_bottom + inlet.flueGas.m_flow*(flueGasInlet.h - h_flueGas_out) + fuelFlueGas_inlet.flueGas.m_flow*(primaryAir_inlet.h - h_flueGas_out) + inlet.fuel.m_flow*((fuelInlet.cp*(inStream(inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + fuelFlueGas_inlet.fuel.m_flow*((fuelSideInlet.cp*(inStream(fuelFlueGas_inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + outlet.fuel.m_flow*((fuelOutlet.cp*(outlet.fuel.T_outflow - T_0) + Delta_h_f) - h_flueGas_out) + outlet.slag.m_flow*(outlet.slagType.cp*(actualStream(outlet.slag.T_outflow) - T_0) - h_flueGas_out) + inlet.slag.m_flow*(inlet.slagType.cp*(actualStream(inlet.slag.T_outflow) - T_0) - h_flueGas_out) + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out))/mass;
+  der(h_flueGas_out) =(geo.volume*der(p) + Q_flow_wall + Q_flow_top + Q_flow_bottom + inlet.flueGas.m_flow*(flueGasInlet.h - h_flueGas_out) + fuelFlueGas_inlet.flueGas.m_flow*(primaryAir_inlet.h - h_flueGas_out) + inlet.fuel.m_flow*((fuelInlet.cp*(inStream(inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + fuelFlueGas_inlet.fuel.m_flow*((fuelSideInlet.cp*(inStream(fuelFlueGas_inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + outlet.fuel.m_flow*((fuelOutlet.cp*(outlet.fuel.T_outflow - T_0) + Delta_h_f) - h_flueGas_out) + outlet.slag.m_flow*(outlet.slagType.cp*(noEvent(actualStream(outlet.slag.T_outflow)) - T_0) - h_flueGas_out) + inlet.slag.m_flow*(inlet.slagType.cp*(noEvent(actualStream(inlet.slag.T_outflow)) - T_0) - h_flueGas_out) + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out))/mass;
 
     sum_xi = sum(flueGasOutlet.xi);
 
@@ -453,12 +453,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

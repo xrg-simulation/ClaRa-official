@@ -3,7 +3,7 @@ model Test_CompressorGas_L1_stageStacked_singleStage
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 0.1 alpha                        //
 //                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
+// Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
 // Copyright  2013, DYNCAP research team.                                   //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //

@@ -1,9 +1,9 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 partial model ThreeWayValve_base
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -27,18 +27,18 @@ partial model ThreeWayValve_base
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     each vleFluidType=medium,
-    h=actualStream(inlet.h_outflow),
+    h=noEvent(actualStream(inlet.h_outflow)),
     p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
             {-70,8}},                                                                                                   rotation=0)));
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
     each vleFluidType=medium,
-    h=actualStream(outlet2.h_outflow),
+    h=noEvent(actualStream(outlet2.h_outflow)),
     p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
             {10,-50}},                                                                                                  rotation=0)));
 protected
 TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
     each vleFluidType=medium,
-    h=actualStream(outlet1.h_outflow),
+    h=noEvent(actualStream(outlet1.h_outflow)),
     p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},
             {90,10}},                                                                                                   rotation=0)));
 public
@@ -108,12 +108,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

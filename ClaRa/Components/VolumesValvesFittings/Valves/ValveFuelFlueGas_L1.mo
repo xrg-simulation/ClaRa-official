@@ -1,9 +1,9 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -112,15 +112,14 @@ protected
   ClaRa.Basics.Units.MassFraction xi_out[fuelModel.N_c - 1]=noEvent(actualStream(outlet.fuel.xi_outflow)) "Actual composition at outlet";
   TILMedia.Gas_pT gasOut(gasType=medium,
     p=outlet.flueGas.p,
-    T=if checkValve == true then outlet.flueGas.T_outflow else noEvent(actualStream(outlet.flueGas.T_outflow)),
-    xi=if checkValve == true then outlet.flueGas.xi_outflow else noEvent(actualStream(outlet.flueGas.xi_outflow)))
+    T=if checkValve == true then outlet.flueGas.T_outflow else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*outlet.flueGas.T_outflow + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inStream(outlet.flueGas.T_outflow),
+    xi=if checkValve == true then outlet.flueGas.xi_outflow else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*outlet.flueGas.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inStream(outlet.flueGas.xi_outflow))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   TILMedia.Gas_pT      gasIn(gasType=medium,
     p=inlet.flueGas.p,
-    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else noEvent(actualStream(
-        inlet.flueGas.T_outflow)),
-    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else noEvent(actualStream(inlet.flueGas.xi_outflow)))
+    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*inStream(inlet.flueGas.T_outflow) + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inlet.flueGas.T_outflow,
+    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*inStream(inlet.flueGas.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inlet.flueGas.xi_outflow)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 public
@@ -162,8 +161,8 @@ protected
     p_in=inlet.flueGas.p,
     p_out=outlet.flueGas.p,
     rho_in=(if useHomotopy then
-         homotopy(ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.flueGas.m_flow)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.flueGas.m_flow)*gasOut.d,
-         gasIn.d) else ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.flueGas.m_flow)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.flueGas.m_flow)*gasOut.d),
+         homotopy(ClaRa.Basics.Functions.Stepsmoother(1, -1, pressureLoss.Delta_p)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1, 1, pressureLoss.Delta_p)*gasOut.d,
+         gasIn.d) else ClaRa.Basics.Functions.Stepsmoother(1, -1, pressureLoss.Delta_p)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1, 1, pressureLoss.Delta_p)*gasOut.d),
     opening_=noEvent(max(opening_, opening_leak_)),
     opening_leak_=opening_leak_,
     h_in=gasIn.h,
@@ -257,12 +256,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

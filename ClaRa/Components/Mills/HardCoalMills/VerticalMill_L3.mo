@@ -1,9 +1,9 @@
 within ClaRa.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -42,7 +42,9 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
   parameter Basics.Units.Mass mass_pct_start=100 "Initial mass of Pulverized Coal on the Table" annotation (Dialog(tab="Initialisation"));
   parameter Basics.Units.Mass mass_pca_start=100 "Initial mass of Pulverized Coal in the Air" annotation (Dialog(tab="Initialisation"));
   parameter Basics.Units.MassFraction xi_wc_start[fuelModel.N_c - 1]=fuelModel.defaultComposition "Initial Wet Coal composition" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.MassFlowRate m_flow_air_out_start=1 "Initial primary air outlet mass flow rate" annotation (Dialog(tab="Initialisation"));
   inner parameter Integer  initOption=0 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=203 "Steady temperature", choice = 801 "Steady masses"));
+
 
 //________Summary and Visualisation_
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
@@ -71,7 +73,7 @@ protected
   Basics.Units.MassFlowRate m_flow_air_evap_max "Maximum evaporation flow until air saturation";
   Basics.Units.MassFlowRate m_flow_coal_evap_max "Maximum evaporation flow until coal dry out";
 
-  Basics.Units.MassFlowRate m_flow_air_out(start=1) "Primary air outlet mass flow rate";
+  Basics.Units.MassFlowRate m_flow_air_out(start=m_flow_air_out_start) "Primary air outlet mass flow rate";
   Basics.Units.MassFlowRate m_flow_rcg "Mass flow of raw coal entering the grinding zone";
   Basics.Units.MassFlowRate m_flow_dc_out "Mass flow of dried coal leaving the mill";
 
@@ -322,16 +324,16 @@ annotation (Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2021.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

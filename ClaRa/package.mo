@@ -26,12 +26,12 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
 
 
 
-  annotation (preferedView="info",version="1.6.0",
+  annotation (preferedView="info",version="1.7.0",
                            uses(
     ObsoleteModelica4(version="4.0.0"),
     Modelica(version="4.0.0"),
-    ClaRa_Obsolete(version="1.6.0"),
-    TILMedia(version="1.6.0 ClaRa")),  Icon(graphics,
+    ClaRa_Obsolete(version="1.7.0"),
+    TILMedia(version="1.7.0 ClaRa")),  Icon(graphics,
                                       coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}})),
   conversion(from(version="0.0",to="0.1 alpha",  script="modelica://ClaRa/Resources/Scripts/ConvertFrom000.mos"),
@@ -44,6 +44,7 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
     from(version="1.2.1",to="1.3.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom12x_to_130.mos"),
     from(version="1.2.2",to="1.3.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom12x_to_130.mos"),
     from(version="1.2.3",to="1.3.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom12x_to_130.mos"),
+    from(version="1.3.0",to="1.3.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom130_to_131.mos"),
     from(version="1.3.1",to="1.4.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom131_to_140.mos"),
     from(version="1.4.0",to="1.4.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom140_to_141.mos"),
     from(version="1.4.1",to="1.5.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom141_to_150.mos"),

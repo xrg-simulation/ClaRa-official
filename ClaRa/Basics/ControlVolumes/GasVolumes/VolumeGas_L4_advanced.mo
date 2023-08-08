@@ -1,9 +1,9 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4_advanced "An array of  gas cells with dynamic momentum balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -19,6 +19,7 @@ model VolumeGas_L4_advanced "An array of  gas cells with dynamic momentum balanc
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L4");
   import SI = ClaRa.Basics.Units;
   import Modelica.Constants.eps;
+  import Modelica.Constants.g_n "gravity constant";
 
   outer ClaRa.SimCenter simCenter;
 
@@ -139,8 +140,9 @@ public
   //____Pressure__________________________________________________________________________________________________
 protected
   SI.Pressure p[geo.N_cv](start=p_start_internal) "Cell pressure";           //nominal=p_nom,
-  SI.Pressure Delta_p_fric[geo.N_cv + 1](each start=0) "Pressure difference due to friction";
-  SI.Pressure Delta_p_adv[geo.N_cv + 1] "Pressure difference due to advection";
+  SI.PressureDifference Delta_p_fric[geo.N_cv + 1](each start=0) "Pressure difference due to friction";
+  SI.PressureDifference Delta_p_grav[geo.N_cv + 1] "Pressure difference due to gravity";
+  SI.PressureDifference Delta_p_adv[geo.N_cv + 1] "Pressure difference due to advection";
   //____Mass and Density__________________________________________________________________________________________
   SI.Mass mass[geo.N_cv] "Mass of fluid in cells";
   SI.Mass mass_FM[geo.N_cv + 1]=cat(
@@ -344,6 +346,62 @@ equation
   Delta_p_fric[geo.N_cv + 1] = pressureLoss.Delta_p[geo.N_cv + 1];
   Delta_p_fric[1] = pressureLoss.Delta_p[1];
 
+  if geo.N_cv==1 then
+    if not frictionAtInlet and not frictionAtOutlet then
+      Delta_p_grav[1] = 0;
+      Delta_p_grav[2] = 0;
+    elseif not frictionAtInlet and frictionAtOutlet then
+      Delta_p_grav[1] = 0;
+      Delta_p_grav[2] = fluid[1].d*g_n*(geo.z_out - geo.z_in);
+    elseif  frictionAtInlet and not frictionAtOutlet then
+      Delta_p_grav[1] = fluid[1].d*g_n*(geo.z_out - geo.z_in);
+      Delta_p_grav[2] = 0;
+      else
+      // frictionAtOutlet and frictionAtnlet
+      Delta_p_grav[1] = fluid[1].d*g_n*(geo.z[1] - geo.z_in);
+      Delta_p_grav[2] = fluid[1].d*g_n*(geo.z_out - geo.z[1]);
+      end if;
+  elseif geo.N_cv==2 then
+    if not frictionAtInlet and not frictionAtOutlet then
+      Delta_p_grav[1] = 0;
+      Delta_p_grav[2] = fluid[2].d*g_n*(geo.z_out - geo.z_in);
+      Delta_p_grav[3] = 0;
+    elseif not frictionAtInlet and frictionAtOutlet then
+      Delta_p_grav[1] = 0;
+      Delta_p_grav[2] = (fluid[1].d*geo.Delta_x[1] + fluid[2].d*geo.Delta_x[2]/2)/(geo.Delta_x[2]/2+geo.Delta_x[1])*g_n*(geo.z[2] - geo.z_in);
+      Delta_p_grav[3] = fluid[2].d*g_n*(geo.z_out - geo.z[2]);
+    elseif  frictionAtInlet and not frictionAtOutlet then
+      Delta_p_grav[1] = fluid[1].d*g_n*(geo.z[1] - geo.z_in);
+      Delta_p_grav[2] = (fluid[2].d*geo.Delta_x[2] + fluid[1].d*geo.Delta_x[1]/2)/(geo.Delta_x[1]/2+geo.Delta_x[2])*g_n*(geo.z_out - geo.z[1]);
+      Delta_p_grav[3] = 0;
+      else
+      // frictionAtOutlet and frictionAtnlet
+      Delta_p_grav[1] = fluid[1].d*g_n*(geo.z[1] - geo.z_in);
+      Delta_p_grav[2] = (fluid[1].d*geo.Delta_x[1] + fluid[2].d*geo.Delta_x[2])/(geo.Delta_x[2]+geo.Delta_x[1])*g_n*(geo.z[2] - geo.z[1]);
+      Delta_p_grav[3] = fluid[2].d*g_n*(geo.z_out - geo.z[2]);
+      end if;
+  else
+    for i in 3:geo.N_cv-1 loop
+      Delta_p_grav[i] = (fluid[i].d*geo.Delta_x[i] + fluid[i - 1].d*geo.Delta_x[i - 1])/(geo.Delta_x[i - 1]+geo.Delta_x[i])*g_n*(geo.z[i] - geo.z[i-1]);
+    end for;
+
+    if frictionAtInlet then
+      Delta_p_grav[1] = fluid[1].d*g_n*(geo.z[1] - geo.z_in);
+      Delta_p_grav[2] = (fluid[1].d*geo.Delta_x[1] + fluid[2].d*geo.Delta_x[2])/(geo.Delta_x[2]+geo.Delta_x[1])*g_n*(geo.z[2] - geo.z[1]);
+      else
+      Delta_p_grav[1] = 0;
+      Delta_p_grav[2] = (fluid[1].d*geo.Delta_x[1] + fluid[2].d*geo.Delta_x[2]/2)/(geo.Delta_x[2]/2+geo.Delta_x[1])*g_n*(geo.z[2] - geo.z_in);
+      end if;
+
+    if frictionAtOutlet then
+      Delta_p_grav[geo.N_cv+1] = fluid[geo.N_cv].d*g_n*(geo.z_out - geo.z[geo.N_cv]);
+      Delta_p_grav[geo.N_cv] = (fluid[geo.N_cv-1].d*geo.Delta_x[geo.N_cv-1] + fluid[geo.N_cv].d*geo.Delta_x[geo.N_cv])/(geo.Delta_x[geo.N_cv-1] + geo.Delta_x[geo.N_cv])*g_n*(geo.z[geo.N_cv] - geo.z[geo.N_cv-1]);
+      else
+      Delta_p_grav[geo.N_cv+1] = 0;
+      Delta_p_grav[geo.N_cv] = (fluid[geo.N_cv-1].d*geo.Delta_x[geo.N_cv-1]/2 + fluid[geo.N_cv].d*geo.Delta_x[geo.N_cv])/(geo.Delta_x[geo.N_cv-1]/2+geo.Delta_x[geo.N_cv])*g_n*(geo.z_out - geo.z[geo.N_cv-1]);
+      end if;
+    end if;
+
     for i in 3:geo.N_cv-1 loop
       Delta_p_adv[i]=w[i-1]*abs(w[i-1])*fluid[i-1].d -w[i]*abs(w[i])*fluid[i].d;
     end for;
@@ -472,9 +530,9 @@ equation
 // notice that in contrast to the simple L4 pipe for the dynamic momentuim balance this homoptopy relation is non  trivial and implies steady state start up.
         for i in 2:geo.N_cv loop
      geo.Delta_x_FM[i]/geo.A_cross_FM[i]*der(m_flow[i]) =if useHomotopy then
-                          homotopy(p[i-1]+der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i],0)
+                          homotopy(p[i-1]+der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i] -Delta_p_grav[i],0)
                         else
-                          p[i-1]+der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i];
+                          p[i-1]+der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i] -Delta_p_grav[i];
                         end for;
 
   inlet.T_outflow = T[1];
@@ -489,24 +547,24 @@ equation
   elseif frictionAtInlet and not frictionAtOutlet then
     //friction pressure loss inlet->first cell / no friction pressure loss last cell->outlet
   geo.Delta_x_FM[1]/geo.A_cross_FM[1]*der(m_flow[1]) =
-         if useHomotopy then homotopy(inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1],0)
-                                 else inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1];
+         if useHomotopy then homotopy(inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1] - Delta_p_grav[1],0)
+                                 else inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1] - Delta_p_grav[1];
     outlet.p = fluid[geo.N_cv].p;
 
   elseif not frictionAtInlet and frictionAtOutlet then
     //"no friction pressure loss inlet->first cell / friction pressure loss last cell->outlet"
     geo.Delta_x_FM[geo.N_cv+1]/geo.A_cross_FM[geo.N_cv+1]*der(m_flow[geo.N_cv+1]) =
-         if useHomotopy then homotopy(p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1],0)
-         else p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1];
+         if useHomotopy then homotopy(p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1] - Delta_p_grav[geo.N_cv+1],0)
+         else p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1] - Delta_p_grav[geo.N_cv+1];
     inlet.p = fluid[1].p;
 
   else
     //friction pressure loss inlet->first cell / friction pressure loss last cell->outlet
-    geo.Delta_x_FM[1]/geo.A_cross_FM[1]*der(m_flow[1]) = if useHomotopy then homotopy(inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1],0)
-         else inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1];
+    geo.Delta_x_FM[1]/geo.A_cross_FM[1]*der(m_flow[1]) = if useHomotopy then homotopy(inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1] - Delta_p_grav[1],0)
+         else inlet.p - p[1] + Delta_p_adv[1]- Delta_p_fric[1] - Delta_p_grav[1];
     geo.Delta_x_FM[geo.N_cv+1]/geo.A_cross_FM[geo.N_cv+1]*der(m_flow[geo.N_cv+1]) =
-         if useHomotopy then homotopy(p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1],0)
-                                 else p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1];
+         if useHomotopy then homotopy(p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1] - Delta_p_grav[geo.N_cv+1],0)
+                                 else p[geo.N_cv] - outlet.p + Delta_p_adv[geo.N_cv+1]- Delta_p_fric[geo.N_cv+1] - Delta_p_grav[geo.N_cv+1];
   end if;
 
   //-------------------------------------------
@@ -534,12 +592,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

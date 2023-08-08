@@ -2,9 +2,9 @@ within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -199,7 +199,10 @@ equation
   Delta_p = outlet.p - inlet.p "Momentum balance";
   //outlet.h_outflow = SM(2*Delta_p_eps,Delta_p_eps, Delta_p)* SM(Delta_p_maxrpm-Delta_p_eps, Delta_p_maxrpm, Delta_p)*(h_iso_out - h_iso_in)/eta_hyd +  h_iso_in "Application of eta_hyd's definition";
   mult_eta = noEvent(if iCom.Delta_p> 0 then 1/energetics.eta else energetics.eta);
-  outlet.h_outflow = (h_iso_out - h_iso_in)*mult_eta +  h_iso_in "Application of eta_hyd's definition";
+  //outlet.h_outflow = (h_iso_out - h_iso_in)*mult_eta +  h_iso_in "Application of eta_hyd's definition";
+  //outlet.h_outflow = (h_iso_out - inStream(inlet.h_outflow))*mult_eta + inStream(inlet.h_outflow) "Application of eta_hyd's definition";
+  outlet.h_outflow = (ptr_iso_out.h_psxi(fluidOut.p, fluidIn.s, fluidOut.xi) - inStream(inlet.h_outflow))*mult_eta + inStream(inlet.h_outflow) "Application of eta_hyd's definition";
+
 
 //___________________ Boundary definition __________________
   inlet.h_outflow =  inStream(outlet.h_outflow) "Dummy value, reverse flow i not supported";
@@ -218,12 +221,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
-<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<p>This component was developed by ClaRa development team under the 3-clause BSD License.</p>
 <b>Acknowledgements:</b>
 <p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>

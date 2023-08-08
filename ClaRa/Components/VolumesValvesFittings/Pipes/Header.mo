@@ -1,9 +1,9 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model Header "A header (distribution pipe) e.g. for superheater."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.6.0                           //
+// Component of the ClaRa library, version: 1.7.0                           //
 //                                                                          //
-// Licensed by the ClaRa development team under Modelica License 2.         //
+// Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2021, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
@@ -19,9 +19,9 @@ model Header "A header (distribution pipe) e.g. for superheater."
   outer ClaRa.SimCenter simCenter;
 
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  replaceable model WallMaterial = TILMedia.SolidTypes.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "Wall WallMaterial" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model WallMaterial = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "Wall WallMaterial" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean isAdiabat = false "True if adiabat" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
-  replaceable model InsulationMaterial = TILMedia.SolidTypes.InsulationOrstechLSP_H_const constrainedby TILMedia.SolidTypes.BaseSolid "Insulation WallMaterial" annotation (choicesAllMatching=true, Dialog(enable = not isAdiabat, group="Fundamental Definitions"));
+  replaceable model InsulationMaterial = Basics.Media.Solids.InsulationOrstechLSP_H_const constrainedby TILMedia.SolidTypes.BaseSolid "Insulation WallMaterial" annotation (choicesAllMatching=true, Dialog(enable = not isAdiabat, group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet = false "True if pressure loss between first cell and inlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet = false "True if pressure loss between last cell and outlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   replaceable model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4  "Pressure Loss Model" annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
@@ -154,8 +154,8 @@ equation
 <p><a href=\"http://
 <a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
-<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
-<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
 <p>The ClaRa development team consists of the following partners:</p>
 <p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
 <p>XRG Simulation GmbH (Hamburg, Germany).</p>
