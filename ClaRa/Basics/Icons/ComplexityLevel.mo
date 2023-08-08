@@ -1,7 +1,7 @@
 within ClaRa.Basics.Icons;
 model ComplexityLevel "Displays the complexity level inside model icon "
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -22,7 +22,9 @@ annotation (Icon(graphics={Text(
           lineColor={27,36,42},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="%complexity")}), Documentation(info="<html>
+          textString="%complexity",
+          visible=false)}),
+              Documentation(info="<html>
 <p><h4>Complexity Levels of a Model</h4></p>
 <p>The ClaRa library is intended to contain models at different levels of complexity. Ideally, different complexity levels should be replaceable and hence extended from one base class. We suggest to use a scale containing <b>at most 6 complexity states</b>: </p>
 <p><ul>

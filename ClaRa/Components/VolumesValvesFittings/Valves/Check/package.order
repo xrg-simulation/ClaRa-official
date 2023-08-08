@@ -4,3 +4,5 @@ TestThreeWayValves
 TestThreeWayValve
 TestThreeWayGasValve
 TestCheckValveOpenLeakage
+Test_EN60534_compressible
+Test_EN60534_incompressible

@@ -38,6 +38,8 @@ model Split6 "Split || green | green | green"
      h=h1,
      p=p));
   //---------Summary Definition---------
+  outer ClaRa.SimCenter simCenter;
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_2 = m_flow_1*splitRatio "Mass flow rate of outlet 1";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_3 = m_flow_1-m_flow_2 "Mass flow rate of outlet 2";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Spec. enthalpy at inlet";
@@ -46,15 +48,15 @@ model Split6 "Split || green | green | green"
 
   parameter Real splitRatio "ratio of outlet_1.m_flow/inlet.m_flow";
 
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-50,10},{-60,30}}), iconTransformation(extent={{-50,10},{-60,30}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_green_a inlet(Medium=vleMedium) annotation (Placement(transformation(extent={{-50,10},{-60,30}}), iconTransformation(extent={{-50,10},{-60,30}})));
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b outlet_1(
     h=h1,
     m_flow=m_flow_2,
-    p=p) annotation (Placement(transformation(extent={{60,10},{50,30}}), iconTransformation(extent={{60,10},{50,30}})));
+    p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{60,10},{50,30}}), iconTransformation(extent={{60,10},{50,30}})));
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b outlet_2(
     h=h1,
     m_flow=m_flow_3,
-    p=p) annotation (Placement(transformation(
+    p=p, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-30},{10,-40}},
         rotation=0,
         origin={0,0}), iconTransformation(

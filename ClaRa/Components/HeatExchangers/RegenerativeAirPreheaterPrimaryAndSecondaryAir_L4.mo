@@ -1,7 +1,7 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerative air preheater with primary and secondary air"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //

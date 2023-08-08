@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L3_Y "A Y-join with non-ideal mixing"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -51,8 +51,8 @@ model JoinVLE_L3_Y "A Y-join with non-ideal mixing"
 
   parameter Basics.Units.VolumeFraction eps_mix[2]={0.2,0.8} "|Mixing Process||Volume fraction V_1/V_tot of min/max mixed outlet";
   replaceable model PressureLoss =
-      Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3
-    annotation (group="Fundamental Definitions",choicesAllMatching=true);
+      Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3 "Pressure losses at inlet ports"
+    annotation (dialog(group="Fundamental Definitions"),choicesAllMatching=true);
   parameter Basics.Units.Time tau_cond=0.03 "|Mixing Process||Time constant of condensation";
   parameter Basics.Units.Time tau_evap=tau_cond "|Mixing Process||Time constant of evaporation";
   parameter Basics.Units.CoefficientOfHeatTransfer alpha_ph=5000 "|Mixing Process||HTC of the phase border";
@@ -123,5 +123,15 @@ equation
   annotation (Diagram(graphics,
                       coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Rectangle(
+          extent={{-92,32},{-74,-32}},
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=mixingZone.pressureLoss.hasPressureLoss), Rectangle(
+          extent={{-32,92},{32,74}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=mixingZone.pressureLoss.hasPressureLoss)}));
 end JoinVLE_L3_Y;

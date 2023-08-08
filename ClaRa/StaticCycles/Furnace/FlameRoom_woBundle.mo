@@ -163,14 +163,14 @@ public
         origin={-40,-104})));
 
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={100,-70}), iconTransformation(
         extent={{-4,-10},{4,10}},
         rotation=0,
         origin={104,-60})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall_out) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall_out, Medium=vleMedium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={100,60}), iconTransformation(

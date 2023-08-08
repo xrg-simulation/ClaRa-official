@@ -1,7 +1,7 @@
 within ClaRa.Components.Utilities.Blocks;
 block DerivativeClaRa "Derivative block ( can be adjusted to behave as ideal or approximated)"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //

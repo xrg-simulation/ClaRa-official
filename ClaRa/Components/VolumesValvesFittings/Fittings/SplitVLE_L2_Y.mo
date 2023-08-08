@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_Y "A voluminous split for 2 outputs"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -188,6 +188,23 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                   graphics), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                   graphics={Rectangle(
+          extent={{-92,32},{-74,-32}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossIn.hasPressureLoss), Rectangle(
+          extent={{74,32},{92,-32}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossOut1.hasPressureLoss),
+        Rectangle(
+          extent={{-32,-76},{32,-92}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossOut2.hasPressureLoss)}),
+                              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics));
 end SplitVLE_L2_Y;

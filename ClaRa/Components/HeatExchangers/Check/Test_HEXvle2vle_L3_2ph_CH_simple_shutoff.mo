@@ -50,7 +50,10 @@ model Test_HEXvle2vle_L3_2ph_CH_simple_shutoff "Quickly reduce the steam mass fl
   VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
     checkValve=true,
     openingInputIsActive=true,
-    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (Delta_p_nom=100, m_flow_nom=100))
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+        paraOption=2,
+        m_flow_nominal=100,
+        Delta_p_nom=100))
     annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
   VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
     openingInputIsActive=false,

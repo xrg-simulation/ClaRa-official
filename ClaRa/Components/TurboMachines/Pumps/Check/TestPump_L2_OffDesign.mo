@@ -78,10 +78,10 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
     checkValve=false,
     openingInputIsActive=true,
     useStabilisedMassFlow=true,
-    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
-        Delta_p_nom=1000,
-        Delta_p_eps=1000,
-        m_flow_nom=1000))      annotation (Placement(transformation(extent={{0,-126},{20,-114}})));
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+        paraOption=2,
+        m_flow_nominal=1000,
+        Delta_p_nom=1000))     annotation (Placement(transformation(extent={{0,-126},{20,-114}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=-1,
     offset=1,

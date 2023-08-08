@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Tube2 " Tube || green | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -68,11 +68,11 @@ protected
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_Delta_p_fric_P_target_, u = {P_target_});
 
 public
-  Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-100,-10},{-110,10}}), iconTransformation(extent={{-100,-10},{-110,10}})));
+  Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-100,-10},{-110,10}}), iconTransformation(extent={{-100,-10},{-110,10}})));
   Fundamentals.SteamSignal_green_b outlet(
     m_flow=m_flow,
     h=h_in,
-    p=p_out) annotation (Placement(transformation(extent={{110,-10},{100,10}}), iconTransformation(extent={{110,-10},{100,10}})));
+    p=p_out, Medium=medium) annotation (Placement(transformation(extent={{110,-10},{100,10}}), iconTransformation(extent={{110,-10},{100,10}})));
 initial equation
   Delta_p_fric = table.y[1] * Delta_p_nom;
   inlet.p=p_in;

@@ -1,7 +1,7 @@
 within ClaRa.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -48,8 +48,7 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
 
 //________Expert Settings___________
-  parameter Boolean applyGrindingDelay = false "True if grinding process introduces a dead time"
-                                                                                                annotation(Dialog(enable=applyGrindingDelay, tab="Expert Settings"));
+  parameter Boolean applyGrindingDelay = false "True if grinding process introduces a dead time" annotation(Dialog(tab="Expert Settings"));
   parameter SI.Time Tau_delay = 120 "Grinding dead time" annotation(Dialog(enable=applyGrindingDelay, tab="Expert Settings"));
   parameter Boolean activateGrindingStatus=false "True, if Status input is activated which makes it possible to stop the grinding process" annotation(Dialog(group="Shutdown",tab="Expert Settings"));
 
@@ -150,7 +149,9 @@ public
     xi_coal_h2o_out = coalOut.xi_h2o,
     xi_air_h2o_in = xi_air_in[8],
     xi_air_h2o_out=xi_air_out[8],
-    xi_air_h2o_sat=gasOut.xi_s) annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    xi_air_h2o_sat=gasOut.xi_s,
+    LHV_in = coalIn.LHV,
+    LHV_out = coalOut.LHV) annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Basics.Interfaces.FuelFlueGas_inlet inlet(flueGas(Medium=gas), fuelModel=fuelModel) "Combined gas-and-coal(raw, wet) inlet" annotation (Placement(transformation(extent={{-110,-8},{-90,12}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=gas), fuelModel=fuelModel) "Combined gas-and-coal(pulverised, dry) outlet" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -171,13 +172,13 @@ public
         origin={-40,108})));
   ClaRa.Basics.Media.FuelObject coalIn(
     p=inlet.fuel.p,
-    T=noEvent(actualStream(inlet.fuel.T_outflow)),
-    xi_c=noEvent(actualStream(inlet.fuel.xi_outflow)),
+    T=inStream(inlet.fuel.T_outflow),
+    xi_c=inStream(inlet.fuel.xi_outflow),
     fuelModel=fuelModel) annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
   ClaRa.Basics.Media.FuelObject coalOut(
     p=outlet.fuel.p,
-    T=noEvent(actualStream(outlet.fuel.T_outflow)),
-    xi_c=noEvent(actualStream(outlet.fuel.xi_outflow)),
+    T=outlet.fuel.T_outflow,
+    xi_c=outlet.fuel.xi_outflow,
     fuelModel=fuelModel) annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 initial equation
   xi_wc_out = xi_wc_start;

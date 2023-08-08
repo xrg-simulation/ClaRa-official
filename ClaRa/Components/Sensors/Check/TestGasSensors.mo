@@ -1,7 +1,7 @@
 within ClaRa.Components.Sensors.Check;
 model TestGasSensors
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -15,11 +15,14 @@ model TestGasSensors
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
-  SensorGas_L1_xi SensorCO2(component=3) annotation (Placement(transformation(extent={{-38,-90},{-18,-70}})));
+  SensorGas_L1_xi SensorCO2(component=3, medium=TILMedia.GasTypes.MoistAirMixture())
+                                         annotation (Placement(transformation(extent={{-38,-90},{-18,-70}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT(                  variable_p=true,
     variable_xi=false,
-    xi_const={0,0,0.4,0,0.4,0.2,0,0,0})                                             annotation (Placement(transformation(extent={{-68,-100},{-48,-80}})));
-  BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(m_flow_const=-10) annotation (Placement(transformation(extent={{98,-100},{78,-80}})));
+    medium=TILMedia.GasTypes.MoistAirMixture(),
+    xi_const=gasSink_pT.medium.xi_default)                                          annotation (Placement(transformation(extent={{-68,-100},{-48,-80}})));
+  BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(m_flow_const=-10, medium=TILMedia.GasTypes.MoistAirMixture())
+                                                                             annotation (Placement(transformation(extent={{98,-100},{78,-80}})));
   inner SimCenter simCenter annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=0.5,
@@ -27,9 +30,12 @@ model TestGasSensors
     amplitude=20000,
     phase=0.017453292519943)
     annotation (Placement(transformation(extent={{-96,-94},{-76,-74}})));
-  Basics.ControlVolumes.GasVolumes.VolumeGas_L2 flueGasCell annotation (Placement(transformation(extent={{50,-100},{70,-80}})));
-  SensorGas_L1_xi SensorN2(component=5) annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  SensorGas_L1_xi SensorO2(component=6) annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Basics.ControlVolumes.GasVolumes.VolumeGas_L2 flueGasCell(medium=TILMedia.GasTypes.MoistAirMixture(), xi_start=flueGasCell.medium.xi_default)
+                                                            annotation (Placement(transformation(extent={{50,-100},{70,-80}})));
+  SensorGas_L1_xi SensorN2(component=5, medium=TILMedia.GasTypes.MoistAirMixture())
+                                        annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+  SensorGas_L1_xi SensorO2(component=6, medium=TILMedia.GasTypes.MoistAirMixture())
+                                        annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   SensorGas_L1_xi_i Sensor1 annotation (Placement(transformation(extent={{-10,-44},{10,-24}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT1(
                                                  variable_p=true, variable_xi=false,

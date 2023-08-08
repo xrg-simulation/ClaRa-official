@@ -1,7 +1,7 @@
 within ClaRa.Basics.Functions;
 function A_hor_intCyl "Horizontal area of a cylinder vertically intersecting a horizontal cylinder of large diameter"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //

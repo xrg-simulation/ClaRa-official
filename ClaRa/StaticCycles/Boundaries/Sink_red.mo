@@ -2,11 +2,13 @@ within ClaRa.StaticCycles.Boundaries;
 model Sink_red "Red boundary"
  // Red input:    Values of p and m_flow are known in component and provided FOR neighbor component, value of h is unknown and provided BY neighbor component.
 
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate  m_flow "Mass flowing into the sink";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=false) "Spec.enthalpy flowing into the sink";
   parameter ClaRa.Basics.Units.Pressure p "Pressure at the boundary";
+  outer ClaRa.SimCenter simCenter;
 
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_a inlet(m_flow=m_flow, p=p) annotation (Placement(transformation(extent={{-110,-10},{-100,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_a inlet(m_flow=m_flow, p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}})));
 initial equation
   h=inlet.h;
 

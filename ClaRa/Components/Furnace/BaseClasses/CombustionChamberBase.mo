@@ -108,7 +108,7 @@ public
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out "Gas outlet specific enthalpy";
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
 
-  ClaRa.Basics.Units.MassFraction xi_flueGas_del[flueGas.nc - 1] "Flue gas outlet composition - dalayed";
+  //ClaRa.Basics.Units.MassFraction xi_flueGas_del[flueGas.nc - 1] "Flue gas outlet composition - dalayed";
 
 //___________________/ Molar flow rates of educts and products \_____________
 //_________/Educts\__________________
@@ -201,7 +201,8 @@ public
 
   inner HeatTransfer_Top heattransfer_top annotation(Placement(transformation(extent={{94,50},
             {74,70}})));
-  inner ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities.ThermalLowPass radiationTimeConstant(T_out_initial=T_start_flueGas_out, Tau=Tau_rad)   annotation (Placement(transformation(extent={{32,50},
+  inner ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities.ThermalLowPass radiationTimeConstant(                                   Tau=Tau_rad, T_out_initial=T_top_initial)
+                                                                                                                                                                    annotation (Placement(transformation(extent={{32,50},
              {52,70}})));
    ReactionZone reactionZone(flueGas=flueGas, fuelModel=fuelModel,elementaryComposition_fuel_in=elementaryComposition_fuel_in)
      annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
@@ -230,13 +231,13 @@ public
 initial equation
 
   h_flueGas_out_del = h_start;
-  xi_flueGas_del = xi_start_flueGas_out;
+  //xi_flueGas_del = xi_start_flueGas_out;
 
 equation
 
   der(h_flueGas_out_del) = 1/Tau*(h_flueGas_out-h_flueGas_out_del);
-  der(xi_flueGas_del) = 1/Tau*(xi_flueGas - xi_flueGas_del);
-
+  //der(xi_flueGas_del) = 1/Tau*(xi_flueGas - xi_flueGas_del);
+  //xi_flueGas_del = xi_flueGas;
   //____________/ Xi_outflow of Fuel and FlueGas \__________________
   //dummy values for inlets since flow reversal is not allowed
   outlet.fuel.xi_outflow = xi_fuel_out;

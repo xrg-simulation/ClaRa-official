@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4 "An array of flue gas cells."
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -61,7 +61,7 @@ public
                                                                                             annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
 
   replaceable model HeatTransfer =
-      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4 (                      A_heat=geo.A_heat_CF[:, 1]) constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_L4 "Heat transfer mode at the tubes side"
+      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4  constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_L4 "Heat transfer mode at the tubes side"
                                                                                             annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
 
   //____Geometric data_____________________________________________________________________________________
@@ -188,8 +188,7 @@ protected
     each computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,-42},{10,-22}}, rotation=0)));
 public
   PressureLoss pressureLoss "Pressure loss model" annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  HeatTransfer heatTransfer "heat transfer model" annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
-
+  HeatTransfer heatTransfer(A_heat=geo.A_heat_CF[:, 1])   "heat transfer model" annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
 public
   inner TILMedia.Gas_pT fluidInlet(
     p=inlet.p,

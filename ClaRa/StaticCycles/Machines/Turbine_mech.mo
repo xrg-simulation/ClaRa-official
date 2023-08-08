@@ -74,8 +74,8 @@ model Turbine_mech "Turbine mith machanical flanges || par.: efficiency || green
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Rprt: p_in - p_out";
 
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-70,30},{-60,50}}), iconTransformation(extent={{-70,30},{-60,50}})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow) annotation (Placement(transformation(extent={{60,-90},{70,-70}}), iconTransformation(extent={{60,-90},{70,-70}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-70,30},{-60,50}}), iconTransformation(extent={{-70,30},{-60,50}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow, Medium=medium) annotation (Placement(transformation(extent={{60,-90},{70,-70}}), iconTransformation(extent={{60,-90},{70,-70}})));
 
   ClaRa.StaticCycles.Fundamentals.PowerSignal_A power_in annotation (Placement(transformation(extent={{-68,-10},{-60,10}}), iconTransformation(extent={{-68,-10},{-60,10}})));
   ClaRa.StaticCycles.Fundamentals.PowerSignal_B power_out(power=P_in + P_turbine, s=power_in.s) annotation (Placement(transformation(extent={{60,-10},{68,10}}), iconTransformation(extent={{60,-10},{68,10}})));

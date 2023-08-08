@@ -2,11 +2,13 @@ within ClaRa.StaticCycles.Boundaries;
 model Source_red "Red boundary"
  // Red output:   Values of p and m_flow are unknown and provided BY neighbor component, value of h is known and provided FOR neighbor component.
 
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate  m_flow(fixed= false) "Mass flow from the source";
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy of the source flow";
   final parameter ClaRa.Basics.Units.Pressure p(fixed= false) "Pressure at the boundary";
+  outer ClaRa.SimCenter simCenter;
 
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_b outlet(h=h) annotation (Placement(transformation(extent={{100,-10},{110,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_b outlet(h=h, Medium=vleMedium) annotation (Placement(transformation(extent={{100,-10},{110,10}})));
 initial equation
 
     m_flow= outlet.m_flow;

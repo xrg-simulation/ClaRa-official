@@ -1,11 +1,11 @@
 GenericPressureLoss
 LinearNominalPoint
+Quadratic_EN60534
+Quadratic_EN60534_incompressible
+Quadratic_FlowFunction
+QuadraticZeta
 QuadraticKV
 QuadraticNominalPoint
-QuadraticZeta
-Quadratic_EN60534
-Quadratic_FlowFunction
-Quadratic_EN60534_incompressible
 ICom
 ICom_TWV
 Basic_TWV
@@ -14,3 +14,5 @@ QuadraticFrictionFlowAreaSymetric_TWV
 QuadraticFrictionNominalPointSymetric_TWV
 TWV_L1
 TWV_L2
+Quadratic_EN60534_base
+Quadratic_EN60534_incompressible_base

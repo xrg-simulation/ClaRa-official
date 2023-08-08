@@ -69,8 +69,8 @@ model Pump2 "Ideal Pump || par.: efficiency, pressure ratio || blue | blue"
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Presssure differerence p_in - p_out";
 
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inlet(p=p_in) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inlet(p=p_in,Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out,Medium=medium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
 
 initial equation
   inlet.h = h_in;

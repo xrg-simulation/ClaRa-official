@@ -2,14 +2,17 @@ within ClaRa.StaticCycles.Boundaries;
 model Source_green "Green source"
   // Green output:  Values of m_flow and h are known in component and provided FOR neighbor component.
 
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate  m_flow "Mass flow from the source";
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy of the source flow";
   parameter ClaRa.Basics.Units.Pressure p "Pressure at the source";
+  outer ClaRa.SimCenter simCenter;
 
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b outlet(
     h=h,
     m_flow=m_flow,
-    p=p) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
+    p=p,
+    Medium=vleMedium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
        Text(

@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -94,7 +94,7 @@ public
 protected
   Basics.Interfaces.EyeIn       eye_int[1] annotation (Placement(transformation(extent={{45,-61},{47,-59}})));
 
-  PumpVLE_L1_affinity pump(
+  PumpVLE_L1_affinity pump(outlet(p(start=p_start)),
     showExpertSummary=showExpertSummary,
     useMechanicalPort=useMechanicalPort,
     steadyStateTorque=steadyStateTorque,

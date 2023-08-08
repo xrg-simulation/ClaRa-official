@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_GasValves
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -25,7 +25,8 @@ model Test_GasValves
          Delta_p_nom=2e5, m_flow_nom=10))
     annotation (Placement(transformation(extent={{-84,126},{-64,138}})));
 
-  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{162,232},{182,252}})));
+  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel, showExpertSummary=true)
+                                                                                      annotation (Placement(transformation(extent={{162,232},{182,252}})));
 
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(
     m_flow_const=10,
@@ -43,7 +44,7 @@ model Test_GasValves
   ValveGas_L1     valve2(
     openingInputIsActive=true,
     useHomotopy=false,
-    redeclare model PressureLoss = Fundamentals.QuadraticKV (Kvs=100))
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (Kvs=100))
     annotation (Placement(transformation(extent={{-64,98},{-44,110}})));
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T1(
     m_flow_const=10,
@@ -79,7 +80,7 @@ model Test_GasValves
   Adapters.FuelFlueGas_split coalGas_split1 annotation (Placement(transformation(extent={{62,-120},{82,-100}})));
   BoundaryConditions.BoundaryFuel_pTxi coalSink1(p_const=800000) annotation (Placement(transformation(extent={{118,-108},{98,-88}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT4(p_const=800000) annotation (Placement(transformation(extent={{118,-132},{98,-112}})));
-  ValveFuelFlueGas_L1 coalDustValve2(openingInputIsActive=true, redeclare model PressureLoss = Fundamentals.QuadraticKV (Kvs=100))
+  ValveFuelFlueGas_L1 coalDustValve2(openingInputIsActive=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (Kvs=100))
                                                                                           annotation (Placement(transformation(extent={{-64,-116},{-44,-104}})));
   BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource2(m_flow_const=5, T_const=293.15) annotation (Placement(transformation(extent={{-146,-60},{-126,-40}})));
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T5(
@@ -97,19 +98,19 @@ model Test_GasValves
   ValveGas_L1     valve3(
     openingInputIsActive=true,
     useHomotopy=false,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (
+        paraOption=2,
+        m_flow_nominal=10,
         Delta_p_nom=2e5,
-        rho_in_nom=1,
-        m_flow_nom=10))
+        rho_in_nom=1))
     annotation (Placement(transformation(extent={{-44,70},{-24,82}})));
   ValveGas_L1     valve4(
     openingInputIsActive=true,
     useHomotopy=false,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta (
-         A_cross=
-           0.2, zeta=0.5))
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (
+        paraOption=3,
+        A_cross=0.2,
+        zeta=0.5))
     annotation (Placement(transformation(extent={{-24,42},{-4,54}})));
   ValveGas_L1     valve5(
     openingInputIsActive=true,
@@ -146,13 +147,13 @@ model Test_GasValves
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT8(p_const=800000, xi_const={0,0,0.0,0,0.77,0.23,0,0,0})
                                                                   annotation (Placement(transformation(extent={{78,-18},{58,2}})));
   ValveFuelFlueGas_L1 coalDustValve3(
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
-        Delta_p_nom=2e5,
-        rho_in_nom=1,
-        m_flow_nom=10),
     openingInputIsActive=true,
-    checkValve=false)
+    checkValve=false,
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (
+        paraOption=2,
+        m_flow_nominal=10,
+        Delta_p_nom=2e5,
+        rho_in_nom=1))
                      annotation (Placement(transformation(extent={{-44,-168},{-24,-156}})));
   BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource3(m_flow_const=5, T_const=293.15) annotation (Placement(transformation(extent={{-146,-264},{-126,-244}})));
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T9(
@@ -174,8 +175,10 @@ model Test_GasValves
   Adapters.FuelFlueGas_split coalGas_split4 annotation (Placement(transformation(extent={{60,-224},{80,-204}})));
   BoundaryConditions.BoundaryFuel_pTxi coalSink4(p_const=800000) annotation (Placement(transformation(extent={{116,-212},{96,-192}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT10(p_const=800000) annotation (Placement(transformation(extent={{116,-236},{96,-216}})));
-  ValveFuelFlueGas_L1 coalDustValve4(openingInputIsActive=true, redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta (                           zeta=0.5, A_cross=0.2)) annotation (Placement(transformation(extent={{-24,-220},{-4,-208}})));
+  ValveFuelFlueGas_L1 coalDustValve4(openingInputIsActive=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534 (
+        paraOption=3,
+        A_cross=0.2,
+        zeta=0.5))                                                                                                                   annotation (Placement(transformation(extent={{-24,-220},{-4,-208}})));
   ValveFuelFlueGas_L1 coalDustValve5(
     openingInputIsActive=true,
     useHomotopy=true,
@@ -200,11 +203,11 @@ model Test_GasValves
 
 equation
   connect(ramp.y, valve1.opening_in) annotation (Line(
-      points={{-93,164},{-74,164},{-74,140}},
+      points={{-93,164},{-74,164},{-74,141}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp.y, valve2.opening_in) annotation (Line(
-      points={{-93,164},{-54,164},{-54,112}},
+      points={{-93,164},{-54,164},{-54,113}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(coalFlowSource.fuel_a,coalGas_join.fuel_inlet)  annotation (Line(
@@ -271,79 +274,79 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gasFlowSource_T2.gas_a, valve3.inlet) annotation (Line(
-      points={{-94,76},{-70,76},{-70,75},{-44,75}},
+      points={{-94,76},{-70,76},{-70,76},{-44,76}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve3.outlet, gasSink_pT2.gas_a) annotation (Line(
-      points={{-24,75},{18,75},{18,76},{58,76}},
+      points={{-24,76},{18,76},{18,76},{58,76}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(gasFlowSource_T6.gas_a, valve4.inlet) annotation (Line(
-      points={{-94,48},{-60,48},{-60,47},{-24,47}},
+      points={{-94,48},{-60,48},{-60,48},{-24,48}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve4.outlet, gasSink_pT6.gas_a) annotation (Line(
-      points={{-4,47},{28,47},{28,48},{58,48}},
+      points={{-4,48},{28,48},{28,48},{58,48}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(gasFlowSource_T.gas_a, valve1.inlet) annotation (Line(
-      points={{-94,132},{-90,132},{-90,131},{-84,131}},
+      points={{-94,132},{-90,132},{-90,132},{-84,132}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve1.outlet, gasSink_pT.gas_a) annotation (Line(
-      points={{-64,131},{-2,131},{-2,132},{58,132}},
+      points={{-64,132},{-2,132},{-2,132},{58,132}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(gasSink_pT1.gas_a, valve2.outlet) annotation (Line(
-      points={{58,104},{8,104},{8,103},{-44,103}},
+      points={{58,104},{8,104},{8,104},{-44,104}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve2.inlet, gasFlowSource_T1.gas_a) annotation (Line(
-      points={{-64,103},{-80,103},{-80,104},{-94,104}},
+      points={{-64,104},{-80,104},{-80,104},{-94,104}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(ramp.y, valve3.opening_in) annotation (Line(
-      points={{-93,164},{-34,164},{-34,84}},
+      points={{-93,164},{-34,164},{-34,85}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp.y, valve4.opening_in) annotation (Line(
-      points={{-93,164},{-14,164},{-14,56}},
+      points={{-93,164},{-14,164},{-14,57}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp.y, valve5.opening_in) annotation (Line(
-      points={{-93,164},{6,164},{6,28}},
+      points={{-93,164},{6,164},{6,29}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gasFlowSource_T7.gas_a, valve5.inlet) annotation (Line(
-      points={{-94,20},{-48,20},{-48,19},{-4,19}},
+      points={{-94,20},{-48,20},{-48,20},{-4,20}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve5.outlet, gasSink_pT7.gas_a) annotation (Line(
-      points={{16,19},{38,19},{38,20},{58,20}},
+      points={{16,20},{38,20},{38,20},{58,20}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(gasFlowSource_T8.gas_a, valve6.inlet) annotation (Line(
-      points={{-94,-8},{-38,-8},{-38,-9},{16,-9}},
+      points={{-94,-8},{-38,-8},{-38,-8},{16,-8}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(valve6.outlet, gasSink_pT8.gas_a) annotation (Line(
-      points={{36,-9},{48,-9},{48,-8},{58,-8}},
+      points={{36,-8},{48,-8},{48,-8},{58,-8}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(ramp.y, valve6.opening_in) annotation (Line(
-      points={{-93,164},{26,164},{26,0}},
+      points={{-93,164},{26,164},{26,1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(coalGas_join.fuelFlueGas_outlet, coalDustValve3.inlet) annotation (Line(

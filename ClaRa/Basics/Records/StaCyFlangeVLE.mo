@@ -6,4 +6,5 @@ model StaCyFlangeVLE "A summary of flange flow properties for StaCy components"
   parameter Units.Pressure p "Pressure" annotation(Dialog);
   parameter Units.EnthalpyMassSpecific h "Specific enthalpy" annotation(Dialog);
 
+
 end StaCyFlangeVLE;

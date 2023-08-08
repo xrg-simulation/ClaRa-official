@@ -1,6 +1,6 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Fundamentals;
 model Linear
-  extends Fundamentals.BaseDp;
+  extends Fundamentals.BaseDp(final hasPressureLoss=true);
   SI.Pressure dp;
   SI.MassFlowRate m_flow;
   parameter SI.MassFlowRate m_flow_nom=10;

@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Valve_dp_nom3 "Valve || par.: dp_nom || blue | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -20,22 +20,26 @@ model Valve_dp_nom3 "Valve || par.: dp_nom || blue | blue"
    //---------Summary Definition---------
   model Summary
     extends ClaRa.Basics.Icons.RecordIcon;
-    ClaRa.Basics.Records.StaCyFlangeVLE inlet;
-    ClaRa.Basics.Records.StaCyFlangeVLE outlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a inlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
   Summary summary(
   inlet(
      m_flow=m_flow,
      h=h_in,
-     p=p_in),
+     p=p_in,
+     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
-     p=p_out));
+     p=p_out,
+     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
 
   outer parameter Real P_target_ "Target power in p.u.";
+  outer ClaRa.SimCenter simCenter;
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter ClaRa.Basics.Units.PressureDifference Delta_p_nom "Nominal pressure drop" annotation(Dialog(group="Fundamental Definitions"));
   parameter Real CharLine_Delta_p_P_target_[:,2] = [0,0;1,1] "Pressure drop depending on rel. power in p.u."
@@ -52,8 +56,8 @@ protected
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
 
 public
-  Fundamentals.SteamSignal_blue_a inlet(p=p_in) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
-  Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
+  Fundamentals.SteamSignal_blue_a inlet(p=p_in, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
+  Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
 initial equation
   inlet.h=h_in;
   inlet.m_flow=m_flow;

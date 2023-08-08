@@ -213,14 +213,14 @@ protected
   Modelica.Blocks.Tables.CombiTable1D table3(table=CharLine_h_wall_P_target_, u = {P_target_});
 
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletBundle(p=p_vle_bundle_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletBundle(p=p_vle_bundle_in, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={100,30}), iconTransformation(
         extent={{-4,-10},{4,10}},
         rotation=0,
         origin={104,20})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletBundle(h=h_vle_bundle_out, m_flow=m_flow_vle_bundle) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletBundle(h=h_vle_bundle_out, m_flow=m_flow_vle_bundle, Medium=vleMedium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={100,-30}), iconTransformation(
@@ -241,14 +241,14 @@ public
         origin={-40,-104})));
 
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={100,-70}), iconTransformation(
         extent={{-4,-10},{4,10}},
         rotation=0,
         origin={104,-60})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall_out) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall_out, Medium=vleMedium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={100,60}), iconTransformation(

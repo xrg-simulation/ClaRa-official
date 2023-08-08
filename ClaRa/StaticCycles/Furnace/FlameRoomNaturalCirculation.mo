@@ -157,11 +157,11 @@ protected
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(vleMedium.nc - 1) "VLE composition in component, pure fluids supported only!";
   Modelica.Blocks.Tables.CombiTable1D table1(table=CharLine_Delta_p_wall_P_target_, u = {P_target_});
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletDrum(p=p_vle_bundle_in) annotation (Placement(transformation(extent={{100,-50},{108,-30}}), iconTransformation(extent={{100,-50},{108,-30}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletDrum(p=p_vle_bundle_in, Medium=vleMedium) annotation (Placement(transformation(extent={{100,-50},{108,-30}}), iconTransformation(extent={{100,-50},{108,-30}})));
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b outletDrum(
     m_flow=m_flow_vle_bundle,
     h=h_vle_bundle_out,
-    p=p_vle_bundle_out) annotation (Placement(transformation(
+    p=p_vle_bundle_out, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-4,-10},{4,10}},
         rotation=90,
         origin={50,104}), iconTransformation(
@@ -186,7 +186,7 @@ public
         extent={{-4,-10},{4,10}},
         rotation=90,
         origin={-40,-104})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outletWall(h=h_vle_wall_out, m_flow=m_flow_vle_wall, Medium=vleMedium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={100,60}), iconTransformation(
@@ -194,7 +194,7 @@ public
         rotation=0,
         origin={104,80})));
 public
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a inletWall(p=p_vle_wall_in, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={100,-70}), iconTransformation(

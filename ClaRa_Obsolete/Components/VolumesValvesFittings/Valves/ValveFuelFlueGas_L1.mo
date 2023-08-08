@@ -173,7 +173,9 @@ protected
         inlet.flueGas.m_flow)*gasOut.d),
     opening_=noEvent(max(opening_, opening_leak_)),
     opening_leak_=opening_leak_,
-    h_in=gasIn.h) annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
+    h_in=gasIn.h,
+    p_crit=0,
+    p_vap_in=0) annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
 
 public
   ClaRa.Basics.Interfaces.EyeOut eye if showData annotation (Placement(transformation(extent={{90,-68},{110,-48}}), iconTransformation(extent={{90,-50},{110,-30}})));

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_tubeBank_L2 "Tube Geo || L2 || Convection Tube Bank"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -16,22 +16,13 @@ model Convection_tubeBank_L2 "Tube Geo || L2 || Convection Tube Bank"
   //___________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.HeatTransfer_L2;
-  outer ClaRa.Basics.Records.IComGas_L2 iCom;
-  import SM = ClaRa.Basics.Functions.Stepsmoother;
-  import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
 
   //Equations according to VDI-Waermeatlas
-  input Real CF_fouling=0.8 "Scaling factor accounting for the fouling of the wall" annotation (Dialog);
   parameter Integer heatSurfaceAlloc=2 "To be considered heat transfer area" annotation (dialog(enable=false, tab="Expert Setting"), choices(
       choice=1 "Lateral surface",
       choice=2 "Inner heat transfer surface",
       choice=3 "Selection to be extended"));
-  parameter String temperatureDifference="Logarithmic mean" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
-      choice="Arithmetic mean",
-      choice="Logarithmic mean",
-      choice="Logarithmic mean - smoothed",
-      choice="Inlet",
-      choice="Outlet"));
+
 public
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha "Heat transfer coefficient";
   ClaRa.Basics.Units.Velocity w "Flue gas velocity";
@@ -40,12 +31,6 @@ public
   Real Nu_lturb "Nusselt number turbulent";
   Real Nu_l0 "Nusselt number";
   Real Nu_tubeBank "Nusselt number at tube bank";
-
-  Units.Temperature Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
-  Units.Temperature Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
-  Units.Temperature Delta_T_mean "Mean temperature";
-  Units.Temperature Delta_T_U "Upper temperature difference";
-  Units.Temperature Delta_T_L "Lower temperature difference";
 
 protected
   Real Re_psi1 "Corrected Reynolds number";
@@ -65,28 +50,7 @@ protected
 
 equation
   T_prop_am = (iCom.T_in + iCom.T_out)/2;
-  //T_mean * Modelica.Math.log(abs((heat.T - iCom.T_in)/(heat.T - iCom.T_out))) = ((heat.T - iCom.T_in) - (heat.T - iCom.T_out));
 
-  Delta_T_wi = heat.T - iCom.T_in;
-  Delta_T_wo = heat.T - iCom.T_out;
-  Delta_T_U = ClaRa.Basics.Functions.maxAbs(Delta_T_wi, Delta_T_wo);
-  Delta_T_L = ClaRa.Basics.Functions.minAbs(Delta_T_wi, Delta_T_wo);
-
-  if temperatureDifference == "Logarithmic mean" then
-    //The following equation is only supported due to an backward compatibility issue - avoid its usage
-    Delta_T_mean = noEvent(if floor(abs(Delta_T_wo)*1/eps) <= 1 or floor(abs(Delta_T_wi)*1/eps) <= 1 then 0 elseif (heat.T < iCom.T_out and heat.T > iCom.T_in) or (heat.T > iCom.T_out and heat.T < iCom.T_in) then 0 elseif floor(abs(Delta_T_wo - Delta_T_wi)*1/eps) < 1 then Delta_T_wi else (Delta_T_U - Delta_T_L)/log(Delta_T_U/Delta_T_L));
-  elseif temperatureDifference == "Logarithmic mean - smoothed" then
-    Delta_T_mean = if useHomotopy then homotopy(SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, ((Delta_T_U)-(Delta_T_L))-0.01, 0.001), heat.T - iCom.T_out) else     SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, ((Delta_T_U)-(Delta_T_L))-0.01, 0.001);
-  elseif temperatureDifference == "Arithmetic mean" then
-    Delta_T_mean = heat.T - (iCom.T_in + iCom.T_out)/2;
-  elseif temperatureDifference == "Inlet" then
-    Delta_T_mean = heat.T - iCom.T_in;
-  elseif temperatureDifference == "Outlet" then
-    Delta_T_mean = heat.T - iCom.T_out;
-  else
-    Delta_T_mean = -1;
-    assert(true, "Unknown temperature difference option in HT model");
-  end if;
 
   zeros(iCom.mediumModel.nc - 1) = -xi_mean*(iCom.m_flow_in - iCom.m_flow_out) + (iCom.m_flow_in*iCom.xi_in - iCom.m_flow_out*iCom.xi_out);
   //logarithmic mean temperature between fluid inlet, outlet and tube wall

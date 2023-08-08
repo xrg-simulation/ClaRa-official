@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -28,10 +28,10 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   //     ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Special.SpecialHeatTransfer;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L2;
-  import SM = ClaRa.Basics.Functions.Stepsmoother;
-  import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
+   import SM = ClaRa.Basics.Functions.Stepsmoother;
+   import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
 
-  outer ClaRa.Basics.Records.IComBase_L2 iCom;
+   outer ClaRa.Basics.Records.IComBase_L2 iCom;
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry geo;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
   parameter Integer heatSurfaceAlloc=2 "To be considered heat transfer area" annotation (dialog(enable=false, tab="Expert Setting"), choices(
@@ -41,18 +41,18 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   parameter Real PL_alpha[:, 2]={{0,0.2},{0.5,0.6},{0.7,0.72},{1,1}} "Correction factor for heat transfer in part load" annotation (Dialog(group="Heat Transfer"));
   input Real CF_fouling=1 "Scaling factor accounting for the fouling of the wall" annotation (Dialog(group="Heat Transfer"));
 
-  parameter String temperatureDifference="Logarithmic mean - smoothed" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
-      choice = "Arithmetic mean",
-      choice = "Logarithmic mean - smoothed",
-      choice = "Inlet",
-      choice = "Outlet"));
+   parameter String temperatureDifference="Logarithmic mean - smoothed" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
+       choice = "Arithmetic mean",
+       choice = "Logarithmic mean - smoothed",
+       choice = "Inlet",
+       choice = "Outlet"));
 
-  Units.Temperature Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
-  Units.Temperature Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
-  Units.Temperature Delta_T_mean "Mean temperature difference used for heat transfer calculation";
+   Units.Temperature Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
+   Units.Temperature Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
+   Units.Temperature Delta_T_mean "Mean temperature difference used for heat transfer calculation";
 
-  Units.Temperature Delta_T_U "Upper temperature difference";
-  Units.Temperature Delta_T_L "Lower temperature difference";
+   Units.Temperature Delta_T_U "Upper temperature difference";
+   Units.Temperature Delta_T_L "Lower temperature difference";
 
   Modelica.SIunits.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
 
@@ -60,26 +60,26 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds CF_flow(table=PL_alpha) annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 equation
 
-  Delta_T_wi = heat.T - iCom.T_in;
-  Delta_T_wo = heat.T - iCom.T_out;
-  Delta_T_U = ClaRa.Basics.Functions.maxAbs(Delta_T_wi, Delta_T_wo, 0.1);
-  Delta_T_L = ClaRa.Basics.Functions.minAbs(Delta_T_wi, Delta_T_wo, 0.1);
+   Delta_T_wi = heat.T - iCom.T_in;
+   Delta_T_wo = heat.T - iCom.T_out;
+   Delta_T_U = ClaRa.Basics.Functions.maxAbs(Delta_T_wi, Delta_T_wo, 0.1);
+   Delta_T_L = ClaRa.Basics.Functions.minAbs(Delta_T_wi, Delta_T_wo, 0.1);
 
-  if temperatureDifference == "Logarithmic mean" then
-    //The following equation is only supported due to an backward compatibility issue - avoid its usage
-    Delta_T_mean = noEvent(if floor(abs(Delta_T_wo)*1/eps) <= 1 or floor(abs(Delta_T_wi)*1/eps) <= 1 then 0 elseif (heat.T < iCom.T_out and heat.T > iCom.T_in) or (heat.T > iCom.T_out and heat.T < iCom.T_in) then 0 elseif floor(abs(Delta_T_wo - Delta_T_wi)*1/eps) < 1 then Delta_T_wi else (Delta_T_U - Delta_T_L)/log(Delta_T_U/Delta_T_L));
-  elseif temperatureDifference == "Logarithmic mean - smoothed" then
-    Delta_T_mean = SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, ((Delta_T_U)-(Delta_T_L))-0.01, 0.001);
-  elseif temperatureDifference == "Arithmetic mean" then
-    Delta_T_mean = heat.T - (iCom.T_in + iCom.T_out)/2;
-  elseif temperatureDifference == "Inlet" then
-    Delta_T_mean = heat.T - iCom.T_in;
-  elseif temperatureDifference == "Outlet" then
-    Delta_T_mean = heat.T - iCom.T_out;
-  else
-    Delta_T_mean = -1;
-    assert(true, "Unknown temperature difference option in HT model");
-  end if;
+   if temperatureDifference == "Logarithmic mean" then
+     //The following equation is only supported due to an backward compatibility issue - avoid its usage
+     Delta_T_mean = noEvent(if floor(abs(Delta_T_wo)*1/eps) <= 1 or floor(abs(Delta_T_wi)*1/eps) <= 1 then 0 elseif (heat.T < iCom.T_out and heat.T > iCom.T_in) or (heat.T > iCom.T_out and heat.T < iCom.T_in) then 0 elseif floor(abs(Delta_T_wo - Delta_T_wi)*1/eps) < 1 then Delta_T_wi else (Delta_T_U - Delta_T_L)/log(Delta_T_U/Delta_T_L));
+   elseif temperatureDifference == "Logarithmic mean - smoothed" then
+     Delta_T_mean = SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, (abs(Delta_T_U)-abs(Delta_T_L))-0.01, 0.001);
+   elseif temperatureDifference == "Arithmetic mean" then
+     Delta_T_mean = heat.T - (iCom.T_in + iCom.T_out)/2;
+   elseif temperatureDifference == "Inlet" then
+     Delta_T_mean = heat.T - iCom.T_in;
+   elseif temperatureDifference == "Outlet" then
+     Delta_T_mean = heat.T - iCom.T_out;
+   else
+     Delta_T_mean = -1;
+     assert(true, "Unknown temperature difference option in HT model");
+   end if;
 
   //heat.Q_flow = alpha*iCom.A_heat* (2*ClaRa.Basics.Functions.Stepsmoother(1e-3, -1e-3, heat.T-T_mean)-1)*DT_mean;
 

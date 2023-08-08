@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Valve_cutPressure1 "Valve || green | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -19,31 +19,36 @@ model Valve_cutPressure1 "Valve || green | blue"
   //---------Summary Definition---------
   model Summary
     extends ClaRa.Basics.Icons.RecordIcon;
-    ClaRa.Basics.Records.StaCyFlangeVLE inlet;
-    ClaRa.Basics.Records.StaCyFlangeVLE outlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a inlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
   Summary summary(
   inlet(
      m_flow=m_flow,
      h=h_in,
-     p=p_in),
+     p=p_in,
+     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
-     p=p_out));
+     p=p_out,
+     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
-
+  outer ClaRa.SimCenter simCenter;
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_nom=p_out-p_in "Nominal pressure drop";
   final parameter ClaRa.Basics.Units.Pressure Delta_p=p_in-p_out "Pressure difference";
+protected
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_nom=p_in-p_out "Nominal pressure drop";
 
-  Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
-  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
+public
+  Fundamentals.SteamSignal_green_a inlet(Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
+  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out, Medium=vleMedium) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
 initial equation
   outlet.p=p_out;
   inlet.p=p_in;

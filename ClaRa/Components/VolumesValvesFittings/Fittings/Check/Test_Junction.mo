@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_Junction
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -101,11 +101,10 @@ model Test_Junction
         rotation=0,
         origin={-33,-56})));
   ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1
-    flueGasValve_L1_2(
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta (
-         A_cross=
-           0.05, zeta=0.0002))
+    flueGasValve_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        paraOption=3,
+        A_cross=0.05,
+        zeta=0.0002))
     annotation (Placement(transformation(extent={{-12,-90},{8,-80}})));
   ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2 flueGasCell1(
     redeclare model Geometry =
@@ -115,11 +114,10 @@ model Test_Junction
         ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2)                 annotation (Placement(transformation(extent={{-42,-96},{-22,-76}})));
 
   ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1
-    flueGasValve_L1_1(
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta (
-         A_cross=
-           0.01, zeta=0.0005))
+    flueGasValve_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        paraOption=3,
+        A_cross=0.01,
+        zeta=0.0005))
     annotation (Placement(transformation(extent={{-12,-60},{8,-50}})));
 equation
   connect(source2.gas_a, flueGasJunction.portB) annotation (Line(

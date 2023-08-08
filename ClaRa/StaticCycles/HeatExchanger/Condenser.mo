@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Condenser "Condenser || par.: pressure, level_abs || blue |green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -53,7 +53,7 @@ model Condenser "Condenser || par.: pressure, level_abs || blue |green"
 protected
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";
 public
-  Fundamentals.SteamSignal_blue_a inlet(p=p_condenser) annotation (Placement(transformation(
+  Fundamentals.SteamSignal_blue_a inlet(p=p_condenser, Medium=medium) annotation (Placement(transformation(
         extent={{-10,100},{10,110}},
         rotation=0,
         origin={0,0}), iconTransformation(
@@ -63,7 +63,7 @@ public
   Fundamentals.SteamSignal_green_b outlet(
     h=h_out,
     p=p_out,
-    m_flow=m_flow_in) annotation (Placement(transformation(
+    m_flow=m_flow_in, Medium=medium) annotation (Placement(transformation(
         extent={{-10,-100},{10,-110}},
         rotation=0,
         origin={0,-0}), iconTransformation(

@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Fittings;
 model Split2 "Split || blue | green | yellow"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -39,6 +39,8 @@ model Split2 "Split || blue | green | yellow"
      h=h1,
      p=p));
   //---------Summary Definition---------
+  outer ClaRa.SimCenter simCenter;
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal split pressure" annotation(Dialog(group="Fundamental Definitions"));
   parameter Real CharLine_p_P_target_[:,:]=[0,1;1,1] "Characteristic line of pressure drop as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 
@@ -53,12 +55,12 @@ protected
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_p_P_target_, u = {P_target_});
 
 public
-  Fundamentals.SteamSignal_blue_a inlet(p=p) annotation (Placement(transformation(extent={{-50,10},{-60,30}}), iconTransformation(extent={{-50,10},{-60,30}})));
+  Fundamentals.SteamSignal_blue_a inlet(p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{-50,10},{-60,30}}), iconTransformation(extent={{-50,10},{-60,30}})));
   Fundamentals.SteamSignal_green_b outlet_1(
     m_flow=m_flow_2,
     h=h1,
-    p=p) annotation (Placement(transformation(extent={{60,10},{50,30}}), iconTransformation(extent={{60,10},{50,30}})));
-  Fundamentals.SteamSignal_yellow_b outlet_2(h=h1, p=p) annotation (Placement(transformation(
+    p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{60,10},{50,30}}), iconTransformation(extent={{60,10},{50,30}})));
+  Fundamentals.SteamSignal_yellow_b outlet_2(h=h1, p=p, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-30},{10,-40}},
         rotation=0,
         origin={0,0}), iconTransformation(

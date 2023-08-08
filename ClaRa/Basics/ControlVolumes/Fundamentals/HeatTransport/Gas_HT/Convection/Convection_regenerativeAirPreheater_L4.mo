@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_regenerativeAirPreheater_L4 "Gas || Convection Air Preheater Channels"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -66,8 +66,9 @@ equation
   for i in 1:iCom.N_cv loop
     alpha[i] = CF_fouling*smooth[i]*(0.0061*fluid[i].transp.lambda/geo.diameter_hyd[i]*Re[i]*fluid[i].transp.Pr^0.4) + (1 - smooth[i])*(0.029*fluid[i].transp.lambda/geo.diameter_hyd[i]*Re[i]^0.8*fluid[i].transp.Pr^0.4);
   end for;
-  //heat.Q_flow = alpha.*geo.A_heat_CF[heatSurfaceAlloc]./iCom.N_cv .*(heat.T - T_mean);
-  heat.Q_flow = alpha .* geo.A_heat_CF[iCom.N_cv, heatSurfaceAlloc] .* (heat.T - T_mean);
+  //heat.Q_flow = alpha .* geo.A_heat_CF[iCom.N_cv, heatSurfaceAlloc] .* (heat.T - T_mean);
+  heat.Q_flow = alpha .* A_heat .* (heat.T - T_mean);
+
   annotation (Documentation(info="<html>
 <p><b>Model description: </b>A correlation for convective heat transfer inside regenerative air preheaters</p>
 <p><b>Contact:</b> Lasse Nielsen, TLK-Thermo GmbH</p>

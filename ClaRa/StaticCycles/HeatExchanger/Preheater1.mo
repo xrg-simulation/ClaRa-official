@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Preheater1 "Preheater || bubble state at shell outlet || par.: shell pressure, shell m_flow || cond: blue | blue || tap: red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -82,9 +82,9 @@ protected
   Modelica.Blocks.Tables.CombiTable1D table2(table=CharLine_m_flow_tap_P_target_, u = {P_target_});
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";
 public
-  Fundamentals.SteamSignal_blue_a cond_in(p=p_cond) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
-  Fundamentals.SteamSignal_blue_b cond_out(h=h_cond_out, m_flow=m_flow_cond) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
-  Fundamentals.SteamSignal_red_a tap_in(p=p_tap, m_flow=m_flow_tap) annotation (Placement(transformation(
+  Fundamentals.SteamSignal_blue_a cond_in(p=p_cond, Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
+  Fundamentals.SteamSignal_blue_b cond_out(h=h_cond_out, m_flow=m_flow_cond, Medium=medium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
+  Fundamentals.SteamSignal_red_a tap_in(p=p_tap, m_flow=m_flow_tap, Medium=medium) annotation (Placement(transformation(
         extent={{-10,100},{10,110}},
         rotation=0,
         origin={0,0}), iconTransformation(
@@ -94,7 +94,7 @@ public
   Fundamentals.SteamSignal_green_b tap_out(
     h=h_tap_out,
     p=p_tap_out,
-    m_flow=m_flow_tap) annotation (Placement(transformation(
+    m_flow=m_flow_tap, Medium=medium) annotation (Placement(transformation(
         extent={{-10,-100},{10,-110}},
         rotation=0,
         origin={0,0}), iconTransformation(

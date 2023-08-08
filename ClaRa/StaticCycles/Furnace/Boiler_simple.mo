@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Furnace;
 model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -74,7 +74,7 @@ public
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b hotReheat(
     h = h_RS_out,
     p = p_RS_out,
-    m_flow = m_flow_cRH) annotation (Placement(transformation(
+    m_flow = m_flow_cRH, Medium=medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={50,100}), iconTransformation(
@@ -82,14 +82,14 @@ public
         rotation=270,
         origin={60,104})));
 
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a coldReheat(p=p_RS_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a coldReheat(p=p_RS_in, Medium=medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,-100}), iconTransformation(
         extent={{-4,-10},{4,10}},
         rotation=270,
         origin={40,-104})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a feedWater(p=p_LS_in) annotation (Placement(transformation(
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_a feedWater(p=p_LS_in, Medium=medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-100}), iconTransformation(
@@ -99,7 +99,7 @@ public
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b liveSteam(
     h = h_LS_out,
     p = p_LS_out,
-    m_flow = m_flow_LS_nom*P_target_) annotation (Placement(transformation(
+    m_flow = m_flow_LS_nom*P_target_, Medium=medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,100}), iconTransformation(

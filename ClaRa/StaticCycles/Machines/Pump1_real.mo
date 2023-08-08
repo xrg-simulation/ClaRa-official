@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Machines;
 model Pump1_real "Real Pump || par.: efficiency || green | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -70,8 +70,8 @@ model Pump1_real "Real Pump || par.: efficiency || green | blue"
   final parameter ClaRa.Basics.Units.Power P_pump=m_flow*(h_out - h_in) "Pump power";
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Presssure differerence p_in - p_out";
 
-  Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
-  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
+  Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
+  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out,Medium=medium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));
 initial equation
   inlet.p=p_in;
   inlet.m_flow=m_flow;

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearSerialZones_L3 "All geo | L3 || linear | serial zones | nominal point"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -15,7 +15,7 @@ model LinearSerialZones_L3 "All geo | L3 || linear | serial zones | nominal poin
   // XRG Simulation GmbH (Hamburg, Germany).                                   //
   //___________________________________________________________________________//
 
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3(final hasPressureLoss=true);
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L3;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L3;
   //

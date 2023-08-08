@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 partial model HeatTransfer_L2 " L2 || HT-BaseClass"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -21,6 +21,13 @@ partial model HeatTransfer_L2 " L2 || HT-BaseClass"
   //  SI.Temperature T_mean "Mean temperature of Fluid";
   outer parameter Boolean useHomotopy;
 
+
   ClaRa.Basics.Interfaces.HeatPort_a heat annotation (Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+
+
+
+equation
+
+
 
 end HeatTransfer_L2;

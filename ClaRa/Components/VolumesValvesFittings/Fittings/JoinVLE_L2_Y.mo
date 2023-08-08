@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_Y "A join for two inputs"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -198,7 +198,23 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                   graphics),
+                   graphics={Rectangle(
+          extent={{-92,32},{-74,-32}},
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=pressureLossIn1.hasPressureLoss), Rectangle(
+          extent={{74,32},{92,-32}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossOut.hasPressureLoss),
+        Rectangle(
+          extent={{-32,92},{32,74}},
+          pattern=LinePattern.None,
+          fillColor={0,131,169},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossIn2.hasPressureLoss)}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
               graphics));

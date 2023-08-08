@@ -13,6 +13,7 @@ model TestFuelSensors
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0,1e5; 3,1e5; 4,-1e5; 5,1e5; 6,1e5]) annotation (Placement(transformation(extent={{102,22},{82,42}})));
   SensorFuel_L1_T sensorFuel_L1_T   annotation (Placement(transformation(extent={{-16,10},{4,30}})));
   SensorFuel_L1_m_flow sensorFuel_L1_m_flow annotation (Placement(transformation(extent={{14,10},{34,30}})));
+  SensorFuel_L1_LHV sensorFuel_L1_LHV(unitOption=3) annotation (Placement(transformation(extent={{-42,10},{-22,30}})));
 equation
   connect(timeTable.y, boundaryVLE_hxim_flow.m_flow) annotation (Line(points={{-79,30},{-72,30},{-72,16},{-60,16}}, color={0,0,127}));
   connect(timeTable1.y, boundaryVLE_phxi.p) annotation (Line(points={{81,32},{80,32},{80,16},{76,16}}, color={0,0,127}));
@@ -29,6 +30,10 @@ equation
       points={{-40,10},{-6,10}},
       color={27,36,42},
       pattern=LinePattern.Solid,
+      thickness=0.5));
+  connect(sensorFuel_L1_LHV.port, boundaryVLE_hxim_flow.fuel_a) annotation (Line(
+      points={{-32,10},{-40,10}},
+      color={27,36,42},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=6, __Dymola_Algorithm="Sdirk34hw"),

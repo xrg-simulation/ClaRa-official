@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2 "A 0-d control volume for flue gas"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -48,8 +48,10 @@ parameter Integer heatSurfaceAlloc=1 "Heat transfer area to be considered"      
 inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet"
                                         annotation(Dialog(tab="General", group="Nominal Values"));
 
-  inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  inner parameter Modelica.SIunits.SpecificEnthalpy h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
+inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
+inner parameter Modelica.SIunits.SpecificEnthalpy h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
+parameter Basics.Units.MassFraction xi_nom[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Nominal gas composition"
+                                                                                                                     annotation(Dialog(group="Nominal Values"));
 
 inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog(tab="Initialisation"), choices(
       choice=0 "Use guess values",
@@ -67,7 +69,7 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
 //    "Start value of system specific enthalpy";
   parameter Modelica.SIunits.Pressure p_start= 1.013e5 "Start value of sytsem pressure"
                                      annotation(Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.MassFraction xi_start[medium.nc-1]=zeros(medium.nc-1) "Start value of sytsem mass fraction"
+  parameter Modelica.SIunits.MassFraction xi_start[medium.nc-1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start value of sytsem mass fraction"
                                           annotation(Dialog(tab="Initialisation"));
 
 protected
@@ -135,7 +137,7 @@ inner Summary    summary(outline(volume_tot=geo.volume, A_heat=geo.A_heat[heatSu
 
 //iCom
 protected
-  inner ClaRa.Basics.Records.IComBase_L2 iCom(
+  inner ClaRa.Basics.Records.IComGas_L2 iCom(
     p_in=inlet.p,
     T_in=flueGasInlet.T,
     m_flow_in=inlet.m_flow,
@@ -146,7 +148,15 @@ protected
     p_bulk=bulk.p,
     p_nom=p_nom,
     m_flow_nom=m_flow_nom,
-    h_nom=h_nom) annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
+    h_nom=h_nom,
+    xi_nom=xi_nom,
+    fluidPointer_in=flueGasInlet.gasPointer,
+    fluidPointer_out=flueGasOutlet.gasPointer,
+    fluidPointer_bulk=bulk.gasPointer,
+    xi_in=flueGasInlet.xi,
+    xi_out=flueGasOutlet.xi,
+    V_flow_in=abs(inlet.m_flow/flueGasInlet.d),
+    V_flow_out=abs(outlet.m_flow/flueGasOutlet.d)) annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
 
 equation
 // Asserts ~~~~~~~~~~~~~~~~~~~

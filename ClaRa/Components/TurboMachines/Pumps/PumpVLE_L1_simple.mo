@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate depending on drive power and pressure difference only"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -15,7 +15,7 @@ model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate dependi
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
 
-  extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.Pump_Base;
+  extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.Pump_Base(inlet(m_flow(start=m_flow_start)));
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
   import TILMedia.VLEFluidObjectFunctions.bubblePressure_Txi;
 
@@ -28,7 +28,9 @@ model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate dependi
 
   parameter Real eta_mech = 0.98 "Mechanic efficiency of the drive"
    annotation(Dialog(group="Part Load and Efficiency"));
-parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "|Expert Settings| Numerical Robustnes|Small pressure difference for linearisation around zero";
+
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_start=1 "Initial guess value for mass flow" annotation(Dialog(group="Initialisation"));
+   parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero" annotation(Dialog(tab="Expert Settings", group="Numerical Robustnes"));
 
   Modelica.Blocks.Interfaces.RealInput P_drive "Power input of the pump's motor"
                                       annotation (Placement(transformation(

@@ -102,7 +102,7 @@ public
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out "Gas outlet specific enthalpy";
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
 
-  ClaRa.Basics.Units.MassFraction xi_flueGas_del[flueGas.nc - 1] "Flue gas outlet composition - dalayed";
+  //ClaRa.Basics.Units.MassFraction xi_flueGas_del[flueGas.nc - 1] "Flue gas outlet composition - dalayed";
 
     //________________________/ Connectors \_______________________________________________________
   ClaRa.Basics.Interfaces.FuelSlagFlueGas_inlet inlet(
@@ -163,7 +163,8 @@ public
   inner HeatTransfer_Top heattransfer_top annotation(Placement(transformation(extent={{94,50},
             {74,70}})));
 
-  inner RadiationTimeConstant radiationTimeConstant(T_out_initial=T_start_flueGas_out)  annotation (Placement(transformation(extent={{32,50},
+  inner RadiationTimeConstant radiationTimeConstant(T_out_initial=T_top_initial, Tau=Tau_rad)
+                                                                                        annotation (Placement(transformation(extent={{32,50},
             {52,70}})));
 
   Basics.Interfaces.EyeOutGas
@@ -180,12 +181,12 @@ public
 initial equation
 
   h_flueGas_out_del = h_start;
-  xi_flueGas_del = xi_start_flueGas_out;
+  //xi_flueGas_del = xi_start_flueGas_out;
 
 equation
 
   der(h_flueGas_out_del) = 1/Tau*(h_flueGas_out-h_flueGas_out_del);
-  der(xi_flueGas_del) = 1/Tau*(xi_flueGas - xi_flueGas_del);
+  //der(xi_flueGas_del) = 1/Tau*(xi_flueGas - xi_flueGas_del);
 
    //____________/ Xi_outflow of Fuel and FlueGas \__________________
   outlet.fuel.xi_outflow = inStream(inlet.fuel.xi_outflow);

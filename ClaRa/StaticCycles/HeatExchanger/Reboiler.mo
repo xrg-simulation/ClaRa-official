@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Reboiler "Reboiler || par.: p_reb, m_flow_reb || red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -48,7 +48,7 @@ final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out = TILMedia.VLEFlui
   Fundamentals.SteamSignal_green_b outlet(
     p=p_reb,
     m_flow=m_flow_reb,
-    h=h_out) annotation (Placement(transformation(extent={{94,-10},{114,10}}), iconTransformation(extent={{100,-10},{108,10}})));
+    h=h_out, Medium=medium) annotation (Placement(transformation(extent={{94,-10},{114,10}}), iconTransformation(extent={{100,-10},{108,10}})));
 initial equation
   inlet.h=h_in;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

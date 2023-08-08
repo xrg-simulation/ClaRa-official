@@ -1,7 +1,7 @@
 within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomWithTubeBundle_L2_Static "Model for a combustion chamber section with inner tube bundle heating surfaces"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -56,6 +56,8 @@ extends ClaRa.Basics.Icons.FlameRoomTubeBundle;
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
     input ClaRa.Basics.Units.HeatCapacityMassSpecific cp "Specific heat capacity"
                                annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value" annotation (Dialog);
+
   end Fuel;
 
   model Slag
@@ -83,7 +85,7 @@ extends ClaRa.Basics.Icons.FlameRoomTubeBundle;
 //## P A R A M E T E R S #######################################################################################
 inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas_del,
+inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas,
       gasType=flueGas, h=h_flueGas_out_del)
       annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
@@ -107,7 +109,8 @@ protected
     T_out=flueGasOutlet.T,
     m_flow_out=outlet.flueGas.m_flow,
     V_flow_out=V_flow_flueGas_out,
-    xi_out=xi_flueGas) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
+    xi_out=xi_flueGas,
+    xi_nom=flueGas.xi_default) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
 
 //___________________/ Summary \\__________________
   Summary summary(
@@ -144,7 +147,8 @@ protected
         m_flow=inlet.fuel.m_flow,
         T=actualStream(inlet.fuel.T_outflow),
         p=inlet.fuel.p,
-        cp=fuelInlet.cp),
+        cp=fuelInlet.cp,
+        LHV=fuelInlet.LHV),
       slag(
         m_flow=inlet.slag.m_flow,
         T=actualStream(inlet.slag.T_outflow),
@@ -161,7 +165,8 @@ protected
         m_flow=-outlet.fuel.m_flow,
         T=actualStream(outlet.fuel.T_outflow),
         p=outlet.fuel.p,
-        cp=fuelOutlet.cp),
+        cp=fuelOutlet.cp,
+        LHV=fuelOutlet.LHV),
       slag(
         m_flow=outlet.slag.m_flow,
         T=actualStream(outlet.slag.T_outflow),

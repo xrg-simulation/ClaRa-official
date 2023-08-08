@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Valve_cutPressure2 "Valve || yellow | red"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -17,23 +17,26 @@ model Valve_cutPressure2 "Valve || yellow | red"
    // Yellow input: Values of p and h are unknown and provided BY neighbor component, value of m_flow is known and provided FOR neighbor component.
    // Red output:   Values of p and m_flow are unknown and provided BY neighbor component, value of h is known and provided FOR neighbor component.
   //---------Summary Definition---------
+  outer ClaRa.SimCenter simCenter;
   model Summary
     extends ClaRa.Basics.Icons.RecordIcon;
-    ClaRa.Basics.Records.StaCyFlangeVLE inlet;
-    ClaRa.Basics.Records.StaCyFlangeVLE outlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a inlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
   Summary summary(
   inlet(
      m_flow=m_flow,
      h=h_in,
-     p=p_in),
+     p=p_in,
+     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
-     p=p_out));
+     p=p_out,
+     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
-
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Mass flow rate";
 
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
@@ -42,8 +45,8 @@ model Valve_cutPressure2 "Valve || yellow | red"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.Pressure Delta_p=p_in-p_out "Pressure difference";
 
-  Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
-  Fundamentals.SteamSignal_red_b outlet(h=h_out) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
+  Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
+  Fundamentals.SteamSignal_red_b outlet(h=h_out, Medium=vleMedium) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
 initial equation
   outlet.p=p_out;
   inlet.p=p_in;

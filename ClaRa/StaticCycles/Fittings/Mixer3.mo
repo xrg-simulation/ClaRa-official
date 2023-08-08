@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Fittings;
 model Mixer3 "Mixer || blue | red | red"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -39,6 +39,8 @@ model Mixer3 "Mixer || blue | red | red"
      h=h3,
      p=p));
   //---------Summary Definition---------
+  outer ClaRa.SimCenter simCenter;
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Specific enthalpy of flow 1";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h2(fixed=false) "Specific enthalpy of flow 2";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_1(fixed=false) "Mass flow rate of flow 1";
@@ -47,15 +49,15 @@ model Mixer3 "Mixer || blue | red | red"
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_3(fixed=false) "Mixer outlet mass flow rate";
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Mixer pressure";
 
-  Fundamentals.SteamSignal_blue_a inlet_1(p=p) annotation (Placement(transformation(extent={{-60,10},{-50,30}}), iconTransformation(extent={{-60,10},{-50,30}})));
-  Fundamentals.SteamSignal_red_a inlet_2(p=p, m_flow=m_flow_2) annotation (Placement(transformation(
+  Fundamentals.SteamSignal_blue_a inlet_1(p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,10},{-50,30}}), iconTransformation(extent={{-60,10},{-50,30}})));
+  Fundamentals.SteamSignal_red_a inlet_2(p=p, m_flow=m_flow_2, Medium=vleMedium) annotation (Placement(transformation(
         extent={{-10,-30},{10,-20}},
         rotation=0,
         origin={0,-10}), iconTransformation(
         extent={{-10,-30},{10,-20}},
         rotation=0,
         origin={0,-10})));
-  Fundamentals.SteamSignal_red_b outlet(h=h3) annotation (Placement(transformation(extent={{50,10},{60,30}}), iconTransformation(extent={{50,10},{60,30}})));
+  Fundamentals.SteamSignal_red_b outlet(h=h3, Medium=vleMedium) annotation (Placement(transformation(extent={{50,10},{60,30}}), iconTransformation(extent={{50,10},{60,30}})));
 initial equation
   inlet_1.h=h1;
   inlet_1.m_flow=m_flow_1;

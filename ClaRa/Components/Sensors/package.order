@@ -14,3 +14,4 @@ FuelSensorBase
 SensorFuel_L1_m_flow
 SensorFuel_L1_T
 SensorFuel_L1_xi
+SensorFuel_L1_LHV

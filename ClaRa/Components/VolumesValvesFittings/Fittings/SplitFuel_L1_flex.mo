@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitFuel_L1_flex "A voluminous split for an arbitrary number of inputs NOT CAPABLE FOR PHASE-CHANGE"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -22,7 +22,21 @@ model SplitFuel_L1_flex "A voluminous split for an arbitrary number of inputs NO
 
   outer ClaRa.SimCenter simCenter;
 
+  model Coal
+    extends ClaRa.Basics.Icons.RecordIcon;
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
+      annotation (Dialog);
+    input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
+    input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific LHV annotation (Dialog);
+  end Coal;
 
+   inner model Summary
+   parameter Integer N_ports_out;
+   extends ClaRa.Basics.Icons.RecordIcon;
+   Coal inlet;
+   Coal outlet[N_ports_out];
+   end Summary;
 
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel = simCenter.fuelModel1   "Fuel type" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
@@ -34,6 +48,17 @@ model SplitFuel_L1_flex "A voluminous split for an arbitrary number of inputs NO
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Basics.Interfaces.Fuel_outlet        outlet[N_ports_out](each fuelModel=fuelModel)                    "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Basics.Media.FuelObject coal(
+    fuelModel=fuelModel,
+    p=inlet.p,
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi_c=noEvent(actualStream(inlet.xi_outflow))) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+public
+  inner Summary    summary(N_ports_out=N_ports_out,inlet(m_flow=inlet.m_flow,  T=actualStream(inlet.T_outflow), p=inlet.p, LHV=coal.LHV),
+                           outlet(m_flow=outlet.m_flow,  T=actualStream(outlet.T_outflow), p=outlet.p, each LHV=coal.LHV))
+    annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
+
 equation
 //~~~~~~~~~~~~~~~~~~~~~~~~~
 // Boundary conditions ~~~~

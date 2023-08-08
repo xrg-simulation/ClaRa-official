@@ -1,7 +1,7 @@
 within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.0                            //
+  // Component of the ClaRa library, version: 1.3.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -167,7 +167,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     rpm_nom=3000,
     redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
     V_flow_max=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
-    Delta_p_max=-NOM.Pump_cond.Delta_p*2)                                                              annotation (Placement(transformation(extent={{520,-118},{500,-138}})));
+    Delta_p_max=-NOM.Pump_cond.Delta_p*2,
+    useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{520,-118},{500,-138}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{50,-160},{110,-140}})));
 
@@ -213,10 +214,11 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
 
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_preheater_LP1(eta_mech=0.9, inlet(m_flow(start=NOM.pump_preheater_LP1.summary.inlet.m_flow)))
                                                                                         annotation (Placement(transformation(extent={{170,-160},{150,-180}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_IP3(                                                                                                                                                                                    checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
-        m_flow_nom=NOM.valve_IP2.m_flow,
-        rho_in_nom=2.4,
-        Delta_p_nom=NOM.valve_IP2.Delta_p))
+  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_IP3(                                                                                                                                                                                    checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        paraOption=2,
+        m_flow_nominal=NOM.valve_IP2.m_flow,
+        Delta_p_nom=NOM.valve_IP2.Delta_p,
+        rho_in_nom=2.4))
     annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
@@ -275,19 +277,20 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
   ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_HP(
     openingInputIsActive=false,
     showExpertSummary=true,
-    redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
+    checkValve=true,
+    redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        paraOption=2,
+        m_flow_nominal=NOM.valve_HP.m_flow,
         Delta_p_nom=NOM.valve_HP.Delta_p_nom,
-        m_flow_nom=NOM.valve_HP.m_flow,
-        rho_in_nom=25),
-    checkValve=true)                     annotation (Placement(transformation(
+        rho_in_nom=25))                  annotation (Placement(transformation(
         extent={{10,6},{-10,-6}},
         rotation=90,
         origin={-88,-30})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
-        m_flow_nom=NOM.valve2_HP.m_flow,
-        rho_in_nom=800,
-        Delta_p_nom=NOM.valve2_HP.Delta_p*0.01))
-                         annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+        paraOption=2,
+        m_flow_nominal=NOM.valve2_HP.m_flow,
+        Delta_p_nom=NOM.valve2_HP.Delta_p*0.01,
+        rho_in_nom=800)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=0,
         origin={-46,-220})));

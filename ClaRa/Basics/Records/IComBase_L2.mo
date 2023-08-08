@@ -22,6 +22,7 @@ record IComBase_L2 "Basic internal communication record"
   parameter SI.MassFlowRate  m_flow_nom=10 "Nominal mass flow" annotation(Dialog(tab="Nominal"));
   parameter SI.EnthalpyMassSpecific  h_nom=1e4 "Nominal enthalpy" annotation(Dialog(tab="Nominal"));
   parameter SI.MassFraction  xi_nom[:]= {1} "Nominal mass fraction" annotation(Dialog(tab="Nominal"));
+  parameter ClaRa.Basics.Units.Pressure Delta_p_nom=100 "Nominal pressure loss" annotation(Dialog(tab="Nominal"), HideResult=true);
 annotation (   defaultComponentName="iCom",
     defaultComponentPrefixes="inner",
     Icon(graphics));

@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveGas_L1 "Valve for gas flows with replaceable flow models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -26,6 +26,7 @@ model ValveGas_L1 "Valve for gas flows with replaceable flow models"
     input SI.PressureDifference Delta_p "Pressure difference p_out - p_in";
     input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
     input Real PR_crit if   showExpertSummary "Critical pressure ratio";
+    input Real flowIsChoked "1 if flow is choked, 0 if not";
     input Real opening_ "Valve opening in p.u.";
   end Outline;
 
@@ -110,8 +111,9 @@ public
     outline(showExpertSummary=showExpertSummary,
             V_flow =  inlet.m_flow/iCom.rho_in,
             Delta_p = pressureLoss.Delta_p,
-            PR = outlet.p/inlet.p,
-            PR_crit = (2/(pressureLoss.gamma+1))^(pressureLoss.gamma/(max(1e-3,pressureLoss.gamma)-1)),
+            PR = noEvent(min(outlet.p,inlet.p)/max(inlet.p,outlet.p)),
+            PR_crit = pressureLoss.PR_choked,
+            flowIsChoked= pressureLoss.flowIsChoked,
             opening_ = iCom.opening_),
     inlet(mediumModel=medium,
       m_flow=inlet.m_flow,
@@ -139,7 +141,9 @@ protected
          gasIn.d) else ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.m_flow)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.m_flow)*gasOut.d),
     opening_leak_=opening_leak_,
     opening_=noEvent(max(opening_, opening_leak_)),
-    h_in=gasIn.h)
+    h_in=gasIn.h,
+    p_crit=0,
+    p_vap_in=0)
     annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
 
 public

@@ -9,6 +9,9 @@ extends ClaRa.Basics.Icons.RecordIcon;
   input ClaRa.Basics.Units.MassFlowRate m_flow_tot_in "Total mass flow entering the mill"  annotation(Dialog);
   input ClaRa.Basics.Units.MassFlowRate m_flow_tot_out "Total mass flow leaving the mill" annotation(Dialog);
 
+  input ClaRa.Basics.Units.EnthalpyMassSpecific LHV_in "Lower heating value at mill inlet" annotation(Dialog);
+  input ClaRa.Basics.Units.EnthalpyMassSpecific LHV_out "Lower heating value at mill outlet" annotation(Dialog);
+
   input ClaRa.Basics.Units.Temperature T_out "Classifier temperature" annotation(Dialog);
   input ClaRa.Basics.Units.Temperature T_coal_in "Coal inlet temperature" annotation(Dialog);
   input ClaRa.Basics.Units.Temperature T_air_in "Primary air inlet temperature" annotation(Dialog);

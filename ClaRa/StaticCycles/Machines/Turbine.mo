@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Machines;
 model Turbine "Turbine || par.: efficiency || green | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -73,8 +73,8 @@ model Turbine "Turbine || par.: efficiency || green | blue"
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Rprt: p_in - p_out";
 
 public
-  Fundamentals.SteamSignal_green_a inlet annotation (Placement(transformation(extent={{-70,30},{-60,50}}), iconTransformation(extent={{-70,30},{-60,50}})));
-  Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow) annotation (
+  Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-70,30},{-60,50}}), iconTransformation(extent={{-70,30},{-60,50}})));
+  Fundamentals.SteamSignal_blue_b outlet(h=h_out, m_flow=m_flow,Medium=medium) annotation (
       Placement(transformation(extent={{60,-90},{70,-70}}), iconTransformation(extent={{60,-90},{70,-70}})));
 
 initial equation

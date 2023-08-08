@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -18,16 +18,17 @@ model ValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
 //  extends ClaRa.Basics.Icons.Valve;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
 
+  import SM=ClaRa.Basics.Functions.Stepsmoother;
   import SI = ClaRa.Basics.Units;
   model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary;
     input SI.VolumeFlowRate V_flow "Volume flow rate";
     input SI.PressureDifference Delta_p "Pressure difference p_out - p_in";
-    input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
+    input Real PR if  showExpertSummary "Pressure ratio, always <1, i.e. dependent on flow direction";
     input Real PR_crit if   showExpertSummary "Critical pressure ratio";
     input Real opening_ "Valve opening in p.u.";
-    input Boolean isSuperCritical;
+    input Real flowIsChoked "1 if flow is choked, 0 if not";
   end Outline;
 
   model Summary
@@ -40,7 +41,7 @@ model ValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   replaceable model PressureLoss =
-      ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticKV
+   ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticKV
     constrainedby ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.GenericPressureLoss "Pressure loss model at the tubes side"
                                             annotation (Dialog(group=
           "Fundamental Definitions"), choicesAllMatching);
@@ -77,41 +78,24 @@ public
         rotation=270), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={0,90}))); //
+        origin={0,90})));
 
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium) "Inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
-protected
-  TILMedia.VLEFluid_ph fluidOut(
-    p=outlet.p,
-    vleFluidType=medium,
-    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_ then outlet.h_outflow else noEvent(actualStream(outlet.h_outflow)),
-    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then outlet.xi_outflow else noEvent(actualStream(outlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-public
   PressureLoss pressureLoss
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-protected
-  TILMedia.VLEFluid_ph fluidIn(
-    vleFluidType=medium,
-    p=inlet.p,
-    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_ then inStream(inlet.h_outflow) else noEvent(actualStream(inlet.h_outflow)),
-    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then inStream(inlet.xi_outflow) else noEvent(actualStream(inlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+
 public
   Summary summary(
     outline(showExpertSummary=showExpertSummary,
             V_flow =  inlet.m_flow/iCom.rho_in,
             Delta_p = pressureLoss.Delta_p,
-            PR = outlet.p/inlet.p,
-            PR_crit = (2/(pressureLoss.gamma+1))^(pressureLoss.gamma/(max(1e-3,pressureLoss.gamma)-1)),
-            isSuperCritical = outlet.p/inlet.p < (2/(pressureLoss.gamma+1))^(pressureLoss.gamma/(max(1e-3,pressureLoss.gamma)-1)),
+            PR = noEvent(min(outlet.p,inlet.p)/max(inlet.p,outlet.p)),
+            PR_crit = pressureLoss.PR_choked,
+            flowIsChoked= pressureLoss.flowIsChoked,
             opening_= iCom.opening_),
     inlet(
       showExpertSummary=showExpertSummary,
@@ -134,6 +118,24 @@ public
       H_flow=-fluidOut.h*outlet.m_flow,
       rho=fluidOut.d))
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
+protected
+  TILMedia.VLEFluid_ph fluidOut(
+    p=outlet.p,
+    vleFluidType=medium,
+    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
+        opening_leak_ then outlet.h_outflow else noEvent(actualStream(outlet.h_outflow)),
+    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then outlet.xi_outflow else noEvent(actualStream(outlet.xi_outflow)))
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+
+protected
+  TILMedia.VLEFluid_ph fluidIn(
+    vleFluidType=medium,
+    p=inlet.p,
+    h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
+        opening_leak_ then inStream(inlet.h_outflow) else noEvent(actualStream(inlet.h_outflow)),
+    xi=if (checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_ then inStream(inlet.xi_outflow) else noEvent(actualStream(inlet.xi_outflow)))
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+
 
 protected
   inner Fundamentals.ICom    iCom(
@@ -156,11 +158,20 @@ protected
         -10,
         10,
         pressureLoss.Delta_p)*fluidOut.d),
-        gamma_in=fluidIn.gamma,
-    gamma_out=fluidOut.gamma,
+        gamma_in(start=2)=(SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cp+
+                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer))/
+                          (SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cv+
+                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer)),
+    gamma_out(start=2)=(SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cp+
+                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer))/
+                          (SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cv+
+                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer)),
     opening_=opening_,
-    h_in=fluidIn.h)    "if (checkValve == true and opening_leak_<=0) or opening_<opening_leak_ then fluidIn.d else (if useHomotopy then homotopy(ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.m_flow)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.m_flow)*fluidOut.d, fluidIn.d) else ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.m_flow)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.m_flow)*fluidOut.d)"
+    h_in=fluidIn.h,
+    p_crit=fluidIn.crit.p,
+    p_vap_in=TILMedia.VLEFluidObjectFunctions.bubblePressure_Txi(max(fluidIn.T,fluidOut.T),fluidIn.xi, fluidIn.vleFluidPointer)) "mind that: gamma is kept constant at dew line value for h<h_dew, also for supercritical region"
     annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
+
 public
   Basics.Interfaces.EyeOut eye if showData
     annotation (Placement(transformation(extent={{90,-68},{110,-48}}),

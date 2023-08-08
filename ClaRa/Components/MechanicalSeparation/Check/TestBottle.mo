@@ -17,13 +17,17 @@ model TestBottle
     h_const=2500e3,
     variable_m_flow=true,
     variable_h=true)                                                                               annotation (Placement(transformation(extent={{-64,2},{-44,22}})));
-  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(p_const=100e5) annotation (Placement(transformation(extent={{84,-52},{64,-32}})));
-  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(p_const=100e5) annotation (Placement(transformation(extent={{78,40},{58,60}})));
+  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(p_const=100e5) annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
+  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(p_const=100e5) annotation (Placement(transformation(extent={{80,40},{60,60}})));
   inner SimCenter simCenter(showExpertSummary=true)
                             annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (rho_in_nom=100, m_flow_nom=50)) annotation (Placement(transformation(extent={{28,44},{48,56}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (rho_in_nom=1000, m_flow_nom=8.45))
-                                                                                                                                                                                          annotation (Placement(transformation(extent={{32,-48},{52,-36}})));
+  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        paraOption=2,
+        m_flow_nominal=50,
+        Kvs=1,
+        rho_in_nom=100))                                                                                                                                                                 annotation (Placement(transformation(extent={{30,44},{50,56}})));
+  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (paraOption=2, m_flow_nominal=8.45))
+                                                                                                                                                                                          annotation (Placement(transformation(extent={{30,-46},{50,-34}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0.0,100; 999,100; 1000,120; 2500,120; 2501,50; 3000,50]) annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,2500e3; 1999,2500e3; 2000,2300e3; 3000,2300e3]) annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
@@ -42,22 +46,22 @@ equation
       color={0,131,169},
       thickness=0.5));
   connect(bottle_L3_1.outlet_1, valveVLE_L1_1.inlet) annotation (Line(
-      points={{10,40},{10,50},{28,50}},
+      points={{10,40},{10,50},{30,50}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(valveVLE_L1_1.outlet, boundaryVLE_phxi1.steam_a) annotation (Line(
-      points={{48,50},{58,50}},
+      points={{50,50},{60,50}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(bottle_L3_1.outlet_4, valveVLE_L1_2.inlet) annotation (Line(
-      points={{10,-20},{10,-40},{24,-40},{24,-42},{32,-42}},
+      points={{10,-20},{10,-40},{30,-40}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(valveVLE_L1_2.outlet, boundaryVLE_phxi.steam_a) annotation (Line(
-      points={{52,-42},{64,-42}},
+      points={{50,-40},{60,-40}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -75,5 +79,8 @@ Wet steam is separated into (nearly) dry steam and boiling liquid. The steam ise
 RESULTS:
 Note that the filling level is not controlled, it is sliding freely according to the valve sizing, the entering mass flows and the inlet condition (steam fraction of wet steam)",
           horizontalAlignment=TextAlignment.Left)}),
-    experiment(StopTime=3000));
+    experiment(
+      StopTime=3000,
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Sdirk34hw"));
 end TestBottle;

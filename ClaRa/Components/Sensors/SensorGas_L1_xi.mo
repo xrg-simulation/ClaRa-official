@@ -1,7 +1,7 @@
 within ClaRa.Components.Sensors;
 model SensorGas_L1_xi "Ideal one port gas component sensor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -29,7 +29,7 @@ extends ClaRa.Components.Sensors.gasSensorBase;
 
 Real inFraction "fraction of component";
  Integer N;
-  TILMedia.Gas_pT gas(p = inlet.p, T = actualStream(inlet.T_outflow), xi = actualStream(inlet.xi_outflow), gasType= simCenter.flueGasModel)
+  TILMedia.Gas_pT gas(p = inlet.p, T = actualStream(inlet.T_outflow), xi = actualStream(inlet.xi_outflow), gasType= medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   N = 10;

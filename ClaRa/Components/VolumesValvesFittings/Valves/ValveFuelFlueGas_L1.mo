@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -26,6 +26,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
     input SI.PressureDifference Delta_p "Pressure difference p_out - p_in";
     input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
     input Real PR_crit if   showExpertSummary "Critical pressure ratio";
+    input Real flowIsChoked "1 if flow is choked, 0 if not";
     input Real opening_ "Valve opening in p.u.";
   end Outline;
 
@@ -35,7 +36,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
       annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
-                               annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific LHV annotation (Dialog);
   end Coal;
 
   model Inlet
@@ -105,6 +106,8 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
   ClaRa.Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=medium), fuelModel=fuelModel) "Outlet port" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
+  ClaRa.Basics.Units.MassFraction xi_in[fuelModel.N_c-1]= noEvent(actualStream(inlet.fuel.xi_outflow)) "Actual composition at inlet";
+  ClaRa.Basics.Units.MassFraction xi_out[fuelModel.N_c-1]= noEvent(actualStream(outlet.fuel.xi_outflow)) "Actual composition at outlet";
   TILMedia.Gas_pT gasOut(gasType=medium,
     p=outlet.flueGas.p,
     T=if checkValve == true then outlet.flueGas.T_outflow else actualStream(outlet.flueGas.T_outflow),
@@ -125,12 +128,14 @@ public
     outline(showExpertSummary=showExpertSummary,
             V_flow =  inlet.flueGas.m_flow/iCom.rho_in,
             Delta_p = pressureLoss.Delta_p,
-            PR = outlet.flueGas.p/inlet.flueGas.p,
-            PR_crit = (2/(pressureLoss.gamma+1))^(pressureLoss.gamma/(max(1e-3,pressureLoss.gamma)-1)),
+            PR = noEvent(min(outlet.flueGas.p,inlet.flueGas.p)/max(inlet.flueGas.p,outlet.flueGas.p)),
+            PR_crit = pressureLoss.PR_choked,
+            flowIsChoked= pressureLoss.flowIsChoked,
             opening_ = iCom.opening_),
     inlet(coal(m_flow=inlet.fuel.m_flow,
                T=actualStream(inlet.fuel.T_outflow),
-               p=inlet.fuel.p),
+               p=inlet.fuel.p,
+               LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(inlet.fuel.p,actualStream(inlet.fuel.T_outflow), xi_in,fuelModel)),
           gas(mediumModel=medium, m_flow=inlet.flueGas.m_flow,
               T=gasIn.T,
               p=inlet.flueGas.p,
@@ -139,7 +144,8 @@ public
               H_flow=gasIn.h*inlet.flueGas.m_flow)),
     outlet(coal(m_flow=-outlet.fuel.m_flow,
                 T=actualStream(outlet.fuel.T_outflow),
-                p=outlet.fuel.p),
+                p=outlet.fuel.p,
+                LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(outlet.fuel.p,actualStream(outlet.fuel.T_outflow), xi_out, fuelModel)),
            gas(mediumModel=medium, m_flow=-outlet.flueGas.m_flow,
                T=gasOut.T,
                p=outlet.flueGas.p,
@@ -158,7 +164,9 @@ protected
          gasIn.d) else ClaRa.Basics.Functions.Stepsmoother(1e-5, -1e-5, inlet.flueGas.m_flow)*gasIn.d + ClaRa.Basics.Functions.Stepsmoother(-1e-5, 1e-5, inlet.flueGas.m_flow)*gasOut.d),
     opening_=noEvent(max(opening_, opening_leak_)),
     opening_leak_=opening_leak_,
-    h_in=gasIn.h)
+    h_in=gasIn.h,
+    p_crit=0,
+    p_vap_in=0)
     annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
 
 public

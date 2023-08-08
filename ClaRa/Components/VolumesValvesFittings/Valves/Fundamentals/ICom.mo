@@ -12,5 +12,7 @@ record ICom
   Real gamma_out "Heat capacity ratio at outlet"    annotation(Dialog);
   Real opening_leak_ annotation(Dialog);
   SI.EnthalpyMassSpecific h_in "Inlet enthalpy" annotation(Dialog);
+  SI.Pressure p_crit "Critical pressure" annotation(Dialog);
+  SI.Pressure p_vap_in "Vapour pressure at inlet temperature" annotation(Dialog);
 
 end ICom;

@@ -33,7 +33,7 @@ end DecimalSpaces;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-70})));
-   Modelica.Blocks.Interfaces.RealInput x2[N_nodes1] if activateSecondSet "Second abscissa set"  annotation (Placement(transformation(extent={{74,-84},{114,-44}}), iconTransformation(
+   Modelica.Blocks.Interfaces.RealInput x2[N_nodes2] if activateSecondSet "Second abscissa set"  annotation (Placement(transformation(extent={{74,-84},{114,-44}}), iconTransformation(
          extent={{-10,-10},{10,10}},
          rotation=90,
          origin={120,-70})));

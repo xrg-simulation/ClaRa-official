@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L4_Advanced "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with detailed dynamic momentum and energy balance."
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -25,7 +25,7 @@ model PipeFlowVLE_L4_Advanced "A 1D tube-shaped control volume considering one-p
         length=length,
         Delta_x=Delta_x,
         N_passes=N_passes));
-  extends ClaRa.Basics.Icons.Pipe_L4;
+  extends ClaRa.Basics.Icons.Pipe_L4_a;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=noEvent(if sum(heat.Q_flow) > 0 then sum(heat.Q_flow) else 0),
     powerOut=if not heatFlowIsLoss then -sum(heat.Q_flow) else 0,

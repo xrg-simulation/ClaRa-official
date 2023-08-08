@@ -48,8 +48,11 @@ model Test_HEXvle2vle_L3_2ph_BU_simple
     height=-30)   annotation (Placement(transformation(extent={{126,-6},{106,14}})));
   ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_shell1(
     checkValve=true,
-    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (m_flow_nom=10, Delta_p_nom=250),
-    openingInputIsActive=false) annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
+    openingInputIsActive=false,
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+        paraOption=2,
+        m_flow_nominal=10,
+        Delta_p_nom=250))       annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
   ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
@@ -153,7 +156,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(hex.Out2, valve_tubes1.inlet) annotation (Line(
-      points={{16,-56},{14,-56},{14,-32},{44,-32}},
+      points={{36,-52},{14,-52},{14,-32},{44,-32}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5,
@@ -167,7 +170,7 @@ equation
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hex.eye2, quadruple.eye) annotation (Line(points={{15,-58},{12,-58},{12,-36},{12,-34},{-6,-34},{-6,-27}},
+  connect(hex.eye2, quadruple.eye) annotation (Line(points={{36.4,-50},{12,-50},{12,-36},{12,-34},{-6,-34},{-6,-27}},
                                                                                                     color={190,190,190}));
   connect(p_steam.y, pressureSink_ph.p) annotation (Line(points={{-79,-80},{-74,-80}},           color={0,0,127}));
   connect(pressureSink_ph1.p, p_cool.y) annotation (Line(points={{94,-38},{94,-38},{94,-30},{99,-30}}, color={0,0,127}));
@@ -177,7 +180,7 @@ equation
       color={0,131,169},
       thickness=0.5));
   connect(massFlowSource_h1.steam_a, hex.In2) annotation (Line(
-      points={{74,-62},{56,-62},{56,-56},{36,-56}},
+      points={{74,-62},{56,-62},{56,-62},{36,-62}},
       color={0,131,169},
       thickness=0.5));
   connect(quadruple2.eye, massFlowSource_h1.eye) annotation (Line(points={{38,-70},{58,-70},{74,-70}}, color={190,190,190}));

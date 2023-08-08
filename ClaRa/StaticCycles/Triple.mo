@@ -14,9 +14,11 @@ model Triple "Visualise static cycle results"
 // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
+
+  outer ClaRa.SimCenter simCenter;
   parameter Integer stacy_id = 0 "Identifier of the static cycle triple";
   DecimalSpaces decimalSpaces "Accuracy to be displayed" annotation(Dialog);
-
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Measured mass flow rate";
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Measured mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=false) "Measured mass flow rate";
@@ -26,7 +28,7 @@ parameter Integer h=1 "Accuracy to be displayed for enthalpy";
 parameter Integer p=1 "Accuracy to be displayed for pressure";
 end DecimalSpaces;
 
-  Fundamentals.SteamSignal_base steamSignal annotation (Placement(transformation(extent={{-108,-10},{-100,10}}),iconTransformation(extent={{-120,-20},{-100,40}})));
+  Fundamentals.SteamSignal_base steamSignal(Medium=vleMedium) annotation (Placement(transformation(extent={{-108,-10},{-100,10}}),iconTransformation(extent={{-120,-20},{-100,40}})));
 
 
 initial equation

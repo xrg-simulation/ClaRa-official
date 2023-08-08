@@ -1,7 +1,7 @@
 within ClaRa.Components.Sensors;
 model SensorGas_L1_p "Ideal one port pressure sensor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -17,20 +17,23 @@ model SensorGas_L1_p "Ideal one port pressure sensor"
   extends ClaRa.Basics.Icons.Sensor1;
   outer ClaRa.SimCenter simCenter;
 
+  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"),Placement(transformation(extent={{42,-2},{62,18}})));
+
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching,  Dialog(group="Fundamental Definitions"), choices(choice=1 "Pa", choice=2 "bar", choice=3 "mbar", choice=4 "MPa", choice = 5 "per Unit"));
 
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure", displayUnit = "bar",final unit="Pa") "pressure in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
                                                                     rotation=
             0), iconTransformation(extent={{100,-10},{120,10}})));
+
   parameter ClaRa.Basics.Units.Pressure p_ref[2]={0,1e5} "Reference pressure [min,max]" annotation(Dialog(group="Fundamental Definitions", enable = (unitOption==5)));
 
   Basics.Interfaces.GasPortIn port(Medium = medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
 
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel
-    annotation (Placement(transformation(extent={{42,-2},{62,18}})));
+
 equation
 
   if unitOption==1 then

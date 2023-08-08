@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check;
 package TwoPhaseFlow
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.3.0                              //
+// Package of the ClaRa library, version: 1.3.1                              //
 // Models of the ClaRa library are tested under DYMOLA v2018 FD01.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //

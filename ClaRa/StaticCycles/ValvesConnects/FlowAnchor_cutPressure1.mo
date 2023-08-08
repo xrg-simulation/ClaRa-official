@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model FlowAnchor_cutPressure1 "Valve || yellow | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -19,21 +19,25 @@ model FlowAnchor_cutPressure1 "Valve || yellow | blue"
   //---------Summary Definition---------
   model Summary
     extends ClaRa.Basics.Icons.RecordIcon;
-    ClaRa.Basics.Records.StaCyFlangeVLE inlet;
-    ClaRa.Basics.Records.StaCyFlangeVLE outlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a inlet;
+    ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
   Summary summary(
   inlet(
      m_flow=m_flow,
      h=h_in,
-     p=p_in),
+     p=p_in,
+     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
-     p=p_out));
+     p=p_out,
+     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
+  outer ClaRa.SimCenter simCenter;
 
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom = 10 "Nominal mass flow rate" annotation(Dialog(group="Nominal Operation Point"));
   parameter Real CharLine_m_flow_P_target_[:,:]=[0,1;1,1] "Characteristic line of pressure drop as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 
@@ -48,8 +52,8 @@ protected
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_m_flow_P_target_, u = {P_target_});
 
 public
-  Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
-  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
+  Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
+  Fundamentals.SteamSignal_blue_b outlet(m_flow=m_flow, h=h_out, Medium=vleMedium) annotation (Placement(transformation(extent={{50,-10},{60,10}}), iconTransformation(extent={{50,-10},{60,10}})));
 initial equation
   m_flow = table.y[1] * m_flow_nom;
   outlet.p=p_out;

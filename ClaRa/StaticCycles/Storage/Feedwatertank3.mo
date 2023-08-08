@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Storage;
 model Feedwatertank3 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.0                            //
+// Component of the ClaRa library, version: 1.3.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
@@ -68,8 +68,8 @@ protected
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";
 
 public
-  Fundamentals.SteamSignal_blue_a cond_in(p=p_FWT) annotation (Placement(transformation(extent={{-110,-70},{-100,-50}}), iconTransformation(extent={{-110,-70},{-100,-50}})));
-  Fundamentals.SteamSignal_red_a tap_in(m_flow=m_flow_tap, p=p_FWT) annotation (Placement(transformation(
+  Fundamentals.SteamSignal_blue_a cond_in(p=p_FWT, Medium=medium) annotation (Placement(transformation(extent={{-110,-70},{-100,-50}}), iconTransformation(extent={{-110,-70},{-100,-50}})));
+  Fundamentals.SteamSignal_red_a tap_in(m_flow=m_flow_tap, p=p_FWT, Medium=medium) annotation (Placement(transformation(
         extent={{-10,20},{10,30}},
         rotation=0,
         origin={0,0}), iconTransformation(
@@ -79,7 +79,7 @@ public
   Fundamentals.SteamSignal_green_b cond_out(
     h=h_cond_out,
     p=p_FWT_out,
-    m_flow=m_flow_FW) annotation (Placement(transformation(extent={{100,-70},{110,-50}}), iconTransformation(extent={{100,-70},{110,-50}})));
+    m_flow=m_flow_FW, Medium=medium) annotation (Placement(transformation(extent={{100,-70},{110,-50}}), iconTransformation(extent={{100,-70},{110,-50}})));
 initial equation
   m_flow_cond = cond_in.m_flow;
   h_tap_in = tap_in.h;

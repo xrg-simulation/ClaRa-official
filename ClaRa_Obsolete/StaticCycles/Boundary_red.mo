@@ -1,13 +1,19 @@
 within ClaRa_Obsolete.StaticCycles;
 model Boundary_red "Red boundary"
 
+  outer ClaRa.SimCenter simCenter;
+
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component" annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
+                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
+                                                          Dialog(group="Fundamental Definitions"));
   parameter Boolean source = true "True if boundary is source else sink";
   parameter ClaRa.Basics.Units.MassFlowRate  m_flow(fixed= not source) annotation(Dialog(enable = not source));
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=source) annotation(Dialog(enable = source));
   parameter ClaRa.Basics.Units.Pressure p(fixed= not source) annotation(Dialog(enable = not source));
 
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_a inlet(m_flow=m_flow, p=p)  annotation (Placement(transformation(extent={{-104,-10},{-96,10}})));
-  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_b outlet(h=h)  annotation (Placement(transformation(extent={{96,-10},{104,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_a inlet(m_flow=m_flow, p=p, Medium=medium)  annotation (Placement(transformation(extent={{-104,-10},{-96,10}})));
+  ClaRa.StaticCycles.Fundamentals.SteamSignal_red_b outlet(h=h, Medium=medium)  annotation (Placement(transformation(extent={{96,-10},{104,10}})));
 initial equation
   if source then
     m_flow= outlet.m_flow;

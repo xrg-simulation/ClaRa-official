@@ -52,9 +52,11 @@ model Test_HEXvle2vle_L3_2ph_BU_ntu
     height=-30)   annotation (Placement(transformation(extent={{126,-6},{106,14}})));
   VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
     checkValve=true,
-    redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (                           m_flow_nom=10, Delta_p_nom=250),
-    openingInputIsActive=false)
+    openingInputIsActive=false,
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+        paraOption=2,
+        m_flow_nominal=10,
+        Delta_p_nom=250))
     annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
   VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
     openingInputIsActive=false,

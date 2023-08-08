@@ -8,7 +8,7 @@ record Fuel_verbandsformel_v1 "LHV acc. Verbandsformel | former 'Coal_v1' | C,H,
     C_cp={1266.67,1266.67,1266.67,1266.67,1266.67,1000,4190},
     waterIndex=7,
     ashIndex=6,
-    defaultComposition={0.761,0,0,0,0.004,0.125},
+    defaultComposition={0.761,0,0,0,0.004,0.111},
     xi_e_waf=zeros(0, 0),
     T_ref=273.15);
     //C_rho={1400,500,500,500,500,7000,1000},
