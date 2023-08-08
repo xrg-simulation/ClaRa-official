@@ -11,22 +11,22 @@ model QuadraticNominalPoint "Quadratic|Nominal operation point | subcritical flo
   outer Boolean checkValve;
   outer Boolean useHomotopy;
 
-  SI.MassFlowRate m_flow;
+  Basics.Units.MassFlowRate m_flow;
   Real aperture_ "Effective apperture";
 
   Modelica.Blocks.Tables.CombiTable1D ValveCharacteristics(table=CL_valve,
       columns={2});
-  SI.PressureDifference Delta_p "Pressure difference p_in - p_out";
+  Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 
   import SM = ClaRa.Basics.Functions.Stepsmoother;
 
   final parameter Real Kvs(unit="m3/h") = 3600 * m_flow_nom/rho_in_nom * sqrt(rho_in_nom/1000*1e5/Delta_p_nom) "|Valve Characteristics|Flow Coefficient at nominal opening (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
   Real Kv(unit="m3/h") "|Valve Characteristics|Flow Coefficient (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
-  parameter SI.Pressure Delta_p_eps= 100 "|Expert Settings||Small pressure difference for linearisation around zeor flow";
+  parameter Basics.Units.Pressure Delta_p_eps=100 "|Expert Settings||Small pressure difference for linearisation around zeor flow";
 // protected
-  parameter SI.Pressure Delta_p_nom = 1e5 "|Valve Characteristics|Nominal pressure difference for Kv definition";
-  parameter SI.DensityMassSpecific rho_in_nom= 1000 "|Valve Characteristics|Nominal density for Kv definition";
-  parameter SI.MassFlowRate m_flow_nom= 1 "|Valve Characteristics|Nominal mass flow rate";
+  parameter Basics.Units.Pressure Delta_p_nom=1e5 "|Valve Characteristics|Nominal pressure difference for Kv definition";
+  parameter Basics.Units.DensityMassSpecific rho_in_nom=1000 "|Valve Characteristics|Nominal density for Kv definition";
+  parameter Basics.Units.MassFlowRate m_flow_nom=1 "|Valve Characteristics|Nominal mass flow rate";
   Real flowIsChoked=0 "1 if flow is choked, 0 if not";
   Real PR_choked=-1 "Pressure ratio at which choking occurs";
 equation

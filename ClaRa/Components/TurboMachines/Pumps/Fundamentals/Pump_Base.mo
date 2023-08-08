@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model Pump_Base "Base class for pumps"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -27,9 +27,9 @@ partial model Pump_Base "Base class for pumps"
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
-  SI.Pressure Delta_p "Pressure difference between pressure side and suction side";
-  SI.VolumeFlowRate V_flow "Volume flow rate";
-  SI.Power P_fluid "Power to the fluid";
+  Basics.Units.Pressure Delta_p "Pressure difference between pressure side and suction side";
+  Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+  Basics.Units.Power P_fluid "Power to the fluid";
 
   outer ClaRa.SimCenter simCenter;
 

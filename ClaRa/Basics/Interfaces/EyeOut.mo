@@ -1,10 +1,10 @@
 within ClaRa.Basics.Interfaces;
-expandable connector EyeOut "Signal bus featuring pressure, specific enthalpy,temperature, specific entropy andmass flow rate"
+connector EyeOut "Signal bus featuring pressure, specific enthalpy,temperature, specific entropy andmass flow rate"
   import SI = ClaRa.Basics.Units;
   output Real p "Pressure in bar";
   output Real h "Specific enthalpy in kJ/kg" annotation(HideResult=false);
   output Real m_flow "Mass flow rate in kg/s" annotation(HideResult=false);
-  output SI.Temperature_DegC T "Tempearture in degC" annotation(HideResult=false);
+  output Units.Temperature_DegC T "Tempearture in degC" annotation (HideResult=false);
   output Real s "Specific entropy in kJ/kgK" annotation(HideResult=false);
 
 annotation ( Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -29,9 +29,8 @@ annotation ( Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100}
           lineColor={153,205,221},
           textString="%name"),
         Polygon(
-          points={{-92,88},{85,0},{-92,-88},{-92,88}},
-          smooth=Smooth.None,
+          points={{-80,60},{60,0},{-80,-60},{-80,60}},
           fillColor={221,222,223},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.Solid)}));
+          pattern=LinePattern.None)}));
 end EyeOut;

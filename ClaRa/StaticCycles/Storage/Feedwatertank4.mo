@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Storage;
 model Feedwatertank4 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | blue | red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -50,13 +50,13 @@ model Feedwatertank4 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | blue 
                                                        annotation(Dialog(group="Fundamental Definitions"), choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
                         choice=simCenter.fluid2 "Second fluid defined in global simCenter",
                         choice=simCenter.fluid3 "Third fluid defined in global simCenter"));
-  parameter ClaRa.Basics.Units.Pressure p_FWT_nom "Feed water tank pressure at nominal load" annotation(Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom "Mass flow rate at nomoinal load" annotation(Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.Pressure p_FWT_nom "Feed water tank pressure at nominal load" annotation (Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom "Mass flow rate at nomoinal load" annotation (Dialog(group="Fundamental Definitions"));
 
-  parameter ClaRa.Basics.Units.Length level_abs= 0 "Filling level" annotation(Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.Length level_abs=0 "Filling level" annotation (Dialog(group="Fundamental Definitions"));
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in1(fixed=false,start=1) "Spec. enthalpy at tapping 1";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in2(fixed=false,start=1) "Spec. enthalpy at tapping 1";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in1(fixed=false, start=1) "Spec. enthalpy at tapping 1";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in2(fixed=false, start=1) "Spec. enthalpy at tapping 1";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_in(fixed=false) "Spec. enthalpy at condensate inlet";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_cond(fixed=false) "Condensate inlet flow";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_tap1(fixed=false) "Tapping 1 inlet flow";
@@ -69,7 +69,7 @@ model Feedwatertank4 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | blue 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_tap2=(h_cond_out*m_flow_FW - h_cond_in*m_flow_cond - m_flow_tap1*h_tap_in1)/h_tap_in2 "Mass flow of the heating steam";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_FW=P_target_*m_flow_nom "Mass flow of the condensate";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out= TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_FWT) "Spec. enthalpy at feedwater outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_FWT) "Spec. enthalpy at feedwater outlet";
 protected
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";
 

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model HollowCylinderWithTubes "Cylindric shape || Shell with tubes"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -51,14 +51,14 @@ model HollowCylinderWithTubes "Cylindric shape || Shell with tubes"
       groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HollowCylinderWithTubes.png",
       connectorSizing=false));
 
-  parameter Units.Length length=1 "Length of the component"  annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length length=1 "Length of the component" annotation (Dialog(group="Essential Geometry Definition"));
 
-  parameter Units.Length diameter_t=0.1 "Outer diameter of internal tubes"  annotation (Dialog(
+  parameter Units.Length diameter_t=0.1 "Outer diameter of internal tubes" annotation (Dialog(
       tab="General",
       group="Interior Equipment",
       showStartAttribute=false,
       groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HEX_ParameterDialogTubes.png"));
-  parameter Units.Length length_tubes=1 "Length of the internal tubes (single pass)" annotation(Dialog(group="Interior Equipment"));
+  parameter Units.Length length_tubes=1 "Length of the internal tubes (single pass)" annotation (Dialog(group="Interior Equipment"));
 
   parameter Integer N_tubes=1 "Number of internal tubes" annotation(Dialog(group="Interior Equipment"));
   parameter Integer N_passes=1 "Number of passes of the internal tubes" annotation(Dialog(group="Interior Equipment"));
@@ -70,12 +70,16 @@ model HollowCylinderWithTubes "Cylindric shape || Shell with tubes"
   final parameter Real interior(
     min=1e-6,
     max=1) = volume/(pi/4*diameter^2*length) "Volume fraction of interior equipment" annotation(Dialog(group="Interior Equipment"));
+
+  constant Real MIN=1e-5 "Limiter";
   parameter Modelica.SIunits.Length Delta_z_ort=2*diameter_t "Distance between tubes orthogonal to flow direction (center to center)" annotation(Dialog(group="Interior Equipment"));
   parameter Modelica.SIunits.Length Delta_z_par=2*diameter_t "Distance between tubes parallel to flow direction (center to center)" annotation(Dialog(group="Interior Equipment"));
   final parameter Real a=Delta_z_ort/diameter_t "Lateral alignment ratio" annotation(Dialog(group="Interior Equipment"));
   final parameter Real b=Delta_z_par/diameter_t "Vertical alignment ratio" annotation(Dialog(group="Interior Equipment"));
-  final parameter Real psi=if b >= 1 then 1 - Modelica.Constants.pi/4/a else 1 - Modelica.Constants.pi/4/a/b "Void ratio" annotation(Dialog(group="Interior Equipment"));
+  final parameter Real psi=if b >= 1 or b<=0 then 1 - Modelica.Constants.pi/4/a else 1 - Modelica.Constants.pi/4/a/b "Void ratio" annotation(Dialog(group="Interior Equipment"));
   parameter Boolean staggeredAlignment=true "True, if the tubes are aligned staggeredly, false otherwise";
+  final parameter Real fa=if staggeredAlignment then (1 + (if b>0 then 2/3/b else 0)) else (1 + (if b>0 then 0.7/max(MIN,psi)^1.5*(b/a - 0.3)/(b/a + 0.7)^2 else 0)) "Alignment factor";
+
   parameter Integer N_rows(
     min=N_passes,
     max=N_tubes) = integer(ceil(sqrt(N_tubes))*N_passes) "Number of pipe rows in flow direction (minimum = N_passes)" annotation(Dialog(group="Interior Equipment"));
@@ -93,6 +97,7 @@ equation
   for i in 1:N_outlet loop
     assert(z_out[i]>=0, "Position of outlet flange no. " +String(i)+ "("+String(z_out[i], significantDigits=3)+" m) must be positive in component " +  getInstanceName() + ".");
   end for;
+  assert(psi>0, "Negative or zero psi leads to invalid Reynolds numbers. Check geometry values for pipe arrangement. Delta_z_par*delta_z_ort must be > pi*diameter_o^2/4.");
   assert(A_cross>0, "The cross section of the shell side must be > 0 but is "+String(A_cross, significantDigits=3) + " in instance" + getInstanceName() + ".");
   assert(volume>0, "The volume of the shell side must be > 0 but is "+String(volume, significantDigits=3) + " in instance" + getInstanceName() + ".");
   annotation (Icon(graphics={Bitmap(

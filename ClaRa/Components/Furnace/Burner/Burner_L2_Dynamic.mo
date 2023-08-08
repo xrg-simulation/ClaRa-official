@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic "Model for a burner section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -48,20 +48,17 @@ extends ClaRa.Basics.Icons.Burner;
 
   model Fuel
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
-    input ClaRa.Basics.Units.HeatCapacityMassSpecific cp "Specific heat capacity"
-                               annotation (Dialog);
+    input ClaRa.Basics.Units.HeatCapacityMassSpecific cp "Specific heat capacity" annotation (Dialog);
     input ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value" annotation (Dialog);
 
   end Fuel;
 
   model Slag
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
   end Slag;
@@ -94,8 +91,8 @@ inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy met
 //## V A R I A B L E   P A R T##################################################################################
 public
  Real lambdaComb_primary "Primary lambda";
- ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_req_primary "Required oxygen mass flwo for primary lambda calculation";
- ClaRa.Basics.Units.MassFlowRate m_flow_air_req_primary "Required air mass flwo for primary lambda calculation";
+  ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_req_primary "Required oxygen mass flwo for primary lambda calculation";
+  ClaRa.Basics.Units.MassFlowRate m_flow_air_req_primary "Required air mass flwo for primary lambda calculation";
 
 protected
   Modelica.SIunits.MolarFlowRate  n_flow_C_primary "Primary molar flow of C";
@@ -124,7 +121,7 @@ protected
         fuelFlueGas_inlet.flueGas.xi_outflow),
      gasType=flueGas)
      annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
-     TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= actualStream(outlet.flueGas.T_outflow),xi=actualStream(outlet.flueGas.xi_outflow),
+     TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= noEvent(actualStream(outlet.flueGas.T_outflow)),xi=noEvent(actualStream(outlet.flueGas.xi_outflow)),
         gasType=flueGas)
         annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
@@ -166,7 +163,10 @@ protected
     m_flow_out=m_flow_out_del,
     V_flow_out=V_flow_flueGas_out,
     xi_out=xi_flueGas,
-    xi_nom=flueGas.xi_default) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
+    xi_nom=flueGas.xi_default,
+    xi_bulk=bulk.xi,
+    h_bulk=bulk.h,
+    mass=mass) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
 
 
 
@@ -196,52 +196,52 @@ public
     inlet(
       flueGas(mediumModel=flueGas,
         m_flow=inlet.flueGas.m_flow,
-        T=actualStream(inlet.flueGas.T_outflow),
+        T=noEvent(actualStream(inlet.flueGas.T_outflow)),
         p=inlet.flueGas.p,
         h=flueGasInlet.h,
-        xi=actualStream(inlet.flueGas.xi_outflow),
+        xi=noEvent(actualStream(inlet.flueGas.xi_outflow)),
         H_flow=flueGasInlet.h*inlet.flueGas.m_flow),
       fuel(
         m_flow=inlet.fuel.m_flow,
-        T=actualStream(inlet.fuel.T_outflow),
+        T=noEvent(actualStream(inlet.fuel.T_outflow)),
         p=inlet.fuel.p,
         cp=fuelInlet.cp,
         LHV=fuelInlet.LHV),
       slag(
         m_flow=inlet.slag.m_flow,
-        T=actualStream(inlet.slag.T_outflow),
+        T=noEvent(actualStream(inlet.slag.T_outflow)),
         p=inlet.slag.p)),
     fuelFlueGas_inlet(
       flueGas(mediumModel=flueGas,
         m_flow=fuelFlueGas_inlet.flueGas.m_flow,
-        T=actualStream(fuelFlueGas_inlet.flueGas.T_outflow),
+        T=noEvent(actualStream(fuelFlueGas_inlet.flueGas.T_outflow)),
         p=fuelFlueGas_inlet.flueGas.p,
         h=primaryAir_inlet.h,
-        xi=actualStream(fuelFlueGas_inlet.flueGas.xi_outflow),
+        xi=noEvent(actualStream(fuelFlueGas_inlet.flueGas.xi_outflow)),
         H_flow=primaryAir_inlet.h*fuelFlueGas_inlet.flueGas.m_flow),
       fuel(
         m_flow=fuelFlueGas_inlet.fuel.m_flow,
-        T=actualStream(fuelFlueGas_inlet.fuel.T_outflow),
+        T=noEvent(actualStream(fuelFlueGas_inlet.fuel.T_outflow)),
         p=fuelFlueGas_inlet.fuel.p,
         cp=fuelBurnerInlet.cp,
         LHV=fuelBurnerInlet.LHV)),
     outlet(
       flueGas(mediumModel=flueGas,
         m_flow=-outlet.flueGas.m_flow,
-        T=actualStream(outlet.flueGas.T_outflow),
+        T=noEvent(actualStream(outlet.flueGas.T_outflow)),
         p=outlet.flueGas.p,
         h=h_flueGas_out,
-        xi=actualStream(outlet.flueGas.xi_outflow),
+        xi=noEvent(actualStream(outlet.flueGas.xi_outflow)),
         H_flow=-h_flueGas_out*outlet.flueGas.m_flow),
       fuel(
         m_flow=-outlet.fuel.m_flow,
-        T=actualStream(outlet.fuel.T_outflow),
+        T=noEvent(actualStream(outlet.fuel.T_outflow)),
         p=outlet.fuel.p,
         cp=fuelOutlet.cp,
         LHV=fuelOutlet.LHV),
       slag(
         m_flow=outlet.slag.m_flow,
-        T=actualStream(outlet.slag.T_outflow),
+        T=noEvent(actualStream(outlet.slag.T_outflow)),
         p=outlet.slag.p))) annotation (Placement(transformation(extent={{274,-102},{300,-76}})));
 
 

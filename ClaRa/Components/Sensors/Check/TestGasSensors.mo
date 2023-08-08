@@ -1,10 +1,10 @@
 within ClaRa.Components.Sensors.Check;
 model TestGasSensors
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -54,19 +54,26 @@ model TestGasSensors
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT2(
                                                  variable_p=true,
     variable_xi=false,
+    T_const=300,
     xi_const={0,0,0,0,0.8,0.2,0,0,0})                                               annotation (Placement(transformation(extent={{-70,-12},{-50,8}})));
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T2(
-                                                           m_flow_const=-10, variable_xi=false) annotation (Placement(transformation(extent={{98,-12},{78,8}})));
+    variable_m_flow=true,                                  m_flow_const=-10, variable_xi=false) annotation (Placement(transformation(extent={{98,-12},{78,8}})));
   Modelica.Blocks.Sources.Sine sine2(
-    freqHz=0.5,
-    offset=100000,
-    amplitude=20000,
+    freqHz=0.05,
+    offset=200000,
+    amplitude=0,
     phase=0.017453292519943)
     annotation (Placement(transformation(extent={{-96,-6},{-76,14}})));
   Basics.ControlVolumes.GasVolumes.VolumeGas_L2 flueGasCell2
                                                             annotation (Placement(transformation(extent={{50,-12},{70,8}})));
   SensorGas_L1_T temperature annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   SensorGas_L1_p pressure annotation (Placement(transformation(extent={{16,-2},{36,18}})));
+  Modelica.Blocks.Sources.Sine sine3(
+    freqHz=0.05,
+    offset=-10,
+    amplitude=20,
+    phase=0.017453292519943)
+    annotation (Placement(transformation(extent={{132,-6},{112,14}})));
 equation
   connect(sine.y, gasSink_pT.p) annotation (Line(
       points={{-75,-84},{-68,-84}},
@@ -135,6 +142,7 @@ equation
       points={{26,-2},{26,-2},{50,-2}},
       color={118,106,98},
       thickness=0.5));
+  connect(sine3.y, gasFlowSource_T2.m_flow) annotation (Line(points={{111,4},{98,4}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-140},{100,100}},
           preserveAspectRatio=false),

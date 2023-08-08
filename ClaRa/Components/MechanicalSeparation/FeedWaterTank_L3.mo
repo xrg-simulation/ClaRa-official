@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L3 "Feedwater tank : separated volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -16,10 +16,8 @@ model FeedWaterTank_L3 "Feedwater tank : separated volume approach | level-depen
 //___________________________________________________________________________//
 
 extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
-  parameter ClaRa.Basics.Units.Length thickness_wall=0.005*diameter "Thickness of the cylinder wall"  annotation(Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FeedWaterTank_L3_advanced.png"));
-  parameter ClaRa.Basics.Units.Length
-                            thickness_insulation= 0.02 "Thickness of the insulation"
-                                                                                    annotation(Dialog(group="Geometry", enable=includeInsulation));
+  parameter ClaRa.Basics.Units.Length thickness_wall=0.005*diameter "Thickness of the cylinder wall" annotation (Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FeedWaterTank_L3_advanced.png"));
+  parameter ClaRa.Basics.Units.Length thickness_insulation=0.02 "Thickness of the insulation" annotation (Dialog(group="Geometry", enable=includeInsulation));
 
   replaceable model material = TILMedia.SolidTypes.TILMedia_Steel constrainedby TILMedia.SolidTypes.BaseSolid "Material of the walls"  annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching);
   parameter Boolean includeInsulation=false  "True, if insulation is included" annotation(Dialog(group="Fundamental Definitions"));
@@ -28,30 +26,25 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
   parameter Modelica.SIunits.Length radius_flange=0.05 "Flange radius" annotation(Dialog(group="Geometry"));
-  parameter SI.Length z_tapping = 0 "position of tapping flange" annotation(Dialog(group="Geometry"));
-  parameter SI.Length z_condensate= 0.1 "position of condensate flange" annotation(Dialog(group="Geometry"));
-  parameter SI.Length z_aux= 0.1 "position of auxilliary flange" annotation(Dialog(group="Geometry"));
-  parameter SI.Length z_feedwater = 0 "position of feedwater flange" annotation(Dialog(group="Geometry"));
-  parameter SI.Length z_vent = 0.1 "position of vent flange" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of internal structure addtional to feedwater tank wall"
-                                                                                                              annotation(Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_tapping=0 "position of tapping flange" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_condensate=0.1 "position of condensate flange" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_aux=0.1 "position of auxilliary flange" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_feedwater=0 "position of feedwater flange" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_vent=0.1 "position of vent flange" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of internal structure addtional to feedwater tank wall" annotation (Dialog(group="Geometry"));
 
-  parameter SI.Time Tau_cond=10 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
-  parameter SI.Time Tau_evap=Tau_cond*1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
+  parameter Basics.Units.Time Tau_cond=10 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
+  parameter Basics.Units.Time Tau_evap=Tau_cond*1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Real absorbInflow=1 "Absorption of incoming mass flow to the zones 1: perfect in the allocated zone, 0: perfect according to steam quality"
                                                                                               annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
-  parameter SI.Area A_phaseBorder=volume.geo.A_hor*100 "Heat transfer area at phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
-  parameter SI.CoefficientOfHeatTransfer alpha_ph=500 "HTC of the phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
+  parameter Basics.Units.Area A_phaseBorder=volume.geo.A_hor*100 "Heat transfer area at phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
+  parameter Basics.Units.CoefficientOfHeatTransfer alpha_ph=500 "HTC of the phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
   parameter Real expHT_phases=0 "Exponent for volume dependency on inter phase HT" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
   parameter Boolean equalPressures=true "True if pressure in liquid and vapour phase is equal" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation for calculation of filling level" annotation(Dialog(tab="Phase Separation", group="Numerical Robustness"));
 
-  parameter SI.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium,
-      volume.p_start) "Start value of liquid specific enthalpy" annotation(Dialog(tab="Initialisation"));
-  parameter SI.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy"
-                                                                                                                          annotation(Dialog(tab="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.Temperature T_wall_start[wall.N_rad]=ones(wall.N_rad)*293.15 "Start values of wall temperature inner --> outer" annotation(Dialog(tab="Initialisation", group="Wall"));
   parameter Integer initOptionWall=1 "Initialisation option for wall" annotation(Dialog(tab="Initialisation", group="Wall"),choices(
       choice=0 "Use guess values",
@@ -62,7 +55,10 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       choice=0 "Use guess values",
       choice=1 "Steady state",
       choice=203 "Steady temperature"));
-  parameter ClaRa.Basics.Units.Temperature T_startInsulation=293.15 "Start values of wall temperature" annotation (Dialog(tab="Initialisation",group="Insulation", enable=includeInsulation));
+  parameter ClaRa.Basics.Units.Temperature T_startInsulation=293.15 "Start values of wall temperature" annotation (Dialog(
+      tab="Initialisation",
+      group="Insulation",
+      enable=includeInsulation));
 
   replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3
@@ -75,20 +71,19 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
     annotation (Dialog(tab= "Initialisation"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
   parameter Boolean enableAmbientLosses=false "Include heat losses to environment "
                                                                                    annotation(Dialog(tab="Heat Losses"));
-  input ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_prescribed=8 "Prescribed heat transfer coefficient" annotation(Dialog(tab="Heat Losses", enable=(enableAmbientLosses==true)));
-  input ClaRa.Basics.Units.Temperature T_amb=simCenter.T_amb "Temperature of surrounding medium"
-                                                                                                annotation(Dialog(tab="Heat Losses", enable=(enableAmbientLosses==true)));
+  input ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_prescribed=8 "Prescribed heat transfer coefficient" annotation (Dialog(tab="Heat Losses", enable=(enableAmbientLosses == true)));
+  input ClaRa.Basics.Units.Temperature T_amb=simCenter.T_amb "Temperature of surrounding medium" annotation (Dialog(tab="Heat Losses", enable=(enableAmbientLosses == true)));
 
  model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
-   input Basics.Units.Length level_abs "Absolute filling level";
+    input Basics.Units.Length level_abs "Absolute filling level";
    input Real level_rel "relative filling level";
-   input ClaRa.Basics.Units.HeatFlowRate Q_loss "Heat flow rate from metal wall to insulation/ambient";
+    input ClaRa.Basics.Units.HeatFlowRate Q_loss "Heat flow rate from metal wall to insulation/ambient";
  end Outline;
 
  model Wall
    extends ClaRa.Basics.Icons.RecordIcon;
-   input Basics.Units.Temperature T_wall[3] "Temperatures";
+    input Basics.Units.Temperature T_wall[3] "Temperatures";
  end Wall;
 
  model Summary

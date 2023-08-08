@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Compressors;
 model CompressorVLE_L1_stageStacked "Advanced compressor or fan for VLE mixtures using the stage stacking method  according to N. Gasparovic"
   import ClaRa;
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,16 +22,17 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=-P_hyd,
-    powerAux=-P_shaft + P_hyd) if                                                                                                  contributeToCycleSummary;
+    powerOut_th=0,
+    powerOut_elMech=0,
+    powerAux=P_shaft) if  contributeToCycleSummary;
 
   model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
-   input SI.VolumeFlowRate V_flow "Volume flow rate";
-   input SI.Power P_hyd "Hydraulic power";
+    input ClaRa.Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+    input ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
    input Real Pi "Pressure ratio";
-   input SI.PressureDifference Delta_p "Pressure difference";
-   input SI.RPM rpm "Rotational speed";
+    input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference";
+    input ClaRa.Basics.Units.RPM rpm "Rotational speed";
    input Real Delta_alpha "Angle of VIGV";
    input Real eta_isen "Hydraulic efficiency";
    input Real eta_mech "Mechanic efficiency";
@@ -90,28 +91,27 @@ public
   //__________________________/ Parameters \_____________________________
   parameter Integer N_stages = 12 "Number of Compressor Stages";
   parameter Integer N_VIGVstages = 1 "Number of VIGV Stages";
-  parameter SI.RPM rpm_nom = 3000 "|Nominal Values|Nomial rotational speed";
-  parameter Real eta_isen_stage_nom = 0.9 "|Nominal Values|Nominal isentropic stage efficiency (axial: ca. 0.9, radial: ca. 0.82)";
+  parameter ClaRa.Basics.Units.RPM rpm_nom=3000 "Nomial rotational speed" annotation(Dialog( group = "Nominal Values"));
+  parameter Real eta_isen_stage_nom = 0.9 "Nominal isentropic stage efficiency (axial: ca. 0.9, radial: ca. 0.82)"  annotation(Dialog( group = "Nominal Values"));
                                                                                               //Axial compressor: ca. 0.9, Radial compressor: 0.82
   parameter Boolean useExternalVIGVangle= false "True, if an external source should be used to set VIGV angle";
-  parameter SI.Angle Delta_alpha_fixed = 0 "Fixed angle of VIGV (variable inlet guide vanes)"
-                                                       annotation(Dialog(enable = not useExternalVIGVangle));
+  parameter ClaRa.Basics.Units.Angle Delta_alpha_fixed=0 "Fixed angle of VIGV (variable inlet guide vanes)" annotation (Dialog(enable=not useExternalVIGVangle));
   parameter Real eta_mech = 0.99 "Mechanical efficiency";
-  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Time Response Definitions", enable= not steadyStateTorque));
-  parameter Boolean useMechanicalPort=false "|Fundamental Definitions|True, if a mechenical flange should be used";
-  parameter Boolean steadyStateTorque=false "|Fundamental Definitions|True, if steady state mechanical momentum shall be used";
+  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
+  parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used"  annotation(Dialog(group="Fundamental Definitions"));
+  parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
   parameter Boolean useBoundaryAssert=true "True, if simulation should stop when surge or choke boundary is hit"
                                                                            annotation(Dialog(tab = "Advanced"));
-  parameter SI.RPM rpm_fixed = 3000 "Constant rotational speed of pump" annotation (Dialog( group = "Fundamental Definitions", enable = not useMechanicalPort));
-  parameter SI.Time Tau_aux=0.1 "Time constant of auxilliary kappa states"  annotation(Dialog(tab = "Advanced"));
+  parameter ClaRa.Basics.Units.RPM rpm_fixed=3000 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
+  parameter ClaRa.Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states" annotation (Dialog(tab="Advanced"));
 
-  parameter SI.MassFlowRate  m_flow_nom = 100 "|Nominal Values|Nominal mass flow";
-  parameter Real Pi_nom = 7 "|Nominal Values|Nominal pressure ratio";
-  parameter SI.Temperature T_in_nom = 293.15 "|Nominal Values|Nominal inlet temperature";
-  parameter SI.Pressure p_in_nom = 1.01325e5 "|Nominal Values|Nominal inlet pressure";
-  parameter SI.MassFraction xi_nom[medium.nc - 1]=medium.xi_default "|Nominal Values|Nominal gas composition";
-  parameter Boolean useFixedEnthalpyCharacteristic=false "|Nominal Values|True, if a fixed nominal stage enthalpy characteristic should be used";
-  parameter SI.Length diameter[N_stages] = ones(N_stages)*1.5 "Individual or mean stage diameter" annotation(Dialog( group = "Nominal Values", enable = not useFixedEnthalpyCharacteristic));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=100 "Nominal mass flow" annotation(Dialog( group = "Nominal Values"));
+  parameter Real Pi_nom = 7 "Nominal pressure ratio" annotation(Dialog( group = "Nominal Values"));
+  parameter ClaRa.Basics.Units.Temperature T_in_nom=293.15 "Nominal inlet temperature" annotation(Dialog( group = "Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_in_nom=1.01325e5 "Nominal inlet pressure" annotation(Dialog( group = "Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]=medium.xi_default "Nominal gas composition" annotation(Dialog( group = "Nominal Values"));
+  parameter Boolean useFixedEnthalpyCharacteristic=false "True, if a fixed nominal stage enthalpy characteristic should be used" annotation(Dialog( group = "Nominal Values"));
+  parameter ClaRa.Basics.Units.Length diameter[N_stages]=ones(N_stages)*1.5 "Individual or mean stage diameter" annotation (Dialog(group="Nominal Values", enable=not useFixedEnthalpyCharacteristic));
   parameter Real psi_nom_fixed[N_stages]=ones(N_stages)*0.8 "Fixed nominal enthalpy stage characteristic (axial: 0.2 to 0.9, radial: 0.9 to 1.4)"
                                                                                            annotation(Dialog( group = "Nominal Values", enable = useFixedEnthalpyCharacteristic));
   parameter String VIGVInfluence= "Lower" "Influence of VIGV on psi, phi and eta"
@@ -119,11 +119,11 @@ public
 
   //________________________/ Variables \___________________________________
   Real Pi(final start=Pi_nom) "pressure ratio";
-  Basics.Units.Power P_hyd "Hydraulic power";
-  Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+  ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
+  ClaRa.Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
   Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
-  SI.Power P_shaft "Mechanical power at shaft";
-  SI.RPM rpm "Rotational speed";
+  ClaRa.Basics.Units.Power P_shaft "Mechanical power at shaft";
+  ClaRa.Basics.Units.RPM rpm "Rotational speed";
   Modelica.SIunits.Torque tau_fluid "Fluid torque";
   //SI.EnthalpyMassSpecific Delta_h;
   Real tau "Overall temperature ratio";
@@ -174,20 +174,20 @@ public
   Real Pi_st[i]( each final start = Pi_nom^(1/N_stages)) "Stage pressure ratio";
   Real Pi_prod_st[i](  each final start = 1) "Overall pressure ratio until actual stage"; //not important, just for evaluation
 
-  SI.Temperature T_out_st[i]( each final start = T_in_nom) "Calculated outlet stage temperature";
-  SI.Pressure p_out_st[i](each final start = 1e5) "Calculated outlet stage pressure";
+  ClaRa.Basics.Units.Temperature T_out_st[i](each final start=T_in_nom) "Calculated outlet stage temperature";
+  ClaRa.Basics.Units.Pressure p_out_st[i](each final start=1e5) "Calculated outlet stage pressure";
 
 //Stufenvariablen nominal
-   SI.HeatCapacityMassSpecific cp_in_nom_st[i] "Nominal isobaric heat capacity at stage inlet";
-   SI.HeatCapacityMassSpecific cp_in_st[i] "Isobaric heat capacity at stage inlet";
-   SI.HeatCapacityMassSpecific cv_in_st[i] "Isobaric heat capacity at stage inlet";
-   SI.HeatCapacityMassSpecific cv_in_nom_st[i] "Nominal isochoric heat capacity at stage inlet";
-   SI.HeatCapacityMassSpecific cp_out_nom_st[i] "Nominal isobaric heat capacity at stage outlet";
-   SI.HeatCapacityMassSpecific cp_out_nom_st_vigv[i] "Nominal isobaric heat capacity at stage outlet";
-   SI.HeatCapacityMassSpecific cp_out_st[i] "Isobaric heat capacity at stage outlet";
-   SI.HeatCapacityMassSpecific cv_out_st[i] "Isobaric heat capacity at stage outlet";
-   SI.HeatCapacityMassSpecific cv_out_nom_st[i] "Nominal isochoric heat capacity at stage outlet";
-   SI.HeatCapacityMassSpecific cv_out_nom_st_vigv[i] "Nominal isochoric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp_in_nom_st[i] "Nominal isobaric heat capacity at stage inlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp_in_st[i] "Isobaric heat capacity at stage inlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cv_in_st[i] "Isobaric heat capacity at stage inlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cv_in_nom_st[i] "Nominal isochoric heat capacity at stage inlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp_out_nom_st[i] "Nominal isobaric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp_out_nom_st_vigv[i] "Nominal isobaric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp_out_st[i] "Isobaric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cv_out_st[i] "Isobaric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cv_out_nom_st[i] "Nominal isochoric heat capacity at stage outlet";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cv_out_nom_st_vigv[i] "Nominal isochoric heat capacity at stage outlet";
 
 // Real gamma_in_nom_st[i];
 // Real gamma_in_st[i];
@@ -199,14 +199,14 @@ public
   Real Pi_prod_nom_st[i]( each final start = 1) "Overall nominal pressure ratio until actual stage";
                                                                             //(not important for design point calculation, just for evaluation)
   Real kappa_nom_st[i] "Nominal stage heat capacity ratio";
-  SI.Temperature T_out_nom_st[i](each final start = T_in_nom) "Nominal stage outlet temperature";
-  SI.Efficiency eta_isen_nom_st[i](each final start=eta_isen_stage_nom) "Nominal isentropic stage efficiency";
+  ClaRa.Basics.Units.Temperature T_out_nom_st[i](each final start=T_in_nom) "Nominal stage outlet temperature";
+  ClaRa.Basics.Units.Efficiency eta_isen_nom_st[i](each final start=eta_isen_stage_nom) "Nominal isentropic stage efficiency";
   Real tau_nom_st[i](each final start = 1.00001) "Nominal stage temperature ratio";
   Real tau_nom_st_vigv[i](each final start = 1.00001) "Nominal stage temperature ratio for VIGV";
-  SI.EnthalpyMassSpecific h_out_nom_st[i] "Nominal stage outlet enthalpy";
-  SI.EnthalpyMassSpecific h_in_nom_st "Nominal compressor inlet enthalpy";
-  SI.EnthalpyMassSpecific Delta_h_nom_st[i] "Nominal stage enthalpy difference";
-  SI.Pressure p_out_nom_st[i]( each final start = 1e5) "Nominal outlet stage pressure";
+  ClaRa.Basics.Units.EnthalpyMassSpecific h_out_nom_st[i] "Nominal stage outlet enthalpy";
+  ClaRa.Basics.Units.EnthalpyMassSpecific h_in_nom_st "Nominal compressor inlet enthalpy";
+  ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h_nom_st[i] "Nominal stage enthalpy difference";
+  ClaRa.Basics.Units.Pressure p_out_nom_st[i](each final start=1e5) "Nominal outlet stage pressure";
 
 protected
  Real kappa_aux_st[i] "Auxiliary state for kappa (needed when composition changes)";
@@ -274,7 +274,7 @@ protected
  Real epsilon_rel_rp2(final start = 1);
  //Real Pi_nom_rp1;
  Real Delta_h_nom_rp2;
- SI.MassFlowRate m_flow_aux(start=m_flow_nom);
+  ClaRa.Basics.Units.MassFlowRate m_flow_aux(start=m_flow_nom);
 
  final parameter Integer i = N_stages;
 
@@ -287,77 +287,6 @@ protected
  final parameter Real vigv_coeff_psi_a = if VIGVInfluence=="Lower" then -0.0001 else if VIGVInfluence=="Higher" then -0.0002 else -0.0001;
  final parameter Real vigv_coeff_psi_b = if VIGVInfluence=="Lower" then 0.0131 else if VIGVInfluence=="Higher" then 0.0218 else 0.0169;
 
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerRp2OutNom=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) "Pointer to external medium memory";
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerRp2Out=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) "Pointer to external medium memory";
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerInletT=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) "Pointer to external medium memory";
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerInletNom=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) "Pointer to external medium memory";
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerOutletNom[i]=
-      {TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) for dummy in 1:i};
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerInlet=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) "Pointer to external medium memory";
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerOutlet[i]=
-      {TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) for dummy in 1:i};
-
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer VLEFluidPointerOutletVigv[i]=
-      {TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      medium.concatVLEFluidName,
-      7,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      0) for dummy in 1:i};
 
 public
    inner Summary summary(outline(
@@ -399,13 +328,22 @@ protected
   Basics.Interfaces.EyeIn eye_int[1] annotation (Placement(transformation(extent={{48,-68},
             {32,-52}}),           iconTransformation(extent={{90,-84},{84,-78}})));
 
+protected
+  TILMedia.VLEFluid Rp2OutNom(vleFluidType=medium);
+  TILMedia.VLEFluid Rp2Out(vleFluidType=medium);
+  TILMedia.VLEFluid InletT(vleFluidType=medium);
+  TILMedia.VLEFluid InletNom(vleFluidType=medium);
+  TILMedia.VLEFluid OutletNom[i](each vleFluidType=medium);
+  TILMedia.VLEFluid Inlet(vleFluidType=medium);
+  TILMedia.VLEFluid Outlet[i](each vleFluidType=medium);
+  TILMedia.VLEFluid OutletVigv[i](each vleFluidType=medium);
 initial equation
 
   fluid_inlet.m_flow = m_flow_corr_st[1]*VLEFluid_inlet.p/ VLEFluid_inlet.T^0.5;
 
-  kappa = -TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_inlet.p,T_in,xi_nom,VLEFluidPointerInlet)/TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_inlet.p,T_in,xi_nom, VLEFluidPointerInlet)
-  * (1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,xi_nom,VLEFluidPointerInlet)/fluid_inlet.p
-  * (-1/(TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_inlet.p,T_in,xi_nom, VLEFluidPointerInlet)*(1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,xi_nom,VLEFluidPointerInlet)))));
+  kappa = -TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_inlet.p,T_in,xi_nom,Inlet.vleFluidPointer)/TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_inlet.p,T_in,xi_nom, Inlet.vleFluidPointer)
+  * (1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,xi_nom,Inlet.vleFluidPointer)/fluid_inlet.p
+  * (-1/(TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_inlet.p,T_in,xi_nom, Inlet.vleFluidPointer)*(1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,xi_nom,Inlet.vleFluidPointer)))));
 
    if N_stages > 1 then
     for i in 1:N_stages loop
@@ -451,7 +389,7 @@ equation
    end for;
 
 T_in = TILMedia.VLEFluidObjectFunctions.temperature_phxi(fluid_inlet.p,inStream(fluid_inlet.h_outflow),inStream(
-    fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInletT);
+    fluid_inlet.xi_outflow),                                                                                                    InletT.vleFluidPointer);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,15 +401,15 @@ T_in = TILMedia.VLEFluidObjectFunctions.temperature_phxi(fluid_inlet.p,inStream(
 if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    cp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    cv_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    isothComp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    spVol_in_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
+    cp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    cv_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    isothComp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    spVol_in_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
 
-    cp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    cv_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    isothComp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    spVol_out_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
+    cp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    cv_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    isothComp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    spVol_out_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
 
     kappa_in_nom_st[1]=  -cp_in_nom_st[1]/cv_in_nom_st[1]* (spVol_in_nom_st[1]/p_in_nom * (-1/(isothComp_in_nom_st[1]*spVol_in_nom_st[1])));
     kappa_out_nom_st[1]= -cp_out_nom_st[1]/cv_out_nom_st[1]* (spVol_out_nom_st[1]/p_out_nom_st[1] * (-1/(isothComp_out_nom_st[1]*spVol_out_nom_st[1])));
@@ -482,8 +420,8 @@ if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY///
     tau_nom_st[1] = 1 + (Pi_nom_st[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * 1/eta_isen_nom_st[1];
     T_out_nom_st[1] = tau_nom_st[1] * T_in_nom; //eq. 18
     p_out_nom_st[1] = p_in_nom * Pi_nom;
-    h_in_nom_st = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    h_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
+    h_in_nom_st = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    h_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
     Delta_h_nom_st[1] = h_out_nom_st[1] - h_in_nom_st;
 
     eta_isen_nom_st[1] = eta_isen_stage_nom;
@@ -497,15 +435,15 @@ if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY///
 else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    cp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    cv_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    isothComp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    spVol_in_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
+    cp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    cv_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    isothComp_in_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    spVol_in_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
 
-    cp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    cv_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    isothComp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
-    spVol_out_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
+    cp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    cv_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    isothComp_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
+    spVol_out_nom_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
 
     kappa_in_nom_st[1]=  -cp_in_nom_st[1]/cv_in_nom_st[1]* (spVol_in_nom_st[1]/p_in_nom * (-1/(isothComp_in_nom_st[1]*spVol_in_nom_st[1])));
     kappa_out_nom_st[1]=  -cp_out_nom_st[1]/cv_out_nom_st[1]* (spVol_out_nom_st[1]/p_out_nom_st[1] * (-1/(isothComp_out_nom_st[1]*spVol_out_nom_st[1])));
@@ -515,8 +453,8 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
     tau_nom_st[1] = 1 + ((p_out_nom_st[1] / p_in_nom)^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * 1/eta_isen_nom_st[1];
     T_out_nom_st[1] = tau_nom_st[1] * T_in_nom; //eq. 18
     p_out_nom_st[1] = p_in_nom * Pi_nom_st[1];
-    h_in_nom_st = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,VLEFluidPointerInletNom);
-    h_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,VLEFluidPointerOutletNom[1]);
+    h_in_nom_st = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.vleFluidPointer);
+    h_out_nom_st[1] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].vleFluidPointer);
     Delta_h_nom_st[1] = h_out_nom_st[1] - h_in_nom_st;
 
     eta_isen_nom_st[1] = eta_isen_stage_nom;
@@ -527,15 +465,15 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
    for i in 2:N_stages loop  ////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       cp_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,VLEFluidPointerOutletNom[i-1]);
-       cv_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,VLEFluidPointerOutletNom[i-1]);
-       isothComp_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,VLEFluidPointerOutletNom[i-1]);
-       spVol_in_nom_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,VLEFluidPointerOutletNom[i-1]);
+       cp_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].vleFluidPointer);
+       cv_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].vleFluidPointer);
+       isothComp_in_nom_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].vleFluidPointer);
+       spVol_in_nom_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].vleFluidPointer);
 
-       cp_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,VLEFluidPointerOutletNom[i]);
-       cv_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,VLEFluidPointerOutletNom[i]);
-       isothComp_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,VLEFluidPointerOutletNom[i]);
-       spVol_out_nom_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,VLEFluidPointerOutletNom[i]);
+       cp_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].vleFluidPointer);
+       cv_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].vleFluidPointer);
+       isothComp_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].vleFluidPointer);
+       spVol_out_nom_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].vleFluidPointer);
 
        kappa_in_nom_st[i]=  -cp_in_nom_st[i]/cv_in_nom_st[i]* (spVol_in_nom_st[i]/p_out_nom_st[i-1] * (-1/(isothComp_in_nom_st[i]*spVol_in_nom_st[i])));
        kappa_out_nom_st[i]=  -cp_out_nom_st[i]/cv_out_nom_st[i]* (spVol_out_nom_st[i]/p_out_nom_st[i] * (-1/(isothComp_out_nom_st[i]*spVol_out_nom_st[i])));
@@ -545,7 +483,7 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
        tau_nom_st[i] = 1 + (Pi_nom_st[i]^((kappa_nom_st[i]-1)/kappa_nom_st[i])-1) * 1/eta_isen_nom_st[i]; //eq. 25
        T_out_nom_st[i] = tau_nom_st[i] * T_out_nom_st[i-1]; //eq. 18
        Pi_nom_st[i] = p_out_nom_st[i] / p_out_nom_st[i-1];
-       h_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,VLEFluidPointerOutletNom[i]);
+       h_out_nom_st[i] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].vleFluidPointer);
        Delta_h_nom_st[i] = h_out_nom_st[i] - h_out_nom_st[i-1];
 
        eta_isen_nom_st[i] = eta_isen_stage_nom;
@@ -571,23 +509,23 @@ end if;
  if N_stages == 1 then ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       cp_in_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       cv_in_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       isothComp_in_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       spVol_in_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                             VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                             Inlet.vleFluidPointer);
 
      // h_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(fluid_outlet.p,T_out,inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
       cp_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_outlet.p,T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       cv_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_outlet.p,T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       isothComp_out_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_outlet.p,T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       spVol_out_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_outlet.p,T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
 
     kappa_in_st[1]=  -cp_in_st[1]/cv_in_st[1]* (spVol_in_st[1]/fluid_inlet.p * (-1/(isothComp_in_st[1]*spVol_in_st[1])));
     kappa_out_st[1]=  -cp_out_st[1]/cv_out_st[1]* (spVol_out_st[1]/fluid_outlet.p * (-1/(isothComp_out_st[1]*spVol_out_st[1])));
@@ -627,10 +565,10 @@ end if;
       psi_rel_st_vigv[1] = (1 + vigv_coeff_psi_a*Delta_alpha_int[1]^2 + vigv_coeff_psi_b*Delta_alpha_int[1]);
       epsilon_rel_st_vigv[1] =(-C_1_st[1]*(psi_rel_st_vigv[1]^2+1) + (C_1_st[1]^2+1)* psi_rel_st_vigv[1])/C_2_st[1]^2;
 
-      cp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-      cv_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-      isothComp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-      spVol_out_nom_st_vigv[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
+      cp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+      cv_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+      isothComp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+      spVol_out_nom_st_vigv[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
       kappa_out_nom_st_vigv[1]= -cp_out_nom_st_vigv[1]/cv_out_nom_st_vigv[1]* (spVol_out_nom_st_vigv[1]/(p_in_nom*Pi_nom_st_vigv[1]) * (-1/(isothComp_out_nom_st_vigv[1]*spVol_out_nom_st_vigv[1])));
       kappa_nom_aux_st_vigv[1] = (kappa_in_nom_st[1] + kappa_out_nom_st_vigv[1]) / 2;
       der(kappa_nom_st_vigv[1]) = 1/Tau_aux*(kappa_nom_aux_st_vigv[1]-kappa_nom_st_vigv[1]);
@@ -660,8 +598,8 @@ end if;
        Pi_prod_st[1] = Pi_st[1];
 
    Y_st[1]= (p_out_st[1] - fluid_inlet.p)/(0.5*(TILMedia.VLEFluidObjectFunctions.density_phxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet) + TILMedia.VLEFluidObjectFunctions.density_phxi(fluid_outlet.p,T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1])));
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer) + TILMedia.VLEFluidObjectFunctions.density_phxi(fluid_outlet.p,T_out_st[1],inStream(
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer)));
 
    //____________/Surge line\____________________________________________________________
    if psi_nom_st[i] <= 0.9 then
@@ -699,13 +637,13 @@ end if;
    tau_nom_rp2 = 1 + (Pi_nom^((kappa_nom_rp2-1)/kappa_nom_rp2)-1) * 1/eta_isen_stage_nom;
    tau_rp2 = 1 + psi_rel_rp2 * rpm_corr_rel_rp2^2 * (tau_nom_rp2-1);
    T_out_rp2 = tau_rp2 * VLEFluid_inlet.T;
-   Delta_h_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,VLEFluidPointerRp2OutNom) - h_in_nom_st;
+   Delta_h_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.vleFluidPointer) - h_in_nom_st;
 
    // h_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(fluid_inlet.p*Pi_nom_st[1],T_in_nom*tau_nom_rp2,inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
-    cp_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,VLEFluidPointerRp2OutNom);
-    cv_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,VLEFluidPointerRp2OutNom);
-    isothComp_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,VLEFluidPointerRp2OutNom);
-    spVol_out_nom_rp2 = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,VLEFluidPointerRp2OutNom);
+    cp_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.vleFluidPointer);
+    cv_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.vleFluidPointer);
+    isothComp_out_nom_rp2 = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.vleFluidPointer);
+    spVol_out_nom_rp2 = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.vleFluidPointer);
 
     kappa_out_nom_rp2 = -cp_out_nom_rp2/cv_out_nom_rp2* (spVol_out_nom_rp2/(fluid_inlet.p*Pi_nom_st[1]) * (-1/(isothComp_out_nom_rp2*spVol_out_nom_rp2)));
     kappa_aux_nom_rp2 = (kappa_in_nom_st[1] + kappa_out_nom_rp2)/2.0;
@@ -713,13 +651,13 @@ end if;
 //kappa_nom_rp2=1.4;
   //  h_out_rp2 = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(fluid_inlet.p*Pi_rp2,T_out_rp2,inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
     cp_out_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_inlet.p*Pi_rp2,T_out_rp2,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerRp2Out);
+      fluid_inlet.xi_outflow),                                                                                                    Rp2Out.vleFluidPointer);
     cv_out_rp2 = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_inlet.p*Pi_rp2,T_out_rp2,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerRp2Out);
+      fluid_inlet.xi_outflow),                                                                                                    Rp2Out.vleFluidPointer);
     isothComp_out_rp2 = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_inlet.p*Pi_rp2,T_out_rp2,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerRp2Out);
+      fluid_inlet.xi_outflow),                                                                                                    Rp2Out.vleFluidPointer);
     spVol_out_rp2 = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p*Pi_rp2,T_out_rp2,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerRp2Out);
+      fluid_inlet.xi_outflow),                                                                                                    Rp2Out.vleFluidPointer);
 
     kappa_out_rp2 = -cp_out_rp2/cv_out_rp2* (spVol_out_rp2/(fluid_inlet.p*Pi_rp2) * (-1/(isothComp_out_rp2*spVol_out_rp2)));
     kappa_aux_rp2 = (kappa_in_st[1] + kappa_out_rp2)/2.0;
@@ -733,23 +671,23 @@ end if;
   else ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       cp_in_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       cv_in_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       isothComp_in_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer);
       spVol_in_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                             VLEFluidPointerInlet);
+      fluid_inlet.xi_outflow),                                                                                             Inlet.vleFluidPointer);
 
     //  h_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_st[1],T_out_st[1],inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
       cp_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[1], T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       cv_out_st[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[1], T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       isothComp_out_st[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_st[1], T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
       spVol_out_st[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[1], T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1]);
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer);
 
     kappa_in_st[1]=  -cp_in_st[1]/cv_in_st[1]* (spVol_in_st[1]/fluid_inlet.p * (-1/(isothComp_in_st[1]*spVol_in_st[1])));
     kappa_out_st[1]=  -cp_out_st[1]/cv_out_st[1]* (spVol_out_st[1]/p_out_st[1] * (-1/(isothComp_out_st[1]*spVol_out_st[1])));
@@ -789,10 +727,10 @@ end if;
     psi_rel_st_vigv[1] = (1 + vigv_coeff_psi_a*Delta_alpha_int[1]^2 + vigv_coeff_psi_b*Delta_alpha_int[1]);
     epsilon_rel_st_vigv[1] =(-C_1_st[1]*(psi_rel_st_vigv[1]^2+1) + (C_1_st[1]^2+1)* psi_rel_st_vigv[1])/C_2_st[1]^2;
 
-    cp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-    cv_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-    isothComp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
-    spVol_out_nom_st_vigv[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,VLEFluidPointerOutletVigv[1]);
+    cp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+    cv_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+    isothComp_out_nom_st_vigv[1] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
+    spVol_out_nom_st_vigv[1] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].vleFluidPointer);
     kappa_out_nom_st_vigv[1]= -cp_out_nom_st_vigv[1]/cv_out_nom_st_vigv[1]* (spVol_out_nom_st_vigv[1]/(p_in_nom*Pi_nom_st_vigv[1]) * (-1/(isothComp_out_nom_st_vigv[1]*spVol_out_nom_st_vigv[1])));
     kappa_nom_aux_st_vigv[1] = (kappa_in_nom_st[1] + kappa_out_nom_st_vigv[1]) / 2;
     der(kappa_nom_st_vigv[1]) = 1/Tau_aux*(kappa_nom_aux_st_vigv[1]-kappa_nom_st_vigv[1]);
@@ -815,8 +753,8 @@ end if;
     Pi_prod_st[1] = Pi_st[1];
     //Y_st[1]= (p_out_st[1] - fluid_inlet.p)/ TILMedia.VLEFluidObjectFunctions.density_phxi((p_out_st[1]+fluid_inlet.p)/2,(inStream(fluid_inlet.h_outflow)+T_out_st[1])/2,inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
     Y_st[1]= (p_out_st[1] - fluid_inlet.p)/(0.5*(TILMedia.VLEFluidObjectFunctions.density_phxi(fluid_inlet.p,T_in,inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerInlet) + TILMedia.VLEFluidObjectFunctions.density_phxi(p_out_st[1], T_out_st[1],inStream(
-      fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[1])));
+      fluid_inlet.xi_outflow),                                                                                                    Inlet.vleFluidPointer) + TILMedia.VLEFluidObjectFunctions.density_phxi(p_out_st[1], T_out_st[1],inStream(
+      fluid_inlet.xi_outflow),                                                                                                    Outlet[1].vleFluidPointer)));
 
     //____________/Surge line\____________________________________________________________
     if psi_nom_st[i] <= 0.9 then
@@ -860,23 +798,23 @@ end if;
  for i in 2:N_stages loop ////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP///////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       cp_in_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i-1],T_out_st[i-1],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i-1]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i-1].vleFluidPointer);
       cv_in_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i-1],T_out_st[i-1],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i-1]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i-1].vleFluidPointer);
       isothComp_in_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_st[i-1],T_out_st[i-1],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i-1]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i-1].vleFluidPointer);
       spVol_in_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i-1],T_out_st[i-1],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i-1]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i-1].vleFluidPointer);
 
     //  h_out_st[i] = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_out_st[i],T_out_st[i],inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
       cp_out_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i].vleFluidPointer);
       cv_out_st[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i].vleFluidPointer);
       isothComp_out_st[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_st[i],T_out_st[i],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i]);
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i].vleFluidPointer);
       spVol_out_st[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i],T_out_st[i],inStream(
-        fluid_inlet.xi_outflow),                                                                                                 VLEFluidPointerOutlet[i]);
+        fluid_inlet.xi_outflow),                                                                                                 Outlet[i].vleFluidPointer);
 
     kappa_in_st[i]=  -cp_in_st[i]/cv_in_st[i]* (spVol_in_st[i]/p_out_st[i-1] * (-1/(isothComp_in_st[i]*spVol_in_st[i])));
     kappa_out_st[i]=  -cp_out_st[i]/cv_out_st[i]* (spVol_out_st[i]/p_out_st[i] * (-1/(isothComp_out_st[i]*spVol_out_st[i])));
@@ -916,10 +854,10 @@ end if;
      psi_rel_st_vigv[i] = (1 + vigv_coeff_psi_a*Delta_alpha_int[i]^2 + vigv_coeff_psi_b*Delta_alpha_int[i]);
      epsilon_rel_st_vigv[i] =(-C_1_st[i]*(psi_rel_st_vigv[i]^2+1) + (C_1_st[i]^2+1)* psi_rel_st_vigv[i])/C_2_st[i]^2;
 
-     cp_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,VLEFluidPointerOutletVigv[i]);
-     cv_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,VLEFluidPointerOutletVigv[i]);
-     isothComp_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,VLEFluidPointerOutletVigv[i]);
-     spVol_out_nom_st_vigv[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,VLEFluidPointerOutletVigv[i]);
+     cp_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].vleFluidPointer);
+     cv_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].vleFluidPointer);
+     isothComp_out_nom_st_vigv[i] = TILMedia.VLEFluidObjectFunctions.isothermalCompressibility_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].vleFluidPointer);
+     spVol_out_nom_st_vigv[i] = 1/TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].vleFluidPointer);
      kappa_out_nom_st_vigv[i]= -cp_out_nom_st_vigv[i]/cv_out_nom_st_vigv[i]* (spVol_out_nom_st_vigv[i]/(p_out_st[i-1]*Pi_nom_st_vigv[i]) * (-1/(isothComp_out_nom_st_vigv[i]*spVol_out_nom_st_vigv[i])));
      kappa_nom_aux_st_vigv[i] = (kappa_in_nom_st[i] + kappa_out_nom_st_vigv[i]) / 2;
      der(kappa_nom_st_vigv[i]) = 1/Tau_aux*(kappa_nom_aux_st_vigv[i]-kappa_nom_st_vigv[i]);
@@ -942,8 +880,8 @@ end if;
      Pi_prod_st[i] = product(Pi_st[j] for j in 1:i); //Overall pressure ratio until actual stage
      //Y_st[i]= (p_out_st[i] - p_out_st[i-1])/TILMedia.VLEFluidObjectFunctions.density_pTxi((p_out_st[i]+p_out_st[i-1])/2,(T_out_st[i]+T_out_st[i-1])/2,inStream(fluid_inlet.Xi_outflow),VLEFluidPointer);
      Y_st[i]= (p_out_st[i] - p_out_st[i-1])/(0.5*(TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i-1],T_out_st[i-1],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i-1]) + TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i],T_out_st[i],inStream(
-        fluid_inlet.xi_outflow),                                                                                                    VLEFluidPointerOutlet[i])));
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i-1].vleFluidPointer) + TILMedia.VLEFluidObjectFunctions.density_pTxi(p_out_st[i],T_out_st[i],inStream(
+        fluid_inlet.xi_outflow),                                                                                                    Outlet[i].vleFluidPointer)));
 
      //____________/Surge line\____________________________________________________________
      if psi_nom_st[i] <= 0.9 then

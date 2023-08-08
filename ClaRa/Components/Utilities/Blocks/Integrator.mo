@@ -1,10 +1,10 @@
 within ClaRa.Components.Utilities.Blocks;
 block Integrator "Output the integral of the input signal - variable Integrator time constant"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,8 +19,7 @@ block Integrator "Output the integral of the input signal - variable Integrator 
   extends Modelica.Blocks.Interfaces.SISO(y(start=y_start_const));
 
   parameter Boolean variable_Tau_i=false "True, if integrator time is set by variable input";
-  parameter SI.Time Tau_i_const=1 "Constant integrator time"
-     annotation (Dialog(enable= not variable_Tau_i));
+  parameter Basics.Units.Time Tau_i_const=1 "Constant integrator time" annotation (Dialog(enable=not variable_Tau_i));
 
   parameter Integer initOption = 501 "Initialisation option" annotation(Dialog(choicesAllMatching, group="Initialisation"), choices(choice = 501 "No init (y_start and x_start as guess values)",
                                                                                                     choice=502 "Steady state",
@@ -30,10 +29,10 @@ block Integrator "Output the integral of the input signal - variable Integrator 
                                                                                             annotation (Dialog(group="Initialization"));
 
   parameter Real y_start_const=0 "Initial or guess value of output (= state)"  annotation (Dialog(group="Initialization",enable= not y_startInputIsActive));
-  parameter SI.Time startTime= 0 "Start time for integration";
+  parameter Basics.Units.Time startTime=0 "Start time for integration";
 
 protected
-  SI.Time Tau_i_in;
+  Basics.Units.Time Tau_i_in;
   Real y_start_in;
 public
   Modelica.Blocks.Interfaces.RealInput Tau_i(value=Tau_i_in) if (variable_Tau_i) annotation (Placement(

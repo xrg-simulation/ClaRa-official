@@ -1,0 +1,179 @@
+//Convert Package from ClaRa 1.3.1
+convertClear();
+
+//Tau_rad
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Static", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Static", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Static", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoom_L2_Static", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", {"Tau_rad"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Hopper.Hopper_L2", {"Tau_rad"}, fill("",0),true);
+convertModifiers("Components.Furnace.Hopper.Hopper_L2", {"Tau_rad"}, fill("",0),true);
+
+//V_flow_flueGas_out_start
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoom_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+convertModifiers("ClaRa.Components.Furnace.Hopper.Hopper_L2", {"V_flow_flueGas_out_start"}, fill("",0),true);
+convertModifiers("Components.Furnace.Hopper.Hopper_L2", {"V_flow_flueGas_out_start"}, fill("",0),true);
+
+//Flue Gas Junction
+//convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portA"},{"inlet"});
+//convertModifiers("Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portA"},{"inlet"});
+
+//convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portB"},{"outlet1"});
+//convertModifiers("Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portB"},{"outlet1"});
+
+//convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portC"},{"outlet2"});
+//convertModifiers("Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"portC"},{"outlet2"});
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+convertModifiers("Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.JoinGas_L2_flex",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+convertModifiers("Components.VolumesValvesFittings.Fittings.JoinGas_L2_flex",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+convertModifiers("Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex",{"mixingRatio_initial"},{"xi_start=%mixingRatio_initial%"},true);
+
+// Rename StaCy Examples ////////////////////////////////////////////////////////////////////////////////////////
+
+convertClass("ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_Rostock_3_1", "ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_SimplePowerPlant1" ); 
+convertClass("ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_Rostock_5", "ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_SimplePowerPlant2" ); 
+convertClass("ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_Rostock_HRO_20", "ClaRa.StaticCycles.Check.StaticCycleExamples.InitSteamCycle_SimplePowerPlant3" ); 
+
+
+//Convert E-Motor
+convertModifiers("ClaRa.Components.Electrical.AsynchronousMotor_L2_base", {"charLine_tau_s_=[-3,2.06; -2,2.06; -1,2.05; 0,2; 0.7,1.8; 0.95,2.8; 1,0; 1.05,-2.8; 1.3,-1.8; 2,-2; 3,-2.05; 4,-2.06; 5,-2.06]"}, {"charLine_tau_rpm_=%charLine_tau_s_%"}, true);
+convertModifiers("ClaRa.Components.Electrical.AsynchronousMotor_L2", {"charLine_tau_s_=[-3,2.06; -2,2.06; -1,2.05; 0,2; 0.7,1.8; 0.95,2.8; 1,0; 1.05,-2.8; 1.3,-1.8; 2,-2; 3,-2.05; 4,-2.06; 5,-2.06]"}, {"charLine_tau_rpm_=%charLine_tau_s_%"}, true);
+
+//Heat Exchanger
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_kA", {"kA=50000"}, {"kA_nom=%kA%"}, true);
+
+
+// Rename Valve Package ////////////////////////////////////////////////////////////////////////////////////////
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible" ); 
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1", "ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1" ); 
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1", "ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1" ); 
+
+convertElement("ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1.summary.outline","PR_crit","PR_choked");
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction",{"alpha_out"},{"Kd=%alpha_out%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction",{"m_flow_nominal"},{"m_flow_nom=%m_flow_nominal%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534",{"m_flow_nominal"},{"m_flow_nom=%m_flow_nominal%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible",{"m_flow_nominal"},{"m_flow_nom=%m_flow_nominal%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534",{"Kvs"},{"Kvs_in=%Kvs%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible",{"Kvs"},{"Kvs_in=%Kvs%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534",{"Kvs_actual"},{"Kvs=%Kvs_actual%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible",{"Kvs_actual"},{"Kvs=%Kvs_actual%"},true);
+
+
+// Eye Connector Drum ////////////////////////////////////////////////////////////////////////////////////////
+
+convertElement("ClaRa.Components.MechanicalSeparation.Drum_L3","eye_down","eye_down[1]");
+convertModifiers("ClaRa.Components.Electrical.AsynchronousMotor_L2", {"charLine_tau_s_=[-3,2.06; -2,2.06; -1,2.05; 0,2; 0.7,1.8; 0.95,2.8; 1,0; 1.05,-2.8; 1.3,-1.8; 2,-2; 3,-2.05; 4,-2.06; 5,-2.06]"}, {"charLine_tau_rpm_=%charLine_tau_s_%"}, true);
+
+//Boundaries
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryVLE_phxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryVLE_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryVLE_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryVLE_hxim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryVLE_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryVLE_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryGas_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryGas_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryFuel_Txim_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundaryFuel_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundaryFuel_pTxi",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundarySlag_Tm_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundarySlag_Tm_flow",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+convertModifiers("ClaRa.Components.BoundaryConditions.BoundarySlag_pT",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+convertModifiers("Components.BoundaryConditions.BoundarySlag_pT",{"massFlowIsLoss"}, {"energyType=if(%massFlowIsLoss%==true) then 0 elseif(%massFlowIsLoss%==false)  then 1 else 0"},true);
+
+
+
+
+// HollowBlockWithTubes renaming ////////////////////////////////////////////////////////////////////////////////////////
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_simple",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_ntu",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_simple",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_ntu",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ClaRa.Components.HeatExchangers.IdealShell_L2",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+convertModifiers("ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell",{"parallelTubes=false","flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical"}, {"tubeOrientation=if(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif(%parallelTubes%==false and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif(%parallelTubes%==true and %flowOrientation%==ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0","flowOrientation=%flowOrientation%" }, {true,true});
+
+//Hopper
+convertModifiers("ClaRa.Components.Furnace.Hopper.Hopper_L2",{"T_Slag"},{"T_slag=%T_Slag%"},true);
+convertModifiers("Components.Furnace.Hopper.Hopper_L2",{"T_Slag"},{"T_slag=%T_Slag%"},true);

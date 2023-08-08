@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | U-type | NTU ansatz"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -30,7 +30,8 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     input Basics.Units.TemperatureDifference Delta_T_in "Fluid temperature at inlet T_1_in - T_2_in";
     input Basics.Units.TemperatureDifference Delta_T_out "Fluid temperature at outlet T_1_out - T_2_out";
     input Real effectiveness[3] if showExpertSummary "Effectivenes of HEX";
-    input Real kA[3](unit="W/K") if showExpertSummary "Overall heat resistance";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA[3] if showExpertSummary "Overall heat transmission";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA_nom if showExpertSummary "Nominal overall heat transmission";
     input Basics.Units.Length level_abs "Absolute filling level";
     input Real level_rel "relative filling level";
   end Outline;
@@ -94,6 +95,8 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
   parameter Basics.Units.EnthalpyMassSpecific h_nom_shell=100e3 "Nominal specific enthalpy at shell side"
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter Real yps_liq_nom=level_rel_start "Relative volume of liquid phase at nominal point" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  final parameter Real yps_nom[2]={yps_liq_nom, 1-yps_liq_nom} "Relative volume of liquid phase [1] and vapour phase [2] at nominal point";
 
   //________________________________ Shell initialisation  _______________________________________//
 
@@ -132,7 +135,7 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
         group="Fundamental Definitions"), choicesAllMatching);
 
   //________________________________ Tubes geometry _______________________________//
-  parameter ClaRa.Basics.Units.Length diameter_i=0.048 "Inner diameter of horizontal tubes" annotation (Dialog(tab="Tubes", group="Geometry",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HollowBlockWithTubes_2.png"));
+  parameter ClaRa.Basics.Units.Length diameter_i=0.048 "Inner diameter of horizontal tubes" annotation (Dialog(tab="Tubes", group="Geometry",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HEX_ParameterDialogTubes.png"));
   parameter ClaRa.Basics.Units.Length diameter_o=0.05 "Outer diameter of horizontal tubes" annotation (Dialog(tab="Tubes", group="Geometry"));
   parameter ClaRa.Basics.Units.Length length_tubes=10 "Length of the tubes (one pass)" annotation (Dialog(tab="Tubes", group="Geometry"));
   parameter Integer N_tubes=1000 "Number of horizontal tubes" annotation (Dialog(tab="Tubes", group="Geometry"));
@@ -307,11 +310,9 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     outerPhaseChange=true,
     alpha_o={shell.heattransfer.alpha[2],shell.heattransfer.alpha[2],shell.heattransfer.alpha[1]},
     alpha_i={1,1,1}*tubes.heattransfer.alpha,
-    h_i_inlet=tubes.fluidIn.h,
     p_i=(tubes.fluidIn.p + tubes.fluidOut.p)/2,
     gain_eff=gain_eff,
     length=length_tubes,
-    h_o_inlet=shell.fluidIn[1].h,
     m_flow_o=shell.inlet[1].m_flow,
     showExpertSummary=showExpertSummary,
     redeclare model HeatExchangerType =
@@ -319,7 +320,12 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     Tau_stab=Tau_stab,
     p_o=shell.inlet[1].p,
     initOption_yps=initOption_yps,
-    yps_start=yps_start)  "{shell.heattransfer.alpha[2],shell.heattransfer.alpha[2],shell.heattransfer.alpha[1]}"
+    yps_start=yps_start,
+    xi_i=inStream(tubes.inlet.xi_outflow),
+    xi_o=inStream(shell.inlet[1].xi_outflow),
+    h_i_inlet=inStream(tubes.inlet.h_outflow),
+    h_o_inlet=inStream(shell.inlet[1].h_outflow))
+                          "{shell.heattransfer.alpha[2],shell.heattransfer.alpha[2],shell.heattransfer.alpha[1]}"
                                                                                               annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={57,0})));
@@ -332,6 +338,7 @@ public
       Delta_T_out=shell.summary.outlet[1].T - tubes.summary.outlet.T,
       effectiveness=wall.summary.effectiveness,
       kA=wall.summary.kA,
+      kA_nom=1 /(tubes.heattransfer.HR_nom + wall.HR_nom + sum(shell.heattransfer.HR_nom .* yps_nom)),
       level_abs=shell.phaseBorder.level_abs,
       level_rel=shell.phaseBorder.level_rel)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -402,7 +409,7 @@ eye_int2[1].m_flow=-tubes.outlet.m_flow;
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.innerPhase[1], tubes.heat) annotation (Line(
-      points={{66.6667,-8.88178e-016},{66.6667,-1.77636e-015},{74,-1.77636e-015}},
+      points={{66.6667,-8.88178e-16},{66.6667,-1.77636e-15},{74,-1.77636e-15}},
       color={191,0,0},
       smooth=Smooth.None,
       thickness=0.5));
@@ -412,7 +419,7 @@ eye_int2[1].m_flow=-tubes.outlet.m_flow;
       smooth=Smooth.None,
       thickness=0.5));
   connect(wall.innerPhase[3], tubes.heat) annotation (Line(
-      points={{65.3333,-4.44089e-016},{65.3333,1.77636e-015},{74,1.77636e-015}},
+      points={{65.3333,-4.44089e-16},{65.3333,1.77636e-15},{74,1.77636e-15}},
       color={191,0,0},
       smooth=Smooth.None,
       thickness=0.5));

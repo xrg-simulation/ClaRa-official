@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L1
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -63,20 +63,20 @@ model SteamSeparatorVLE_L1
   ClaRa.Basics.Interfaces.EyeOut eye_out2 if
                                             showData annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={40,-100}), iconTransformation(
+        rotation=90,
+        origin={40,100}),  iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={40,-110})));
+        rotation=90,
+        origin={40,110})));
 
   ClaRa.Basics.Interfaces.EyeOut eye_out1 if
                                             showData annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={40,100}), iconTransformation(
+        rotation=90,
+        origin={40,-102}),iconTransformation(
         extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={40,110})));
+        rotation=90,
+        origin={40,-110})));
 
   Summary summary(
     inlet(
@@ -113,10 +113,10 @@ model SteamSeparatorVLE_L1
 
 protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1]
-    annotation (Placement(transformation(extent={{39,-53},{41,-51}})));
+    annotation (Placement(transformation(extent={{39,59},{41,61}})));
 
   ClaRa.Basics.Interfaces.EyeIn eye_int1[1]
-    annotation (Placement(transformation(extent={{39,77},{41,75}})));
+    annotation (Placement(transformation(extent={{39,-59},{41,-61}})));
 
 equation
   outlet2.h_outflow= SZT(fluidIn.h,
@@ -160,11 +160,11 @@ equation
   eye_int1[1].p=summary.outlet1.p/100000;
 
   connect(eye_int[1], eye_out2) annotation (Line(
-      points={{40,-52},{40,-100}},
+      points={{40,60},{40,100}},
       color={190,190,190},
       smooth=Smooth.None));
   connect(eye_int1[1], eye_out1) annotation (Line(
-      points={{40,76},{40,100}},
+      points={{40,-60},{40,-102}},
       color={190,190,190},
       smooth=Smooth.None));
 end SteamSeparatorVLE_L1;

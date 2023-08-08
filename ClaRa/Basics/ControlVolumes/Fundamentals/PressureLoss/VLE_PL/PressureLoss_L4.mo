@@ -9,13 +9,13 @@ partial model PressureLoss_L4 "VLE || PL Base Class"
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry_N_cv geo;
   outer parameter Boolean useHomotopy;
 
-  final parameter Basics.Units.MassFlowRate m_flow_nom=iCom.m_flow_nom "Nominal mass flow rate";
+  final parameter Units.MassFlowRate m_flow_nom=iCom.m_flow_nom "Nominal mass flow rate";
 
-  final parameter Basics.Units.PressureDifference Delta_p_nom=iCom.Delta_p_nom "Nominal pressure loss wrt. all parallel tubes";
+  final parameter Units.PressureDifference Delta_p_nom=iCom.Delta_p_nom "Nominal pressure loss wrt. all parallel tubes";
 
-  Basics.Units.PressureDifference Delta_p[iCom.N_cv + 1] "Pressure difference";
+  Units.PressureDifference Delta_p[iCom.N_cv + 1] "Pressure difference";
 
-  Basics.Units.MassFlowRate m_flow[iCom.N_cv + 1];
+  Units.MassFlowRate m_flow[iCom.N_cv + 1];
 
   annotation (Icon(graphics));
 end PressureLoss_L4;

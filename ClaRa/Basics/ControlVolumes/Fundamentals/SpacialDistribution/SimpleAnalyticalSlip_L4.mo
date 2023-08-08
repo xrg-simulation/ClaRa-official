@@ -8,41 +8,43 @@ model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
   import TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
   import TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
 
-  Basics.Units.DensityMassSpecific rho[geo.N_cv] "Mixed cup density";
-  Basics.Units.DensityMassSpecific rho_mix[geo.N_cv] "In-situ density";
-  Basics.Units.VolumeFraction yps[geo.N_cv] "Void fraction";
+  Units.DensityMassSpecific rho[geo.N_cv] "Mixed cup density";
+  Units.DensityMassSpecific rho_mix[geo.N_cv] "In-situ density";
+  Units.VolumeFraction yps[geo.N_cv] "Void fraction";
   Real S[geo.N_cv] "Slip between phases";
-  Basics.Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start) "Slip model enthalpy";
+  Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start) "Slip model enthalpy";
 
-    TILMedia.VLEFluidObjectFunctions.VLEFluidPointer ptr_slip[iCom.N_cv]={TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      iCom.mediumModel.concatVLEFluidName,
-      7,
-      iCom.mediumModel.mixingRatio_propertyCalculation[1:end - 1]/sum(iCom.mediumModel.mixingRatio_propertyCalculation),
-      iCom.mediumModel.nc_propertyCalculation,
-      iCom.mediumModel.nc,
-      TILMedia.Internals.redirectModelicaFormatMessage()) for i in 1:iCom.N_cv};
+//     TILMedia.VLEFluidObjectFunctions.VLEFluidPointer ptr_slip[iCom.N_cv]={TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
+//       iCom.mediumModel.concatVLEFluidName,
+//       7,
+//       iCom.mediumModel.mixingRatio_propertyCalculation[1:end - 1]/sum(iCom.mediumModel.mixingRatio_propertyCalculation),
+//       iCom.mediumModel.nc_propertyCalculation,
+//       iCom.mediumModel.nc,
+//       TILMedia.Internals.redirectModelicaFormatMessage()) for i in 1:iCom.N_cv};
 
-  Basics.Units.DensityMassSpecific rho_vap[iCom.N_cv] "Density of vapour";
-  Basics.Units.DensityMassSpecific rho_liq[iCom.N_cv] "Density of liquid";
-  Basics.Units.EnthalpyMassSpecific h_liq[geo.N_cv] "Liquid specific enthalpy";
-  Basics.Units.EnthalpyMassSpecific h_vap[geo.N_cv] "Vapour specific enthalpy";
+  Units.DensityMassSpecific rho_vap[iCom.N_cv] "Density of vapour";
+  Units.DensityMassSpecific rho_liq[iCom.N_cv] "Density of liquid";
+  Units.EnthalpyMassSpecific h_liq[geo.N_cv] "Liquid specific enthalpy";
+  Units.EnthalpyMassSpecific h_vap[geo.N_cv] "Vapour specific enthalpy";
   Real steamQuality[iCom.N_cv] "Steam quality";
-  Basics.Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
+  Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
 
+protected
+  TILMedia.VLEFluid ptr_slip[iCom.N_cv](each vleFluidType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 equation
     /////// Calculate Media Required Data  ///////////////////
   for i in 1:iCom.N_cv loop
-    steamQuality[i] =steamMassFraction_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i]);
+    steamQuality[i] =steamMassFraction_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
-    rho_vap[i] = vapourDensity_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i]);
+    rho_vap[i] = vapourDensity_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
-    rho_liq[i] = liquidDensity_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i]);
+    rho_liq[i] = liquidDensity_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
-    h_vap[i] = dewSpecificEnthalpy_pxi(iCom.p[i],iCom.xi[i, :], ptr_slip[i]);
+    h_vap[i] = dewSpecificEnthalpy_pxi(iCom.p[i],iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
-    h_liq[i] = bubbleSpecificEnthalpy_pxi(iCom.p[i],iCom.xi[i, :], ptr_slip[i]);
+    h_liq[i] = bubbleSpecificEnthalpy_pxi(iCom.p[i],iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
-    rho[i] = density_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i]);
+    rho[i] = density_phxi(iCom.p[i], h[i], iCom.xi[i, :], ptr_slip[i].vleFluidPointer);
 
   end for;
   for i in 1:iCom.N_cv loop

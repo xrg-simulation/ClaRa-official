@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Preheater2 "Preheater || bubble state at shell outlet || par.: shell pressure || cond: blue | blue || tap: blue | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -55,19 +55,18 @@ model Preheater2 "Preheater || bubble state at shell outlet || par.: shell press
                                                           Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p_tap_nom "|Fundamental Definitions|Nominal pressure of heating steam";
 
-  parameter ClaRa.Basics.Units.Length level_abs = 0 "|Fundamental Definitions|Filling level in hotwell";
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h_tap_out_sc=0 "Enthalpy difference to bubble enthalpy of tapping outlet enthalpy"
-                                                                                                                                            annotation(Dialog(group= "Nominal Operation Point"));
+  parameter ClaRa.Basics.Units.Length level_abs=0 "|Fundamental Definitions|Filling level in hotwell";
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h_tap_out_sc=0 "Enthalpy difference to bubble enthalpy of tapping outlet enthalpy" annotation (Dialog(group="Nominal Operation Point"));
 
   final parameter ClaRa.Basics.Units.Pressure p_tap(fixed=false) "Pressure of the heating steam";
-  final parameter ClaRa.Basics.Units.Pressure p_tap_out=p_tap+ Modelica.Constants.g_n*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_tap)*level_abs;
+  final parameter ClaRa.Basics.Units.Pressure p_tap_out=p_tap + Modelica.Constants.g_n*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_tap)*level_abs;
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_tap(fixed=false);
   final parameter ClaRa.Basics.Units.Pressure p_cond(fixed=false);
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_cond(fixed=false) "Mass flow of the condensate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in(fixed=false);
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_in(fixed=false);
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_out = TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_tap)-Delta_h_tap_out_sc;
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out = m_flow_tap*( h_tap_in - h_tap_out)/m_flow_cond + h_cond_in;
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_out=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_tap) - Delta_h_tap_out_sc;
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out=m_flow_tap*(h_tap_in - h_tap_out)/m_flow_cond + h_cond_in;
 
   parameter Real CharLine_p_tap_P_target_[:,2]=[0,1;1,1] "Characteristic line of p_tap as function of P_target_" annotation(Dialog(group="Part Load Definition"));
 

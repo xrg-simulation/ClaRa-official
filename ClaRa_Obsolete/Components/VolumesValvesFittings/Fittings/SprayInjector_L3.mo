@@ -118,16 +118,12 @@ public
     T_start=T_wall_start,
     N_rad=N_wall) annotation (Placement(transformation(extent={{38,42},{58,62}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1   valve(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(
     medium=medium,
     openingInputIsActive=true,
     showExpertSummary=showExpertSummary,
     showData=false,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
-         m_flow_nom=if ((m_flow_nom_spray) > 0) then (m_flow_nom_spray) else 10,
-          Delta_p_nom=if ((Delta_p_nozzle) <> 0) then (Delta_p_nozzle) else 1000))
-                                      annotation (Placement(transformation(
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((m_flow_nom_spray) > 0) then (m_flow_nom_spray) else 10, Delta_p_nom=if ((Delta_p_nozzle) <> 0) then (Delta_p_nozzle) else 1000)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={-20,-46})));

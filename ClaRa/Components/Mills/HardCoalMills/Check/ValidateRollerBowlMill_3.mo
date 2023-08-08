@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.HardCoalMills.Check;
 model ValidateRollerBowlMill_3 "A test scenario derived from the paper Niemczyk: 'Derivation and validation of a coal mill model for control'"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -25,10 +25,11 @@ model ValidateRollerBowlMill_3 "A test scenario derived from the paper Niemczyk:
   Real Dev2;
 
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 Mill2(
+    millKoeff=Fundamentals.STV4(),
     initOption=801,
     mass_rct_start=3000,
     mass_pct_start=100,
-    T_out_start=96.15 + 273.15) annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
+    T_out_start=96.15 + 273.15) annotation (Placement(transformation(extent={{-8,-62},{12,-42}})));
   inner SimCenter simCenter(T_amb=283.15, redeclare Basics.Media.FuelTypes.Fuel_refvalues_v2 fuelModel1(C_cp={1400,1000,4190}))
                                                                                                  annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.CombiTimeTable W_c(
@@ -133,7 +134,7 @@ equation
   Omega=Dev1+Dev2;
 
   connect(omega.y[1], Mill2.classifierSpeed) annotation (Line(
-      points={{-79,2},{2,2},{2,-39.2}},
+      points={{-79,2},{2,2},{2,-41.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(coalFlowSource_XRG1.fuel_a,coalGas_join_burner1.fuel_inlet)
@@ -148,7 +149,7 @@ equation
       color={84,58,36},
       smooth=Smooth.None));
   connect(coalGas_join_burner1.fuelFlueGas_outlet, Mill2.inlet) annotation (Line(
-      points={{-14,-50},{-8,-50}},
+      points={{-14,-50},{-12,-50},{-12,-52},{-8,-52}},
       color={175,175,175},
       smooth=Smooth.None));
   connect(fluelGasFlowSource_burner1.m_flow, W_air.y[1]) annotation (Line(
@@ -174,7 +175,7 @@ equation
       color={127,127,0},
       smooth=Smooth.None));
   connect(coalGas_join_burner2.fuelFlueGas_outlet, Mill2.outlet) annotation (Line(
-      points={{20,-60},{20,-50},{12,-50}},
+      points={{20,-60},{20,-52},{12,-52}},
       color={175,175,175},
       smooth=Smooth.None));
   annotation (Diagram(graphics={Text(

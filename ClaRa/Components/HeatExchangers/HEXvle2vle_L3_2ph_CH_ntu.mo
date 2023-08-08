@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CH_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | Header type | simple HT"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -30,7 +30,8 @@ model HEXvle2vle_L3_2ph_CH_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     input Basics.Units.TemperatureDifference Delta_T_in "Fluid temperature at inlet T_1_in - T_2_in";
     input Basics.Units.TemperatureDifference Delta_T_out "Fluid temperature at outlet T_1_out - T_2_out";
     input Real effectiveness[3] if showExpertSummary "Effectivenes of HEX";
-    input Real kA[3](unit="W/K") if showExpertSummary "Overall heat resistance";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA[3] if showExpertSummary "Overall heat transmission";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA_nom if showExpertSummary "Nominal overall heat transmission";
     input Basics.Units.Length level_abs "Absolute filling level";
     input Real level_rel "relative filling level";
   end Outline;
@@ -93,6 +94,8 @@ model HEXvle2vle_L3_2ph_CH_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
   parameter Basics.Units.EnthalpyMassSpecific h_nom_shell=100e3 "Nominal specific enthalpy on shell side"
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter Real yps_liq_nom=level_rel_start "Relative volume of liquid phase at nominal point" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  final parameter Real yps_nom[2]={yps_liq_nom, 1-yps_liq_nom} "Relative volume of liquid phase [1] and vapour phase [2] at nominal point";
 
   //________________________________ Shell initialisation  _______________________________________//
     parameter SI.EnthalpyMassSpecific h_liq_start=-10 +
@@ -208,6 +211,7 @@ model HEXvle2vle_L3_2ph_CH_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
   parameter Real gain_eff=1 "Avoid effectiveness > 1, high gain_eff leads to stricter observation but may cause numeric errors"
                                                                                               annotation (Dialog(tab="Expert Settings", group="NTU model"));
   parameter Basics.Units.Time Tau_stab=0.1 "Time constant for numeric stabilisation w.r.t. heat flow rates" annotation (Dialog(tab="Expert Settings", group="NTU model"));
+
   replaceable model HeatCapacityAveraging =
       ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.ArithmeticMean
     constrainedby ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.GeneralMean
@@ -302,11 +306,13 @@ public
       Delta_T_out=shell.summary.outlet[1].T - tubes.summary.outlet.T,
       effectiveness=wall.summary.effectiveness,
       kA=wall.summary.kA,
+      kA_nom=1/(tubes.heattransfer.HR_nom + wall.HR_nom + sum(shell.heattransfer.HR_nom .* yps_nom)),
       level_abs=shell.phaseBorder.level_abs,
       level_rel=shell.phaseBorder.level_rel)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-92})));
+
 protected
    Basics.Interfaces.EyeIn eye_int2[1]
      annotation (Placement(transformation(extent={{-51,-43},{-49,-41}})));
@@ -337,7 +343,7 @@ public
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone wall(
-    length=length,
+    length=length_tubes,
     redeclare replaceable model Material = WallMaterial,
     N_p=N_passes,
     radius_i=diameter_i/2,
@@ -366,7 +372,9 @@ public
     CF_geo=CF_geo,
     p_o=shell.inlet[1].p,
     initOption_yps=initOption_yps,
-    yps_start=yps_start)                                                                                annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    yps_start=yps_start,
+    xi_i=inStream(tubes.inlet.xi_outflow),
+    xi_o=inStream(shell.inlet[1].xi_outflow))                                                           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={54,40})));
   Adapters.Scalar2VectorHeatPort reallocateHeatFlows(final equalityMode="Equal Temperatures")

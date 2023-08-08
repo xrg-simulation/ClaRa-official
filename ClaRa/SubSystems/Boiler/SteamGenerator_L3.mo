@@ -1,10 +1,10 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L3 "A steam generation and reaheater model using lumped balance equations for mass and energy and two spray attemperators"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,9 +17,10 @@ model SteamGenerator_L3 "A steam generation and reaheater model using lumped bal
 
   extends ClaRa.SubSystems.Boiler.CoalSupplyBoiler_base;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
-    powerIn=Q_flow_HP + Q_flow_IP,
-    powerOut=0,
-    powerAux=Q_flow_F_nom*QF_setl_ - Q_flow_HP - Q_flow_IP) if                                                                                                     contributeToCycleSummary;
+    powerIn=heatRelease.y*Q_flow_F_nom,
+    powerOut_th=0,
+    powerOut_elMech=0,
+    powerAux=0) if                                                                                                     contributeToCycleSummary;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
    parameter Modelica.SIunits.Pressure p_LS_nom= 300e5 "Nominal life steam pressure"

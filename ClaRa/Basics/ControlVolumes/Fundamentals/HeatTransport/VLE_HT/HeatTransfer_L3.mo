@@ -15,7 +15,7 @@ partial model HeatTransfer_L3 "L3 || HT-BaseClass"
   //   SI.Temperature Delta_T_wo
   //     "Temperature difference between wall and fluid outlet temperature";
 
-  SI.Temperature Delta_T_mean[iCom.N_cv] "Mean temperature difference between wall and fluid";
+  Units.Temperature Delta_T_mean[iCom.N_cv] "Mean temperature difference between wall and fluid";
 
   //   SI.Temperature Delta_T_U;
   //   SI.Temperature Delta_T_L;

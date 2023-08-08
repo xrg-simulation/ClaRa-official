@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Simple "Gas || L2 || Simple E-Filter"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,10 +21,10 @@ model E_Filter_L2_Simple "Gas || L2 || Simple E-Filter"
   parameter Real separationRate(max = 0.99995) = 0.9995 "Separation rate" annotation (Dialog(group="Fundamental Definitions"));
   parameter Real specific_powerConsumption(unit="W.h/m3") = 0.15 "Specific power consumption" annotation (Dialog(group="Fundamental Definitions"));
 
-  SI.Power powerConsumption "Power consumption";
-  SI.DensityMassSpecific d_flueGas_in;
-  SI.DensityMassSpecific d_flueGas_out;
-  SI.MassFraction xi_dust[iCom.mediumModel.nc-1];
+  Units.Power powerConsumption "Power consumption";
+  Units.DensityMassSpecific d_flueGas_in;
+  Units.DensityMassSpecific d_flueGas_out;
+  Units.MassFraction xi_dust[iCom.mediumModel.nc - 1];
 
 equation
 

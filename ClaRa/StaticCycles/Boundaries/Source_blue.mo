@@ -2,9 +2,9 @@ within ClaRa.StaticCycles.Boundaries;
 model Source_blue "Blue boundary"
   // Blue output:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFlowRate  m_flow "Mass flow from the source";
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow from the source";
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy of the source flow";
-  final parameter ClaRa.Basics.Units.Pressure p(fixed = false) "Pressure at the source";
+  final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Pressure at the source";
   outer ClaRa.SimCenter simCenter;
 
   ClaRa.StaticCycles.Fundamentals.SteamSignal_blue_b outlet(h=h, m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));

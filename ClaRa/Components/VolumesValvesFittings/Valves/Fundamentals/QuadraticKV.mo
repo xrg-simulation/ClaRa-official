@@ -10,18 +10,18 @@ model QuadraticKV "Quadratic|Kv definition | subcritical flow"
   outer Boolean checkValve;
   outer Boolean useHomotopy;
 
-  SI.MassFlowRate m_flow;
+  Basics.Units.MassFlowRate m_flow;
   Real aperture_ "Effective apperture";
 
   Modelica.Blocks.Tables.CombiTable1D ValveCharacteristics(table=CL_valve,
       columns={2});
-  SI.PressureDifference Delta_p "Pressure difference p_in - p_out";
+  Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 
   import SM = ClaRa.Basics.Functions.Stepsmoother;
   parameter Real Kvs(unit="m3/h") = 1 "|Valve Characteristics|Flow Coefficient at nominal opening (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
   Real Kv(unit="m3/h") "|Valve Characteristics|Flow Coefficient (Delta_p_nom = 1e5 Pa, rho_nom=1000 kg/m^3(cold water))";
 
-  parameter SI.Pressure Delta_p_eps= 100 "|Expert Settings||Small pressure difference for linearisation around zero flow";
+  parameter Basics.Units.Pressure Delta_p_eps=100 "|Expert Settings||Small pressure difference for linearisation around zero flow";
   Real flowIsChoked=0 "1 if flow is choked, 0 if not";
   Real PR_choked=-1 "Pressure ratio at which choking occurs";
 equation

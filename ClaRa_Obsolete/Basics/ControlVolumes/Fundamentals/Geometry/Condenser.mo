@@ -16,9 +16,9 @@ model Condenser "Block shape || Shell with tubes || Hotwell || Vertical flow || 
   //___________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell(
-    final flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
-    final parallelTubes=false,
-    final N_passes=1);
+    final N_passes=1,
+    flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
+    tubeOrientation=if ((false) == false and (ClaRa.Basics.Choices.GeometryOrientation.vertical) == ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 1 elseif ((false) == false and (ClaRa.Basics.Choices.GeometryOrientation.vertical) == ClaRa.Basics.Choices.GeometryOrientation.vertical) then 0 elseif ((false) == true and (ClaRa.Basics.Choices.GeometryOrientation.vertical) == ClaRa.Basics.Choices.GeometryOrientation.vertical) then 2 elseif ((false) == true and (ClaRa.Basics.Choices.GeometryOrientation.vertical) == ClaRa.Basics.Choices.GeometryOrientation.horizontal) then 0 else 0);
 
   annotation (Icon(graphics={Bitmap(
           extent={{-100,-100},{100,100}},

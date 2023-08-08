@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryGas_pTxi "A gas source defining pressure, Temperature and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,12 +17,13 @@ model BoundaryGas_pTxi "A gas source defining pressure, Temperature and composit
 
 extends ClaRa.Basics.Icons.FlowSink;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
-    powerIn=if massFlowIsLoss then 0 else min(0, gas_a.m_flow*h_port),
-    powerOut=if massFlowIsLoss then 0 else max(0, gas_a.m_flow*h_port),
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerIn=if energyType == 1 then -gas_a.m_flow*h_port else 0,
+    powerOut_th=if energyType == 2 then  gas_a.m_flow*h_port else 0,
+    powerOut_elMech=0,
+    powerAux=0) if  contributeToCycleSummary;
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
-  parameter Boolean massFlowIsLoss = true "True if mass flow is a loss (not a process product)" annotation(Dialog(tab="Summary and Visualisation"));
+  parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
 
   parameter TILMedia.GasTypes.BaseGas                 medium = simCenter.flueGasModel "Medium to be used in tubes"
                                                                                               annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -30,21 +31,18 @@ extends ClaRa.Basics.Icons.FlowSink;
   parameter Boolean variable_T=false "True, if spc. temperature defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_xi=false "True, if composition defined by variable input"    annotation(Dialog(group="Define Variable Boundaries"));
 
-  parameter SI.Pressure p_const=simCenter.p_amb_start "Constant pressure"                annotation(Dialog(group="Constant Boundaries", enable= not variable_p));
-  parameter SI.Temperature T_const=simCenter.T_amb_start "Constant specific temperature of source"
+  parameter ClaRa.Basics.Units.Pressure p_const=simCenter.p_amb_start "Constant pressure"                annotation(Dialog(group="Constant Boundaries", enable= not variable_p));
+  parameter ClaRa.Basics.Units.Temperature T_const=simCenter.T_amb_start "Constant specific temperature of source"
                                                annotation(Dialog(group="Constant Boundaries", enable= not variable_T));
-  parameter SI.MassFraction xi_const[medium.nc-1]=zeros(medium.nc-1) "Constant composition"
+  parameter ClaRa.Basics.Units.MassFraction xi_const[medium.nc-1]=medium.xi_default "Constant composition"
                             annotation(Dialog(group="Constant Boundaries", enable= not variable_xi));
-
-   TILMedia.GasObjectFunctions.GasPointer GasPointer=
-        TILMedia.GasObjectFunctions.GasPointer(medium.concatGasName,0,medium.xi_default,medium.nc_propertyCalculation,medium.nc,medium.condensingIndex,0) "Pointer to external medium memory";
 
   outer ClaRa.SimCenter simCenter;
 protected
-  SI.Pressure p_in;
-  SI.Temperature T_in;
-  SI.MassFraction xi_in[medium.nc-1];
-  SI.EnthalpyMassSpecific h_port;
+  Basics.Units.Pressure p_in;
+  Basics.Units.Temperature T_in;
+  Basics.Units.MassFraction xi_in[medium.nc - 1];
+  Basics.Units.EnthalpyMassSpecific h_port;
 
 public
   Modelica.Blocks.Interfaces.RealInput p(value=p_in) if (variable_p) "Variable mass flow rate"
@@ -56,11 +54,17 @@ public
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
 public
   ClaRa.Basics.Interfaces.GasPortIn gas_a(Medium=medium)
-    annotation (Placement(transformation(extent={{-10,80},{10,100}}),
+     annotation (Placement(transformation(extent={{-10,80},{10,100}}),
         iconTransformation(extent={{90,-10},{110,10}})));
+
+protected
+  TILMedia.Gas GasObject(gasType=medium);
 equation
 
-    h_port = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(gas_a.p,noEvent(actualStream(gas_a.T_outflow)),noEvent(actualStream(gas_a.xi_outflow)),GasPointer);
+    h_port =GasObject.h_pTxi(
+    gas_a.p,
+    noEvent(actualStream(gas_a.T_outflow)),
+    noEvent(actualStream(gas_a.xi_outflow)));
 
   if (not variable_p) then
     p_in=p_const;

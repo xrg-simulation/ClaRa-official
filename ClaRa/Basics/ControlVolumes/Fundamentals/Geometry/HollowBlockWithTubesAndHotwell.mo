@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model HollowBlockWithTubesAndHotwell "Block shape || Shell with tubes || Hotwell"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -18,38 +18,25 @@ model HollowBlockWithTubesAndHotwell "Block shape || Shell with tubes || Hotwell
   extends ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.BlockShape;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.ShellWithTubes;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry(
-    final volume=if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.horizontal then
-                   if parallelTubes then width*height*length - N_tubes*N_passes*Modelica.Constants.pi/4*diameter_t^2*length + height_hotwell*width_hotwell*length_hotwell
-                   else width*height*length - N_tubes*N_passes*Modelica.Constants.pi/4*diameter_t^2*width + height_hotwell*width_hotwell*length_hotwell
-                 else
-                   if parallelTubes then width*height*length - Modelica.Constants.pi/4*diameter_t^2*height*N_tubes*N_passes + height_hotwell*width_hotwell*length_hotwell
-                   else width*height*length - Modelica.Constants.pi/4*diameter_t^2*length*N_tubes*N_passes + height_hotwell*width_hotwell*length_hotwell,
+    final volume=width*height*length - Modelica.Constants.pi/4*diameter_t^2*length_tubes*N_tubes*N_passes + height_hotwell*width_hotwell*length_hotwell,
     final N_heat=2,
     final A_heat={
               if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then
-                if parallelTubes then 2*(width + length)*height + 2*height_hotwell*(length_hotwell + width_hotwell) + length*width
+                if tubeOrientation==2 then 2*(width + length)*height + 2*height_hotwell*(length_hotwell + width_hotwell) + length*width
                 else 2*(width + length)*height - 2*N_tubes*Modelica.Constants.pi*diameter_t^2/4 + 2*height_hotwell*(length_hotwell + width_hotwell)  + length*width
               else
-                if parallelTubes then 2*(width + height)*length + 2*height_hotwell*(length_hotwell + width_hotwell)
+                if tubeOrientation==0 then 2*(width + height)*length + 2*height_hotwell*(length_hotwell + width_hotwell)
                 else 2*(width + height)*length - 2*N_tubes*Modelica.Constants.pi*diameter_t^2/4 + 2*height_hotwell*(length_hotwell + width_hotwell),
-              if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.horizontal then
-                if parallelTubes then N_tubes*N_passes*Modelica.Constants.pi*diameter_t*length
-                else N_tubes*N_passes*Modelica.Constants.pi*diameter_t*width
-              else
-                if parallelTubes then Modelica.Constants.pi*diameter_t*height*N_tubes*N_passes
-                else Modelica.Constants.pi*diameter_t*length*N_tubes*N_passes},
-    final A_cross=if parallelTubes then A_front - Modelica.Constants.pi/4*diameter_t^2*N_tubes*N_passes else A_front*psi,
+              Modelica.Constants.pi*diameter_t*length_tubes*N_tubes*N_passes},
+    final A_cross=if (flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.horizontal and tubeOrientation==0 or flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical and tubeOrientation==2) then A_front - Modelica.Constants.pi/4*diameter_t^2*N_tubes*N_passes else A_front*psi,
     final A_front=if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.horizontal then height*width else width*length,
     final A_hor=width_hotwell*length_hotwell,
     final height_fill=height_hotwell + height,
     final shape = {{(height_fill/20*(i-1))/height_fill,if (height_fill/20*(i-1))<height_hotwell then 1 else (height_hotwell*length_hotwell*width_hotwell + ((height_fill/20*(i-1))-height_hotwell)*length*width*interior)/(height_fill/20*(i-1))/A_hor} for i in 1:20});
 
-  parameter Units.Length height=1 "Height of the component; Fixed flow direction in case of vertical flow orientation"
-                                                                                          annotation (Dialog(tab="General",group="Essential Geometry Definition"));
-  parameter Units.Length width=1 "Width of the component"
-                                                         annotation (Dialog(tab="General",group="Essential Geometry Definition"));
-  parameter Units.Length length=1 "|Essential Geometry Definition|Length of the component; Fixed flow direction in case of horizontal flow orientation"
-                                                                                          annotation (Dialog(
+  parameter Units.Length height=1 "Height of the component; Fixed flow direction in case of vertical flow orientation" annotation (Dialog(tab="General", group="Essential Geometry Definition"));
+  parameter Units.Length width=1 "Width of the component" annotation (Dialog(tab="General", group="Essential Geometry Definition"));
+  parameter Units.Length length=1 "|Essential Geometry Definition|Length of the component; Fixed flow direction in case of horizontal flow orientation" annotation (Dialog(
       tab="General",
       group="Essential Geometry Definition",
       showStartAttribute=false,
@@ -73,9 +60,7 @@ model HollowBlockWithTubesAndHotwell "Block shape || Shell with tubes || Hotwell
   parameter Integer N_tubes=1 "Number of internal tubes for one pass" annotation(Dialog(group="Interior Equipment"));
   parameter Integer N_passes=1 "Number of passes of the internal tubes"
                                                                        annotation(Dialog(group="Interior Equipment"));
-  parameter Boolean parallelTubes=false "True, if tubes are parallel to shell flow flowOrientation, else false"
-                                                                                          annotation(Dialog(group="Interior Equipment"));
-
+  constant Real MIN=1e-5 "Limiter";
   parameter Modelica.SIunits.Length Delta_z_par=2*diameter_t "Horizontal distance between tubes (center to center)"
                                                                                           annotation(Dialog(group="Interior Equipment"));
   parameter Modelica.SIunits.Length Delta_z_ort=2*diameter_t "Vertical distance between tubes (center to center)"
@@ -84,15 +69,57 @@ model HollowBlockWithTubesAndHotwell "Block shape || Shell with tubes || Hotwell
                                                                          annotation(Dialog(group="Interior Equipment"));
   final parameter Real b=Delta_z_par/diameter_t "Vertical alignment ratio"
                                                                           annotation(Dialog(group="Interior Equipment"));
-
-  final parameter Real psi=if b >= 1 then 1 - Modelica.Constants.pi/4/a else 1 - Modelica.Constants.pi/4/a/b "Void ratio"
-                                                                                          annotation(Dialog(group="Interior Equipment"));
+  final parameter Real psi=if b >= 1 or b<=0 then 1 - Modelica.Constants.pi/4/a else 1 - Modelica.Constants.pi/4/a/b "Void ratio" annotation(Dialog(group="Interior Equipment"));
   parameter Boolean staggeredAlignment=true "True, if the tubes are aligned staggeredly, false otherwise"
-                                                                                          annotation(Dialog(group="Interior Equipment"));
+                                                                                                         annotation(Dialog(group="Interior Equipment"));
+  final parameter Real fa=if staggeredAlignment then (1 + (if b>0 then 2/3/b else 0)) else (1 + (if b>0 then 0.7/max(MIN,psi)^1.5*(b/a - 0.3)/(b/a + 0.7)^2 else 0)) "Alignment factor";
+
   parameter Integer N_rows(
     min=N_passes,
     max=N_tubes) = integer(ceil(sqrt(N_tubes))*N_passes) "Number of pipe rows in flow direction" annotation(Dialog(group="Interior Equipment"));
+  parameter Integer tubeOrientation=0 "Tube orientation" annotation (Dialog(group="Interior Equipment"), choices(
+      choice=0 "Lengthwise",
+      choice=1 "Widthwise",
+      choice=2 "Heightwise"));
+  final parameter Real N_tubes_parallel = N_tubes*N_passes/N_rows "Number of parallel tubes";
+  final parameter Real length_tubes = if tubeOrientation==0 then length else if tubeOrientation==1 then width else height "Tube length";
+  final parameter Real A_narrowed_ort = if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then
+                                            if tubeOrientation==0 then length*width - N_tubes_parallel*diameter_t*length
+                                            else if tubeOrientation==1 then length*width - N_tubes_parallel*diameter_t*width
+                                            else 0
+                                      else  if tubeOrientation==0 then 0
+                                            else if tubeOrientation==1 then width*height - N_tubes_parallel*diameter_t*width
+                                            else height*width - N_tubes_parallel*diameter_t*height "Narrowed cross section in parallel tube layer";
 
+
+  final parameter Real A_narrowed_par = if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then
+                                            if tubeOrientation==0 then length*height - N_rows*diameter_t*length
+                                            else if tubeOrientation==1 then width*height - N_rows*diameter_t*width
+                                            else 0
+                                      else  if tubeOrientation==0 then 0
+                                            else if tubeOrientation==1 then width*length - N_rows*diameter_t*width
+                                            else height*length - N_rows*diameter_t*height "Narrowed cross section in tube row layer";
+
+  final parameter Real length_bundle_par = N_rows*Delta_z_par;
+  final parameter Real length_bundle_ort = N_tubes_parallel*Delta_z_ort;
+  final parameter Real Delta_l_par= if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then
+                                 if tubeOrientation==0 then height - length_bundle_par
+                                 else if tubeOrientation==1 then height - length_bundle_par
+                                 else 0
+                              else
+                                 if tubeOrientation==0 then 0
+                                 else if tubeOrientation==1 then length - length_bundle_par
+                                 else length - length_bundle_par;
+
+
+  final parameter Real Delta_l_ort = if flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then
+                                 if tubeOrientation==0 then width - length_bundle_ort
+                                 else if tubeOrientation==1 then length - length_bundle_ort
+                                 else 0
+                              else
+                                 if tubeOrientation==0 then 0
+                                 else if tubeOrientation==1 then height - length_bundle_ort
+                                 else width - length_bundle_ort;
 equation
    for i in 1:N_inlet loop
      assert(if height_fill <> -1 then z_in[i]<=height_fill else true, "Position of inlet flange no. " +String(i)+ "("+String(z_in[i], significantDigits=3)+" m) must be below max. fill height of "+ String(height_fill, significantDigits=3) + " m in component " +  getInstanceName() + ".");
@@ -106,8 +133,13 @@ equation
   for i in 1:N_outlet loop
     assert(z_out[i]>=0, "Position of outlet flange no. " +String(i)+ "("+String(z_out[i], significantDigits=3)+" m) must be positive in component " +  getInstanceName() + ".");
   end for;
-  assert(A_cross>0, "The cross section of the shell side must be > 0 but is "+String(A_cross, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(psi>0, "Negative or zero psi leads to invalid Reynolds numbers. Check geometry values for pipe arrangement. Delta_z_par*delta_z_ort must be > pi*diameter_o^2/4.");
   assert(volume>0, "The volume of the shell side must be > 0 but is "+String(volume, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(A_narrowed_ort>=0, "Number of parallel tubes too high. Check geometry values for pipe arrangement. A_narrowed_ort = " +String(A_narrowed_ort, significantDigits=3));
+  assert(A_narrowed_par>=0, "Number of tube rows too high. Check geometry values for pipe arrangement. A_narrowed_par = "  +String(A_narrowed_par, significantDigits=3));
+  assert(Delta_l_par>=0, "Tube bundle in flow direction larger than volume. Check geometry values for pipe arrangement. Delta_l_par = "  +String(Delta_l_par, significantDigits=3));
+  assert(Delta_l_ort>=0, "Tube bundle orthogonal to flow direction larger than volume. Check geometry values for pipe arrangement. Delta_l_ort = "  +String(Delta_l_ort, significantDigits=3));
+
   annotation (Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={255,255,255},

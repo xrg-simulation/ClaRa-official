@@ -3,6 +3,8 @@ model Test_HEXvle2vle_L3_2ph_BU_simple
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
   HEXvle2vle_L3_2ph_BU_simple hex(
+    Delta_z_par=0.075,
+    Delta_z_ort=0.075,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoeffcient_L2 (Delta_p_smooth=100, zeta_TOT=5),
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3,
@@ -46,14 +48,14 @@ model Test_HEXvle2vle_L3_2ph_BU_simple
     offset=76.8,
     duration=600,
     height=-30)   annotation (Placement(transformation(extent={{126,-6},{106,14}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_shell1(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     checkValve=true,
     openingInputIsActive=false,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
-        m_flow_nominal=10,
-        Delta_p_nom=250))       annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_tubes1(
+        m_flow_nom=10,
+        Delta_p_nom=250)) annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
     redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=1000, m_flow_nom=11500)) annotation (Placement(transformation(
@@ -96,7 +98,7 @@ model Test_HEXvle2vle_L3_2ph_BU_simple
     T_i={hex.tubes.summary.inlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T},
     z_o={0,1,1,1,1,1},
     z_i={0,1,1,1,1,1})             annotation (Placement(transformation(extent={{-86,-18},{8,70}})));
-  ClaRa.Visualisation.Quadruple quadruple(largeFonts=false) annotation (Placement(transformation(extent={{-6,-32},{24,-22}})));
+  ClaRa.Visualisation.Quadruple quadruple(largeFonts=false) annotation (Placement(transformation(extent={{42,-55},{72,-45}})));
   Modelica.Blocks.Sources.Ramp p_steam(
     duration=600,
     startTime=10000,
@@ -156,7 +158,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(hex.Out2, valve_tubes1.inlet) annotation (Line(
-      points={{36,-52},{14,-52},{14,-32},{44,-32}},
+      points={{36,-52},{40,-52},{40,-32},{44,-32}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5,
@@ -170,8 +172,7 @@ equation
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hex.eye2, quadruple.eye) annotation (Line(points={{36.4,-50},{12,-50},{12,-36},{12,-34},{-6,-34},{-6,-27}},
-                                                                                                    color={190,190,190}));
+  connect(hex.eye2, quadruple.eye) annotation (Line(points={{36.4,-50},{42,-50}},                   color={190,190,190}));
   connect(p_steam.y, pressureSink_ph.p) annotation (Line(points={{-79,-80},{-74,-80}},           color={0,0,127}));
   connect(pressureSink_ph1.p, p_cool.y) annotation (Line(points={{94,-38},{94,-38},{94,-30},{99,-30}}, color={0,0,127}));
   connect(T_cool.y, massFlowSource_h1.T) annotation (Line(points={{99,-86},{96,-86},{96,-62}}, color={0,0,127}));

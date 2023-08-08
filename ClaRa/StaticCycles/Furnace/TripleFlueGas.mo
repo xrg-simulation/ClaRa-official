@@ -1,10 +1,10 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model TripleFlueGas "Visualise static cycle results of flue gas connectors"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.1.0                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -34,7 +34,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
           fillColor={118,106,98},
           horizontalAlignment=TextAlignment.Left,
           fillPattern=FillPattern.Solid,
-          textString=DynamicSelect("T", String(gasSignal.T-273.15,format="1." + String(decimalSpaces.T) + "f") + " C")),
+          textString=DynamicSelect("T", String(gasSignal.T-273.15,format="1." + String(decimalSpaces.T) + "f") + " °C")),
         Text(
           extent={{-90,-10},{250,-80}},
           lineColor=DynamicSelect({164,167,170}, if gasSignal.p > 0 then {118,106,98} else {235,183,0}),

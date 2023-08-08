@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L3
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -67,29 +67,24 @@ model SteamSeparatorVLE_L3
   ClaRa.Basics.Interfaces.FluidPortOut outlet2(Medium=medium) "Steam outlet" annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet1(Medium=medium) "Liquid outlet" annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  parameter ClaRa.Basics.Units.Length length=20 "Length of separator" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length diameter=0.5 "Diameter of separator" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_in=length "Inlet position (from bottom)" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_out1=0 "Outlet 1 position (from bottom)" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_out2=length "Outlet 2 position (from bottom)" annotation(Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length length=20 "Length of separator" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length diameter=0.5 "Diameter of separator" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_in=length "Inlet position (from bottom)" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_out1=0 "Outlet 1 position (from bottom)" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_out2=length "Outlet 2 position (from bottom)" annotation (Dialog(group="Geometry"));
 
  // parameter ClaRa.Basics.Units.Length s_wall=0.05 "Wall thickness" annotation(Dialog(group="Geometry"));
   parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.MassFraction xi_liq_start[medium.nc-1] = medium.xi_default "|Initialisation||Initial composition of liquid phase";
-  parameter ClaRa.Basics.Units.MassFraction xi_vap_start[medium.nc-1] = medium.xi_default "|Initialisation||Initial composition of vapour phase";
+  parameter ClaRa.Basics.Units.MassFraction xi_liq_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of liquid phase";
+  parameter ClaRa.Basics.Units.MassFraction xi_vap_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of vapour phase";
 
-  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure"
-                                     annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
   parameter Real yps_start=0.5 "Start value for volume fraction"
     annotation (Dialog(tab="Initialisation"));
 

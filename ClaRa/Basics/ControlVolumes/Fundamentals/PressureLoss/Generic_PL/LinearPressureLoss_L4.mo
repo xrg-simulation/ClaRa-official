@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearPressureLoss_L4 "Medium independent || Linear PL with const. PL coeff"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -18,7 +18,7 @@ model LinearPressureLoss_L4 "Medium independent || Linear PL with const. PL coef
   import SI = ClaRa.Basics.Units;
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4;
-  final parameter ClaRa.Basics.Units.Length length = sum(geo.Delta_x);
+  final parameter ClaRa.Basics.Units.Length length=sum(geo.Delta_x);
 equation
   if not frictionAtInlet and not frictionAtOutlet then
     for i in 2:iCom.N_cv loop

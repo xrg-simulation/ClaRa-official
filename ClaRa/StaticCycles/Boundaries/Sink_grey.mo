@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Boundaries;
 model Sink_grey "A boundary for power connections"
 
-  final parameter ClaRa.Basics.Units.Power P(fixed = false) "Power to sink";
+  final parameter ClaRa.Basics.Units.Power P(fixed=false) "Power to sink";
   ClaRa.StaticCycles.Fundamentals.PowerSignal_A inlet(s="") annotation (Placement(transformation(extent={{-100,-10},{-92,10}}), iconTransformation(extent={{-100,-10},{-92,10}})));
 
 initial equation

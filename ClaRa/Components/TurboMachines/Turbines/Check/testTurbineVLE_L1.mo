@@ -3,11 +3,10 @@ model testTurbineVLE_L1
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 turbineControlValve(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 turbineControlValve(
     showExpertSummary=true,
     checkValve=false,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      m_flow_nom=100, Delta_p_nom=10e5),
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=100, Delta_p_nom=10e5),
     opening_const_=0.761174,
     useStabilisedMassFlow=false,
     openingInputIsActive=true) annotation (Placement(transformation(
@@ -36,8 +35,7 @@ model testTurbineVLE_L1
     variable_h=false,
     p_const(displayUnit="Pa") = 32.9e5,
     variable_p=true,
-    massFlowIsLoss=false)
-                     annotation (Placement(transformation(extent={{48,-48},{28,-28}})));
+    energyType=1) annotation (Placement(transformation(extent={{48,-48},{28,-28}})));
   ClaRa.Visualisation.Quadruple quadruple(largeFonts=simCenter.largeFonts)
     annotation (Placement(transformation(extent={{-118,-67},{-62,-53}})));
   Modelica.Mechanics.Rotational.Sensors.PowerSensor powerSensor
@@ -72,8 +70,7 @@ model testTurbineVLE_L1
     variable_h=false,
     h_const=3500e3,
     variable_p=true,
-    massFlowIsLoss=false)
-                     annotation (Placement(transformation(extent={{-168,34},{-148,54}})));
+    energyType=1) annotation (Placement(transformation(extent={{-168,34},{-148,54}})));
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
     contributeToCycleSummary=true,
     showExpertSummary=true)       annotation (Placement(transformation(extent={{-200,-80},{-160,-60}})));

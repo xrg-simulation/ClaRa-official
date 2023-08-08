@@ -1,10 +1,10 @@
 within ClaRa.Components.Adapters;
 model Scalar2VectorHeatPort "Connect a scalar heat port with a vectorised heat port"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,14 +21,14 @@ model Scalar2VectorHeatPort "Connect a scalar heat port with a vectorised heat p
 
   parameter Integer N = 3 "Number of axial elements" annotation(Dialog(group="Fundamental Definitions"));
 
-  parameter Basics.Units.Length
-                      length = 1 "Length of adapter" annotation(Dialog(group="Discretisation",enable = (equalityMode =="Equal Heat Flow Rates")));
- parameter Basics.Units.Length
-                      Delta_x[N]=ClaRa.Basics.Functions.GenerateGrid(        {0}, length, N) "Discretisation scheme"
-                             annotation(Dialog(group="Discretisation",enable = (equalityMode =="Equal Heat Flow Rates")));
+  parameter Basics.Units.Length length=1 "Length of adapter" annotation (Dialog(group="Discretisation", enable=(equalityMode == "Equal Heat Flow Rates")));
+  parameter Basics.Units.Length Delta_x[N]=ClaRa.Basics.Functions.GenerateGrid(
+      {0},
+      length,
+      N) "Discretisation scheme" annotation (Dialog(group="Discretisation", enable=(equalityMode == "Equal Heat Flow Rates")));
 
   parameter Boolean useStabiliserState= false "True, if a stabiliser state shall be used" annotation(Dialog(tab="Expert Settings",enable = (equalityMode =="Equal Temperatures")));
-  parameter ClaRa.Basics.Units.Time Tau=1 "Time Constant of Stabiliser State" annotation(Dialog(tab="Expert Settings",enable = (equalityMode =="Equal Temperatures") and (useStabiliserState)));
+  parameter ClaRa.Basics.Units.Time Tau=1 "Time Constant of Stabiliser State" annotation (Dialog(tab="Expert Settings", enable=(equalityMode == "Equal Temperatures") and (useStabiliserState)));
 
   ClaRa.Basics.Interfaces.HeatPort_a
                                    heatScalar

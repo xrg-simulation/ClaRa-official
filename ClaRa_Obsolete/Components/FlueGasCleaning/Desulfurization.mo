@@ -125,15 +125,7 @@ package Desulfurization
   ClaRa.Basics.Units.Power P_el "Electric power consumption";
   ClaRa.Basics.Units.VolumeFlowRate V_flow_std "Standardized volume flow rate";
 
-      TILMedia.GasObjectFunctions.GasPointer GasPointer=
-        TILMedia.GasObjectFunctions.GasPointer(
-        medium.concatGasName,
-        0,
-        medium.xi_default,
-        medium.nc_propertyCalculation,
-        medium.nc,
-        8,
-        0) "Pointer to external medium memory";
+
 
     Fundamentals.Desulfurisation_controlVolume_ideal deSO_controlVolume(
       useStabilisedMassFlow=useStabilisedMassFlow,
@@ -194,8 +186,10 @@ package Desulfurization
     ClaRa.Basics.Interfaces.EyeOut eyeOut annotation (Placement(transformation(extent={{80,-78},{120,-42}}), iconTransformation(extent={{90,-50},{110,-30}})));
   protected
     ClaRa.Basics.Interfaces.EyeIn eye_int annotation (Placement(transformation(extent={{32,-68},{48,-52}}), iconTransformation(extent={{90,-84},{84,-78}})));
+  public
+    TILMedia.Gas GasPointer annotation (Placement(transformation(extent={{-10,48},{10,68}})));
   equation
-    V_flow_std = inlet.m_flow / TILMedia.GasObjectFunctions.density_pTxi(1.01325e5,273.15,inStream(inlet.xi_outflow),GasPointer);
+    V_flow_std = inlet.m_flow / TILMedia.GasObjectFunctions.density_pTxi(1.01325e5,273.15,inStream(inlet.xi_outflow),GasPointer.gasPointer);
     P_el = specificPowerConsumption * V_flow_std;
 
     //______________Eye port variable definition________________________

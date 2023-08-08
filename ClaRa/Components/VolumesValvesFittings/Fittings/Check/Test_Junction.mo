@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_Junction
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,9 +19,9 @@ model Test_Junction
   ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2
     flueGasJunction(
     volume=0.1)                            annotation (Placement(transformation(
-        extent={{-11,-8},{11,8}},
+        extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-15,14})));
+        origin={-16,14})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow source2(
     variable_m_flow=false,
     variable_T=false,
@@ -47,9 +47,9 @@ model Test_Junction
   ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2
     flueGasJunction1(
     volume=0.1)                            annotation (Placement(transformation(
-        extent={{-11,-8},{11,8}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-15,-8})));
+        origin={-16,-8})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow source01(
     variable_m_flow=false,
     variable_T=false,
@@ -87,25 +87,24 @@ model Test_Junction
         rotation=0,
         origin={-62,-38})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi gasSink_pT1(p_const=100000, xi_const={0.7,0.1,0.1,0.05,0.01,0.02,0.01,0.01,0})
-                                                                                   annotation (Placement(transformation(extent={{68,-66},{48,-46}})));
+                                                                                   annotation (Placement(transformation(extent={{68,-64},{48,-44}})));
   ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2
     flueGasJunction2(
     volume=1)                              annotation (Placement(transformation(
-        extent={{-11,-8},{11,8}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={29,-56})));
+        origin={28,-54})));
   ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2
     flueGasJunction3(
     volume=1)                              annotation (Placement(transformation(
-        extent={{11,8},{-11,-8}},
+        extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-33,-56})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1
-    flueGasValve_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+        origin={-34,-54})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=3,
         A_cross=0.05,
         zeta=0.0002))
-    annotation (Placement(transformation(extent={{-12,-90},{8,-80}})));
+    annotation (Placement(transformation(extent={{-12,-92},{8,-80}})));
   ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2 flueGasCell1(
     redeclare model Geometry =
         ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry,
@@ -113,31 +112,30 @@ model Test_Junction
     redeclare model PressureLoss =
         ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2)                 annotation (Placement(transformation(extent={{-42,-96},{-22,-76}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1
-    flueGasValve_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=3,
         A_cross=0.01,
         zeta=0.0005))
-    annotation (Placement(transformation(extent={{-12,-60},{8,-50}})));
+    annotation (Placement(transformation(extent={{-12,-60},{8,-48}})));
 equation
   connect(source2.gas_a, flueGasJunction.portB) annotation (Line(
       points={{-54,14},{-26,14}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(source1.gas_a, flueGasJunction.portC) annotation (Line(
-      points={{-54,36},{-15,36},{-15,22}},
+      points={{-54,36},{-16,36},{-16,24}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasJunction.portA, sink.gas_a) annotation (Line(
-      points={{-4,14},{46,14}},
+      points={{-6,14},{46,14}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(sink01.gas_a, flueGasJunction1.portB) annotation (Line(
-      points={{46,-8},{-4,-8}},
+      points={{46,-8},{-6,-8}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(sink02.gas_a, flueGasJunction1.portC) annotation (Line(
-      points={{46,-30},{-15,-30},{-15,-16}},
+      points={{46,-30},{-16,-30},{-16,-18}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(source01.gas_a, flueGasJunction1.portA) annotation (Line(
@@ -145,31 +143,31 @@ equation
       color={84,58,36},
       smooth=Smooth.None));
   connect(source3.gas_a, flueGasJunction3.portC) annotation (Line(
-      points={{-52,-38},{-33,-38},{-33,-48}},
+      points={{-52,-38},{-34,-38},{-34,-44}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasJunction2.portB, gasSink_pT1.gas_a) annotation (Line(
-      points={{40,-56},{48,-56}},
+      points={{38,-54},{48,-54}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasJunction3.portA, flueGasValve_L1_1.inlet) annotation (Line(
-      points={{-22,-56},{-18,-56},{-18,-55},{-12,-55}},
+      points={{-24,-54},{-12,-54}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasValve_L1_1.outlet, flueGasJunction2.portA) annotation (Line(
-      points={{8,-55},{14,-55},{14,-56},{18,-56}},
+      points={{8,-54},{18,-54}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasValve_L1_2.inlet, flueGasCell1.outlet) annotation (Line(
-      points={{-12,-85},{-12,-86},{-22,-86}},
+      points={{-12,-86},{-22,-86}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasCell1.inlet, flueGasJunction3.portB) annotation (Line(
-      points={{-42,-86},{-52,-86},{-52,-56},{-44,-56}},
+      points={{-42,-86},{-52,-86},{-52,-54},{-44,-54}},
       color={84,58,36},
       smooth=Smooth.None));
   connect(flueGasValve_L1_2.outlet, flueGasJunction2.portC) annotation (Line(
-      points={{8,-85},{29,-85},{29,-64}},
+      points={{8,-86},{28,-86},{28,-64}},
       color={84,58,36},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

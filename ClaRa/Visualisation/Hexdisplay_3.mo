@@ -4,7 +4,7 @@ model Hexdisplay_3 "Area-temperature diagram for HEX with three zones"
 // Component of the ClaRa library, version: 1.2.2                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -15,10 +15,8 @@ model Hexdisplay_3 "Area-temperature diagram for HEX with three zones"
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
 
-  input ClaRa.Basics.Units.Temperature T_o[6]=zeros(6) "Hot side temperatures (if showInterface=false)"
-                                                                                                annotation(Dialog(group="Input", enable=not showInterface));
-  input ClaRa.Basics.Units.Temperature T_i[6]=zeros(6) "Hot side temperatures (if showInterface=false)"
-                                                                                                annotation(Dialog(group="Input", enable=not showInterface));
+  input ClaRa.Basics.Units.Temperature T_o[6]=zeros(6) "Hot side temperatures (if showInterface=false)" annotation (Dialog(group="Input", enable=not showInterface));
+  input ClaRa.Basics.Units.Temperature T_i[6]=zeros(6) "Hot side temperatures (if showInterface=false)" annotation (Dialog(group="Input", enable=not showInterface));
   input Real z_o[6] "Position of zone limits at outer side" annotation(Dialog(group="Input", enable=not showInterface));
   input Real z_i[6] "Position of zone limits at inner side" annotation(Dialog(group="Input", enable=not showInterface));
   parameter Real y_min=0 "Choose or guess the minimal value of the y-axis" annotation(Dialog(group="Layout"));

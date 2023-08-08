@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_carrierTubes_laminar_L2 "Carrier Tube Geo || L2 || Convection Longitudinal Tubes"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2017, DYNCAP/DYNSTART research team.                      //
@@ -30,7 +30,7 @@ model Convection_carrierTubes_laminar_L2 "Carrier Tube Geo || L2 || Convection L
    Real Nu_dm "Nusselt number";
    Real K "Curvature parameter";
    Real nu "Kinematic viscosity";
-   ClaRa.Basics.Units.Length length_char "Characteristic length";
+  final parameter ClaRa.Basics.Units.Length length_char = geo.height "Characteristic length";
 
 protected
   ClaRa.Basics.Units.Temperature T_prop_am "Arithmetic mean for calculation of substance properties";
@@ -53,11 +53,11 @@ protected
     computeTransportProperties=true) annotation (Placement(transformation(extent={{72,-12},{92,8}})));
 
 equation
-  length_char = if geo.flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then geo.height else geo.length;
 
   T_prop_am = (iCom.T_out + iCom.T_in)/2;
 
-   zeros(iCom.mediumModel.nc - 1) = -xi_mean*(iCom.m_flow_in - iCom.m_flow_out) + (iCom.m_flow_in*iCom.xi_in - iCom.m_flow_out*iCom.xi_out);
+   //zeros(iCom.mediumModel.nc - 1) = -xi_mean*(iCom.m_flow_in - iCom.m_flow_out) + (iCom.m_flow_in*iCom.xi_in - iCom.m_flow_out*iCom.xi_out);
+   xi_mean = iCom.xi_bulk;
 
    w = (abs(iCom.V_flow_in) + abs(iCom.V_flow_out))/(2*geo.A_cross);
 

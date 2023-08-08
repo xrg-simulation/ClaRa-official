@@ -20,10 +20,8 @@ model Pump3 "Ideal Pump || par.: efficiency, m_flow || yellow | blue"
     //---------Summary Definition---------
       model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
-      parameter Basics.Units.Pressure
-                        Delta_p "Pressure difference between outlet and inlet" annotation(Dialog);
-      parameter Basics.Units.Power
-                        P_pump "Pump power" annotation(Dialog);
+    parameter Basics.Units.Pressure Delta_p "Pressure difference between outlet and inlet" annotation (Dialog);
+    parameter Basics.Units.Power P_pump "Pump power" annotation (Dialog);
       end Outline;
 
 
@@ -53,20 +51,17 @@ model Pump3 "Ideal Pump || par.: efficiency, m_flow || yellow | blue"
                        choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
                                                           Dialog(group="Fundamental Definitions"));
   parameter Real  efficiency= 1 "Pump efficiency" annotation(Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=1 "Mass flow rate" annotation(Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=1 "Mass flow rate" annotation (Dialog(group="Fundamental Definitions"));
   outer parameter Real P_target_;
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=
-      TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow=m_flow_nom*P_target_;
-  final parameter ClaRa.Basics.Units.Power P_pump=(p_out - p_in)*m_flow/rho_in/efficiency
-                                                                                         "Pump power";
+  final parameter ClaRa.Basics.Units.Power P_pump=(p_out - p_in)*m_flow/rho_in/efficiency "Pump power";
 //protected
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false)
-                                                                           "Inlet spec. enthalpy";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + P_pump/m_flow "Outlet spec. enthalpy";
-  final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Presssure differerence p_in - p_out";
+  final parameter ClaRa.Basics.Units.PressureDifference Delta_p=p_in - p_out "Presssure differerence p_in - p_out";
 
 public
   ClaRa.StaticCycles.Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow,Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));

@@ -45,13 +45,11 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_Water
                                             fluid1, useHomotopy=true)
     annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_1(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      Delta_p_nom=10e5, m_flow_nom=10)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=10e5, m_flow_nom=10)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={-18,-2})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_2(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      Delta_p_nom=10e5, m_flow_nom=10)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=10e5, m_flow_nom=10)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=180,
         origin={52,-30})));

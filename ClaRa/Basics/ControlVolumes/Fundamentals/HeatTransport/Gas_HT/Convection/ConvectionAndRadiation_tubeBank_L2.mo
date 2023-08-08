@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
-model ConvectionAndRadiation_tubeBank_L2 "Tube Geo || L2 || Convection And Radiation Inside Tube Banks"
+model ConvectionAndRadiation_tubeBank_L2 "Shell Geo || L2 || Convection And Radiation Inside Tube Banks"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -18,6 +18,7 @@ model ConvectionAndRadiation_tubeBank_L2 "Tube Geo || L2 || Convection And Radia
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.HeatTransfer_L2;
 //  outer ClaRa.Basics.Records.IComGas_L2 iCom;
   extends ClaRa.Basics.Icons.AlphaEpsilon;
+  import SM = ClaRa.Basics.Functions.Stepsmoother;
 
   //Equations according to Effenberger/VDI-Waermeatlas
 
@@ -35,15 +36,13 @@ model ConvectionAndRadiation_tubeBank_L2 "Tube Geo || L2 || Convection And Radia
 
   parameter Real emissivity_tubes=0.8 "Emissivity of the tubes" annotation (Dialog(group="Emissivity and absorbance factor calculation of the suspension volume"));
 
-  parameter ClaRa.Basics.Units.DensityMassSpecific soot_load_n=163.5e-6 "Amount of soot inside the products at standard temperature and pressure"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Soot particle properties"));
+  parameter ClaRa.Basics.Units.DensityMassSpecific soot_load_n=163.5e-6 "Amount of soot inside the products at standard temperature and pressure" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Soot particle properties"));
 
   parameter ClaRa.Basics.Units.MassFraction x_coke=0.1 "Coke fraction of used coal" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
   parameter ClaRa.Basics.Units.DensityMassSpecific d_coke=850 "Coke density" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
-  parameter ClaRa.Basics.Units.Length diameter_mean_coke=65e-6 "Mean weighted diameter of coke particles (Rosin-Rammler-Distribution)"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
+  parameter ClaRa.Basics.Units.Length diameter_mean_coke=65e-6 "Mean weighted diameter of coke particles (Rosin-Rammler-Distribution)" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
   parameter Real n_var_coke=1.5 "Variance parameter of coke particle distribution (Rosin-Rammler-Distribution)"
                                                                                       annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
@@ -52,8 +51,7 @@ model ConvectionAndRadiation_tubeBank_L2 "Tube Geo || L2 || Convection And Radia
 
   parameter ClaRa.Basics.Units.DensityMassSpecific d_ash=2200 "Ash density" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
-  parameter ClaRa.Basics.Units.Length diameter_mean_ash=16.8e-6 "Mean weighted diameter of ash particles (Rosin-Rammler-Distribution)"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
+  parameter ClaRa.Basics.Units.Length diameter_mean_ash=16.8e-6 "Mean weighted diameter of ash particles (Rosin-Rammler-Distribution)" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
   parameter Real n_var_ash=1.5 "Variance parameter of ash particle distribution (Rosin-Rammler-Distribution)"
                                                                                       annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
@@ -101,7 +99,7 @@ protected
   Real ash_load "Ash load";
   Real soot_load "Soot load";
 
-  ClaRa.Basics.Units.Length length_char "Characteristic length";
+  final parameter ClaRa.Basics.Units.Length length_char=Modelica.Constants.pi/2*geo.diameter_t "Characteristic length";
   ClaRa.Basics.Units.Temperature T_prop_am "Arithmetic mean for calculation of substance properties";
 
   ClaRa.Basics.Units.MassFraction xi_mean[iCom.mediumModel.nc - 1] "Mean flue gas composition";
@@ -114,13 +112,13 @@ protected
     xi=xi_mean,
     gasType=iCom.mediumModel,
     computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
+    Real x1;
+    Real x2;
 equation
   //Radiative Heat Transfer
   T_prop_am = (iCom.T_out + iCom.T_in)/2;
   T_mean_rad = (iCom.T_out + iCom.T_in)/2;
-  zeros(iCom.mediumModel.nc - 1) = -xi_mean*(iCom.m_flow_in - iCom.m_flow_out) + (iCom.m_flow_in*iCom.xi_in - iCom.m_flow_out*iCom.xi_out);
-  //mean temperature for radiation
+  xi_mean = iCom.xi_bulk;
 
   s_gl = 3.6*geo.volume/geo.A_heat_CF[heatSurfaceAlloc];
 
@@ -208,12 +206,12 @@ equation
 
    //Convective Heat Transfer
 
-  w = if iCom.V_flow_in > 0 and iCom.V_flow_out < 0 then iCom.V_flow_in/geo.A_front elseif iCom.V_flow_in < 0 and iCom.V_flow_out > 0 then iCom.V_flow_out/geo.A_front else (abs(iCom.V_flow_out) + abs(iCom.V_flow_out))/2/geo.A_front;
+  x1 = SM(0.01,0,iCom.V_flow_in);
+  x2 = SM(0,0.01,-iCom.V_flow_out);
+  w = (x1*iCom.V_flow_in/geo.A_front + x2*iCom.V_flow_out/geo.A_front)/max((x1)+(x2),1);
 
   //A_fr used because undisturbed velocity at inlet is needed
-  length_char = Modelica.Constants.pi/2*geo.diameter_t;
-
-  Re_psi1 = properties.d*max(1e-5,w)*length_char/(geo.psi*properties.transp.eta);
+  Re_psi1 = max(eps,properties.d*w*length_char/(geo.psi*properties.transp.eta));
 
   Nu_llam = 0.664*sqrt(Re_psi1)*(properties.transp.Pr)^(1/3);
   Nu_lturb = (0.037*(Re_psi1)^(0.8)*properties.transp.Pr)/(1 + 2.443*(Re_psi1)^(-0.1)*(properties.transp.Pr^(2/3) - 1));

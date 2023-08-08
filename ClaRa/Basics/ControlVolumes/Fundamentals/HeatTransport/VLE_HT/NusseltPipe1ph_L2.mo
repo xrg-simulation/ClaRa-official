@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltPipe1ph_L2 "Pipe Geo || L2 || HTC || Nusselt || 1ph"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -50,31 +50,28 @@ model NusseltPipe1ph_L2 "Pipe Geo || L2 || HTC || Nusselt || 1ph"
       choice=3 "Selection to be extended"));
 
 public
-  ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat trasnfer calculation";
+  ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_lam "Heat transfer coefficient - laminar part";
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_turb "Heat transfer coefficient - turbolent part";
+  ClaRa.Basics.Units.ThermalResistance HR "Convective heat resistance";
   Real failureStatus "0== boundary conditions fulfilled | 1== failure >> check if still meaningfull results";
   ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate";
   ClaRa.Basics.Units.Velocity velocity "Mean velocity";
   ClaRa.Basics.Units.ReynoldsNumber Re "Reynolds number";
-  ClaRa.Basics.Units.PrandtlNumber Pr  "Prandtl number";
+  ClaRa.Basics.Units.PrandtlNumber Pr "Prandtl number";
 
 protected
   constant ClaRa.Basics.Units.ReynoldsNumber laminar=2200 "Maximum Reynolds number for laminar regime";
   constant ClaRa.Basics.Units.ReynoldsNumber turbulent=1e4 "Minimum Reynolds number for turbulent regime";
   constant Real MIN=Modelica.Constants.eps "Limiter";
 
-  parameter ClaRa.Basics.Units.NusseltNumber Nu0=if boundary == 1 or boundary == 3 then
-            0.7 else if boundary == 2 or boundary == 4 then
-            0.6 else 0 "Help variable for mean Nusselt number";
-  parameter ClaRa.Basics.Units.NusseltNumber Nu1=if boundary == 1 or boundary == 3 then
-            3.66 else if boundary == 2 or boundary == 4 then
-            4.364 else 0 "Help variable for mean Nusselt number";
+  parameter ClaRa.Basics.Units.NusseltNumber Nu0=if boundary == 1 or boundary == 3 then 0.7 else if boundary == 2 or boundary == 4 then 0.6 else 0 "Help variable for mean Nusselt number";
+  parameter ClaRa.Basics.Units.NusseltNumber Nu1=if boundary == 1 or boundary == 3 then 3.66 else if boundary == 2 or boundary == 4 then 4.364 else 0 "Help variable for mean Nusselt number";
 
   ClaRa.Basics.Units.NusseltNumber Nu2 "Help variable for mean Nusselt number";
   ClaRa.Basics.Units.NusseltNumber Nu3 "Help variable for mean Nusselt number";
 
-   ClaRa.Basics.Units.NusseltNumber Nu_lam "Mean Nusselt number";
+  ClaRa.Basics.Units.NusseltNumber Nu_lam "Mean Nusselt number";
 
   ClaRa.Basics.Units.ThermalConductivity lambda;
   ClaRa.Basics.Units.DensityMassSpecific rho;
@@ -84,29 +81,46 @@ protected
 
 
 // Nominal alpha calculation:
-  final parameter ClaRa.Basics.Units.HeatCapacityMassSpecific cp_nom = fluidFunction_cp(iCom.mediumModel,iCom.p_nom,iCom.h_nom,iCom.xi_nom);
-  final parameter ClaRa.Basics.Units.DynamicViscosity eta_nom = fluidFunction_eta(iCom.mediumModel,iCom.p_nom,iCom.h_nom,iCom.xi_nom);
-  final parameter ClaRa.Basics.Units.ThermalConductivity lambda_nom = fluidFunction_lambda(iCom.mediumModel,iCom.p_nom,iCom.h_nom,iCom.xi_nom);
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = fluidFunction_rho(iCom.mediumModel,iCom.p_nom,iCom.h_nom,iCom.xi_nom);
-  final parameter ClaRa.Basics.Units.Velocity velocity_nom= abs(iCom.m_flow_nom)/max(MIN, rho_nom*geo.A_cross);
-  final parameter ClaRa.Basics.Units.ReynoldsNumber Re_nom=(rho_nom*velocity_nom*geo.diameter_hyd/max(MIN,eta_nom)) "Reynolds number";
-  final parameter ClaRa.Basics.Units.PrandtlNumber Pr_nom = abs(eta_nom*cp_nom/max(MIN, lambda_nom)) "Prandtl number";
-  final parameter ClaRa.Basics.Units.NusseltNumber Nu2_nom = if boundary == 1 or boundary == 3 then  1.615 *(Re_nom*Pr_nom*geo.diameter_hyd/geo.length*geo.N_passes)^(1/3)
-                                                   else if boundary ==  2 or boundary == 4 then 1.953 *(Re_nom*Pr_nom*geo.diameter_hyd/geo.length*geo.N_passes)^(1/3)
-                                                        else 0 "Help variable for mean Nusselt number";
-  final parameter ClaRa.Basics.Units.NusseltNumber Nu3_nom = if boundary == 3 then (2 /(1 + 22 *Pr_nom))^(1/6)*(Re_nom*Pr_nom*geo.diameter_hyd/geo.length*geo.N_passes)^0.5
-                                                   else if boundary == 4 then  (0.924) *(Pr_nom^(1/3))*(Re_nom*geo.diameter_hyd/geo.length*geo.N_passes)^(1/2)
-                                                        else 0 "Help variable for mean Nusselt number";
+  final parameter ClaRa.Basics.Units.HeatCapacityMassSpecific cp_nom=fluidFunction_cp(
+      iCom.mediumModel,
+      iCom.p_nom,
+      iCom.h_nom,
+      iCom.xi_nom);
+  final parameter ClaRa.Basics.Units.DynamicViscosity eta_nom=fluidFunction_eta(
+      iCom.mediumModel,
+      iCom.p_nom,
+      iCom.h_nom,
+      iCom.xi_nom);
+  final parameter ClaRa.Basics.Units.ThermalConductivity lambda_nom=fluidFunction_lambda(
+      iCom.mediumModel,
+      iCom.p_nom,
+      iCom.h_nom,
+      iCom.xi_nom);
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=fluidFunction_rho(
+      iCom.mediumModel,
+      iCom.p_nom,
+      iCom.h_nom,
+      iCom.xi_nom);
+  final parameter ClaRa.Basics.Units.Velocity velocity_nom=abs(iCom.m_flow_nom)/max(MIN, rho_nom*geo.A_cross);
+  final parameter ClaRa.Basics.Units.ReynoldsNumber Re_nom=(rho_nom*velocity_nom*geo.diameter_hyd/max(MIN, eta_nom)) "Reynolds number";
+  final parameter ClaRa.Basics.Units.PrandtlNumber Pr_nom=abs(eta_nom*cp_nom/max(MIN, lambda_nom)) "Prandtl number";
+  final parameter ClaRa.Basics.Units.NusseltNumber Nu2_nom=if boundary == 1 or boundary == 3 then 1.615*(Re_nom*Pr_nom*geo.diameter_hyd/geo.length)^(1/3) else if boundary == 2 or boundary == 4 then 1.953*(Re_nom*Pr_nom*geo.diameter_hyd/geo.length)^(1/3) else 0 "Help variable for mean Nusselt number";
+  final parameter ClaRa.Basics.Units.NusseltNumber Nu3_nom=if boundary == 3 then (2/(1 + 22*Pr_nom))^(1/6)*(Re_nom*Pr_nom*geo.diameter_hyd/geo.length)^0.5 else if boundary == 4 then (0.924)*(Pr_nom^(1/3))*(Re_nom*geo.diameter_hyd/geo.length)^(1/2) else 0 "Help variable for mean Nusselt number";
 
-   final parameter ClaRa.Basics.Units.NusseltNumber Nu_lam_nom=(Nu1^3 + Nu0^3 + (Nu2_nom - Nu0)^3 + Nu3_nom^3)^(1/3) "Mean Nusselt number";
-   final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_lam_nom =  Nu_lam_nom*lambda_nom/max(MIN, geo.diameter_hyd);
+  final parameter ClaRa.Basics.Units.NusseltNumber Nu_lam_nom=(Nu1^3 + Nu0^3 + (Nu2_nom - Nu0)^3 + Nu3_nom^3)^(1/3) "Mean Nusselt number";
+  final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_lam_nom=Nu_lam_nom*lambda_nom/max(MIN, geo.diameter_hyd);
    final parameter Real zeta_nom=abs(1/max(MIN, 1.8*Modelica.Math.log10(abs(Re_nom)) - 1.5)^2)
     "Pressure loss coefficient";
-   final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_turb_nom = if correlation == 2 then abs(lambda_nom/geo.diameter_hyd)*0.023*Re_nom^0.8*Pr_nom^(1/3)
-               else if correlation == 1 then abs(lambda_nom/geo.diameter_hyd)*(abs(zeta_nom)/8)*abs(Re_nom)*abs(Pr_nom)/(1 + 12.7*(abs(zeta_nom)/8)^0.5*(abs(Pr_nom)^(2/3) - 1))*(1 + (geo.diameter_hyd/geo.length*geo.N_passes)^(2/3))
-                else 0;
+  final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_turb_nom=if correlation == 2 then abs(lambda_nom/geo.diameter_hyd)*0.023*Re_nom^0.8*Pr_nom^(1/3) else if correlation == 1 then abs(lambda_nom/geo.diameter_hyd)*(abs(zeta_nom)/8)*abs(Re_nom)*abs(Pr_nom)/(1 + 12.7*(abs(zeta_nom)/8)^0.5*(abs(Pr_nom)^(2/3) - 1))*(1 + (geo.diameter_hyd/geo.length)^(2/3)) else 0;
 public
-  final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom = CF_alpha_tubes*(sm(laminar, turbulent, Re_nom)*alpha_lam_nom + sm(turbulent, laminar, Re_nom)*alpha_turb_nom) "Nominal HTC (used for homotopy)";
+  final parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom=CF_alpha_tubes*(sm(
+      laminar,
+      turbulent,
+      Re_nom)*alpha_lam_nom + sm(
+      turbulent,
+      laminar,
+      Re_nom)*alpha_turb_nom) "Nominal HTC (used for homotopy)";
+  final parameter ClaRa.Basics.Units.ThermalResistance HR_nom=1/(alpha_nom*geo.A_heat_CF[heatSurfaceAlloc]) "Nominal convective heat resistance";
 equation
 
 //////////////MEDIA DATA CALCULATION ////////////////////////
@@ -120,11 +134,11 @@ equation
     velocity= abs(m_flow)./max(MIN, rho*geo.A_cross) "Mean velocity";
     Re=(rho*velocity*geo.diameter_hyd/max(MIN,eta)) "Reynolds number";
     Pr = abs(eta*cp/max(MIN, lambda)) "Prandtl number";
-    Nu2 = if boundary == 1 or boundary == 3 then  1.615 *(Re*Pr*geo.diameter_hyd/geo.length*geo.N_passes)^(1/3)
-                                                   else if boundary ==  2 or boundary == 4 then 1.953 *(Re.*Pr*geo.diameter_hyd/geo.length*geo.N_passes)^(1/3)
+    Nu2 = if boundary == 1 or boundary == 3 then  1.615 *(Re*Pr*geo.diameter_hyd/geo.length)^(1/3)
+                                                   else if boundary ==  2 or boundary == 4 then 1.953 *(Re.*Pr*geo.diameter_hyd/geo.length)^(1/3)
                                                         else 0 "Help variable for mean Nusselt number";
-    Nu3 = if boundary == 3 then (2 /(1 + 22 *Pr))^(1/6)*(Re*Pr*geo.diameter_hyd/geo.length*geo.N_passes)^0.5
-                                                   else if boundary == 4 then  (0.924) *(Pr^(1/3))*(Re*geo.diameter_hyd/geo.length*geo.N_passes)^(1/2)
+    Nu3 = if boundary == 3 then (2 /(1 + 22 *Pr))^(1/6)*(Re*Pr*geo.diameter_hyd/geo.length)^0.5
+                                                   else if boundary == 4 then  (0.924) *(Pr^(1/3))*(Re*geo.diameter_hyd/geo.length)^(1/2)
                                                         else 0 "Help variable for mean Nusselt number";
 
     Nu_lam=(Nu1^3 + Nu0^3 + (Nu2 - Nu0)^3 + Nu3.^3)^(1/3) "Mean Nusselt number";
@@ -134,7 +148,7 @@ equation
     zeta=abs(1/max(MIN, 1.8*Modelica.Math.log10(abs(Re)) - 1.5)^2)
     "Pressure loss coefficient";
     alpha_turb = if correlation == 2 then abs(lambda/geo.diameter_hyd)*0.023*Re^0.8*Pr^(1/3)
-               else if correlation == 1 then abs(lambda/geo.diameter_hyd)*(abs(zeta)/8)*abs(Re)*abs(Pr)/(1 + 12.7*(abs(zeta)/8)^0.5*(abs(Pr)^(2/3) - 1))*(1 + (geo.diameter_hyd/geo.length*geo.N_passes)^(2/3))
+               else if correlation == 1 then abs(lambda/geo.diameter_hyd)*(abs(zeta)/8)*abs(Re)*abs(Pr)/(1 + 12.7*(abs(zeta)/8)^0.5*(abs(Pr)^(2/3) - 1))*(1 + (geo.diameter_hyd/geo.length)^(2/3))
                else 0;
 
 /////////////////////////OVERALL ALPHA //////////////////////
@@ -160,5 +174,8 @@ equation
 
 // defining the HTC for a straight pipe for ONE PHASE FLOW:
    heat.Q_flow = alpha*geo.A_heat_CF[heatSurfaceAlloc]*Delta_T_mean "Index 1 for shell surface";
+
+//calculation of actual heat resistance
+   HR=1/max(Modelica.Constants.eps,alpha*geo.A_heat_CF[heatSurfaceAlloc]);
 
 end NusseltPipe1ph_L2;

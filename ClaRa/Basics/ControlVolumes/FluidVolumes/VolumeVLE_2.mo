@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_2 "A lumped control volume for vapour/liquid equilibrium"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -27,14 +27,10 @@ model VolumeVLE_2 "A lumped control volume for vapour/liquid equilibrium"
 model Outline
   extends ClaRa.Basics.Icons.RecordIcon;
   parameter Boolean showExpertSummary = false;
-  input ClaRa.Basics.Units.Volume
-                        volume_tot "Total volume";
-  input ClaRa.Basics.Units.Area
-                      A_heat "Heat transfer area";
-  input ClaRa.Basics.Units.HeatFlowRate
-                              Q_flow_tot "Total heat flow rate";
-  input ClaRa.Basics.Units.PressureDifference
-                                    Delta_p "Pressure difference p_in - p_out";
+    input ClaRa.Basics.Units.Volume volume_tot "Total volume";
+    input ClaRa.Basics.Units.Area A_heat "Heat transfer area";
+    input ClaRa.Basics.Units.HeatFlowRate Q_flow_tot "Total heat flow rate";
+    input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 end Outline;
 
 model Summary
@@ -72,17 +68,15 @@ end Summary;
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-  inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet"
-                                        annotation(Dialog(tab="General", group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(tab="General", group="Nominal Values"));
 
-  inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  inner parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
-  inner parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc-1] = medium.xi_default "Nominal mass fraction"      annotation(Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]=medium.xi_default "Nominal mass fraction" annotation (Dialog(group="Nominal Values"));
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start= 1e5 "Start value of system specific enthalpy"
-                                             annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start= 1e5 "Start value of system pressure" annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.MassFraction xi_start[medium.nc-1] = medium.xi_default "Start value for mass fraction" annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of system specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of system pressure" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction xi_start[medium.nc - 1]=medium.xi_default "Start value for mass fraction" annotation (Dialog(tab="Initialisation"));
   inner parameter Integer  initOption=0 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed rel.level (for phaseBorder = idealSeparated only)",  choice=205 "Fixed rel.level and steady pressure (for phaseBorder = idealSeparated only)"));
 
   parameter Boolean showExpertSummary = simCenter.showExpertSummary "True, if expert summary should be applied" annotation(Dialog(tab="Summary and Visualisation"));
@@ -90,7 +84,10 @@ end Summary;
                                                                                    choice=2 "Inner heat transfer surface"));
 
 protected
-    parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom= TILMedia.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+      medium,
+      p_nom,
+      h_nom) "Nominal density";
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Variables and model instances ~~~~~~~~~~~~
@@ -99,9 +96,9 @@ protected
   ClaRa.Basics.Units.EnthalpyMassSpecific h_in "Inlet spec. enthalpy";
   ClaRa.Basics.Units.EnthalpyMassSpecific h(start=h_start) "spec. enthalpy state";
 
-  ClaRa.Basics.Units.MassFraction xi_out[medium.nc-1] "Outlet composition";
-  ClaRa.Basics.Units.MassFraction xi_in[medium.nc-1] "Inlet composition";
-  ClaRa.Basics.Units.MassFraction xi[medium.nc-1](start=xi_start) "Composition state";
+  ClaRa.Basics.Units.MassFraction xi_out[medium.nc - 1] "Outlet composition";
+  ClaRa.Basics.Units.MassFraction xi_in[medium.nc - 1] "Inlet composition";
+  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=xi_start) "Composition state";
 
   Real drhodt "Time derivative of density"; //(unit="kg/(m3s)");
 

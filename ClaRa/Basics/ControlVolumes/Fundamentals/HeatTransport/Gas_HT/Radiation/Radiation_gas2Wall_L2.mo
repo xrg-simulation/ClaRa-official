@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
 model Radiation_gas2Wall_L2 "All Geo || L2 || Radiation Between Gas and Wall"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -31,9 +31,31 @@ model Radiation_gas2Wall_L2 "All Geo || L2 || Radiation Between Gas and Wall"
 
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock geo;
 
+  parameter String temperatureDifference="Outlet" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
+      choice="Arithmetic mean",
+      choice="Inlet",
+      choice="Outlet",
+      choice = "Bulk"));
+
+  Units.Temperature Delta_T_mean "Mean temperature";
+
 equation
+
+  if temperatureDifference == "Arithmetic mean" then
+    Delta_T_mean = (iCom.T_in + iCom.T_out)/2;
+  elseif temperatureDifference == "Inlet" then
+    Delta_T_mean = iCom.T_in;
+  elseif temperatureDifference == "Outlet" then
+    Delta_T_mean = iCom.T_out;
+  elseif temperatureDifference == "Bulk" then
+    Delta_T_mean = iCom.T_bulk;
+  else
+    Delta_T_mean = -1;
+    assert(true, "Unknown temperature difference option in HT model");
+  end if;
+
   //According to VDI Waermeatlas for a wall surrounding a gas volume chapter Kc5.
-  heat.Q_flow = geo.A_heat_CF[heatSurfaceAlloc]*CF_fouling*Modelica.Constants.sigma*emissivity_wall/(absorbance_flame + emissivity_wall - absorbance_flame*emissivity_wall)*(absorbance_flame*heat.T^4 - emissivity_flame*iCom.T_out^4);
+  heat.Q_flow = geo.A_heat_CF[heatSurfaceAlloc]*CF_fouling*Modelica.Constants.sigma*emissivity_wall/(absorbance_flame + emissivity_wall - absorbance_flame*emissivity_wall)*(absorbance_flame*heat.T^4 - emissivity_flame*Delta_T_mean^4);
 
   annotation (Documentation(info="<html>
 <p><b>Model description: </b>A simple correlation for radiant heat transfer between gas and wall inside furnaces</p>

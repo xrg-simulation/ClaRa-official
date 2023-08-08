@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model QuadraticNominalPoint_L4 "VLE|| Quadratic PL with const. PL coeff"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -25,10 +25,10 @@ model QuadraticNominalPoint_L4 "VLE|| Quadratic PL with const. PL coeff"
       iCom.p_nom,
       iCom.h_nom,
       iCom.xi_nom);
-  parameter SI.Pressure Delta_p_smooth=iCom.Delta_p_nom/iCom.N_cv*0.2 "|Small Mass Flows|For pressure losses below this value the square root of the quadratic pressure loss model is regularised";
+  parameter Units.Pressure Delta_p_smooth=iCom.Delta_p_nom/iCom.N_cv*0.2 "|Small Mass Flows|For pressure losses below this value the square root of the quadratic pressure loss model is regularised";
   final parameter Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta_TOT=geo.A_cross_FM[1]^2*2*iCom.Delta_p_nom*rho_nom/iCom.m_flow_nom^2 "Pressure loss coefficient for total pipe";
 
-  SI.DensityMassSpecific rho[iCom.N_cv + 1] "Density in FlowModel cells";
+  Units.DensityMassSpecific rho[iCom.N_cv + 1] "Density in FlowModel cells";
 protected
   Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta[iCom.N_cv + 1] "Pressure loss coefficient for total pipe";
 
@@ -71,7 +71,7 @@ equation
     for i in 2:iCom.N_cv loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1]);
       m_flow[i] = if useHomotopy then homotopy(rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5,
-                           (iCom.m_flow_nom/iCom.Delta_p_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1])*Delta_p[i])
+                           m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1])))
                    else rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5;
     end for;
     zeta[1] = 0;
@@ -83,7 +83,7 @@ equation
     for i in 2:iCom.N_cv + 1 loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1]);
       m_flow[i] = if useHomotopy then homotopy(rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5,
-                           (iCom.m_flow_nom/iCom.Delta_p_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1])*Delta_p[i])
+                           m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1])))
                    else rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5;
     end for;
     zeta[1] = 0;
@@ -93,7 +93,7 @@ equation
     for i in 1:iCom.N_cv loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[iCom.N_cv + 1]);
       m_flow[i] = if useHomotopy then homotopy(rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5,
-                           (iCom.m_flow_nom/iCom.Delta_p_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM)  - geo.Delta_x_FM[iCom.N_cv + 1])*Delta_p[i])
+                           m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[iCom.N_cv + 1])))
                    else rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5;
     end for;
     zeta[iCom.N_cv + 1] = 0;
@@ -104,7 +104,7 @@ equation
     for i in 1:iCom.N_cv + 1 loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM));
       m_flow[i] = if useHomotopy then homotopy(rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5,
-                           (iCom.m_flow_nom/iCom.Delta_p_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM))*Delta_p[i])
+                           m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/sum(geo.Delta_x_FM)))
                    else rho[i]*geo.A_cross_FM[i]* SmoothPower( Delta_p[i], Delta_p_smooth, 0.5)/(0.5*zeta[i]*rho[i])^0.5;
     end for;
   end if;

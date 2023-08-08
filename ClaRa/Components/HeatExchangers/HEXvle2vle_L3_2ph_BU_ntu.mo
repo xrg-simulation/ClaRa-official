@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block shape | U-type | NTU ansatz"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -30,7 +30,8 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
     input SI.TemperatureDifference Delta_T_in "Fluid temperature at inlet T_1_in - T_2_in";
     input SI.TemperatureDifference Delta_T_out "Fluid temperature at outlet T_1_out - T_2_out";
     input Real effectiveness[3] if showExpertSummary "Effectivenes of HEX";
-    input Real kA[3](unit="W/K") if showExpertSummary "Overall heat resistance";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA[3] if showExpertSummary "Overall heat transmission";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA_nom if showExpertSummary "Nominal overall heat transmission";
     input SI.Length level_abs "Absolute filling level";
     input Real level_rel "relative filling level";
   end Outline;
@@ -74,13 +75,13 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
     annotation (Dialog(tab="Shell Side", group="Geometry"));
   parameter SI.Length width=3 "Width of HEX"
     annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter SI.Length z_in_shell=length/2 "Inlet position from bottom"
+  parameter SI.Length z_in_shell=height   "Inlet position from bottom"
     annotation (Dialog(tab="Shell Side", group="Geometry"));
-    parameter SI.Length z_in_aux1=length/2 "Inlet position of auxilliary1 from bottom"
+    parameter SI.Length z_in_aux1=height   "Inlet position of auxilliary1 from bottom"
     annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter SI.Length z_in_aux2=length/2 "Inlet position of auxilliary2 from bottom"
+  parameter SI.Length z_in_aux2=height   "Inlet position of auxilliary2 from bottom"
     annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter SI.Length z_out_shell=length/2 "Outlet position from bottom"
+  parameter SI.Length z_out_shell=0.1      "Outlet position from bottom"
     annotation (Dialog(tab="Shell Side", group="Geometry"));
   parameter Basics.Units.Length radius_flange=0.05 "Flange radius of all flanges" annotation (Dialog(tab="Shell Side", group="Geometry"));
 
@@ -89,6 +90,9 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
   parameter SI.Pressure p_nom_shell=10 "Nominal pressure on shell side"
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter Real yps_liq_nom=level_rel_start "Relative volume of liquid phase at nominal point" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  final parameter Real yps_nom[2]={yps_liq_nom, 1-yps_liq_nom} "Relative volume of liquid phase [1] and vapour phase [2] at nominal point";
+
 //   parameter SI.SpecificEnthalpy h_nom_shell=10
 //     "Nominal specific enthalpy on shell side"
 //     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
@@ -137,9 +141,9 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
   parameter SI.Length z_in_tubes=length/2 "Inlet position from bottom"    annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
   parameter SI.Length z_out_tubes=length/2 "Outlet position from bottom"    annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
   parameter Boolean staggeredAlignment=true "True, if the tubes are aligned staggeredly"    annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
-  parameter SI.Length Delta_z_par=2*diameter_o "Distance between tubes parallel to flow direction (center to center)"
+  parameter SI.Length Delta_z_par=1.5*diameter_o "Distance between tubes parallel to flow direction (center to center)"
                                                                                               annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
-  parameter SI.Length Delta_z_ort=2*diameter_o "Distance between tubes orthogonal to flow direction (center to center)"
+  parameter SI.Length Delta_z_ort=1.5*diameter_o "Distance between tubes orthogonal to flow direction (center to center)"
                                                                                               annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
   parameter Integer N_rows=integer(ceil(sqrt(N_tubes))*N_passes) "Number of pipe rows in shell flow direction" annotation(Dialog(tab="Tubes", group="Tubes Geometry"));
   parameter Real CF_geo=1 "Correction coefficient due to fins etc."    annotation (Dialog(tab="Tubes", group="Tubes Geometry"));
@@ -263,7 +267,9 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
     CF_geo=CF_geo,
     p_o=shell.inlet[1].p,
     initOption_yps=initOption_yps,
-    yps_start=yps_start)
+    yps_start=yps_start,
+    xi_i=inStream(tubes.inlet.xi_outflow),
+    xi_o=inStream(shell.inlet[1].xi_outflow))
                        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={56,0})));
@@ -285,7 +291,7 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
         diameter=diameter_i,
         N_tubes=N_tubes,
         N_passes=N_passes,
-        length=if shell.geo.flowOrientation == ClaRa.Basics.Choices.GeometryOrientation.vertical then if shell.geo.parallelTubes then height else length else if shell.geo.parallelTubes then length else width),
+        length=length),
     showExpertSummary=showExpertSummary,
     initOption=initOptionTubes) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -333,8 +339,8 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
         z_in={z_in_shell,z_in_aux1,z_in_aux2},
         N_passes=N_passes,
-        parallelTubes=false,
-        N_rows=N_rows),
+        N_rows=N_rows,
+        tubeOrientation=0),
     equalPressures=equalPressures,
     initOption=initOptionShell) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -348,11 +354,14 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
       Delta_T_out=shell.summary.outlet[1].T - tubes.summary.outlet.T,
       effectiveness=wall.summary.effectiveness,
       kA=wall.summary.kA,
+      kA_nom=1 /(tubes.heattransfer.HR_nom + wall.HR_nom + sum(shell.heattransfer.HR_nom .* yps_nom)),
       level_abs=shell.phaseBorder.level_abs,
       level_rel= shell.phaseBorder.level_rel)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-92})));
+
+
    Basics.Interfaces.EyeOut eye2 if showData annotation (Placement(
          transformation(
          extent={{10,-10},{-10,10}},
@@ -393,6 +402,8 @@ public
         origin={80,-110})));
 
 equation
+
+
   connect(tubes.inlet, In2) annotation (Line(
       points={{80,-10},{80,-40},{100,-40}},
       color={0,131,169},
@@ -441,7 +452,7 @@ equation
       smooth=Smooth.None));
   connect(wall.outerPhase[1], reallocateHeatFlows.heatVector[1]) annotation (
       Line(
-      points={{47.6667,4.44089e-016},{47.6667,0},{40,0},{40,-0.666667}},
+      points={{47.6667,4.44089e-16},{47.6667,0},{40,0},{40,-0.666667}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));

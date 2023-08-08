@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_JoinSplitGas_L2_flex
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -40,12 +40,10 @@ model Test_JoinSplitGas_L2_flex
         origin={56,14})));
   inner ClaRa.SimCenter simCenter annotation (Placement(transformation(extent={{78,80},{98,100}})));
 
-  ClaRa.Components.VolumesValvesFittings.Fittings.JoinGas_L2_flex
-    joinGas_L2_flex(
+  ClaRa.Components.VolumesValvesFittings.Fittings.JoinGas_L2_flex joinGas_L2_flex(
     N_ports_in=3,
     m_flow_in_nom={1,2,3},
-    mixingRatio_initial={0,0,0,0,1,0,0,0,0})
-    annotation (Placement(transformation(extent={{-8,4},{12,24}})));
+    xi_start={0,0,0,0,1,0,0,0,0}) annotation (Placement(transformation(extent={{-8,4},{12,24}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow source3(
     variable_m_flow=false,
     variable_T=false,
@@ -76,12 +74,10 @@ model Test_JoinSplitGas_L2_flex
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-66,-60})));
-  ClaRa.Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex
-    splitGas_L2_flex(
-    mixingRatio_initial={0,0,0,0,1,0,0,0,0},
+  ClaRa.Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex splitGas_L2_flex(
     N_ports_out=3,
-    m_flow_out_nom={3,2,1})
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    m_flow_out_nom={3,2,1},
+    xi_start={0,0,0,0,1,0,0,0,0}) annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow source6(
     variable_m_flow=false,
     variable_T=false,

@@ -1,19 +1,19 @@
 within ClaRa.Basics.Media;
 model FuelObject
-   input ClaRa.Basics.Units.Pressure p "Pressure" annotation(Dialog);
-   input ClaRa.Basics.Units.Temperature T "Temperature" annotation(Dialog);
-   input ClaRa.Basics.Units.MassFraction xi_c[fuelModel.N_c - 1] "Composition" annotation (Dialog);
+  input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
+  input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
+  input ClaRa.Basics.Units.MassFraction xi_c[fuelModel.N_c - 1] "Composition" annotation (Dialog);
    parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel = simCenter.fuelModel1 "Fuel type" annotation(choicesAllMatching);
 
-   ClaRa.Basics.Units.DensityMassSpecific rho "Density";
-   ClaRa.Basics.Units.HeatCapacityMassSpecific cp(stateSelect=StateSelect.never)  "Spec. heat capacity of fuel";
-   ClaRa.Basics.Units.EnthalpyMassSpecific LHV  "Lower heating value";
-   ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy";
+  ClaRa.Basics.Units.DensityMassSpecific rho "Density";
+  ClaRa.Basics.Units.HeatCapacityMassSpecific cp(stateSelect=StateSelect.never) "Spec. heat capacity of fuel";
+  ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value";
+  ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy";
 
-   ClaRa.Basics.Units.MassFraction xi_h2o "Water mass fraction";
-   ClaRa.Basics.Units.MassFraction xi_ash "Ash mass fraction";
-   ClaRa.Basics.Units.Temperature T_ref = fuelModel.T_ref "Reference temperature";
-   ClaRa.Basics.Units.MassFraction xi_e[fuelModel.N_e - 1] "Mass fraction of elements";
+  ClaRa.Basics.Units.MassFraction xi_h2o "Water mass fraction";
+  ClaRa.Basics.Units.MassFraction xi_ash "Ash mass fraction";
+  ClaRa.Basics.Units.Temperature T_ref=fuelModel.T_ref "Reference temperature";
+  ClaRa.Basics.Units.MassFraction xi_e[fuelModel.N_e - 1] "Mass fraction of elements";
    outer ClaRa.SimCenter simCenter;
 equation
   //    assert(sum(xi)<=1, "Sum of species fraction must be <=1 but is " + String(sum(xi)) + " in component " + getInstanceName());

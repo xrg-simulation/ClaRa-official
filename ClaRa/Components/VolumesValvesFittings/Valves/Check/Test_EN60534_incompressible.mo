@@ -2,13 +2,13 @@ within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_EN60534_incompressible
     extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter annotation (Placement(transformation(extent={{-101,-100},{-59,-80}})));
-  ValveVLE_L1 valveEN_60534_incompressible(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_incompressible) annotation (Placement(transformation(extent={{-10,44},{10,56}})));
+  GenericValveVLE_L1 valveEN_60534_incompressible(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_incompressible) annotation (Placement(transformation(extent={{-10,44},{10,56}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG10(p_const=10e5, h_const=100e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG11(variable_p=true, h_const=100e3)
                                                                                            annotation (Placement(transformation(extent={{60,40},{40,60}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0.0,10e5; 10,9e5; 20,2e5; 30,40e5]) annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  ValveVLE_L1 valveEN_60534_incompressible_checkValve(
+  GenericValveVLE_L1 valveEN_60534_incompressible_checkValve(
     showExpertSummary=true,
     checkValve=true,
     redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_incompressible) annotation (Placement(transformation(extent={{-10,-16},{10,-4}})));
@@ -16,7 +16,7 @@ model Test_EN60534_incompressible
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG2(variable_p=true, h_const=100e3)
                                                                                            annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,10e5; 10,9e5; 20,2e5; 30,40e5]) annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  ValveVLE_L1 valveEN_60534_incompressibleBackwards(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_incompressible) annotation (Placement(transformation(extent={{10,104},{-10,116}})));
+  GenericValveVLE_L1 valveEN_60534_incompressibleBackwards(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_incompressible) annotation (Placement(transformation(extent={{10,104},{-10,116}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG3(p_const=10e5, h_const=100e3) annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG4(variable_p=true, h_const=100e3)
                                                                                            annotation (Placement(transformation(extent={{60,100},{40,120}})));

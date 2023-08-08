@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitGas_L2_flex "Adiabatic junction volume"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -23,18 +23,12 @@ extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L2");
 
  model Gas
   extends ClaRa.Basics.Icons.RecordIcon;
-  input ClaRa.Basics.Units.Mass m "Mass flow rate"
-                                               annotation(Dialog);
-  input ClaRa.Basics.Units.Temperature T "Temperature"
-                                                   annotation(Dialog);
-  input ClaRa.Basics.Units.Pressure p "Pressure"
-                                             annotation(Dialog);
-  input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy"
-                                                                  annotation(Dialog);
-  input ClaRa.Basics.Units.Enthalpy H "Specific enthalpy"
-                                                      annotation(Dialog);
-  input ClaRa.Basics.Units.DensityMassSpecific rho "Specific enthalpy"
-                                                                   annotation(Dialog);
+    input ClaRa.Basics.Units.Mass m "Mass flow rate" annotation (Dialog);
+    input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
+    input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy" annotation (Dialog);
+    input ClaRa.Basics.Units.Enthalpy H "Specific enthalpy" annotation (Dialog);
+    input ClaRa.Basics.Units.DensityMassSpecific rho "Specific enthalpy" annotation (Dialog);
  end Gas;
 
  inner model Summary
@@ -64,7 +58,7 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
  parameter Integer  N_ports_out(min=1)=1 "Number of inlet  ports"
     annotation(Evaluate=true, Dialog(tab="General",group="Fundamental Definitions"));//connectorSizing=true,
 
-parameter ClaRa.Basics.Units.Volume volume=1 annotation(Dialog(tab="General",group="Geometry"));
+  parameter ClaRa.Basics.Units.Volume volume=1 annotation (Dialog(tab="General", group="Geometry"));
 
 protected
   TILMedia.Gas_pT     gasInlet(gasType = medium, p=inlet.p, T=noEvent(actualStream(inlet.T_outflow)), xi=noEvent(actualStream(inlet.xi_outflow)))
@@ -84,30 +78,26 @@ protected
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   /****************** Nominal values *******************/
 public
-  parameter Modelica.SIunits.MassFlowRate m_flow_out_nom[N_ports_out]= {10} "Nominal mass flow rates at inlet"
+  parameter Modelica.SIunits.MassFlowRate m_flow_out_nom[N_ports_out]= fill(10,N_ports_out) "Nominal mass flow rates at outlet"
                                         annotation(Dialog(tab="General", group="Nominal Values"));
   parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
   parameter Modelica.SIunits.Temperature T_nom=293.15 "Nominal specific enthalpy"              annotation(Dialog(group="Nominal Values"));
-  parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0}  annotation(Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]=medium.xi_default annotation (Dialog(group="Nominal Values"));
 
   final parameter Modelica.SIunits.Density rho_nom= TILMedia.GasFunctions.density_pTxi(medium, p_nom, T_nom, xi_nom) "Nominal density";
   /****************** Initial values *******************/
 public
     parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start=1.013e5 "Initial value for air pressure"
-    annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1.013e5 "Initial value for air pressure" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start=298.15 "Initial value for air temperature"
-    annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start=298.15 "Initial value for air temperature" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1]
-                                                         mixingRatio_initial=zeros(medium.nc-1) "Initial value for mixing ratio"
-                                     annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1] xi_start=medium.xi_default "Initial value for mixing ratio" annotation(Dialog(tab="Initialisation"));
 
-  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, mixingRatio_initial) "Start value for specific Enthalpy inside volume";
+  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start) "Start value for specific Enthalpy inside volume";
 
-  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=mixingRatio_initial);
+  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=xi_start);
   Modelica.SIunits.SpecificEnthalpy h(start=h_start) "Specific enthalpy";
   ClaRa.Basics.Units.Pressure p(start=p_start) "Pressure";
 

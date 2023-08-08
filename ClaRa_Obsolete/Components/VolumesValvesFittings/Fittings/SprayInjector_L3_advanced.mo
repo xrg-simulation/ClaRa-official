@@ -132,7 +132,7 @@ public
     N_tubes=1,
     initChoice=initWall) annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1   valve(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(
     medium=medium,
     openingInputIsActive=true,
     showExpertSummary=showExpertSummary,
@@ -140,8 +140,7 @@ public
     Tau=0.001,
     checkValve=false,
     useStabilisedMassFlow=false,
-    redeclare model PressureLoss = PressureLoss)
-                                      annotation (Placement(transformation(
+    redeclare model PressureLoss = PressureLoss) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={-20,-46})));

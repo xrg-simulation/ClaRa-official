@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model RealMixed "Mixing | Real | outlet states depending volume fractions | All geometries"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -18,17 +18,17 @@ model RealMixed "Mixing | Real | outlet states depending volume fractions | All 
   import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.RealPhases;
   extends ClaRa.Basics.Icons.RealMixing;
-  parameter SI.VolumeFraction eps_mix[2]={0.2,0.8} "Volume fraction V_1/V_tot of min/max mixed outlet" annotation(Dialog(group="Ouflow Behaviour"));
+  parameter Units.VolumeFraction eps_mix[2]={0.2,0.8} "Volume fraction V_1/V_tot of min/max mixed outlet" annotation (Dialog(group="Ouflow Behaviour"));
 
-  SI.MassFraction steamQuality_in[geo.N_inlet] "Inlet steam quality";
-  SI.MassFraction steamQuality_out[geo.N_outlet] "Outlet steam quality";
+  Units.MassFraction steamQuality_in[geo.N_inlet] "Inlet steam quality";
+  Units.MassFraction steamQuality_out[geo.N_outlet] "Outlet steam quality";
 
 protected
-  constant SI.MassFlowRate m_flow_eps=1e-3;
-  SI.EnthalpyMassSpecific h_bubin[geo.N_inlet] "Inlet bubble spec. enthalpy";
-  SI.EnthalpyMassSpecific h_bubout[geo.N_outlet] "Outlet bubble spec. enthalpy";
-  SI.EnthalpyMassSpecific h_dewin[geo.N_inlet] "Inlet dew spec. enthalpy";
-  SI.EnthalpyMassSpecific h_dewout[geo.N_outlet] "Outlet dew spec. enthalpy";
+  constant Units.MassFlowRate m_flow_eps=1e-3;
+  Units.EnthalpyMassSpecific h_bubin[geo.N_inlet] "Inlet bubble spec. enthalpy";
+  Units.EnthalpyMassSpecific h_bubout[geo.N_outlet] "Outlet bubble spec. enthalpy";
+  Units.EnthalpyMassSpecific h_dewin[geo.N_inlet] "Inlet dew spec. enthalpy";
+  Units.EnthalpyMassSpecific h_dewout[geo.N_outlet] "Outlet dew spec. enthalpy";
 equation
   //_________________________Allocate mass flow rates to the two zones_____________
   m_flow_inliq = {(2 - zoneAlloc_in[i])*iCom.m_flow_in[i] for i in 1:geo.N_inlet};

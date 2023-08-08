@@ -1,10 +1,10 @@
 within ClaRa.Basics.Functions;
 function pressureInterpolation "Finds pressure values in discretised volumes"
  //___________________________________________________________________________//
- // Component of the ClaRa library, version: 1.3.1                            //
+ // Component of the ClaRa library, version: 1.4.0                            //
  //                                                                           //
  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
- // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+ // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
  //___________________________________________________________________________//
  // DYNCAP and DYNSTART are research projects supported by the German Federal //
  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -16,9 +16,9 @@ function pressureInterpolation "Finds pressure values in discretised volumes"
  //___________________________________________________________________________//
      extends ClaRa.Basics.Icons.Function;
 
-     input ClaRa.Basics.Units.Pressure p_inlet "Pressure at inlet";
-     input ClaRa.Basics.Units.Pressure p_outlet "Pressure at outlet";
-     input ClaRa.Basics.Units.Length[:] Delta_x "Discretisation scheme";
+  input ClaRa.Basics.Units.Pressure p_inlet "Pressure at inlet";
+  input ClaRa.Basics.Units.Pressure p_outlet "Pressure at outlet";
+  input ClaRa.Basics.Units.Length[:] Delta_x "Discretisation scheme";
      input Boolean frictionAtInlet "True if pressure loss between first cell and inlet shall be considered";
      input Boolean frictionAtOutlet "True if pressure loss between last cell and outlet shall be considered";
 
@@ -26,9 +26,9 @@ function pressureInterpolation "Finds pressure values in discretised volumes"
 
 protected
      Integer N_cv = size(Delta_x,1) "Number of discrete volumes in original discretisation scheme";
-     ClaRa.Basics.Units.Length[N_cv+1] Delta_x_internal "Internal discretisation scheme";
-     ClaRa.Basics.Units.Pressure[N_cv+1] p_i_internal "Pressures in internal discrete volumes i";
-     ClaRa.Basics.Units.Length[N_cv+1] x_i_internal "Absolute internal grid points";
+  ClaRa.Basics.Units.Length[N_cv + 1] Delta_x_internal "Internal discretisation scheme";
+  ClaRa.Basics.Units.Pressure[N_cv + 1] p_i_internal "Pressures in internal discrete volumes i";
+  ClaRa.Basics.Units.Length[N_cv + 1] x_i_internal "Absolute internal grid points";
 
 algorithm
      // calculate internal discretisation scheme

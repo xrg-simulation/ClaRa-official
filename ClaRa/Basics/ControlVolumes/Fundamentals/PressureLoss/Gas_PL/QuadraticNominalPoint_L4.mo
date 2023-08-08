@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 model QuadraticNominalPoint_L4 "Gas || Quadratic PL based on nominal values"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -26,10 +26,10 @@ model QuadraticNominalPoint_L4 "Gas || Quadratic PL based on nominal values"
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL.PressureLoss_L4;
 //  Basics.Units.DensityMassSpecific rho[iCom.N_cv + 1] "Density in FlowModel cells";
 
-  parameter SI.Pressure Delta_p_smooth=iCom.Delta_p_nom/iCom.N_cv*0.2 "|Small Mass Flows|For pressure losses below this value the square root of the quadratic pressure loss model is regularised";
+  parameter Units.Pressure Delta_p_smooth=iCom.Delta_p_nom/iCom.N_cv*0.2 "|Small Mass Flows|For pressure losses below this value the square root of the quadratic pressure loss model is regularised";
   final parameter Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta_TOT=geo.A_cross_FM[1]^2*2*iCom.Delta_p_nom*rho_nom/iCom.m_flow_nom^2 "Pressure loss coefficient for total pipe";
 
-  Basics.Units.DensityMassSpecific rho[iCom.N_cv + 1] "Density in FlowModel cells";
+  Units.DensityMassSpecific rho[iCom.N_cv + 1] "Density in FlowModel cells";
 protected
   Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta[iCom.N_cv + 1] "Pressure loss coefficient for total pipe";
 

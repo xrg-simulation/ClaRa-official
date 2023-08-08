@@ -106,17 +106,10 @@ protected
   //______Auxilliary Variables_
 
   ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_W_c= ClaRa.Basics.Functions.ClaRaDelay.ExternalTable() "Pointer for delay memory allocation";
-  TILMedia.VLEFluidObjectFunctions.VLEFluidPointer H2O_props=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.concatVLEFluidName,
-      0,
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.mixingRatio_propertyCalculation[1:end - 1]/sum(TILMedia.VLEFluidTypes.TILMedia_SplineWater.mixingRatio_propertyCalculation),
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.nc_propertyCalculation,
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.nc,
-      TILMedia.Internals.redirectModelicaFormatMessage()) "Pointer to external medium memory for evaporation enthalpy and heat capacity";
 
   Real grindingStatus_;
-
+protected
+  TILMedia.VLEFluid H2O_props(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
 public
   Modelica.Blocks.Interfaces.RealOutput Delta_p_mill(unit="Pa") "Pressure Difference between inlet and outlet connector"
                                                     annotation(Placement(transformation(extent={{100,50},
@@ -191,8 +184,8 @@ initial equation
 equation
 ////////////////////////////////////////////
 /// Additional Media Data                ///
-  Delta_h_evap = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props);
-  cp_w = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.fuel.p, T_coal_in, {1}, H2O_props);
+  Delta_h_evap = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer);
+  cp_w = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.fuel.p, T_coal_in, {1}, H2O_props.vleFluidPointer);
 
 ////////////////////////////////////////////
 /// Grinding Process                     ///

@@ -6,8 +6,8 @@ parameter TILMedia.GasTypes.BaseGas flueGas;
 parameter ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelModel;
 
 
-input ClaRa.Basics.Units.MassFraction elementaryComposition_fuel_in[fuelModel.N_e - 1];
-ClaRa.Basics.Units.MassFraction prod_comp[flueGas.nc - 1] "Resulting composition of products";
+  input ClaRa.Basics.Units.MassFraction elementaryComposition_fuel_in[fuelModel.N_e - 1];
+  ClaRa.Basics.Units.MassFraction prod_comp[flueGas.nc - 1] "Resulting composition of products";
 
 
 //_________/Educts\__________________

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -34,6 +34,7 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
     input ClaRa.Basics.Units.Area A_heat[2] if showExpertSummary "Heat transfer area";
     input ClaRa.Basics.Units.Length level_abs "Absolue filling level";
     input Real level_rel if showExpertSummary "relative filling level";
+    input Real yps[2] "Relative volume of liquid phase [1] and vapour phase [2]";
     input ClaRa.Basics.Units.Mass fluidMass "Total fluid mass";
     input ClaRa.Basics.Units.Enthalpy H_tot if showExpertSummary "Systems's enthalpy";
     input ClaRa.Basics.Units.HeatFlowRate Q_flow_tot "Total heat flow rate";
@@ -77,10 +78,10 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
 
   //_____________________________________________________
   //______________________parameters_____________________
-  parameter ClaRa.Basics.Units.Time Tau_cond=10 "Time constant of condensation" annotation(Dialog(tab="Phase Border"));
-  parameter ClaRa.Basics.Units.Time Tau_evap=Tau_cond/1000 "Time constant of evaporation" annotation(Dialog(tab="Phase Border"));
-  parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_ph=50000 "HTC of the phase border" annotation(Dialog(tab="Phase Border"));
-  parameter ClaRa.Basics.Units.Area A_heat_ph=geo.A_hor*100 "Heat transfer area at phase border" annotation(Dialog(tab="Phase Border"));
+  parameter ClaRa.Basics.Units.Time Tau_cond=10 "Time constant of condensation" annotation (Dialog(tab="Phase Border"));
+  parameter ClaRa.Basics.Units.Time Tau_evap=Tau_cond/1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Border"));
+  parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_ph=50000 "HTC of the phase border" annotation (Dialog(tab="Phase Border"));
+  parameter ClaRa.Basics.Units.Area A_heat_ph=geo.A_hor*100 "Heat transfer area at phase border" annotation (Dialog(tab="Phase Border"));
   //*min(volume_liq/volume_vap, V_vap/volume_liq)
   parameter Real expHT_phases = 0 "Exponent for volume dependency on inter phase HT" annotation(Dialog(tab="Phase Border"));
   parameter Boolean equalPressures = true "True if pressure in liquid and vapour phase is equal" annotation(Dialog(tab="Phase Border"));
@@ -98,12 +99,8 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
   final parameter Modelica.SIunits.Density rho_vap_nom=
       TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"
                                      annotation (Dialog(tab="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling level"
@@ -129,7 +126,8 @@ public
   Real drho_vapdt;
   //(unit="kg/(m3s)");
   ClaRa.Basics.Units.Volume volume_liq(start=phaseBorder.level_rel_start*geo.volume) "Liquid volume";
-  ClaRa.Basics.Units.Volume volume_vap(start=(1 - phaseBorder.level_rel_start)*geo.volume) "Vapour volume";
+  ClaRa.Basics.Units.Volume volume_vap(start=(1 - phaseBorder.level_rel_start)*geo.volume, stateSelect=StateSelect.always) "Vapour volume";
+  Real yps[2] = {phaseBorder.level_rel, 1-phaseBorder.level_rel} "Relative volume of liquid phase [1] and vapour phase [2]";
   ClaRa.Basics.Units.MassFlowRate m_flow_cond "Condensing mass flow";
   ClaRa.Basics.Units.MassFlowRate m_flow_evap "Evaporating mass flow";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_phases "Heat flow between phases";
@@ -143,10 +141,10 @@ public
   ClaRa.Basics.Units.Pressure p_liq(start=p_start) "Liquid pressure";
   ClaRa.Basics.Units.Pressure p_vap(start=p_start, each stateSelect=StateSelect.prefer) "Vapour pressure";
 
-  SI.EnthalpyFlowRate H_flow_inliq "Enthalpy flow rate passing from inlet to liquid zone and vice versa";
-  SI.EnthalpyFlowRate H_flow_invap "Enthalpy flow rate passing from inlet to vapour zone and vice versa";
-  SI.EnthalpyFlowRate H_flow_outliq "Enthalpy flow rate passing from inlet to liquid zone and vice versa";
-  SI.EnthalpyFlowRate H_flow_outvap "Enthalpy flow rate passing from outlet to vapour zone and vice versa";
+  ClaRa.Basics.Units.EnthalpyFlowRate H_flow_inliq "Enthalpy flow rate passing from inlet to liquid zone and vice versa";
+  ClaRa.Basics.Units.EnthalpyFlowRate H_flow_invap "Enthalpy flow rate passing from inlet to vapour zone and vice versa";
+  ClaRa.Basics.Units.EnthalpyFlowRate H_flow_outliq "Enthalpy flow rate passing from inlet to liquid zone and vice versa";
+  ClaRa.Basics.Units.EnthalpyFlowRate H_flow_outvap "Enthalpy flow rate passing from outlet to vapour zone and vice versa";
 
 protected
   ClaRa.Basics.Units.Pressure p_bottom "Pressure at volume bottom";
@@ -242,6 +240,7 @@ public
       A_heat_tot=geo.A_heat[heatSurfaceAlloc],
       level_abs=phaseBorder.level_abs,
       level_rel=phaseBorder.level_rel,
+      yps={phaseBorder.level_rel, 1-phaseBorder.level_rel},
       Delta_p=inlet.p - outlet.p,
       fluidMass=mass_vap + mass_liq,
       H_tot=h_liq*mass_liq + h_vap*mass_vap,

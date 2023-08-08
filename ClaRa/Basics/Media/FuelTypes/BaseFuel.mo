@@ -9,8 +9,8 @@ record BaseFuel "Chose fuel below:"
   constant Real C_rho[N_c] = {1,1,1,1,1} "Coefficients for rho calculation";
   constant Integer waterIndex "Index of water in composition";
   constant Integer ashIndex "Index of ash in composition";
-  constant ClaRa.Basics.Units.MassFraction  defaultComposition[N_c-1] "Elemental compostion of combustible, e.g. {C,H,O,N,S, H2O, ash}";
+  constant ClaRa.Basics.Units.MassFraction defaultComposition[N_c - 1] "Elemental compostion of combustible, e.g. {C,H,O,N,S, H2O, ash}";
   parameter ClaRa.Basics.Units.MassFraction xi_e_waf[:,:] "water and ash free elementary composition of the two pure fuels";
-  constant ClaRa.Basics.Units.Temperature T_ref = 273.15 "Reference temperature";
+  constant ClaRa.Basics.Units.Temperature T_ref=273.15 "Reference temperature";
   //
 end BaseFuel;

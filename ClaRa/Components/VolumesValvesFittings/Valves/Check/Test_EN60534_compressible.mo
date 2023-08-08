@@ -3,15 +3,15 @@ model Test_EN60534_compressible
     extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)
                             annotation (Placement(transformation(extent={{-101,-100},{-59,-80}})));
-  ValveVLE_L1 valveEN_60534_compressible(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534) annotation (Placement(transformation(extent={{-10,44},{10,56}})));
+  GenericValveVLE_L1 valveEN_60534_compressible(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible) annotation (Placement(transformation(extent={{-10,44},{10,56}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG10(p_const=10e5, h_const=3000e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG11(variable_p=true, h_const=3500e3)
                                                                                            annotation (Placement(transformation(extent={{60,40},{40,60}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0.0,10e5; 10,9e5; 20,2e5; 30,40e5]) annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  ValveVLE_L1 valveEN_60534_compressible_checkValve(
+  GenericValveVLE_L1 valveEN_60534_compressible_checkValve(
     showExpertSummary=true,
-    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534,
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible,
     checkValve=true) annotation (Placement(transformation(extent={{-10,-16},{10,-4}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG1(p_const=10e5, h_const=3000e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -19,18 +19,17 @@ model Test_EN60534_compressible
                                                                                            annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,10e5; 10,9e5; 20,2e5; 300,11e5])
                                                                                           annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  ValveVLE_L1 valveEN_60534_compressibleBackwards(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534) annotation (Placement(transformation(extent={{10,104},{-10,116}})));
+  GenericValveVLE_L1 valveEN_60534_compressibleBackwards(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible) annotation (Placement(transformation(extent={{10,104},{-10,116}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG3(p_const=10e5, h_const=3000e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG4(variable_p=true, h_const=2700e3)
                                                                                            annotation (Placement(transformation(extent={{58,100},{38,120}})));
   Modelica.Blocks.Sources.TimeTable timeTable2(table=[0.0,10e5; 10,9e5; 20,2e5; 300,11e5])
                                                                                           annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  ValveVLE_L1 valveEN_60534_compressible_phaseChange(
+  GenericValveVLE_L1 valveEN_60534_compressible_phaseChange(
     showExpertSummary=true,
-    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534,
-    checkValve=false)
-                     annotation (Placement(transformation(extent={{-10,-76},{10,-64}})));
+    redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible,
+    checkValve=false) annotation (Placement(transformation(extent={{-10,-76},{10,-64}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG5(
     p_const=10e5,
     h_const=3000e3,

@@ -10,8 +10,8 @@ partial model Basic_TWV "Basic pressure loss model for three way valves"
 //   outer Boolean checkValve;
 //   outer Boolean useHomotopy;
 
-  SI.MassFlowRate m_flow_1 "Mass flow through straight flange";
-  SI.MassFlowRate m_flow_2 "Mass flow through shunt flange";
+  Basics.Units.MassFlowRate m_flow_1 "Mass flow through straight flange";
+  Basics.Units.MassFlowRate m_flow_2 "Mass flow through shunt flange";
   Real aperture_ "Effective apperture";
 
 protected

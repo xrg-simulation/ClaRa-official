@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_pT "A source defining pressure and temperature"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,12 +17,13 @@ model BoundarySlag_pT "A source defining pressure and temperature"
 
   extends ClaRa.Basics.Icons.FlowSink;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
-    powerIn=if massFlowIsLoss then 0 else min(0, slag_inlet.m_flow*h_slag),
-    powerOut=if massFlowIsLoss then 0 else max(0, slag_inlet.m_flow*h_slag),
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerIn=if energyType == 1 then -slag_inlet.m_flow*h_slag else 0,
+    powerOut_th=if energyType == 2 then  slag_inlet.m_flow*h_slag else 0,
+    powerOut_elMech=0,
+    powerAux=0) if  contributeToCycleSummary;
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
-  parameter Boolean massFlowIsLoss = true "True if mass flow is a loss (not a process product)" annotation(Dialog(tab="Summary and Visualisation"));
+  parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
 
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Medium to be used" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
@@ -31,9 +32,8 @@ model BoundarySlag_pT "A source defining pressure and temperature"
 /*  parameter Boolean XInputIsActive=false 
     "True, if composition defined by variable input"                                      annotation(Dialog(group="Define Variable Boundaries"));
 */
-  parameter SI.Pressure p_const=1e5 "Constant mass flow rate" annotation(Dialog(group="Constant Boundaries", enable= not mInputIsActive));
-  parameter SI.Temperature T_const=simCenter.T_amb_start "Constant specific enthalpy of source"
-                                           annotation(Dialog(group="Constant Boundaries", enable= not hInputIsActive));
+  parameter Basics.Units.Pressure p_const=1e5 "Constant mass flow rate" annotation (Dialog(group="Constant Boundaries", enable=not mInputIsActive));
+  parameter Basics.Units.Temperature T_const=simCenter.T_amb_start "Constant specific enthalpy of source" annotation (Dialog(group="Constant Boundaries", enable=not hInputIsActive));
  /* parameter Modelica.SIunits.MassFraction X_const[coal.nc-1]=zeros(coal.nc-1) 
     "Constant composition" annotation(Dialog(group="Constant Boundaries", enable= not XInputIsActive));
 */
@@ -42,7 +42,7 @@ protected
   Modelica.SIunits.Pressure p_in;
   Modelica.SIunits.Temperature T_in;
  // Modelica.SIunits.MassFraction X_in[coal.nc-1];
-   SI.EnthalpyMassSpecific h_slag;
+  Basics.Units.EnthalpyMassSpecific h_slag;
 
 public
   Basics.Interfaces.Slag_inlet        slag_inlet(final slagType = slagType)

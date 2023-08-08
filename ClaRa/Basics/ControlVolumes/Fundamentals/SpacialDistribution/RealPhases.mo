@@ -9,14 +9,14 @@ partial model RealPhases "The phases are NOT in ideal thermodynamic equilibrium"
   outer ClaRa.Basics.Records.IComVLE_L3_NPort iCom "Internal communication record";
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry geo "Geometry record";
 
-  SI.Pressure Delta_p_geo_in[geo.N_inlet] "Geodetic pressure difference to inlets";
-  SI.Pressure Delta_p_geo_out[geo.N_outlet] "Geodetic pressure difference to outlets";
+  Units.Pressure Delta_p_geo_in[geo.N_inlet] "Geodetic pressure difference to inlets";
+  Units.Pressure Delta_p_geo_out[geo.N_outlet] "Geodetic pressure difference to outlets";
 
-  SI.MassFraction zoneAlloc_in[geo.N_inlet] "Allocation of inlet mass flows to zones |1:liq|2:vap|";
+  Units.MassFraction zoneAlloc_in[geo.N_inlet] "Allocation of inlet mass flows to zones |1:liq|2:vap|";
   // For two-zonal models only! Other wise a vector of size N_cv-1 must be introduced
-  SI.MassFraction zoneAlloc_out[geo.N_outlet] "Allocation of outlet mass flows to zones |1:liq|2:vap|";
+  Units.MassFraction zoneAlloc_out[geo.N_outlet] "Allocation of outlet mass flows to zones |1:liq|2:vap|";
 
-  SI.Length level_abs "Absolute filling absLevel";
+  Units.Length level_abs "Absolute filling absLevel";
   Real level_rel(start=level_rel_start) "Relative filling absLevel";
 
   ClaRa.Basics.Units.MassFlowRate m_flow_inliq[geo.N_inlet] "Mass flow passing from inlet to zone 1 and vice versa";

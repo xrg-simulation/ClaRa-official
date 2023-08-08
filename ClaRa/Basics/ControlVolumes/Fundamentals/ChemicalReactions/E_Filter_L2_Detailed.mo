@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,11 +22,9 @@ model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
   parameter Real epsilon_r = 10 "Dielectric number of flueGas";
   parameter Real specific_powerConsumption(unit="W.h/m3") = 0.15 "Specific power consumption" annotation (Dialog(group="Fundamental Definitions"));
 
-  parameter ClaRa.Basics.Units.Area A_filter = 100 "Collector area of E-Filter" annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length d_plate = 0.2 "Distance  Plate-to-Plate or Plate-to-Wire, repectivaly"
-                                                                                            annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length diameter_particle = 50e-6 "Average diameter of ash particles"
-                                                                                                   annotation(Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Area A_filter=100 "Collector area of E-Filter" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length d_plate=0.2 "Distance  Plate-to-Plate or Plate-to-Wire, repectivaly" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length diameter_particle=50e-6 "Average diameter of ash particles" annotation (Dialog(group="Geometry"));
   final parameter Real A1 = 1.257 "Auxiliary Area"
                                                   annotation(Dialog(group="Geometry"));
   final parameter Real A2 = 0.4 "Auxiliary Area" annotation(Dialog(group="Geometry"));
@@ -34,8 +32,8 @@ model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
                                                  annotation(Dialog(group="Geometry"));
 
 
-  SI.Velocity w_m "Migration speed of dust particles in the E-field";
-  SI.Length lambda "Mean free path of particles";
+  Units.Velocity w_m "Migration speed of dust particles in the E-field";
+  Units.Length lambda "Mean free path of particles";
   Modelica.SIunits.ElectricFieldStrength E_applied "E-Field in Filter estimated as E = U/d with U being the applied potential and d the distance between elektrodes, refer to Riehle 1997";
 
   ClaRa.Basics.Units.DynamicViscosity mu_flueGas "Dynamic viscosity of flueGas in E-Filter";
@@ -43,10 +41,10 @@ model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
 
   Modelica.SIunits.ElectricCharge Q_sat "Saturation charge of particles";
 
-  SI.Power powerConsumption "Power consumption";
-  SI.DensityMassSpecific d_flueGas_in;
-  SI.DensityMassSpecific d_flueGas_out;
-  SI.MassFraction xi_dust[iCom.mediumModel.nc-1];
+  Units.Power powerConsumption "Power consumption";
+  Units.DensityMassSpecific d_flueGas_in;
+  Units.DensityMassSpecific d_flueGas_out;
+  Units.MassFraction xi_dust[iCom.mediumModel.nc - 1];
 
   Real separationRate "Separation rate";
   ClaRa.Basics.Units.VolumeFlowRate V_flow "Volume flow rate of flue Gas entering the E-Filter";

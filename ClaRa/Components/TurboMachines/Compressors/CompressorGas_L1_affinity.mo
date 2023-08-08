@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_affinity "A gas compressor or fan based on affinity laws"
   import ClaRa;
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -24,17 +24,18 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=-P_hyd,
-    powerAux=-P_shaft + P_hyd) if                                                                                                  contributeToCycleSummary;
+    powerOut_th=0,
+    powerOut_elMech=0,
+    powerAux=P_shaft) if  contributeToCycleSummary;
 
   model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
-    input SI.VolumeFlowRate V_flow "Volume flow rate";
-    input SI.Power P_hyd "Hydraulic power";
-    input SI.Power P_shaft "Hydraulic power";
+    input ClaRa.Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+    input ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
+    input ClaRa.Basics.Units.Power P_shaft "Hydraulic power";
     input Real Pi "Pressure ratio";
-    input SI.PressureDifference Delta_p "Pressure difference";
-    input SI.RPM rpm "Rotational speed";
+    input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference";
+    input ClaRa.Basics.Units.RPM rpm "Rotational speed";
     input Real eta "Hydraulic efficiency";
     input Real eta_mech "Mechanic efficiency";
   end Outline;
@@ -75,39 +76,39 @@ public
     annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
   //__________________________/ Parameters \_____________________________
-  parameter SI.RPM rpm_nom "|Characteristic field|Nomial rotational speed";
-  parameter SI.VolumeFlowRate V_flow_max "|Characteristic field|Maximum volume flow rate at nominal speed";
-  parameter SI.VolumeFlowRate V_flow_min= 0 "|Characteristic field|V_flow(Delta_p_max, rpm_nom)";
-  parameter SI.Pressure Delta_p_max "|Characteristic field|Maximum pressure difference at nominal speed";
+  parameter ClaRa.Basics.Units.RPM rpm_nom "|Characteristic field|Nomial rotational speed";
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_max "|Characteristic field|Maximum volume flow rate at nominal speed";
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_min=0 "|Characteristic field|V_flow(Delta_p_max, rpm_nom)";
+  parameter ClaRa.Basics.Units.Pressure Delta_p_max "|Characteristic field|Maximum pressure difference at nominal speed";
   parameter Real exp_hyd= 0.5 "|Characteristic field|Exponent for affinity law";
 
   parameter Real eta = 0.85 "isentropic efficiency";
   parameter Real eta_mech = 0.99 "mechanical efficiency";
-  parameter SI.Pressure Delta_p_eps= 100 "|Expert Settings|Numerical Robustness|Small pressure difference for linearisation around zero mass flow";
-  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Time Response Definitions", enable= not steadyStateTorque));
-    parameter Boolean useMechanicalPort=false "|Fundamental Definitions|True, if a mechenical flange should be used";
-  parameter Boolean steadyStateTorque=false "|Fundamental Definitions|True, if steady state mechanical momentum shall be used";
-  parameter SI.RPM rpm_fixed = 60 "Constant rotational speed of pump" annotation (Dialog( group = "Fundamental Definitions", enable = not useMechanicalPort));
-  parameter SI.Time Tau_aux=0.1 "Time constant of auxilliary kappa states"  annotation(Dialog(tab = "Advanced"));
-  parameter Real kappa_initial = 1.3 "Initial value for kappas" annotation(Dialog(tab = "Advanced"));
+  parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero mass flow"  annotation(Dialog(tab="Expert Settings", group="Numerical Robustness"));
+  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
+    parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation(Dialog(group="Fundamental Definitions"));
+  parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
+  parameter ClaRa.Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
+  parameter Real kappa_initial = 1.3 "Initial value for kappas" annotation(Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
   //________________________/ Variables \___________________________________
-  Basics.Units.Pressure Delta_p(final start=100) "pressure increase";
-  Basics.Units.Power P_hyd "Hydraulic power";
-  Basics.Units.VolumeFlowRate V_flow;
-  SI.VolumeFlowRate V_flow_max_aff;
-  SI.Pressure Delta_p_max_aff;
+  ClaRa.Basics.Units.Pressure Delta_p(final start=100) "pressure increase";
+  ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
+  ClaRa.Basics.Units.VolumeFlowRate V_flow;
+  ClaRa.Basics.Units.VolumeFlowRate V_flow_max_aff;
+  ClaRa.Basics.Units.Pressure Delta_p_max_aff;
   Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
-  SI.Power P_shaft "Mechanical power at shaft";
-  SI.RPM rpm "Rotational speed";
+  ClaRa.Basics.Units.Power P_shaft "Mechanical power at shaft";
+  ClaRa.Basics.Units.RPM rpm "Rotational speed";
   Modelica.SIunits.Torque tau_fluid "Fluid torque";
-  SI.EnthalpyMassSpecific Delta_h;
+  ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h;
   Real kappa;
   Real kappaA;
   Real kappaB;
 
 protected
-  SI.EnthalpyMassSpecific h_out;
+  ClaRa.Basics.Units.EnthalpyMassSpecific h_out;
   Real kappaB_aux;
   Real kappaA_aux;
 

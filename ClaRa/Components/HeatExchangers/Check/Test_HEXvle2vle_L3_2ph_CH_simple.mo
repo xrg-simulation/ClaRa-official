@@ -49,12 +49,10 @@ model Test_HEXvle2vle_L3_2ph_CH_simple
     duration=600,
     offset=42.7,
     height=-20) annotation (Placement(transformation(extent={{100,0},{80,20}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     checkValve=true,
-    redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                           m_flow_nom=50, Delta_p_nom=2e5),
-    openingInputIsActive=false)
-    annotation (Placement(transformation(extent={{-48,-94},{-68,-82}})));
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=50, Delta_p_nom=2e5),
+    openingInputIsActive=false) annotation (Placement(transformation(extent={{-48,-94},{-68,-82}})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=2100000,
     variable_p=true)                                                                  annotation (Placement(transformation(extent={{-92,-98},{-72,-78}})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph1(h_const=2000e3, p_const=25000000,

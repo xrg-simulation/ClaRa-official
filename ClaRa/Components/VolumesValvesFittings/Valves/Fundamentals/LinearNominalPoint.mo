@@ -6,9 +6,9 @@ model LinearNominalPoint "Linear | Nominal operation point | unchoked flow"
   parameter Real CL_valve[:, :]=[0, 0; 1, 1] "|Valve Characteristics|Effective apperture as function of valve position in p.u." annotation(Dialog(group="Valve Characteristics"));
   import SI = ClaRa.Basics.Units;
   import SM = ClaRa.Basics.Functions.Stepsmoother;
-  parameter SI.PressureDifference Delta_p_nom = 1e5 "Nominal pressure difference for Kv definition" annotation(Dialog(group="Valve Characteristics"));
+  parameter Basics.Units.PressureDifference Delta_p_nom=1e5 "Nominal pressure difference for Kv definition" annotation (Dialog(group="Valve Characteristics"));
 
-  parameter SI.MassFlowRate m_flow_nom= 1 "Nominal mass flow rate"  annotation(Dialog(group="Valve Characteristics"));
+  parameter Basics.Units.MassFlowRate m_flow_nom=1 "Nominal mass flow rate" annotation (Dialog(group="Valve Characteristics"));
  // parameter SI.PressureDifference Delta_p_check=0;
 
  // parameter SI.PressureDifference Delta_p_hyst=0;
@@ -16,7 +16,7 @@ model LinearNominalPoint "Linear | Nominal operation point | unchoked flow"
       columns={2});
  // Boolean ValveOpen;
   Real aperture_ "Effective apperture";
-  SI.PressureDifference Delta_p "Pressure difference p_in - p_out";
+  Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 
 equation
   flowIsChoked=0 "1 if flow is choked, 0 if not";

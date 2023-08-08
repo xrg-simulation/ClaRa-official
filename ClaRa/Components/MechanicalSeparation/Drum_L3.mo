@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model Drum_L3 "Drum : separated volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -27,34 +27,26 @@ extends ClaRa.Basics.Icons.Drum;
   replaceable model insulationMaterial=TILMedia.SolidTypes.InsulationOrstechLSP_H_const
                                                                             constrainedby TILMedia.SolidTypes.BaseSolid "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
 
-  parameter ClaRa.Basics.Units.Length diameter=1 "Diameter of the component"  annotation(Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/Drum.png"));
-  parameter ClaRa.Basics.Units.Length length=1 "Length of the component"  annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length thickness_wall=diameter*0.01/2 "Thickness of the cylinder wall"  annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                            thickness_insulation= 0.02 "Thickness of the insulation"
-                                                                                    annotation(Dialog(group="Geometry", enable=includeInsulation));
+  parameter ClaRa.Basics.Units.Length diameter=1 "Diameter of the component" annotation (Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/Drum.png"));
+  parameter ClaRa.Basics.Units.Length length=1 "Length of the component" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length thickness_wall=diameter*0.01/2 "Thickness of the cylinder wall" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length thickness_insulation=0.02 "Thickness of the insulation" annotation (Dialog(group="Geometry", enable=includeInsulation));
 
   parameter Basics.Choices.GeometryOrientation      orientation=ClaRa.Basics.Choices.GeometryOrientation.vertical "Orientation of the component"
                                                                                               annotation(Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius"
-                                                                        annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_feed = 0 "Position of feedwater flange"
-                                                                               annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_risers[3]= {0.1, 0.1, 0.1} "Position of riser flange"
-                                                                                             annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_sat = 0 "Position of saturated steam outlet"
-                                                                                    annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length z_downs[3] = {0.1, 0.1, 0.1} "Position of downcomer flange"
-                                                                                                 annotation(Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of internal structure addtional to drum wall"
-                                                                                                    annotation(Dialog(group="Geometry"));
-  parameter SI.Time Tau_cond=0.01 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
-  parameter SI.Time Tau_evap=Tau_cond*1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
+  parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_feed=0 "Position of feedwater flange" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_risers[3]={0.1,0.1,0.1} "Position of riser flange" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_sat=0 "Position of saturated steam outlet" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_downs[3]={0.1,0.1,0.1} "Position of downcomer flange" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of internal structure addtional to drum wall" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Time Tau_cond=0.01 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
+  parameter Basics.Units.Time Tau_evap=Tau_cond*1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Real absorbInflow=1 "Absorption of incoming mass flow to the zones 1: perfect in the allocated zone, 0: perfect according to steam quality"
                                                                                               annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
-  parameter SI.Area A_phaseBorder=volume.geo.A_hor*100 "Heat transfer area at phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
-  parameter SI.CoefficientOfHeatTransfer alpha_ph=500 "HTC of the phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
+  parameter Basics.Units.Area A_phaseBorder=volume.geo.A_hor*100 "Heat transfer area at phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
+  parameter Basics.Units.CoefficientOfHeatTransfer alpha_ph=500 "HTC of the phase border" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
   parameter Real expHT_phases=0 "Exponent for volume dependency on inter phase HT" annotation (Dialog(tab="Phase Separation", group="Heat Transfer Between Phases"));
   parameter Boolean equalPressures=true "True if pressure in liquid and vapour phase is equal" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation for calculation of filling level" annotation(Dialog(tab="Phase Separation", group="Numerical Robustness"));
@@ -62,12 +54,9 @@ extends ClaRa.Basics.Icons.Drum;
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation", group="Volume"));
 
-  parameter SI.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium,
-      volume.p_start) "Start value of liquid specific enthalpy" annotation(Dialog(tab="Initialisation", group="Volume"));
-  parameter SI.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation(Dialog(tab="Initialisation", group="Volume"));
-  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure"     annotation(Dialog(tab="Initialisation", group="Volume"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation", group="Volume"));
   parameter Real level_rel_start = 0.5 "Initial filling level" annotation(Dialog(tab="Initialisation", group="Volume"));
   inner parameter Integer initOption = 211 "Type of initialisation"
     annotation (Dialog(tab= "Initialisation", group = "Volume"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
@@ -81,7 +70,10 @@ extends ClaRa.Basics.Icons.Drum;
       choice=0 "Use guess values",
       choice=1 "Steady state",
       choice=203 "Steady temperature"));
-  parameter ClaRa.Basics.Units.Temperature T_startInsulation=293.15 "Start values of wall temperature" annotation (Dialog(tab="Initialisation",group="Insulation", enable=includeInsulation));
+  parameter ClaRa.Basics.Units.Temperature T_startInsulation=293.15 "Start values of wall temperature" annotation (Dialog(
+      tab="Initialisation",
+      group="Insulation",
+      enable=includeInsulation));
 
   replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3
@@ -90,14 +82,13 @@ extends ClaRa.Basics.Icons.Drum;
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3 (                      alpha_nom={3000,3000})                              constrainedby Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L3 "Heat transfer to the walls"
                                                                                               annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching=true);
-  parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"  annotation(Dialog(group="Nominal Values"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rate at riser inlet" annotation(Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rate at riser inlet" annotation (Dialog(group="Nominal Values"));
 
   parameter Boolean enableAmbientLosses=false "Include heat losses to environment "
                                                                                    annotation(Dialog(tab="Heat Losses"));
-  input ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_prescribed=8 "Prescribed heat transfer coefficient" annotation(Dialog(tab="Heat Losses", enable=(enableAmbientLosses==true)));
-  input ClaRa.Basics.Units.Temperature T_amb=simCenter.T_amb "Temperature of surrounding medium"
-                                                                                                annotation(Dialog(tab="Heat Losses", enable=(enableAmbientLosses==true)));
+  input ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_prescribed=8 "Prescribed heat transfer coefficient" annotation (Dialog(tab="Heat Losses", enable=(enableAmbientLosses == true)));
+  input ClaRa.Basics.Units.Temperature T_amb=simCenter.T_amb "Temperature of surrounding medium" annotation (Dialog(tab="Heat Losses", enable=(enableAmbientLosses == true)));
   parameter Real CF_lambda=1 "Time-dependent correction factor for thermal conductivity of the wall" annotation (Dialog(tab="Heat Losses"));
 
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "True, if expert summary should be applied" annotation(Dialog(tab="Summary and Visualisation"));
@@ -108,14 +99,14 @@ extends ClaRa.Basics.Icons.Drum;
 
  model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
-   input Basics.Units.Length level_abs "Absolute filling level";
+    input Basics.Units.Length level_abs "Absolute filling level";
    input Real level_rel "relative filling level";
-   input ClaRa.Basics.Units.HeatFlowRate Q_loss "Heat flow rate from metal wall to insulation/ambient";
+    input ClaRa.Basics.Units.HeatFlowRate Q_loss "Heat flow rate from metal wall to insulation/ambient";
  end Outline;
 
  model Wall
    extends ClaRa.Basics.Icons.RecordIcon;
-   input Basics.Units.Temperature T_wall[3] "Temperatures";
+    input Basics.Units.Temperature T_wall[3] "Temperatures";
  end Wall;
 
  model Summary
@@ -179,6 +170,7 @@ extends ClaRa.Basics.Icons.Drum;
   Basics.ControlVolumes.FluidVolumes.VolumeVLE_L3_TwoZonesNPort volume(
     medium=medium,
     redeclare model PressureLoss = PressureLoss,
+    equalPressures=equalPressures,
     useHomotopy=useHomotopy,
     p_nom=p_nom,
     p_start=p_start,
@@ -186,7 +178,7 @@ extends ClaRa.Basics.Icons.Drum;
     Tau_cond=Tau_cond,
     showExpertSummary=showExpertSummary,
     Tau_evap=Tau_evap,
-    alpha_ph=500,
+    alpha_ph=alpha_ph,
     h_liq_start=h_liq_start,
     h_vap_start=h_vap_start,
     redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.RealSeparated (
@@ -234,14 +226,15 @@ extends ClaRa.Basics.Icons.Drum;
         iconTransformation(extent={{290,-10},{310,10}})));
   Basics.Interfaces.FluidPortIn riser_1(Medium=medium) "Riser inlet" annotation (Placement(transformation(extent={{-270,-110},{-250,-90}}), iconTransformation(extent={{-270,-110},{-250,-90}})));
 protected
-  Basics.Interfaces.EyeIn       eye_int[1]
+  Basics.Interfaces.EyeIn       eye_int[3]
     annotation (Placement(transformation(extent={{139,-51},{141,-49}})));
 public
-  Basics.Interfaces.EyeOut eye_down if  showData
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Basics.Interfaces.EyeOut eye_down[3] if
+                                        showData annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={140,-110}),
-        iconTransformation(extent={{-10,-10},{10,10}},
+        origin={140,-110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={140,-110})));
 protected
@@ -297,6 +290,18 @@ equation
   eye_int[1].h=volume.summary.outlet[2].h/1000;
   eye_int[1].p=volume.summary.outlet[2].p/100000;
 
+  eye_int[2].m_flow=-down_2.m_flow;
+  eye_int[2].T=volume.summary.outlet[3].T-273.15;
+  eye_int[2].s=volume.fluidOut[3].s/1000;
+  eye_int[2].h=volume.summary.outlet[3].h/1000;
+  eye_int[2].p=volume.summary.outlet[3].p/100000;
+
+  eye_int[3].m_flow=-down_3.m_flow;
+  eye_int[3].T=volume.summary.outlet[4].T-273.15;
+  eye_int[3].s=volume.fluidOut[4].s/1000;
+  eye_int[3].h=volume.summary.outlet[4].h/1000;
+  eye_int[3].p=volume.summary.outlet[4].p/100000;
+
   eye_int1[1].m_flow=-sat.m_flow;
   eye_int1[1].T=volume.summary.outlet[1].T-273.15;
   eye_int1[1].s=volume.fluidOut[1].s/1000;
@@ -324,11 +329,6 @@ equation
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(eye_int[1], eye_down)
-                        annotation (Line(
-      points={{140,-50},{140,-110}},
-      color={190,190,190},
       smooth=Smooth.None));
   connect(eye_int1[1], eye_sat)
                         annotation (Line(
@@ -376,6 +376,7 @@ equation
       points={{-140,-100},{-140,-34},{16,-34},{16,-20},{10,-20}},
       color={0,131,169},
       thickness=0.5));
+  connect(eye_int, eye_down) annotation (Line(points={{140,-50},{140,-110}}, color={190,190,190}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-300,-100},{300,100}}),
                    graphics={
                      Rectangle(extent={{120,92},{160,-92}},

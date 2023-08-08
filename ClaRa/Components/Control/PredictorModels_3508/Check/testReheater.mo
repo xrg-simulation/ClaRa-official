@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508.Check;
-model testReheater
+model TestReheater
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -68,21 +68,21 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(steamSignal, turbinesAndReheat_00_XRG.inlet) annotation (Line(
-      points={{-6,16},{8,16},{8,-62},{20.2,-62}},
+      points={{-6,16},{8,16},{8,-70},{20,-70}},
       color={102,181,203},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(steamSignal, turbinesAndReheat_02_XRG.inlet) annotation (Line(
-      points={{-6,16},{8,16},{8,-22},{20.2,-22}},
+      points={{-6,16},{8,16},{8,-30},{20,-30}},
       color={102,181,203},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(steamSignal, turbinesAndReheat.inlet) annotation (Line(
-      points={{-6,16},{6,16},{6,22},{18.2,22}},
+      points={{-6,16},{6,16},{6,14},{18.2,14}},
       color={102,181,203},
       thickness=0.5), Text(
       string="%first",
@@ -114,4 +114,4 @@ Scenario:
 
 ______________________________________________________________________________________________
 ")}), experiment(StopTime=3000));
-end testReheater;
+end TestReheater;

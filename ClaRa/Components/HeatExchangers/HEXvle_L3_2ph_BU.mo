@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block shape | U-type"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,7 +21,8 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
   extends ClaRa.Basics.Icons.HEX04;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=if not heatFlowIsLoss then -heat.Q_flow else 0,
+    powerOut_th=if not heatFlowIsLoss then -heat.Q_flow else 0,
+    powerOut_elMech=0,
     powerAux=0) if                                                                                                     contributeToCycleSummary;
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
@@ -68,52 +69,28 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
         group="Fundamental Definitions"), choicesAllMatching);
 
   //________________________________ Shell geometry _______________________________//
-  parameter ClaRa.Basics.Units.Length
-                      length=10 "Length of the HEX" annotation (Dialog(
+  parameter ClaRa.Basics.Units.Length length=10 "Length of the HEX" annotation (Dialog(
       tab="Shell Side",
-      group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HEX_ParameterDialog_BUshell2ph2.png"));
-  parameter ClaRa.Basics.Units.Length
-                      height=3 "Height of HEX"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                      width=3 "Width of HEX"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                      z_in_shell=length/2 "Inlet position from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-    parameter ClaRa.Basics.Units.Length
-                        z_in_aux1=length/2 "Inlet position of auxilliary1 from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                      z_in_aux2=length/2 "Inlet position of auxilliary2 from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                      z_out_shell=length/2 "Outlet position from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
+      group="Geometry",
+      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HEX_ParameterDialog_BUshell2ph2.png"));
+  parameter ClaRa.Basics.Units.Length height=3 "Height of HEX" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length width=3 "Width of HEX" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_in_shell=length/2 "Inlet position from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_in_aux1=length/2 "Inlet position of auxilliary1 from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_in_aux2=length/2 "Inlet position of auxilliary2 from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length z_out_shell=length/2 "Outlet position from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
   parameter Basics.Units.Length radius_flange=0.05 "Flange radius of all flanges" annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter ClaRa.Basics.Units.Mass
-                    mass_struc=0 "Mass of inner structure elements, additional to the tubes itself"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of inner structure elements, additional to the tubes itself" annotation (Dialog(tab="Shell Side", group="Geometry"));
 
   //________________________________ Shell nominal parameter _____________________________________//
-  parameter ClaRa.Basics.Units.MassFlowRate
-                            m_flow_nom_shell=10 "Nominal mass flow on shell side"
-    annotation (Dialog(tab="Shell Side", group="Nominal Values"));
-  parameter ClaRa.Basics.Units.Pressure
-                        p_nom_shell=10 "Nominal pressure on shell side"
-    annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom_shell=10 "Nominal mass flow on shell side" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom_shell=10 "Nominal pressure on shell side" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
 
   //________________________________ Shell initialisation  _______________________________________//
-   parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-       TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of liquid phase"
-                                                                                              annotation (Dialog(tab="Shell Side", group="Initialisation"));
-   parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 +
-       TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of steam phase"
-                                                                                              annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of liquid phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of steam phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Pressure
-                        p_start_shell=1e5 "Start value of sytsem pressure"
-    annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_shell=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Shell Side", group="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling Level" annotation (Dialog(tab="Shell Side", group="Initialisation"));
   inner parameter Integer initOptionShell = 211 "Type of initialisation"
     annotation (Dialog(tab= "Shell Side", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
@@ -128,10 +105,9 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
 //       tab="Tubes",
 //       group="Geometry",
 //       groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HollowBlockWithTubes_2.png"));
-  parameter ClaRa.Basics.Units.Length
-                      diameter_o=0.05 "Outer diameter of horizontal tubes"
-    annotation (Dialog(tab="Tubes", group="Geometry",
-      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/HollowBlockWithTubes_2.png"));
+  parameter ClaRa.Basics.Units.Length diameter_o=0.05 "Outer diameter of horizontal tubes" annotation (Dialog(
+      tab="Tubes",
+      group="Geometry"));
   parameter Integer N_tubes=1000 "Number of horizontal tubes"
     annotation (Dialog(tab="Tubes", group="Geometry"));
   parameter Integer N_passes=1 "Number of passes of the internal tubes"
@@ -143,24 +119,17 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
   parameter Boolean staggeredAlignment=true "True, if the tubes are aligned staggeredly, false otherwise"
     annotation (Dialog(tab="Tubes", group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Length
-                      Delta_z_par=2*diameter_o "Distance between tubes parallel to flow direction (center to center)"
-    annotation (Dialog(tab="Tubes", group="Geometry"));
-  parameter ClaRa.Basics.Units.Length
-                      Delta_z_ort=2*diameter_o "Distance between tubes orthogonal to flow direction (center to center)"
-    annotation (Dialog(tab="Tubes", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length Delta_z_par=2*diameter_o "Distance between tubes parallel to flow direction (center to center)" annotation (Dialog(tab="Tubes", group="Geometry"));
+  parameter ClaRa.Basics.Units.Length Delta_z_ort=2*diameter_o "Distance between tubes orthogonal to flow direction (center to center)" annotation (Dialog(tab="Tubes", group="Geometry"));
   parameter Integer N_rows=integer(ceil(sqrt(N_tubes))*N_passes) "Number of pipe rows in flow direction" annotation(Dialog(tab="Tubes", group="Geometry"));
 
   parameter Real CF_geo=1 "Correction coefficient due to fins etc."
     annotation (Dialog(tab="Tubes", group="Geometry"));
 
   //*********************************** / HOTWELL \ ***********************************//
-  parameter Basics.Units.Length height_hotwell=1 "Height of the hotwell"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter Basics.Units.Length width_hotwell=1 "Width of the hotwell"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter Basics.Units.Length length_hotwell=1 "Length of the hotwell"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter Basics.Units.Length height_hotwell=1 "Height of the hotwell" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter Basics.Units.Length width_hotwell=1 "Width of the hotwell" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter Basics.Units.Length length_hotwell=1 "Length of the hotwell" annotation (Dialog(tab="Shell Side", group="Geometry"));
 
 //*********************************** / EXPERT Settings and Visualisation \ ***********************************//
   parameter Basics.Units.Time Tau_cond=0.3 "Time constant of condensation" annotation (Dialog(tab="Expert Settings", group="Zone Interaction at Shell Side"));
@@ -228,9 +197,9 @@ model HEXvle_L3_2ph_BU "Single side: VLE | L3 | two phase at shell side | Block 
         z_in={z_in_shell,z_in_aux1,z_in_aux2},
         N_tubes=N_tubes,
         N_passes=N_passes,
-        parallelTubes=parallelTubes,
         CF_geo={1,CF_geo},
-        N_rows=N_rows),
+        N_rows=N_rows,
+        tubeOrientation=if parallelTubes == false then 0 elseif parallelTubes == true then 2 else 0),
     equalPressures=equalPressures,
     initOption=initOptionShell) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.FeedForward;
 model FeedForwardBlock_3508 "feed forward for coal mass flow and turbine valve aperture"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -25,13 +25,19 @@ model FeedForwardBlock_3508 "feed forward for coal mass flow and turbine valve a
                                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={120,-20})));
+        origin={120,-20}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=180,
+        origin={120,0})));
   Modelica.Blocks.Interfaces.RealInput derP_StG_ "Maximum  power gradient due to steam generator restrictions"
                                                                   annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={120,-50})));
+        origin={120,-50}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=180,
+        origin={120,-40})));
   Modelica.Blocks.Interfaces.RealInput derP_T_ "Maximum  power gradient due to turbine restrictions"
                                                           annotation (Placement(
         transformation(
@@ -76,7 +82,10 @@ public
                                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={120,50})));
+        origin={120,50}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=180,
+        origin={120,40})));
   Modelica.Blocks.Math.Gain FuelFeedForward(k=1/eta_gen)
                                                  annotation (Placement(
         transformation(
@@ -102,7 +111,7 @@ public
       columns={2}) "load dependend turbine valve opening"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={16,-38})));
+        origin={20,-38})));
   Modelica.Blocks.Interfaces.RealOutput y_Turbine_ "Feed forward value for turbine valve openeing"
                                                     annotation (Placement(
         transformation(
@@ -183,11 +192,11 @@ equation
       smooth=Smooth.None));
   connect(variableGradientLimiter.y, turbineValveOpeneing.u[1]) annotation (
       Line(
-      points={{-76,-1},{-76,-10},{16,-10},{16,-26}},
+      points={{-76,-1},{-76,-10},{20,-10},{20,-26}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(turbineValveOpeneing.y[1], y_Turbine_) annotation (Line(
-      points={{16,-49},{20,-49},{20,-110}},
+      points={{20,-49},{20,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(variableGradientLimiter.y, P_G_set_) annotation (Line(
@@ -195,22 +204,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-94,-40},{-62,-40},{-36,-40},{2,-40},{-6,-16},{-40,6},{-64,-18},
-              {-78,-10},{-94,-40}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-100,58},{102,34}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="FeedForwardBlock")}));
+                                Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={221,222,223},
+          fillColor={118,124,127},
+          fillPattern=FillPattern.Solid), Rectangle(extent={{-80,80},{80,-80}}, lineColor={221,222,223}),
+        Line(points={{-68,60},{-68,-70},{72,-70}}, color={221,222,223}),
+        Line(
+          points={{-68,-40},{-40,-40},{-40,-40},{-40,40},{-40,40},{-4,8},{72,8}},
+          color={186,72,88},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-60,-60},{-32,-60},{-32,-60},{-26,-30},{-28,-16},{-28,-16},{-6,-16},{-6,-16},{-8,-30},{-2,-60},{-2,-60},{-0.230469,-60},{0,-60},{0,-20.4688},{0,-20},{17.7188,-20},{18,-20},{24,-24},{24,-24},{24,-45.6777},{24,-46},{35.9063,-46},{36,-46},{36,-60},{36,-60},{46,-60},{56,-60},{66,-60}},
+          color={221,222,223},
+          smooth=Smooth.Bezier)}));
 end FeedForwardBlock_3508;

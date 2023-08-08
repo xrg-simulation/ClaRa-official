@@ -7,18 +7,19 @@ outer ClaRa.SimCenter simCenter;
 
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn = 0,
-    powerOut = 0,
-    powerAux = (1-eta)*shaft.tau*omega) if contributeToCycleSummary;
+    powerOut_elMech = summary.P_el,
+    powerOut_th = 0,
+    powerAux = 0) if contributeToCycleSummary;
 
-  parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation" annotation(Dialog(tab="Summary and Visualisation"));
+  parameter Boolean contributeToCycleSummary = false "True if component shall contribute to automatic efficiency calculation" annotation(Dialog(tab="Summary and Visualisation"));
 
   parameter Real eta(min=0) = 0.98 "Conversion efficiency (electrical + mechanical losses)" annotation(Dialog(group="Fundamental Definitions"));
   parameter Integer N_pole_pairs(min=1) = 1 "Number of electrical pole pairs" annotation(Dialog(group="Fundamental Definitions"));
 
   parameter Boolean hasInertia = false "Model accounts for rotational inertia" annotation(Dialog(group="Mechanics"));
-  parameter ClaRa.Basics.Units.MomentOfInertia J=1500 "Moment of inertia" annotation(Dialog(group="Mechanics", enable = hasInertia));
+  parameter ClaRa.Basics.Units.MomentOfInertia J=1500 "Moment of inertia" annotation (Dialog(group="Mechanics", enable=hasInertia));
 
-  parameter ClaRa.Basics.Units.Frequency f_start = 50 "Initial grid frequency" annotation(Dialog(enable = hasInertia, group= "Initialisation"));
+  parameter ClaRa.Basics.Units.Frequency f_start=50 "Initial grid frequency" annotation (Dialog(enable=hasInertia, group="Initialisation"));
 
 protected
   ClaRa.Basics.Units.Energy E_rot "Rotational kinetic energy";

@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using characteristic lines and transfer functions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -80,7 +80,7 @@ public
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={126,90})));
+        origin={120,120})));
   Modelica.Blocks.Tables.CombiTable1D turbineValveCaracteristics(table=
         CL_Valve_, columns={2})
     annotation (Placement(transformation(extent={{-4,-58},{16,-38}})));
@@ -95,13 +95,15 @@ public
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Interfaces.RealInput QF_setl_ "Set value of thermal output in p.u."
                                           annotation (Placement(transformation(
-          extent={{-132,-18},{-92,22}}),iconTransformation(extent={{-120,-34},{-80,
-            6}})));
+          extent={{-132,-18},{-92,22}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Basics.Interfaces.SteamSignal      steamSignal annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={162,-60})));
+        origin={162,-60}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={160,60})));
   EnthalpyPredictor enthalpyPredictor(CL_hEvap_pD_=CL_hEvap_pD_,
       Tau_evap=Tau_evap,
     initType=Modelica.Blocks.Types.Init.SteadyState,
@@ -206,19 +208,14 @@ equation
                                  Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{160,100}}), graphics={
         Polygon(
-          points={{100,76},{110,76},{110,-56},{156,-56},{158,-64},{106,-64},{106,72},{100,72},{100,76}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
+          points={{100,64},{160,64},{160,60},{100,60},{100,64}},
+          lineColor={221,222,223},
+          fillColor={118,124,127},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{116,-50},{116,-70},{136,-50},{136,-70},{116,-50}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
+          points={{110,72},{110,52},{130,72},{130,52},{110,72}},
+          lineColor={221,222,223},
           fillPattern=FillPattern.Solid,
-          fillColor={95,95,95}),
-        Line(
-          points={{126,72},{126,-60}},
-          color={0,0,255},
-          smooth=Smooth.None)}));
+          fillColor={118,124,127}),
+        Line(points={{120,62},{120,102},{120,100}}, color={0,0,127})}));
 end CoalSupplyBoiler_01_XRG;

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -25,7 +25,7 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
 // ************************* replacable models for heat transfer, pressure loss and geometry **********************
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L2 "1st: choose heat transfer model | 2nd: edit corresponding record"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_only "1st: choose heat transfer model | 2nd: edit corresponding record"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
     replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
@@ -55,8 +55,7 @@ inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow 
 
   inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
   inner parameter Modelica.SIunits.SpecificEnthalpy h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
-parameter Basics.Units.MassFraction xi_nom[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Nominal gas composition"
-                                                                                                                     annotation(Dialog(group="Nominal Values"));
+  parameter Units.MassFraction xi_nom[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Nominal gas composition" annotation (Dialog(group="Nominal Values"));
 
 inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog(tab="Initialisation"), choices(
       choice=0 "Use guess values",
@@ -133,19 +132,19 @@ protected
 public
   model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
-   input ClaRa.Basics.Units.Volume volume_tot "Total volume";
-   input ClaRa.Basics.Units.Area A_heat "Heat transfer area";
-   input ClaRa.Basics.Units.HeatFlowRate Q_flow_tot "Total heat flow rate";
-   input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
-   input ClaRa.Basics.Units.Mass mass "Mass inside volume"   annotation(Dialog);
-   input ClaRa.Basics.Units.Temperature T "Temperature  inside volume"   annotation(Dialog);
-   input ClaRa.Basics.Units.Pressure p "Pressure inside volume"   annotation(Dialog);
-   input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy inside volume"   annotation(Dialog);
-   input ClaRa.Basics.Units.Enthalpy H "Enthalpy inside volume"   annotation(Dialog);
-   input ClaRa.Basics.Units.DensityMassSpecific rho "Density inside volume"   annotation(Dialog);
-   input SI.HeatFlowRate Q_flow_reaction "Reaction heat"  annotation(Dialog);
-   input SI.MassFlowRate m_flow_reaction[chemicalReactions.i] "Separated mass flow"  annotation(Dialog);
-   input SI.EnthalpyMassSpecific h_reaction[chemicalReactions.i] "Enthalpy of separated mass flow"  annotation(Dialog);
+    input ClaRa.Basics.Units.Volume volume_tot "Total volume";
+    input ClaRa.Basics.Units.Area A_heat "Heat transfer area";
+    input ClaRa.Basics.Units.HeatFlowRate Q_flow_tot "Total heat flow rate";
+    input ClaRa.Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
+    input ClaRa.Basics.Units.Mass mass "Mass inside volume" annotation (Dialog);
+    input ClaRa.Basics.Units.Temperature T "Temperature  inside volume" annotation (Dialog);
+    input ClaRa.Basics.Units.Pressure p "Pressure inside volume" annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy inside volume" annotation (Dialog);
+    input ClaRa.Basics.Units.Enthalpy H "Enthalpy inside volume" annotation (Dialog);
+    input ClaRa.Basics.Units.DensityMassSpecific rho "Density inside volume" annotation (Dialog);
+    input Units.HeatFlowRate Q_flow_reaction "Reaction heat" annotation (Dialog);
+    input Units.MassFlowRate m_flow_reaction[chemicalReactions.i] "Separated mass flow" annotation (Dialog);
+    input Units.EnthalpyMassSpecific h_reaction[chemicalReactions.i] "Enthalpy of separated mass flow" annotation (Dialog);
   end Outline;
 
 inner model Summary
@@ -182,7 +181,10 @@ protected
     p_nom=p_nom,
     m_flow_nom=m_flow_nom,
     h_nom=h_nom,
-    xi_nom=xi_nom) annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
+    xi_nom=xi_nom,
+    xi_bulk=bulk.xi,
+    h_bulk=bulk.h,
+    mass=mass) annotation (Placement(transformation(extent={{-80,-102},{-60,-82}})));
 
 
 public

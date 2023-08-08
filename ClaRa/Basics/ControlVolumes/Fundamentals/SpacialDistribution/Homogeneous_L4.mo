@@ -4,10 +4,10 @@ model Homogeneous_L4 "Both phases are in mechanical equilibrium"
 
   import TILMedia.VLEFluidObjectFunctions.density_phxi;
 
-  Basics.Units.DensityMassSpecific rho_mix[geo.N_cv] "Mixture density";
+  Units.DensityMassSpecific rho_mix[geo.N_cv] "Mixture density";
   Real S[geo.N_cv] "Slip between phases";
-  Basics.Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start) "Slip model enthalpy";
-  Basics.Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
+  Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start) "Slip model enthalpy";
+  Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
 
 equation
       for i in 1:geo.N_cv loop

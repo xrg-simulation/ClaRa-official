@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations. Can choose between Modelica and ClaRa Delay implementation."
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -33,34 +33,25 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
     parameter Boolean showExpertSummary annotation (Dialog(hide));
 
     parameter Basics.Units.Length length "Length of pipe";
-    input Basics.Units.Area A_cross if showExpertSummary "Cross sectional area"
-      annotation (Dialog(show));
-    input Basics.Units.Area A_wall if showExpertSummary "Total wall area"
-      annotation (Dialog(show));
-    input Basics.Units.Length Delta_x[N_wall] if showExpertSummary "Discretisation for energy balance"
-                                          annotation (Dialog(show));
-    input Basics.Units.Volume volume_tot "Total volume of system"
-      annotation (Dialog(show));
+    input Basics.Units.Area A_cross if showExpertSummary "Cross sectional area" annotation (Dialog(show));
+    input Basics.Units.Area A_wall if showExpertSummary "Total wall area" annotation (Dialog(show));
+    input Basics.Units.Length Delta_x[N_wall] if showExpertSummary "Discretisation for energy balance" annotation (Dialog(show));
+    input Basics.Units.Volume volume_tot "Total volume of system" annotation (Dialog(show));
 
     parameter Integer N_cv "|Discretisation|Number of temperature positions computed";
     parameter Integer N_wall "|Discretisation|Number of wall elements";
 
-    input Basics.Units.Pressure dp "Pressure difference between outlet and inlet"
-                                                     annotation (Dialog);
-    input Basics.Units.HeatFlowRate Q_flow_tot "Heat flow through entire pipe wall"
-                                           annotation (Dialog);
-    input Basics.Units.Temperature T[N_cv] if showExpertSummary "Temperatures inside pipe"
-                                 annotation (Dialog);
+    input Basics.Units.Pressure dp "Pressure difference between outlet and inlet" annotation (Dialog);
+    input Basics.Units.HeatFlowRate Q_flow_tot "Heat flow through entire pipe wall" annotation (Dialog);
+    input Basics.Units.Temperature T[N_cv] if showExpertSummary "Temperatures inside pipe" annotation (Dialog);
   end Outline;
 
   model Wall_L4
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Integer N_wall "|Discretisation|Number of wall elements";
     parameter Boolean showExpertSummary annotation (Dialog(hide));
-    input Basics.Units.Temperature T[N_wall] if showExpertSummary "Temperatures of wall segments"
-                                      annotation (Dialog);
-    input Basics.Units.HeatFlowRate Q_flow[N_wall] if showExpertSummary "Heat flows through wall segments"
-                                         annotation (Dialog);
+    input Basics.Units.Temperature T[N_wall] if showExpertSummary "Temperatures of wall segments" annotation (Dialog);
+    input Basics.Units.HeatFlowRate Q_flow[N_wall] if showExpertSummary "Heat flows through wall segments" annotation (Dialog);
   end Wall_L4;
 
   model Summary
@@ -72,7 +63,8 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   end Summary;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=noEvent(if sum(heat.Q_flow) > 0 then sum(heat.Q_flow) else 0),
-    powerOut=if not heatFlowIsLoss then -sum(heat.Q_flow) else 0,
+    powerOut_th=if not heatFlowIsLoss then -sum(heat.Q_flow) else 0,
+    powerOut_elMech=0,
     powerAux=0) if  contributeToCycleSummary;
   //## P w R w M E T E R S ###################################################################################
 

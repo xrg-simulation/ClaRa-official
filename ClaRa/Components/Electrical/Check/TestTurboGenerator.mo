@@ -15,12 +15,11 @@ model TestTurboGenerator
     redeclare model Efficiency = TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow,
     contributeToCycleSummary=true,
     eta_mech=1)                                                                                                  annotation (Placement(transformation(extent={{-34,-10},{-24,10}})));
-  BoundaryConditions.BoundaryVLE_hxim_flow
-                                      boundaryVLE_phxi(              h_const=3000e3,
-    massFlowIsLoss=false,
-    m_flow_const=250)                                                                annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(variable_p=true, massFlowIsLoss=false)
-                                                                         annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_phxi(
+    h_const=3000e3,
+    m_flow_const=250,
+    energyType=1) annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(variable_p=true, energyType=1) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=10,
     offset=20e5,

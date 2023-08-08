@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -16,6 +16,8 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   //___________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L2;
+  final parameter Integer HT_type = 0;
+
   //   extends
   //     ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L2;
   //   extends
@@ -31,9 +33,12 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
    import SM = ClaRa.Basics.Functions.Stepsmoother;
    import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
 
+
    outer ClaRa.Basics.Records.IComBase_L2 iCom;
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry geo;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
+  parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
+  final parameter ClaRa.Basics.Units.ThermalResistance HR_nom=1/(alpha_nom*geo.A_heat_CF[heatSurfaceAlloc]) "Nominal convective heat resistance";
+
   parameter Integer heatSurfaceAlloc=2 "To be considered heat transfer area" annotation (dialog(enable=false, tab="Expert Setting"), choices(
       choice=1 "Lateral surface",
       choice=2 "Inner heat transfer surface",
@@ -41,20 +46,23 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   parameter Real PL_alpha[:, 2]={{0,0.2},{0.5,0.6},{0.7,0.72},{1,1}} "Correction factor for heat transfer in part load" annotation (Dialog(group="Heat Transfer"));
   input Real CF_fouling=1 "Scaling factor accounting for the fouling of the wall" annotation (Dialog(group="Heat Transfer"));
 
+
    parameter String temperatureDifference="Logarithmic mean - smoothed" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
        choice = "Arithmetic mean",
        choice = "Logarithmic mean - smoothed",
        choice = "Inlet",
-       choice = "Outlet"));
+       choice = "Outlet",
+       choice = "Bulk"));
 
-   Units.Temperature Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
-   Units.Temperature Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
-   Units.Temperature Delta_T_mean "Mean temperature difference used for heat transfer calculation";
+  Units.Temperature Delta_T_wi "Temperature difference between wall and fluid inlet temperature";
+  Units.Temperature Delta_T_wo "Temperature difference between wall and fluid outlet temperature";
+  Units.Temperature Delta_T_mean "Mean temperature difference used for heat transfer calculation";
 
-   Units.Temperature Delta_T_U "Upper temperature difference";
-   Units.Temperature Delta_T_L "Lower temperature difference";
+  Units.Temperature Delta_T_U "Upper temperature difference";
+  Units.Temperature Delta_T_L "Lower temperature difference";
 
   Modelica.SIunits.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
+  ClaRa.Basics.Units.ThermalResistance HR "Convective heat resistance";
 
 protected
   Modelica.Blocks.Tables.CombiTable1Ds CF_flow(table=PL_alpha) annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
@@ -72,6 +80,8 @@ equation
      Delta_T_mean = SM(0.1,eps, abs(Delta_T_L))*SM(0.01,eps, Delta_T_U*Delta_T_L) * SZT((Delta_T_U - Delta_T_L)/log(abs(Delta_T_U)/(abs(Delta_T_L)+1e-9)), Delta_T_wi, (abs(Delta_T_U)-abs(Delta_T_L))-0.01, 0.001);
    elseif temperatureDifference == "Arithmetic mean" then
      Delta_T_mean = heat.T - (iCom.T_in + iCom.T_out)/2;
+   elseif temperatureDifference == "Bulk" then
+     Delta_T_mean = heat.T - iCom.T_bulk;
    elseif temperatureDifference == "Inlet" then
      Delta_T_mean = heat.T - iCom.T_in;
    elseif temperatureDifference == "Outlet" then
@@ -85,6 +95,8 @@ equation
 
   CF_flow.u = noEvent(max(1e-3, abs(iCom.m_flow_in))/iCom.m_flow_nom);
   alpha = CF_flow.y[1]*alpha_nom*CF_fouling;
+
+  HR = 1/max(Modelica.Constants.eps,alpha*geo.A_heat_CF[heatSurfaceAlloc]);
 
   heat.Q_flow = alpha*geo.A_heat_CF[heatSurfaceAlloc]*Delta_T_mean;
 

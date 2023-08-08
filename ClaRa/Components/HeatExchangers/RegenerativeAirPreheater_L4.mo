@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -32,40 +32,30 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
   parameter Boolean calculate_mass=true "True, if mass is calculated with nominal material density"
     annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Mass mass_fixed=100000 "Fixed storage mass"
-    annotation (Dialog(group="Geometry", enable=not calculate_mass));
+  parameter ClaRa.Basics.Units.Mass mass_fixed=100000 "Fixed storage mass" annotation (Dialog(group="Geometry", enable=not calculate_mass));
 
-  parameter ClaRa.Basics.Units.Length diameter_reg=8 "Regenerator diameter"
-    annotation (Dialog(group="Geometry"));
-  parameter ClaRa.Basics.Units.Length diameter_hub=0.5 "Hub diameter"
-    annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length diameter_reg=8 "Regenerator diameter" annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length diameter_hub=0.5 "Hub diameter" annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Length height_reg=2 "Regenerator height"
-    annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length height_reg=2 "Regenerator height" annotation (Dialog(group="Geometry"));
 
   parameter Real N_sp=3500 "Number of storage plates"
     annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Length s_sp=0.6e-3 "Thickness of storage plates"
-    annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length s_sp=0.6e-3 "Thickness of storage plates" annotation (Dialog(group="Geometry"));
 
   parameter Real C=440 "Heating surface per volume (mass^2/mass^3)"
     annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Area A_covered=0.1*(A_cross - A_hub) "Covered regenerator cross section"
-                                        annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Area A_covered=0.1*(A_cross - A_hub) "Covered regenerator cross section" annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Area A_flueGas=0.55*(A_cross - A_hub) "Cross section hit by flue gas"
-                                    annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Area A_flueGas=0.55*(A_cross - A_hub) "Cross section hit by flue gas" annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Area A_air=0.35*(A_cross - A_hub) "Cross section hit by fresh air"
-                                     annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Area A_air=0.35*(A_cross - A_hub) "Cross section hit by fresh air" annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Area A_cross=Modelica.Constants.pi/4*diameter_reg^2 "Overall regenerator cross section"
-                                        annotation (Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Area A_cross=Modelica.Constants.pi/4*diameter_reg^2 "Overall regenerator cross section" annotation (Dialog(group="Geometry"));
 
-  parameter ClaRa.Basics.Units.Area A_hub=Modelica.Constants.pi/4*diameter_hub^2 "Hub cross section"
-                        annotation (Dialog(
+  parameter ClaRa.Basics.Units.Area A_hub=Modelica.Constants.pi/4*diameter_hub^2 "Hub cross section" annotation (Dialog(
       tab="General",
       group="Geometry",
       showStartAttribute=false,
@@ -94,24 +84,18 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
       choice=1 "Steady state",
       choice=203 "Steady temperature"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_freshAir[:]={293.15,293.15} "Start value of fresh air system Temperature"
-    annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_freshAir[:]={293.15,293.15} "Start value of fresh air system Temperature" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.Pressure p_start_freshAir[:]={1.013e5,1.013e5} "Start value of fresh air system pressure"
     annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.MassFraction xi_start_freshAir[medium.nc - 1]=
-      zeros(medium.nc - 1) "Start value of fresh air system mass fraction"
+      medium.xi_default "Start value of fresh air system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[:]={400,400} "Start value of flue gas system Temperature"
-    annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[:]={1.013e5,1.013e5} "Start value of flue gas system pressure"
-    annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas[medium.nc - 1]=zeros(
-      medium.nc - 1) "Start value of flue gas system mass fraction"
-    annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_flueGas[:]={400,400} "Start value of flue gas system Temperature" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_flueGas[:]={1.013e5,1.013e5} "Start value of flue gas system pressure" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas[medium.nc - 1]=medium.xi_default "Start value of flue gas system mass fraction" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start_wall[:]={350,350} "Start value of wall Temperature"
-                                      annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_wall[:]={350,350} "Start value of wall Temperature" annotation (Dialog(tab="Initialisation"));
 
   parameter Integer stateLocation=2 "Location of wall states" annotation (
       Dialog(group="Numerical Efficiency"), choices(
@@ -119,26 +103,18 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
       choice=2 "Central location of states",
       choice=3 "Outer location of states"));
 
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_freshAir_nom=500 "|Physical Effects|Nominal values|Nominal value of fresh air mass flow rate"
-    annotation (Dialog(tab=""));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_flueGas_nom=300 "|Physical Effects|Nominal values|Nominal value of flue gas mass flow rate"
-    annotation (Dialog(tab=""));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_freshAir_nom=500 "|Physical Effects|Nominal values|Nominal value of fresh air mass flow rate" annotation (Dialog(tab=""));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_flueGas_nom=300 "|Physical Effects|Nominal values|Nominal value of flue gas mass flow rate" annotation (Dialog(tab=""));
 
-  parameter Basics.Units.Pressure p_freshAir_nom=1.0e5 "|Physical Effects|Nominal values|Nominal value of fresh air pressure"
-    annotation (Dialog(tab=""));
-  parameter Basics.Units.Pressure p_flueGas_nom=1.0e5 "|Physical Effects|Nominal values|Nominal value of flue gas pressure"
-    annotation (Dialog(tab=""));
+  parameter Basics.Units.Pressure p_freshAir_nom=1.0e5 "|Physical Effects|Nominal values|Nominal value of fresh air pressure" annotation (Dialog(tab=""));
+  parameter Basics.Units.Pressure p_flueGas_nom=1.0e5 "|Physical Effects|Nominal values|Nominal value of flue gas pressure" annotation (Dialog(tab=""));
 
-  parameter Basics.Units.Pressure Delta_p_freshAir_nom=1.0e4 "|Physical Effects|Nominal values|Nominal value of fresh air pressure loss"
-    annotation (Dialog(tab=""));
-  parameter Basics.Units.Pressure Delta_p_flueGas_nom=1.0e4 "|Physical Effects|Nominal values|Nominal value of flue gas pressure loss"
-    annotation (Dialog(tab=""));
+  parameter Basics.Units.Pressure Delta_p_freshAir_nom=1.0e4 "|Physical Effects|Nominal values|Nominal value of fresh air pressure loss" annotation (Dialog(tab=""));
+  parameter Basics.Units.Pressure Delta_p_flueGas_nom=1.0e4 "|Physical Effects|Nominal values|Nominal value of flue gas pressure loss" annotation (Dialog(tab=""));
 
-  parameter Basics.Units.MassFraction xi_nom_freshAir[medium.nc - 1]=
-     zeros(medium.nc - 1) "|Physical Effects|Nominal values|Nominal composition";
+  parameter Basics.Units.MassFraction xi_nom_freshAir[medium.nc - 1]= medium.xi_default "|Physical Effects|Nominal values|Nominal composition";
 
-  parameter Basics.Units.MassFraction xi_nom_flueGas[medium.nc - 1]=
-     zeros(medium.nc - 1) "|Physical Effects|Nominal values|Nominal composition";
+  parameter Basics.Units.MassFraction xi_nom_flueGas[medium.nc - 1]= medium.xi_default "|Physical Effects|Nominal values|Nominal composition";
 
   inner parameter Boolean frictionAtFreshAirInlet=false "|Physical Effects|Pressure Loss|True if pressure loss between first fresh air cell and inlet shall be considered"
                                                                                               annotation (choices(checkBox=true));
@@ -158,13 +134,15 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
   final parameter ClaRa.Basics.Units.Volume volume_flueGas=A_flueGas_free*height_reg "Flue gas volume";
   final parameter ClaRa.Basics.Units.Volume volume_air=A_air_free*height_reg "Fresh air volume";
   final parameter ClaRa.Basics.Units.Volume volume_reg_eff=(A_cross - A_hub - A_covered)*height_reg "Effective regenerator volume (without hub and covered volume)";
-  final parameter ClaRa.Basics.Units.Volume volume_st=(A_cross - A_hub)*(f_plates)* height_reg "Volume of solid regenerator storage material";
+  final parameter ClaRa.Basics.Units.Volume volume_st=(A_cross - A_hub)*(f_plates)*height_reg "Volume of solid regenerator storage material";
   final parameter ClaRa.Basics.Units.Mass mass=if calculate_mass then volume_st*solid.d else mass_fixed "Mass of regenerator storage material";
   final parameter ClaRa.Basics.Units.Length d_gl=4*(A_cross - A_hub - A_plates)/(2*N_sp*b) "Equivalent diameter";
 
 protected
-  parameter Basics.Units.Temperature
-                        T_start_wall_internal[N_cv]=if size(T_start_wall,1)==2 then linspace(T_start_wall[1],T_start_wall[2],N_cv) else T_start_wall "Internal T_start array which allows the user to either state T_inlet, T_outlet if T_start has length 2, otherwise the user can specify an individual Temperature profile for initialisation";
+  parameter Basics.Units.Temperature T_start_wall_internal[N_cv]=if size(T_start_wall, 1) == 2 then linspace(
+      T_start_wall[1],
+      T_start_wall[2],
+      N_cv) else T_start_wall "Internal T_start array which allows the user to either state T_inlet, T_outlet if T_start has length 2, otherwise the user can specify an individual Temperature profile for initialisation";
 
   //_____________defintion of medium used in cells__________________________________________________________
 public
@@ -290,7 +268,7 @@ public
         origin={1,-22})));
 
   VolumesValvesFittings.Fittings.FlueGasJunction_L2
-                                                 flueGasSplit_L2_1(T_start=if size(T_start_flueGas,1)==2 then T_start_flueGas[2]*(1-leakage) else T_start_flueGas[1]*(1-leakage),p_start=if size(p_start_flueGas,1)==2 then p_start_flueGas[2] else p_start_flueGas[1],mixingRatio_initial=(1*xi_start_flueGas + leakage*xi_start_freshAir)/(1+leakage),volume=1)
+                                                 flueGasSplit_L2_1(T_start=if size(T_start_flueGas,1)==2 then T_start_flueGas[2]*(1-leakage) else T_start_flueGas[1]*(1-leakage),p_start=if size(p_start_flueGas,1)==2 then p_start_flueGas[2] else p_start_flueGas[1],xi_start=(1*xi_start_flueGas + leakage*xi_start_freshAir)/(1+leakage),volume=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -362,8 +340,8 @@ equation
   eye_int_flueGas[1].h = summary.flueGasOutlet.h/1e3;
   eye_int_flueGas[1].m_flow = summary.flueGasOutlet.m_flow;
   eye_int_flueGas[1].T = summary.flueGasOutlet.T - 273.15;
-  eye_int_flueGas[1].s = flueGasSplit_L2_1.flueGasPortA.s/1e3;
-  eye_int_flueGas[1].xi = flueGasSplit_L2_1.flueGasPortA.xi;
+  eye_int_flueGas[1].s =flueGasSplit_L2_1.flueGasIn.s/1e3;
+  eye_int_flueGas[1].xi =flueGasSplit_L2_1.flueGasIn.xi;
 
   eye_int_freshAir[1].p = summary.freshAirOutlet.p/1e5;
   eye_int_freshAir[1].h = summary.freshAirOutlet.h/1e3;

@@ -12,23 +12,25 @@ model EfficiencyCurves_Q1 "Losses by efficiency | normal operation | "
   parameter Real V_flow_opt_(min=0.0, max=1) = 0.6 "Relative position of best point at V_flow axis in p.u." annotation(Dialog(tab = "Expert Settings", group="Hydraulic Losses - refer to documentation for details"));
   parameter Real exp_flow=2 "Exponent for volume flow dependency of efficiency" annotation(Dialog(tab = "Expert Settings", group="Hydraulic Losses - refer to documentation for details"));
 
-  parameter SI.VolumeFlowRate V_flow_leak = 0.00002 "Leakage mass flow" annotation(Dialog(tab = "Expert Settings", group="Non-Design Operation - refer to documentation for details"));
+  parameter Basics.Units.VolumeFlowRate V_flow_leak=0.00002 "Leakage mass flow" annotation (Dialog(tab="Expert Settings", group="Non-Design Operation - refer to documentation for details"));
 
-  parameter SI.Pressure Delta_p_eps= 100 "Small pressure difference for linearisation around zero mass flow" annotation(Dialog(tab = "Expert Settings", group="Numerical Robustness"));
+  parameter Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero mass flow" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
   parameter Boolean stabiliseDelta_p=false "Avoid chattering due to small pressure differences between inlet and outlet at small mass flows"
                                                                                             annotation(Dialog(tab = "Expert Settings", group="Numerical Robustness"));
-  parameter SI.Time Tau_stab=1 "Stabiliser state time constant - refer to documentation for details."
-                                                                                            annotation(Dialog(tab="Expert Settings",group="Numerical Robustness",enable=stabiliseDelta_p));
+  parameter Basics.Units.Time Tau_stab=1 "Stabiliser state time constant - refer to documentation for details." annotation (Dialog(
+      tab="Expert Settings",
+      group="Numerical Robustness",
+      enable=stabiliseDelta_p));
 
 
-  SI.VolumeFlowRate V_flow_maxrpm "Max. volume flow at current rpm";
-  SI.Pressure Delta_p_maxrpm "Maximum pressure difference at current speed";
+  Basics.Units.VolumeFlowRate V_flow_maxrpm "Max. volume flow at current rpm";
+  Basics.Units.Pressure Delta_p_maxrpm "Maximum pressure difference at current speed";
 
 
 protected
-  SI.Pressure Delta_p_ps "Pressure pseudo state prevents chattering";
-  constant SI.RPM rpm_eps = 1e-5 "Rotational speed";
+  Basics.Units.Pressure Delta_p_ps "Pressure pseudo state prevents chattering";
+  constant Basics.Units.RPM rpm_eps=1e-5 "Rotational speed";
 initial equation
  if stabiliseDelta_p then
   Delta_p_ps = iCom.Delta_p;

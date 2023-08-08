@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model QuadraticNominalPoint_L4 "Medium independent || Nominal point, property independent"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -32,7 +32,7 @@ equation
   if not frictionAtInlet and not frictionAtOutlet then
     for i in 2:iCom.N_cv loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1]);
-      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), (iCom.Delta_p_nom/iCom.m_flow_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1])*Delta_p[i]) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
+      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1] - geo.Delta_x_FM[iCom.N_cv + 1]))) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
     end for;
     zeta[1] = 0;
     Delta_p[1] = 0;
@@ -42,7 +42,7 @@ equation
   elseif not frictionAtInlet and frictionAtOutlet then
     for i in 2:iCom.N_cv + 1 loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1]);
-      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), (iCom.Delta_p_nom/iCom.m_flow_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1])*Delta_p[i]) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
+      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[1]))) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
     end for;
     zeta[1] = 0;
     Delta_p[1] = 0;
@@ -50,7 +50,7 @@ equation
   elseif frictionAtInlet and not frictionAtOutlet then
     for i in 1:iCom.N_cv loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[iCom.N_cv + 1]);
-      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), (iCom.Delta_p_nom/iCom.m_flow_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[iCom.N_cv + 1])*Delta_p[i]) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
+      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/(sum(geo.Delta_x_FM) - geo.Delta_x_FM[iCom.N_cv + 1]))) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
     end for;
     zeta[iCom.N_cv + 1] = 0;
     Delta_p[iCom.N_cv + 1] = 0;
@@ -59,7 +59,7 @@ equation
     //frictionAtInlet and frictionAtOutlet
     for i in 1:iCom.N_cv + 1 loop
       zeta[i] = zeta_TOT*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM));
-      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), (iCom.Delta_p_nom/iCom.m_flow_nom)*geo.Delta_x_FM[i]/(sum(geo.Delta_x_FM))*Delta_p[i]) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
+      m_flow[i] = if useHomotopy then homotopy(sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth), m_flow_nom*Delta_p[i]/Delta_p_nom ./ ((geo.Delta_x_FM[i])/sum(geo.Delta_x_FM))) else sqrt(1/zeta[i])*ClaRa.Basics.Functions.ThermoRoot(Delta_p[i], Delta_p_smooth);
     end for;
 
   end if;

@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_flex "A join for an arbitrary number of inputs"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,7 +21,7 @@ model JoinVLE_L2_flex "A join for an arbitrary number of inputs"
 
 model Outline
   extends ClaRa.Basics.Icons.RecordIcon;
-  input ClaRa.Basics.Units.Volume volume_tot "Total volume";
+    input ClaRa.Basics.Units.Volume volume_tot "Total volume";
 end Outline;
 
 model Summary
@@ -39,16 +39,14 @@ end Summary;
     annotation(Evaluate=true, Dialog(tab="General",group="Fundamental Definitions"));//connectorSizing=true,
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-   parameter ClaRa.Basics.Units.Volume volume(min=1e-6)=0.1 "System Volume"                               annotation(Dialog(tab="General", group="Geometry"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_in_nom[N_ports_in]= {10} "Nominal mass flow rates at inlet"
-                                        annotation(Dialog(tab="General", group="Nominal Values"));
-  parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy"            annotation(Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Volume volume(min=1e-6) = 0.1 "System Volume" annotation (Dialog(tab="General", group="Geometry"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_in_nom[N_ports_in]={10} "Nominal mass flow rates at inlet" annotation (Dialog(tab="General", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start= 1e5 "Start value of sytsem specific enthalpy"
-                                             annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start= 1e5 "Start value of sytsem pressure" annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.MassFraction  xi_start[medium.nc-1] = medium.xi_default annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction xi_start[medium.nc - 1]=medium.xi_default annotation (Dialog(tab="Initialisation"));
   parameter Integer initOption=0 "Type of initialisation"
     annotation (Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 208 "Steady pressure and enthalpy", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 
@@ -57,8 +55,11 @@ end Summary;
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 
 protected
-    parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom= TILMedia.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
-    ClaRa.Basics.Units.Power Hdrhodt =  if preciseTwoPhase then h*volume*drhodt else 0 "h*volume*drhodt";
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+      medium,
+      p_nom,
+      h_nom) "Nominal density";
+  ClaRa.Basics.Units.Power Hdrhodt=if preciseTwoPhase then h*volume*drhodt else 0 "h*volume*drhodt";
     Real Xidrhodt[medium.nc-1]= if preciseTwoPhase then xi*volume*drhodt else zeros(medium.nc-1) "h*volume*drhodt";
 
 public
@@ -68,9 +69,9 @@ public
   ClaRa.Basics.Units.Mass mass "Total system mass";
   Real drhodt;//(unit="kg/(m3s)");
   ClaRa.Basics.Units.Pressure p(start=p_start, stateSelect=StateSelect.prefer) "System pressure";
-  ClaRa.Basics.Units.MassFlowRate Xi_flow_in[N_ports_in, medium.nc-1] "Mass fraction flows at inlet";
-  ClaRa.Basics.Units.MassFlowRate Xi_flow_out[medium.nc-1] "Mass fraction flows at outlet";
-  ClaRa.Basics.Units.MassFraction xi[medium.nc-1](start=xi_start) "Mass fraction";
+  ClaRa.Basics.Units.MassFlowRate Xi_flow_in[N_ports_in,medium.nc - 1] "Mass fraction flows at inlet";
+  ClaRa.Basics.Units.MassFlowRate Xi_flow_out[medium.nc - 1] "Mass fraction flows at outlet";
+  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=xi_start) "Mass fraction";
 
     Summary summary(N_ports_in=N_ports_in,outline(volume_tot = volume),
                     inlet(each showExpertSummary = showExpertSummary,m_flow=inlet.m_flow,  T=fluidIn.T, p=inlet.p, h=fluidIn.h,s=fluidIn.s, steamQuality=fluidIn.q, H_flow=fluidIn.h .* inlet.m_flow, rho=fluidIn.d),

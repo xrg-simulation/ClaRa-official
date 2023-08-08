@@ -6,20 +6,6 @@ model TestAsynchronousMotor "A simple test for the simple motor"
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=false) annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Mechanics.Rotational.Components.Inertia inertia1(         w(start=10), J=50)
     annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor speedSensor
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-16})));
-  Modelica.Blocks.Math.Gain              realExpression(k=0.5*2*Modelica.Constants.pi
-        /60)
-    annotation (Placement(transformation(extent={{26,28},{18,36}})));
-  Modelica.Blocks.Sources.TimeTable
-                               ramp1(table=[0,5100; 100,5100; 101,4600; 200,4600; 201,4100; 300,4100; 301,3600; 400,3600; 401,3100; 500,3100; 501,2950*2; 600,2950*2])
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={62,32})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
-    annotation (Placement(transformation(extent={{38,28},{30,36}})));
   AsynchronousMotor_L2 motor(
     rpm_nom=2950,
     I_rotor_nom=10,
@@ -35,78 +21,31 @@ model TestAsynchronousMotor "A simple test for the simple motor"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,-68})));
-  ClaRa.Components.Utilities.Blocks.LimPID PID(
-    u_ref=500,
-    y_max=100e3,
-    Tau_d=500,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    y_min=0.001,
-    y_ref=3.8e3,
-    y_start=40,
-    k=50,
-    Tau_i=0.05,
-    initOption=796) annotation (Placement(transformation(extent={{10,22},{-10,42}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-9,-9},{9,9}},
         rotation=270,
         origin={-62,-45})));
   Modelica.Mechanics.Rotational.Components.IdealGear idealGear(ratio=1)
     annotation (Placement(transformation(extent={{-24,-80},{-4,-60}})));
-  Modelica.Mechanics.Rotational.Sources.Torque torque
-    annotation (Placement(transformation(extent={{36,-80},{16,-60}})));
-  Modelica.Blocks.Sources.Ramp           Flow2(
-    height=250,
-    offset=-500,
-    duration=100,
-    startTime=2500) "-(0.6*200e5/(2*3.14*5100/60))*motor.rpm^2/3000"
-    annotation (Placement(transformation(extent={{86,-80},{66,-60}})));
-  Modelica.Blocks.Sources.Ramp           Flow1(
-    startTime=250,
-    duration=100,
-    height=0,
-    offset=3e3) "-(0.6*200e5/(2*3.14*5100/60))*motor.rpm^2/3000"
+  Modelica.Mechanics.Rotational.Sources.LinearSpeedDependentTorque
+                                               torque(w_nominal=2950/60*2*3.1415, tau_nominal=-600)
+    annotation (Placement(transformation(extent={{56,-80},{36,-60}})));
+  Modelica.Blocks.Sources.TimeTable      Flow1(table=[0,3e3; 250,3e3; 251,0; 500,0; 501,3e3; 650,3e3; 651,0; 750,0; 751,3e3; 1000,3e3])
+                "-(0.6*200e5/(2*3.14*5100/60))*motor.rpm^2/3000"
     annotation (Placement(transformation(extent={{-52,2},{-72,22}})));
-  Modelica.Blocks.Sources.Ramp           Flow3(
-    startTime=250,
-    duration=100,
-    height=0,
-    offset=50) "-(0.6*200e5/(2*3.14*5100/60))*motor.rpm^2/3000"
+  Modelica.Blocks.Sources.TimeTable      Flow3(table=[0,50; 600,50; 601,0; 800,0; 801,30; 1000,30])
+               "-(0.6*200e5/(2*3.14*5100/60))*motor.rpm^2/3000"
     annotation (Placement(transformation(extent={{-52,-30},{-72,-10}})));
+  Modelica.Mechanics.Rotational.Components.BearingFriction
+                                                     bearingFriction(tau_pos=[0,10; 100,100])
+    annotation (Placement(transformation(extent={{2,-80},{22,-60}})));
 equation
-  connect(firstOrder.y, realExpression.u) annotation (Line(
-      points={{29.6,32},{26.8,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ramp1.y, firstOrder.u) annotation (Line(
-      points={{51,32},{38.8,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(realExpression.y, PID.u_s) annotation (Line(
-      points={{17.6,32},{12,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(speedSensor.w, PID.u_m) annotation (Line(
-      points={{0,-5},{0,8},{0,20},{-0.1,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(speedSensor.flange, idealGear.flange_b) annotation (Line(
-      points={{0,-26},{0,-70},{-4,-70}},
-      color={0,0,0},
-      smooth=Smooth.None));
   connect(inertia1.flange_b, idealGear.flange_a) annotation (Line(
       points={{-28,-70},{-24,-70}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(inertia1.flange_a, motor.shaft) annotation (Line(
       points={{-48,-70},{-50,-70},{-50,-68},{-52,-68}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(Flow2.y,torque. tau) annotation (Line(
-      points={{65,-70},{38,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(torque.flange, idealGear.flange_b) annotation (Line(
-      points={{16,-70},{-4,-70}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(motor.heat, fixedTemperature.port) annotation (Line(
@@ -122,6 +61,8 @@ equation
       points={{-73,12},{-94,12},{-94,-68},{-74,-68}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(idealGear.flange_b, bearingFriction.flange_a) annotation (Line(points={{-4,-70},{2,-70}}, color={0,0,0}));
+  connect(bearingFriction.flange_b, torque.flange) annotation (Line(points={{22,-70},{36,-70}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                graphics={
                                   Text(

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model PressureLossCoeffcient_L2 "All geo || Quadratic pressure loss || constant pressure loss coefficient || density dependent "
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -26,20 +26,20 @@ protected
 
 public
   ClaRa.Basics.Units.DensityMassSpecific rho=if useHomotopy then homotopy(Stepsmoother(
-        10,
-        -10,
-        Delta_p)*rho_in + Stepsmoother(
-        -10,
-        10,
-        Delta_p)*rho_out, rho_in) else Stepsmoother(
-        10,
-        -10,
-        Delta_p)*rho_in + Stepsmoother(
-        -10,
-        10,
-        Delta_p)*rho_out;
+      10,
+      -10,
+      Delta_p)*rho_in + Stepsmoother(
+      -10,
+      10,
+      Delta_p)*rho_out, rho_in) else Stepsmoother(
+      10,
+      -10,
+      Delta_p)*rho_in + Stepsmoother(
+      -10,
+      10,
+      Delta_p)*rho_out;
 
-  parameter SI.Pressure Delta_p_smooth=100 "Start linearisation for decreasing pressure loss";
+  parameter Units.Pressure Delta_p_smooth=100 "Start linearisation for decreasing pressure loss";
   parameter Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta_TOT "Pressure loss coefficient";
 equation
   rho_in = density_phxi(

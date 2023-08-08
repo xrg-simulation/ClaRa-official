@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L2_Simple "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with static momentum balance and simple energy balance."
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -30,30 +30,23 @@ model PipeFlowVLE_L2_Simple "A 1D tube-shaped control volume considering one-pha
   extends ClaRa.Basics.Icons.Pipe_L2;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=noEvent(if sum(heat.Q_flow) > 0 then sum(heat.Q_flow) else 0),
-    powerOut=if not heatFlowIsLoss then -sum(heat.Q_flow) else 0,
+    powerOut_th=if not heatFlowIsLoss then -sum(heat.Q_flow) else 0,
+    powerOut_elMech=0,
     powerAux=0) if contributeToCycleSummary;
 //## P A R A M E T E R S #######################################################################################
 
 //____Geometric data_____________________________________________________________________________________
-  parameter Basics.Units.Length
-                            length= 1 "Length of the pipe (one pass)"
-                                                                     annotation(Dialog(group="Geometry"));
-  parameter Basics.Units.Length
-                            diameter_i= 0.1 "Inner diameter of the pipe"
-                                                                        annotation(Dialog(group="Geometry"));
-  parameter Basics.Units.Length
-                            z_in = 0.1 "Height of inlet above ground"
-                                                                     annotation(Dialog(group="Geometry"));
-  parameter Basics.Units.Length
-                            z_out= 0.1 "Height of outlet above ground"
-                                                                      annotation(Dialog(group="Geometry"));
+  parameter Basics.Units.Length length=1 "Length of the pipe (one pass)" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length diameter_i=0.1 "Inner diameter of the pipe" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_in=0.1 "Height of inlet above ground" annotation (Dialog(group="Geometry"));
+  parameter Basics.Units.Length z_out=0.1 "Height of outlet above ground" annotation (Dialog(group="Geometry"));
 
   parameter Integer N_tubes= 1 "Number Of parallel pipes"
                                                          annotation(Dialog(group="Geometry"));
   parameter Integer N_passes=1 "Number of passes of the tubes" annotation(Dialog(group="Geometry"));
 
   final parameter Integer N_cv=1;
-  final parameter Basics.Units.Length Delta_x[N_cv] = {length*N_passes};
+  final parameter Basics.Units.Length Delta_x[N_cv]={length*N_passes};
 
 //____Discretisation_____________________________________________________________________________________
 

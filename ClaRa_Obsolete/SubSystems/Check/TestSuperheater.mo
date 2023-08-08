@@ -73,7 +73,7 @@ parameter Integer n_Axial=10;
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_XRG(m_flow_const=783, h_const=2843e3) annotation (Placement(transformation(extent={{-60,-48},{-40,-28}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG(h_const=3500e3, p_const=28400000) annotation (Placement(transformation(extent={{64,50},{40,72}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_XRG(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=825.34)) annotation (Placement(transformation(extent={{6,54},{26,66}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_XRG(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=825.34)) annotation (Placement(transformation(extent={{6,54},{26,66}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG2(h_const=1363e3, p_const=32000000) annotation (Placement(transformation(extent={{102,9},{78,31}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG3(h_const=1363e3, p_const=32000000) annotation (Placement(transformation(extent={{102,-10},{78,12}})));

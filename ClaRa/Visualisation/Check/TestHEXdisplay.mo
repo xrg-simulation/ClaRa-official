@@ -1,10 +1,10 @@
 within ClaRa.Visualisation.Check;
 model TestHEXdisplay "Illustrates the capabilities of the HEXdisplay"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -18,32 +18,30 @@ model TestHEXdisplay "Illustrates the capabilities of the HEXdisplay"
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
   import SI = ClaRa.Basics.Units;
-  parameter SI.Temperature T_i_in=100 + 273.15 "Temperature of cold side";
-  parameter SI.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
-  parameter SI.MassFlowRate m_flow_i=10 "Mass flow of cold side";
-  parameter SI.MassFlowRate m_flow_o=100 "Mass flow of hot side";
-  parameter SI.Pressure p_i=2e5 "Pressure of cold side";
-  parameter SI.Pressure p_o=300e5 "Pressure of hot side";
+  parameter Basics.Units.Temperature T_i_in=100 + 273.15 "Temperature of cold side";
+  parameter Basics.Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
+  parameter Basics.Units.MassFlowRate m_flow_i=10 "Mass flow of cold side";
+  parameter Basics.Units.MassFlowRate m_flow_o=100 "Mass flow of hot side";
+  parameter Basics.Units.Pressure p_i=2e5 "Pressure of cold side";
+  parameter Basics.Units.Pressure p_o=300e5 "Pressure of hot side";
 
-  parameter SI.CoefficientOfHeatTransfer alpha_i=730 "Heat transfer coefficient of cold side";
-  parameter SI.CoefficientOfHeatTransfer alpha_o=7300 "Heat transfer coefficient of hot side";
+  parameter Basics.Units.CoefficientOfHeatTransfer alpha_i=730 "Heat transfer coefficient of cold side";
+  parameter Basics.Units.CoefficientOfHeatTransfer alpha_o=7300 "Heat transfer coefficient of hot side";
 
   parameter Integer N_tubes = 200 "Number of parallel tubes";
   parameter Integer N_passes = 1 "Number of passes";
-  parameter SI.Length diameter_i=0.05*2 "Diameter of cold side tubes";
-  parameter SI.Length diameter_o=(0.05 + 1e-6)*2 "Diameter of hot side tubes";
-  parameter SI.Length radius_i=diameter_i/2 "Diameter of cold side tubes";
-  parameter SI.Length radius_o=diameter_o/2 "Diameter of hot side tubes";
-  parameter SI.Length length=4 "Length of tubes";
+  parameter Basics.Units.Length diameter_i=0.05*2 "Diameter of cold side tubes";
+  parameter Basics.Units.Length diameter_o=(0.05 + 1e-6)*2 "Diameter of hot side tubes";
+  parameter Basics.Units.Length radius_i=diameter_i/2 "Diameter of cold side tubes";
+  parameter Basics.Units.Length radius_o=diameter_o/2 "Diameter of hot side tubes";
+  parameter Basics.Units.Length length=4 "Length of tubes";
   parameter Integer N_cv = 400 "Number of Cells";
 
-  SI.EnthalpyMassSpecific h_i_in=
-      TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  Basics.Units.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_i,
       T_i_in);
-  SI.EnthalpyMassSpecific h_o_in=
-      TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  Basics.Units.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_o,
       T.y);

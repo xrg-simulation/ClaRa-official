@@ -3,7 +3,7 @@ model Source_yellow "Yellow boundary"
 // Yellow output: Values of p, and h are known in component and provided FOR neighbor component, value of m_flow is unknown and provided BY beighbor component.
 
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.MassFlowRate  m_flow(fixed = false) "Mass flow from the source";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Mass flow from the source";
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h "Spec. enthalpy of the source flow";
   parameter ClaRa.Basics.Units.Pressure p "Pressure at the source";
   outer ClaRa.SimCenter simCenter;

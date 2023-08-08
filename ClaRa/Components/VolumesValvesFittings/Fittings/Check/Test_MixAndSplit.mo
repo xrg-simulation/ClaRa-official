@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_MixAndSplit
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -59,8 +59,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     height=-2500e3,
     offset=3000e3)
     annotation (Placement(transformation(extent={{90,80},{70,100}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveLinear_1_XRG(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50))
-    annotation (Placement(transformation(extent={{-40,24},{-20,36}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50)) annotation (Placement(transformation(extent={{-40,24},{-20,36}})));
   ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_Y join_Y(
     m_flow_in_nom={25,100},
     p_nom(displayUnit="Pa") = 5000,
@@ -87,8 +86,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     h_const=3000e3,
     variable_h=true) annotation (Placement(transformation(extent={{20,-10},{0,10}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSource_XRG5(h_const=800e3, p_const=3000000) annotation (Placement(transformation(extent={{20,-40},{0,-20}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50))
-    annotation (Placement(transformation(extent={{-40,-36},{-20,-24}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50)) annotation (Placement(transformation(extent={{-40,-36},{-20,-24}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_XRG6(
     m_flow_const=43.551,
     variable_m_flow=true,
@@ -99,8 +97,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     h_const=3000e3,
     variable_h=true) annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSource_XRG8(h_const=800e3, p_const=3000000) annotation (Placement(transformation(extent={{20,-100},{0,-80}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveLinear_1_XRG2(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50))
-    annotation (Placement(transformation(extent={{-40,-96},{-20,-84}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG2(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50)) annotation (Placement(transformation(extent={{-40,-96},{-20,-84}})));
   ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Y split_Y(
     p_nom(displayUnit="Pa") = 5000,
     h_nom=1900e3,
@@ -146,8 +143,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     variable_h=true) annotation (Placement(transformation(extent={{20,-128},{0,-108}})));
   BoundaryConditions.BoundaryVLE_phxi                  massFlowSource_XRG11(h_const=800e3, p_const=3000000)
                                                                                                            annotation (Placement(transformation(extent={{20,-158},{0,-138}})));
-  Valves.ValveVLE_L1                                        valveLinear_1_XRG3(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50))
-    annotation (Placement(transformation(extent={{-40,-154},{-20,-142}})));
+  Valves.GenericValveVLE_L1 valveLinear_1_XRG3(redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100000, m_flow_nom=50)) annotation (Placement(transformation(extent={{-40,-154},{-20,-142}})));
   Visualisation.Quadruple quadruple4
     annotation (Placement(transformation(extent={{-76,-157},{-116,-147}})));
 equation

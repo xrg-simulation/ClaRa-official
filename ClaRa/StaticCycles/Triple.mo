@@ -4,7 +4,7 @@ model Triple "Visualise static cycle results"
 // Component of the ClaRa library, version: 1.2.2                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -23,6 +23,7 @@ model Triple "Visualise static cycle results"
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Measured mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=false) "Measured mass flow rate";
 record DecimalSpaces
+  extends ClaRa.Basics.Icons.RecordIcon;
 parameter Integer m_flow=1 "Accuracy to be displayed for mass flow";
 parameter Integer h=1 "Accuracy to be displayed for enthalpy";
 parameter Integer p=1 "Accuracy to be displayed for pressure";

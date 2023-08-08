@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -51,8 +51,8 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
    record ICom
      extends ClaRa.Basics.Records.IComBase_L3;
-           SI.Volume volume[N_cv];
-           SI.EnthalpyMassSpecific h[N_cv];
+    ClaRa.Basics.Units.Volume volume[N_cv];
+    ClaRa.Basics.Units.EnthalpyMassSpecific h[N_cv];
 
    end ICom;
   //_____________________________________________________
@@ -86,59 +86,50 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-   inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet"
-     annotation (Dialog(tab="General", group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(tab="General", group="Nominal Values"));
 
-   inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"
-     annotation (Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=
-      TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_gas_nom=
-      1.2 "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_gas_nom=1.2 "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_gas_start = 293.15 "Start value of sgas zone's temperature"
-    annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_gas_start=293.15 "Start value of sgas zone's temperature" annotation (Dialog(tab="Initialisation"));
 
-final parameter ClaRa.Basics.Units.EnthalpyMassSpecific  h_gas_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(gasType, p_start, T_gas_start, xi_start) "Start value of gas zone's specific enthalpy"
-    annotation (Dialog(tab="Initialisation"));
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_gas_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+      gasType,
+      p_start,
+      T_gas_start,
+      xi_start) "Start value of gas zone's specific enthalpy" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure"
-                                     annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.MassFraction xi_start[gasType.nc-1]= zeros(gasType.nc-1) "Initial gas mass fraction"
+  parameter ClaRa.Basics.Units.MassFraction xi_start[gasType.nc-1]= gasType.xi_default "Initial gas mass fraction"
                                                                                             annotation (Dialog(tab="Initialisation"));
   inner parameter String initType = "No init, use start values as guess" "Type of initialisation"
     annotation (Dialog(tab="Initialisation"), choices(choice = "No init, use start values as guess", choice="Steady state in p, h_liq, T_gas",
             choice = "Steady state in p", choice="steady State in h_liq and T_gas", choice = "Fixed value for filling level",
              choice = "Fixed values for filling level, p, h_liq, T_gas"));
 
-    parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius" annotation(Dialog(group="Geometry"));
+  parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
 
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "|Summary and Visualisation||True, if expert summary should be applied";
   parameter Integer heatSurfaceAlloc=1 "Heat transfer area to be considered"          annotation(Dialog(group="Geometry"),choices(choice=1 "Lateral surface",
                                                                                    choice=2 "Inner heat transfer surface"));
 
 protected
-    constant ClaRa.Basics.Units.Length level_abs_min=1e-6;
-  final parameter ClaRa.Basics.Units.Length Delta_z_max_in[geo.N_inlet] = {min(geo.z_in[i]
-                                                                                     +radius_flange,  geo.height_fill) for i in 1: geo.N_inlet};
-  final parameter ClaRa.Basics.Units.Length Delta_z_min_in[geo.N_inlet] = {max(1e-3,geo.z_in[i]
-                                                                                          -radius_flange) for i in 1: geo.N_inlet};
-  final parameter ClaRa.Basics.Units.Length Delta_z_max_out[geo.N_outlet] = {min(geo.z_out[i]
-                                                                                        +radius_flange, geo.height_fill) for i in 1: geo.N_outlet};
-  final parameter ClaRa.Basics.Units.Length Delta_z_min_out[geo.N_outlet] = {max(1e-3,geo.z_out[i]
-                                                                                            -radius_flange) for i in 1: geo.N_outlet};
+  constant ClaRa.Basics.Units.Length level_abs_min=1e-6;
+  final parameter ClaRa.Basics.Units.Length Delta_z_max_in[geo.N_inlet]={min(geo.z_in[i] + radius_flange, geo.height_fill) for i in 1:geo.N_inlet};
+  final parameter ClaRa.Basics.Units.Length Delta_z_min_in[geo.N_inlet]={max(1e-3, geo.z_in[i] - radius_flange) for i in 1:geo.N_inlet};
+  final parameter ClaRa.Basics.Units.Length Delta_z_max_out[geo.N_outlet]={min(geo.z_out[i] + radius_flange, geo.height_fill) for i in 1:geo.N_outlet};
+  final parameter ClaRa.Basics.Units.Length Delta_z_min_out[geo.N_outlet]={max(1e-3, geo.z_out[i] - radius_flange) for i in 1:geo.N_outlet};
   //_____________________________________________________
   //_______Variables and model instances_________________
 public
   ClaRa.Basics.Units.EnthalpyMassSpecific h_out[geo.N_outlet];
   ClaRa.Basics.Units.EnthalpyMassSpecific h_in[geo.N_inlet];
-  ClaRa.Basics.Units.MassFraction xi_out[geo.N_outlet, medium.nc-1];
-  ClaRa.Basics.Units.MassFraction xi_in[geo.N_inlet, medium.nc-1];
+  ClaRa.Basics.Units.MassFraction xi_out[geo.N_outlet,medium.nc - 1];
+  ClaRa.Basics.Units.MassFraction xi_in[geo.N_inlet,medium.nc - 1];
   inner ClaRa.Basics.Units.EnthalpyMassSpecific h_liq(start=h_liq_start) "Specific enthalpy of liquid phase";
   inner ClaRa.Basics.Units.EnthalpyMassSpecific h_gas(start=h_gas_start) "Specific enthalpy of vapour phase";
   Real drho_liqdt;
@@ -155,8 +146,8 @@ public
   ClaRa.Basics.Units.Mass mass_liq "Liquid mass";
   ClaRa.Basics.Units.Mass mass_gas "Vapour mass";
   inner ClaRa.Basics.Units.Pressure p(start=p_start, stateSelect=StateSelect.prefer) "System pressure";
-  ClaRa.Basics.Units.MassFraction xi_gas[gasType.nc-1](start=xi_start) "Gas mass fractions";
-  ClaRa.Basics.Units.MassFraction xi_liq[medium.nc-1] "Liquid mass fractions";
+  ClaRa.Basics.Units.MassFraction xi_gas[gasType.nc - 1](start=xi_start) "Gas mass fractions";
+  ClaRa.Basics.Units.MassFraction xi_liq[medium.nc - 1] "Liquid mass fractions";
   ClaRa.Basics.Units.Length level_abs;
   Real level_rel(start = level_rel_start);
   parameter Real   level_rel_start=0.5 "Initial value for relative level"

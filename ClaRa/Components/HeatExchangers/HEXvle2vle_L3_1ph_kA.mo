@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geometry | effective kA"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -27,10 +27,11 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary=false;
     input ClaRa.Basics.Units.HeatFlowRate Q_flow "Heat flow rate";
-    input ClaRa.Basics.Units.TemperatureDifference  Delta_T_in "Fluid temperature at inlet T_1_in - T_2_in";
-    input ClaRa.Basics.Units.TemperatureDifference  Delta_T_out "Fluid temperature at outlet T_1_out - T_2_out";
+    input ClaRa.Basics.Units.TemperatureDifference Delta_T_in "Fluid temperature at inlet T_1_in - T_2_in";
+    input ClaRa.Basics.Units.TemperatureDifference Delta_T_out "Fluid temperature at outlet T_1_out - T_2_out";
     input Real effectiveness if showExpertSummary "Effectivenes of HEX";
-    input Real kA(unit="W/K") if showExpertSummary "Overall heat resistance";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA if showExpertSummary "Overall heat transmission";
+    input ClaRa.Basics.Units.HeatCapacityFlowRate kA_nom if showExpertSummary "Overall heat transmission at nominal point";
   end Outline;
 
   model Summary
@@ -50,30 +51,21 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
         group="Fundamental Definitions"), choicesAllMatching);
 
   //________________________________ Shell geometry _______________________________//
-  parameter ClaRa.Basics.Units.Volume
-                      volume_shell=1 "Volume of the shell side" annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter Basics.Units.Length z_in_shell=1 "Inlet position from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
-  parameter Basics.Units.Length z_out_shell=1 "Outlet position from bottom"
-    annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter ClaRa.Basics.Units.Volume volume_shell=1 "Volume of the shell side" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter Basics.Units.Length z_in_shell=1 "Inlet position from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
+  parameter Basics.Units.Length z_out_shell=1 "Outlet position from bottom" annotation (Dialog(tab="Shell Side", group="Geometry"));
 
   //________________________________ Shell nominal parameter _____________________________________//
 
-  parameter ClaRa.Basics.Units.MassFlowRate
-                            m_flow_nom_shell=10 "Nominal mass flow on shell side"
-    annotation (Dialog(tab="Shell Side", group="Nominal Values"));
-  parameter ClaRa.Basics.Units.Pressure
-                        p_nom_shell=10 "Nominal pressure on shell side"
-    annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom_shell=10 "Nominal mass flow on shell side" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom_shell=10 "Nominal pressure on shell side" annotation (Dialog(tab="Shell Side", group="Nominal Values"));
   parameter SI.SpecificEnthalpy h_nom_shell=10 "Nominal specific enthalpy on shell side"
     annotation (Dialog(tab="Shell Side", group="Nominal Values"));
 
   //________________________________ Shell initialisation  _______________________________________//
   parameter SI.SpecificEnthalpy h_start_shell=1e5 "Start value of sytsem specific enthalpy"
     annotation (Dialog(tab="Shell Side", group="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure
-                        p_start_shell=1e5 "Start value of sytsem pressure"
-    annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_shell=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Shell Side", group="Initialisation"));
   parameter Integer initOptionShell=0 "Type of initialisation"
     annotation (Dialog(tab="Shell Side", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state",
                                                                                               choice=201 "Steady pressure",
@@ -92,31 +84,20 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
         group="Fundamental Definitions"), choicesAllMatching);
 
   //________________________________ Tubes geometry _______________________________//
-  parameter ClaRa.Basics.Units.Volume
-                      volume_tubes=1 "Volume of the tubes"     annotation (Dialog(tab="Tubes", group="Geometry"));
-  parameter Basics.Units.Length z_in_tubes=1 "Inlet position from bottom"
-    annotation (Dialog(tab="Tubes", group="Geometry"));
-  parameter Basics.Units.Length z_out_tubes=1 "Outlet position from bottom"
-    annotation (Dialog(tab="Tubes", group="Geometry"));
+  parameter ClaRa.Basics.Units.Volume volume_tubes=1 "Volume of the tubes" annotation (Dialog(tab="Tubes", group="Geometry"));
+  parameter Basics.Units.Length z_in_tubes=1 "Inlet position from bottom" annotation (Dialog(tab="Tubes", group="Geometry"));
+  parameter Basics.Units.Length z_out_tubes=1 "Outlet position from bottom" annotation (Dialog(tab="Tubes", group="Geometry"));
   //________________________________ Tubes nominal parameter _____________________________________//
-  parameter ClaRa.Basics.Units.MassFlowRate
-                            m_flow_nom_tubes=10 "Nominal mass flow on tube side"
-    annotation (Dialog(tab="Tubes", group="Nominal Values"));
-  parameter ClaRa.Basics.Units.Pressure
-                        p_nom_tubes=10 "Nominal pressure on tube side"
-    annotation (Dialog(tab="Tubes", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom_tubes=10 "Nominal mass flow on tube side" annotation (Dialog(tab="Tubes", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom_tubes=10 "Nominal pressure on tube side" annotation (Dialog(tab="Tubes", group="Nominal Values"));
   parameter SI.SpecificEnthalpy h_nom_tubes=10 "Nominal specific enthalpy on tube side"
     annotation (Dialog(tab="Tubes", group="Nominal Values"));
-  parameter ClaRa.Basics.Units.HeatFlowRate
-                            Q_flow_nom=1e6 "Nominal heat flow rate"
-    annotation (Dialog(tab="Tubes", group="Nominal Values"));
+  parameter ClaRa.Basics.Units.HeatFlowRate Q_flow_nom=1e6 "Nominal heat flow rate" annotation (Dialog(tab="Tubes", group="Nominal Values"));
 
   //________________________________ Tubes initialisation _______________________________________//
   parameter SI.SpecificEnthalpy h_start_tubes=1e5 "Start value of sytsem specific enthalpy at tube side"
     annotation (Dialog(tab="Tubes", group="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure
-                        p_start_tubes=1e5 "Start value of sytsem pressure at tube side"
-    annotation (Dialog(tab="Tubes", group="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_tubes=1e5 "Start value of sytsem pressure at tube side" annotation (Dialog(tab="Tubes", group="Initialisation"));
   parameter Integer initOptionTubes=0 "Type of initialisation at tube side"
     annotation (Dialog(tab="Tubes", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state",
                                                                                               choice=201 "Steady pressure",
@@ -128,12 +109,10 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
     constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group=
           "Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.Mass  mass_struc=0 "Mass of inner components (tubes + structural elements)" annotation (Dialog(tab="Tube Wall", group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of inner components (tubes + structural elements)" annotation (Dialog(tab="Tube Wall", group="Fundamental Definitions"));
   //________________________________ Wall initialisation _______________________________________//
-  parameter Basics.Units.Temperature T_w_i_start=293.15 "Initial temperature at inner phase"
-    annotation (Dialog(tab="Tube Wall", group="Initialisation"));
-  parameter Basics.Units.Temperature T_w_o_start=293.15 "Initial temperature at outer phase"
-    annotation (Dialog(tab="Tube Wall", group="Initialisation"));
+  parameter Basics.Units.Temperature T_w_i_start=293.15 "Initial temperature at inner phase" annotation (Dialog(tab="Tube Wall", group="Initialisation"));
+  parameter Basics.Units.Temperature T_w_o_start=293.15 "Initial temperature at outer phase" annotation (Dialog(tab="Tube Wall", group="Initialisation"));
   parameter Integer initOptionWall=0 "|Initialisation option for wall"    annotation (Dialog(tab="Tube Wall", group="Initialisation"), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state"));
@@ -143,7 +122,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Real kA(unit="W/K")=50000 "The product kA - nominal value" annotation(Dialog(tab="General", group="Heat Exchanger Definition"));
+  parameter ClaRa.Basics.Units.HeatCapacityFlowRate kA_nom=50000 "The product kA - nominal value" annotation(Dialog(tab="General", group="Heat Exchanger Definition"));
   parameter Real CL_kA_mflow[:, 2]=[0,0;0.4, 0.5; 0.5, 0.75; 0.75, 0.95;
       1, 1] "Characteristic line kA = f(m_flow/m_flow_nom)" annotation(Dialog(tab="General", group="Heat Exchanger Definition"));
   replaceable model HeatExchangerType =
@@ -228,7 +207,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
     m_flow_a=shell.inlet.m_flow,
     cp_mean_i=(tubes.fluidIn.cp + tubes.fluidOut.cp)/2,
     cp_mean_a=(shell.fluidIn.cp + shell.fluidOut.cp)/2,
-    kA=kA,
+    kA_nom=kA_nom,
     redeclare model Material = WallMaterial,
     CL_kA_mflow=CL_kA_mflow,
     redeclare model HeatExchangerType = HeatExchangerType,
@@ -248,7 +227,9 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
       Delta_T_in=shell.summary.inlet.T - tubes.summary.inlet.T,
       Delta_T_out=shell.summary.outlet.T - tubes.summary.outlet.T,
       effectiveness=wall.effectiveness,
-      kA=wall.kA*wall.partLoad_kA.y[1])) annotation (Placement(transformation(
+      kA=wall.kA_nom*wall.partLoad_kA.y[1],
+      kA_nom=kA_nom))
+         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-92})));

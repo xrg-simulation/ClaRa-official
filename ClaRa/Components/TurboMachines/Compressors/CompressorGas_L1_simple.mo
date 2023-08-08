@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_simple "Simple compressor or fan for gas"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,16 +22,17 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=-P_hyd,
-    powerAux=-P_hyd + P_shaft) if                                                                                                  contributeToCycleSummary;
+    powerOut_th=0,
+    powerOut_elMech=0,
+    powerAux=P_shaft) if  contributeToCycleSummary;
 
   model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
-    input SI.VolumeFlowRate V_flow "Volume flow rate";
-    input SI.Power P_hyd "Hydraulic power";
-    input SI.Power P_shaft "Hydraulic power";
+    input Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+    input Basics.Units.Power P_hyd "Hydraulic power";
+    input Basics.Units.Power P_shaft "Hydraulic power";
     input Real Pi "Pressure ratio";
-    input SI.PressureDifference Delta_p "Pressure difference";
+    input Basics.Units.PressureDifference Delta_p "Pressure difference";
     input Real eta "Hydraulic efficiency";
   end Outline;
 
@@ -68,14 +69,10 @@ Real kappaB_aux;
 Real kappaA_aux;
 
 public
- Basics.Units.Pressure
-                Delta_p(final start=100) "pressure increase";
- Basics.Units.Power
-             P_hyd "Hydraulic power";
- Basics.Units.Power
-             P_shaft "Drive power";
- Basics.Units.VolumeFlowRate
-                       V_flow;
+  Basics.Units.Pressure Delta_p(final start=100) "pressure increase";
+  Basics.Units.Power P_hyd "Hydraulic power";
+  Basics.Units.Power P_shaft "Drive power";
+  Basics.Units.VolumeFlowRate V_flow;
 
 parameter Real eta = 0.85 "isentropic efficiency";
 
@@ -88,30 +85,21 @@ parameter Real eta = 0.85 "isentropic efficiency";
 parameter Boolean use_P_shaftInput=false "= true, if P_shaft defined by input"
     annotation(Dialog(enable=(presetVariableType=="P_shaft"), group="Mechanical shaft power"));
 
-  parameter Basics.Units.Power
-                        P_shaft_fixed = 5e3 "Fixed value for mechanical shaft power"
-    annotation(Dialog(enable=(not use_P_shaftInput and presetVariableType=="P_shaft"),group="Mechanical shaft power"));
+  parameter Basics.Units.Power P_shaft_fixed=5e3 "Fixed value for mechanical shaft power" annotation (Dialog(enable=(not use_P_shaftInput and presetVariableType == "P_shaft"), group="Mechanical shaft power"));
 
    parameter Boolean use_Delta_p_input=false "= true, if Delta_p defined by input"
     annotation(Dialog(enable=(presetVariableType=="dp"), group="Pressure Increase"));
-  parameter Basics.Units.Pressure
-                           Delta_p_fixed = 0.1e5 "Fixed value for pressure increase"
-    annotation(Dialog(enable=(not use_Delta_p_input and presetVariableType=="dp"),group="Pressure Increase"));
+  parameter Basics.Units.Pressure Delta_p_fixed=0.1e5 "Fixed value for pressure increase" annotation (Dialog(enable=(not use_Delta_p_input and presetVariableType == "dp"), group="Pressure Increase"));
 
   parameter Boolean m_flowInput=false "= true, if m_flow defined by input"
     annotation(Dialog(enable=(presetVariableType=="m_flow"), group="Mass Flow Rate"));
-  parameter Basics.Units.MassFlowRate
-                               m_flow_fixed=0.5 "Fixed value for gas mass flow rate"
-    annotation(Dialog(enable=(not m_flowInput and presetVariableType=="m_flow"),group="Mass Flow Rate"));
+  parameter Basics.Units.MassFlowRate m_flow_fixed=0.5 "Fixed value for gas mass flow rate" annotation (Dialog(enable=(not m_flowInput and presetVariableType == "m_flow"), group="Mass Flow Rate"));
 
   parameter Boolean V_flowInput=false "= true, if V_flow defined by input"
     annotation(Dialog(enable=(presetVariableType=="V_flow"), group="Volume Flow Rate"));
-  parameter Basics.Units.VolumeFlowRate
-                                 V_flow_fixed=0.5e-3 "Fixed value for gas volume flow rate"
-    annotation(Dialog(enable=(not V_flowInput and presetVariableType=="V_flow"),group="Volume Flow Rate"));
+  parameter Basics.Units.VolumeFlowRate V_flow_fixed=0.5e-3 "Fixed value for gas volume flow rate" annotation (Dialog(enable=(not V_flowInput and presetVariableType == "V_flow"), group="Volume Flow Rate"));
 
-parameter ClaRa.Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states"
-                                                annotation(Dialog(tab = "Advanced"));
+  parameter ClaRa.Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states" annotation (Dialog(tab="Advanced"));
 
  parameter Real kappa_initial = 1.3 "Initial value for kappas" annotation(Dialog(tab = "Advanced"));
 

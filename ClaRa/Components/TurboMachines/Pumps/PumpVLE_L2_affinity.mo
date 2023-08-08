@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,13 +19,14 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L2");
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=inlet.m_flow*(pump.fluidIn.h - pump.fluidOut.h),
-    powerAux=(pump.P_shaft - inlet.m_flow*(pump.fluidOut.h - pump.fluidIn.h))) if  contributeToCycleSummary;
+    powerOut_elMech=0,
+    powerOut_th=0,
+    powerAux=P_shaft) if  contributeToCycleSummary;
 
   model Outline
     extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.Outline;
-   input SI.Power P_iso "Power for isentropic flow";
-   input SI.Power P_shaft "Mechanicl power at shaft";
+    input Basics.Units.Power P_iso "Power for isentropic flow";
+    input Basics.Units.Power P_shaft "Mechanicl power at shaft";
     input ClaRa.Basics.Units.RPM rpm "Pump revolutions per minute";
   end Outline;
 
@@ -40,13 +41,12 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
 
   parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation (Dialog( group = "Fundamental Definitions"));
   parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation (Dialog( group = "Fundamental Definitions"));
-  parameter SI.RPM rpm_fixed = 60 "Constant rotational speed of pump" annotation (Dialog( group = "Fundamental Definitions", enable = not useMechanicalPort));
+  parameter Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
   parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Time Response Definitions", enable= not steadyStateTorque));
 
-  parameter SI.RPM rpm_nom "Nomial rotational speed"
-                                                    annotation(Dialog(group = "Characteristic Field",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharField1.png"));
-  parameter SI.VolumeFlowRate V_flow_max "Maximum volume flow rate at nominal speed" annotation(Dialog(group = "Characteristic Field"));
-  parameter SI.Pressure Delta_p_max "Maximum pressure difference at nominal speed" annotation(Dialog(group = "Characteristic Field"));
+  parameter Basics.Units.RPM rpm_nom "Nomial rotational speed" annotation (Dialog(group="Characteristic Field", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharField1.png"));
+  parameter Basics.Units.VolumeFlowRate V_flow_max "Maximum volume flow rate at nominal speed" annotation (Dialog(group="Characteristic Field"));
+  parameter Basics.Units.Pressure Delta_p_max "Maximum pressure difference at nominal speed" annotation (Dialog(group="Characteristic Field"));
 
 
   //_____/ Inner fluid model \__________________________________________________________
@@ -58,7 +58,7 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
   constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L2 "1st: choose friction model | 2nd: edit corresponding record"
   annotation(Dialog(tab="Pump Volume", group="Fundamental Definitions"), choicesAllMatching=true);
 
-  parameter SI.Volume volume_fluid=0.01 "Volume of fluid"  annotation(Dialog(tab="Pump Volume", group="Fundamental Definitions"));
+  parameter Basics.Units.Volume volume_fluid=0.01 "Volume of fluid" annotation (Dialog(tab="Pump Volume", group="Fundamental Definitions"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(tab="Pump Volume", group="Nominal Values"));
 
@@ -159,7 +159,7 @@ public
     annotation (Placement(transformation(extent={{-10,62},{10,82}}),
         iconTransformation(extent={{-10,89},{10,109}})));
 
-  SI.Power P_shaft=pump.summary.outline.P_shaft "Mechanicl power at shaft";
+  Basics.Units.Power P_shaft=pump.summary.outline.P_shaft "Mechanicl power at shaft";
 
 // initial equation
 //   inlet.m_flow=m_flow_in_start;

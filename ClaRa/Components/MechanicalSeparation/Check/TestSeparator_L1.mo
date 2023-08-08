@@ -6,8 +6,7 @@ model TestSeparator_L1 "Check of normal operation and dry operation (Benson oper
   ClaRa.Components.MechanicalSeparation.SteamSeparatorVLE_L1 steamSeparator(eta_vap=0.96, eta_liq=0.98) annotation (Placement(transformation(extent={{24,0},{44,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(variable_m_flow=true, variable_h=true) annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(variable_p=true) annotation (Placement(transformation(extent={{-36,60},{-16,80}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      m_flow_nom=400)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=400)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={34,50})));
@@ -32,8 +31,8 @@ model TestSeparator_L1 "Check of normal operation and dry operation (Benson oper
     p_nom=6000000,
     h_start=2000e3,
     p_start=10200000) annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
-  ClaRa.Visualisation.Quadruple quadruple annotation (Placement(transformation(extent={{45,-10},{76,0}})));
-  ClaRa.Visualisation.Quadruple quadruple1 annotation (Placement(transformation(extent={{45,22},{76,32}})));
+  ClaRa.Visualisation.Quadruple quadruple annotation (Placement(transformation(extent={{41,26},{72,36}})));
+  ClaRa.Visualisation.Quadruple quadruple1 annotation (Placement(transformation(extent={{40,-14},{71,-4}})));
 equation
 
   connect(valveVLE_L1_1.outlet, boundaryVLE_phxi.steam_a) annotation (Line(
@@ -68,8 +67,8 @@ equation
       points={{-40,10},{-34,10}},
       color={0,131,169},
       thickness=0.5));
-  connect(quadruple.eye, steamSeparator.eye_out2) annotation (Line(points={{45,-5},{45,-5},{38,-5},{38,-1}}, color={190,190,190}));
-  connect(steamSeparator.eye_out1, quadruple1.eye) annotation (Line(points={{38,21},{38,27},{45,27}}, color={190,190,190}));
+  connect(quadruple.eye, steamSeparator.eye_out2) annotation (Line(points={{41,31},{38,31},{38,21}},         color={190,190,190}));
+  connect(steamSeparator.eye_out1, quadruple1.eye) annotation (Line(points={{38,-1},{38,-9},{40,-9}}, color={190,190,190}));
   connect(steamSeparator.outlet1, boundaryVLE_phxi1.steam_a) annotation (Line(
       points={{34,0},{34,0},{34,-60}},
       color={0,131,169},

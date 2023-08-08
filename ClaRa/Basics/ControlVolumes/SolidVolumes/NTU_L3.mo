@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -54,6 +54,9 @@ model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
   final parameter SI.Area A_heat_i= 2*Modelica.Constants.pi*radius_i*length*N_t*N_p "Area of heat transfer at inner phase";
   final parameter SI.Area A_heat_o= 2*Modelica.Constants.pi*radius_o*length*N_t*N_p "Area of heat transfer at oter phase";
 
+  // Conductive heat resistance
+  final parameter Modelica.SIunits.ThermalResistance HR_nom=(radius_o - radius_i)/(solid[1].lambda_nominal*A_heat_m) "Nominal conductive heat resistance";
+
 //______________Initialisation______________________________________________//
   parameter SI.Temperature T_w_i_start[3]= ones(3)*293.15 "|Initialisation||Initial temperature at inner phase";
   parameter SI.Temperature T_w_o_start[3] = ones(3)*293.15 "|Initialisation||Initial temperature at outer phase";
@@ -87,10 +90,10 @@ public
   input SI.MassFlowRate m_flow_i "Mass flow rate of inner side"      annotation (Dialog(group="Input"));
   input SI.MassFlowRate m_flow_o "Mass flow rate of outer side" annotation (Dialog(group="Input"));
 
-  input SI.CoefficientOfHeatTransfer alpha_i[3] "Coefficient of heatTransfer for inner side for regions |1|2|3|"
-                                                                     annotation (Dialog(group="Input"));
-  input SI.CoefficientOfHeatTransfer alpha_o[3] "Coefficient of heatTransfer for outer side for regions |1|2|3|"
-                                                                     annotation (Dialog(group="Input"));
+  input ClaRa.Basics.Units.MassFraction xi_i[medium_tubes.nc-1] "Mass fraction at outer side" annotation (Dialog(group="Input"));
+  input ClaRa.Basics.Units.MassFraction xi_o[medium_shell.nc-1] "Mass fraction at outer side" annotation (Dialog(group="Input"));
+  input SI.CoefficientOfHeatTransfer alpha_i[3] "Coefficient of heatTransfer for inner side for regions |1|2|3|" annotation (Dialog(group="Input"));
+  input SI.CoefficientOfHeatTransfer alpha_o[3] "Coefficient of heatTransfer for outer side for regions |1|2|3|" annotation (Dialog(group="Input"));
 
   inner input SI.AreaFraction yps_1ph "Area fraction of zone A"
                                                                annotation (Dialog(group="Input"));
@@ -101,18 +104,21 @@ public
   parameter Boolean showExpertSummary = false "|Summaries and Visualisation||True,if expert summaries shall be shown";
 //______________Variables__________________________________________________//
 //
-  Real kA[3](unit="W/K") "The product U*S for regions |1|2|3|";
+  Units.HeatCapacityFlowRate kA[3] "The product U*S for regions |1|2|3|";
   SI.HeatFlowRate Q_flow[3] "Heat flow rate of zones |1|2|3|";
-  HeatExchangerType HEXtype(NTU_1=NTU_1, R_1=R_1) annotation (Placement(transformation(extent={{-114,60},{-94,80}})));
+  HeatExchangerType HEXtype(NTU_1=NTU_ctr,
+                                         R_1=R_1) annotation (Placement(transformation(extent={{-114,60},{-94,80}})));
   HeatCapacityAveraging heatCapacityAveraging annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
   Real cp_error_[3] "Check: Deviation from constant cp in zones |1|2|3|";
   Real effectiveness_act[3] "Actual effectiveness of zones |1|2|3|";
   Real effectiveness[3] "Effectiveness of zones |1|2|3|";
   Real NTU_1[3] "Number of transfer units in zones |1|2|3|";
+  Real NTU_ctr[3] "Number of transfer units in zones |1|2|3| for pure counter flow";
   Real C_flow_low[3] "Lower heat capacity flow in zones |1|2|3|";
   Real C_flow_high[3] "Higher heat capacity flow in zones |1|2|3|";
   SI.HeatCapacityMassSpecific cp_o[3](start=ones(3)*3000);
   SI.HeatCapacityMassSpecific cp_i[3](start=ones(3)*3000);
+  Units.ThermalResistance HR "Conductive heat resistance";
 //   Real k=(0.5*mass*solid[3].cp)/100;
 protected
   SI.Temperature T_w_i[3](start=T_w_i_start) "Wall temperature at inner phase";
@@ -144,7 +150,7 @@ model Summary
   input Real yps[3] "Area fractions";
   input Real effectiveness[3];
   input Real cp_error_[3] if showExpertSummary "Check: Deviation from constant cp in zones |1|2|3|";
-  input Real kA[3](unit="W/K") "The product U*A for regions |1|2|3|";
+  input ClaRa.Basics.Units.HeatCapacityFlowRate kA[3] "The product U*A for regions |1|2|3|";
   input SI.HeatCapacityMassSpecific cp_o[3] "Heat capacity";
   input SI.HeatCapacityMassSpecific cp_i[3] "Heat capacity";
   input Units.DensityMassSpecific d[3] "Material density";
@@ -258,7 +264,9 @@ public
     ptr_i_in={I1_in.vleFluidPointer,I2_in.vleFluidPointer,I3_in.vleFluidPointer},
     ptr_o_in={O1_in.vleFluidPointer,O2_in.vleFluidPointer,O3_in.vleFluidPointer},
     ptr_i_out={I1_out.vleFluidPointer,I2_out.vleFluidPointer,I3_out.vleFluidPointer},
-    ptr_o_out={O1_out.vleFluidPointer,O2_out.vleFluidPointer,O3_out.vleFluidPointer})
+    ptr_o_out={O1_out.vleFluidPointer,O2_out.vleFluidPointer,O3_out.vleFluidPointer},
+    xi_i=xi_i,
+    xi_o=xi_o)
     annotation (Placement(transformation(extent={{60,-102},{80,-82}})));
 
 protected
@@ -301,6 +309,9 @@ end when;
 
 //Heat transfer coefficient
   kA = {HEXtype.yps[1], HEXtype.yps[2], HEXtype.yps[3]}.*{2*Modelica.Constants.pi*length*N_p*N_t/(1/(alpha_i[i]*radius_i) + log(radius_o/radius_i)/solid[i].lambda + 1/(CF_geo * alpha_o[i]*radius_o)) for i in 1:3};
+
+//Conductive heat resistance of the wall material
+  HR = (radius_o - radius_i)/(solid[1].lambda*A_heat_m);
 
 //Wall temperatures:
     innerPhase.T = T_w_i;
@@ -345,6 +356,7 @@ end when;
 //____________Number of Transer Units_______________________________________________//
 
   NTU_1 = kA./(C_flow_low + ones(3)*1e-6).*HEXtype.CF_NTU;
+  NTU_ctr = kA./(C_flow_low + ones(3)*1e-6);
 
 //____________effectivenesses of the three zones_____________________________________//
   effectiveness[1] =  noEvent(if R_1[1] <1  then (1 - exp(-NTU_1[1] *(1-R_1[1])))/(1 - R_1[1]*exp(-NTU_1[1]*(1-R_1[1]))) else NTU_1[1]/(1+NTU_1[1]));//vapour zone

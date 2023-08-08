@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model InitSteamCycle_01
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -23,41 +23,41 @@ model InitSteamCycle_01
                        choice=simCenter.fluid2 "Second fluid defined in global simCenter",
                        choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
                                                           Dialog(group="Fundamental Definitions"));
-  parameter SI.MassFlowRate m_flow_nom=420;
+  parameter Basics.Units.MassFlowRate m_flow_nom=420;
   inner parameter Real P_target_=1;
   // Heat Exchangers
-  parameter SI.Pressure p_condenser=3800 annotation(Dialog(tab="Heat exchangers",group="Condenser"));
-  parameter SI.Pressure preheater_HP_p_tap = 55.95e5 annotation(Dialog(tab="Heat exchangers",group="Preheater HP"));
-  parameter SI.MassFlowRate preheater_HP_m_flow_tap = 42.812 annotation(Dialog(tab="Heat exchangers",group="Preheater HP"));
-  parameter SI.Pressure preheater_LP1_p_tap = 4.5e5 annotation(Dialog(tab="Heat exchangers",group="Preheater LP1"));
-  parameter SI.MassFlowRate preheater_LP1_m_flow_tap = 29 annotation(Dialog(tab="Heat exchangers",group="Preheater LP1"));
-  parameter SI.Pressure preheater_LP2_p_tap = 1e5 - 0.05e5 annotation(Dialog(tab="Heat exchangers",group="Preheater LP2"));
-  parameter SI.MassFlowRate preheater_LP2_m_flow_tap = 17 annotation(Dialog(tab="Heat exchangers",group="Preheater LP2"));
-  parameter SI.Pressure preheater_LP3_p_tap = 0.25e5 annotation(Dialog(tab="Heat exchangers",group="Preheater LP3"));
-  parameter SI.MassFlowRate preheater_LP3_m_flow_tap = 4 annotation(Dialog(tab="Heat exchangers",group="Preheater LP3"));
-  parameter SI.Pressure preheater_LP4_p_tap = 0.1e5-0.004e5 annotation(Dialog(tab="Heat exchangers",group="Preheater LP4"));
-  parameter SI.MassFlowRate preheater_LP4_m_flow_tap = 8 annotation(Dialog(tab="Heat exchangers",group="Preheater LP4"));
+  parameter Basics.Units.Pressure p_condenser=3800 annotation (Dialog(tab="Heat exchangers", group="Condenser"));
+  parameter Basics.Units.Pressure preheater_HP_p_tap=55.95e5 annotation (Dialog(tab="Heat exchangers", group="Preheater HP"));
+  parameter Basics.Units.MassFlowRate preheater_HP_m_flow_tap=42.812 annotation (Dialog(tab="Heat exchangers", group="Preheater HP"));
+  parameter Basics.Units.Pressure preheater_LP1_p_tap=4.5e5 annotation (Dialog(tab="Heat exchangers", group="Preheater LP1"));
+  parameter Basics.Units.MassFlowRate preheater_LP1_m_flow_tap=29 annotation (Dialog(tab="Heat exchangers", group="Preheater LP1"));
+  parameter Basics.Units.Pressure preheater_LP2_p_tap=1e5 - 0.05e5 annotation (Dialog(tab="Heat exchangers", group="Preheater LP2"));
+  parameter Basics.Units.MassFlowRate preheater_LP2_m_flow_tap=17 annotation (Dialog(tab="Heat exchangers", group="Preheater LP2"));
+  parameter Basics.Units.Pressure preheater_LP3_p_tap=0.25e5 annotation (Dialog(tab="Heat exchangers", group="Preheater LP3"));
+  parameter Basics.Units.MassFlowRate preheater_LP3_m_flow_tap=4 annotation (Dialog(tab="Heat exchangers", group="Preheater LP3"));
+  parameter Basics.Units.Pressure preheater_LP4_p_tap=0.1e5 - 0.004e5 annotation (Dialog(tab="Heat exchangers", group="Preheater LP4"));
+  parameter Basics.Units.MassFlowRate preheater_LP4_m_flow_tap=8 annotation (Dialog(tab="Heat exchangers", group="Preheater LP4"));
   // Feedwater tank
-  parameter SI.Pressure p_FWT=12.4e5 annotation(Dialog(tab="Heat exchangers",group="Feedwater tank"));
-  parameter SI.Length downComer_z_in=0 annotation(Dialog(tab="Heat exchangers",group="Feedwater tank"));
-  parameter SI.Length downComer_z_out=-8 annotation(Dialog(tab="Heat exchangers",group="Feedwater tank"));
-  parameter SI.Pressure downComer_Delta_p_nom=1e4 annotation(Dialog(tab="Heat exchangers",group="Feedwater tank"));
+  parameter Basics.Units.Pressure p_FWT=12.4e5 annotation (Dialog(tab="Heat exchangers", group="Feedwater tank"));
+  parameter Basics.Units.Length downComer_z_in=0 annotation (Dialog(tab="Heat exchangers", group="Feedwater tank"));
+  parameter Basics.Units.Length downComer_z_out=-8 annotation (Dialog(tab="Heat exchangers", group="Feedwater tank"));
+  parameter Basics.Units.Pressure downComer_Delta_p_nom=1e4 annotation (Dialog(tab="Heat exchangers", group="Feedwater tank"));
   // Valves
-  parameter SI.PressureDifference valve_HP_Delta_p_nom=11e5 annotation(Dialog(group="Valve1_HP",tab="Valves"));
+  parameter Basics.Units.PressureDifference valve_HP_Delta_p_nom=11e5 annotation (Dialog(group="Valve1_HP", tab="Valves"));
 //  parameter SI.PressureDifference valve_IP_m_flow_nom= (m_flow_nom - preheater_HP_m_flow_tap)/10 annotation(Dialog(group="Valve_IP",tab="Valves"));
 
-  parameter SI.PressureDifference valve_LP1_Delta_p_nom=0.05e5 annotation(Dialog(group="Valve_LP",tab="Valves"));
-  parameter SI.PressureDifference valve_LP2_Delta_p_nom=0.01e5 annotation(Dialog(group="Valve_LP",tab="Valves"));
-  parameter SI.PressureDifference valve_LP3_Delta_p_nom=0.004e5 annotation(Dialog(group="Valve_LP",tab="Valves"));
+  parameter Basics.Units.PressureDifference valve_LP1_Delta_p_nom=0.05e5 annotation (Dialog(group="Valve_LP", tab="Valves"));
+  parameter Basics.Units.PressureDifference valve_LP2_Delta_p_nom=0.01e5 annotation (Dialog(group="Valve_LP", tab="Valves"));
+  parameter Basics.Units.PressureDifference valve_LP3_Delta_p_nom=0.004e5 annotation (Dialog(group="Valve_LP", tab="Valves"));
 
-  parameter SI.PressureDifference valvePreFeedWaterTank_Delta_p_nom=0.001e5 annotation(Dialog(group="Valve_condensate",tab="Valves"));
+  parameter Basics.Units.PressureDifference valvePreFeedWaterTank_Delta_p_nom=0.001e5 annotation (Dialog(group="Valve_condensate", tab="Valves"));
   // Boiler
-  parameter SI.Temperature T_LS_nom=823  annotation(Dialog(tab="Boiler"));
-  parameter SI.Temperature T_RS_nom=833  annotation(Dialog(tab="Boiler"));
-  parameter SI.Pressure p_LS_out_nom=262e5 annotation(Dialog(tab="Boiler"));
-  parameter SI.Pressure p_RS_out_nom=51e5 annotation(Dialog(tab="Boiler"));
-  parameter SI.PressureDifference Delta_p_LS_nom=40e5 annotation(Dialog(tab="Boiler"));
-  parameter SI.PressureDifference Delta_p_RS_nom=5e5 annotation(Dialog(tab="Boiler"));
+  parameter Basics.Units.Temperature T_LS_nom=823 annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Temperature T_RS_nom=833 annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure p_LS_out_nom=262e5 annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure p_RS_out_nom=51e5 annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.PressureDifference Delta_p_LS_nom=40e5 annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.PressureDifference Delta_p_RS_nom=5e5 annotation (Dialog(tab="Boiler"));
   parameter Real CharLine_Delta_p_HP_mLS_[:,:]=[0,0; 0.1,0.01; 0.2,0.04; 0.3,0.09; 0.4,
       0.16; 0.5,0.25; 0.6,0.36; 0.7,0.49; 0.8,0.64; 0.9,0.81; 1,1] "Characteristic line of pressure drop as function of mass flow rate"
                                                                          annotation(Dialog(tab="Boiler"));
@@ -70,9 +70,9 @@ model InitSteamCycle_01
   parameter Real efficiency_Pump_preheater_LP3=1 annotation(Dialog(tab="Pumps"));
   parameter Real efficiency_Pump_FW=1 annotation(Dialog(tab="Pumps"));
   // Turbines
-  parameter SI.Pressure IP1_pressure=26e5  annotation(Dialog(tab="Turbines"));
-  parameter SI.Pressure IP2_pressure=14e5  annotation(Dialog(tab="Turbines"));
-  parameter SI.Pressure IP3_pressure=5e5  annotation(Dialog(tab="Turbines"));
+  parameter Basics.Units.Pressure IP1_pressure=26e5 annotation (Dialog(tab="Turbines"));
+  parameter Basics.Units.Pressure IP2_pressure=14e5 annotation (Dialog(tab="Turbines"));
+  parameter Basics.Units.Pressure IP3_pressure=5e5 annotation (Dialog(tab="Turbines"));
   parameter Real efficiency_Turb_HP=1 annotation(Dialog(tab="Turbines"));
   parameter Real efficiency_Turb_IP1=1 annotation(Dialog(tab="Turbines"));
   parameter Real efficiency_Turb_IP2=1 annotation(Dialog(tab="Turbines"));

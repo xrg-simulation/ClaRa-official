@@ -4,7 +4,7 @@ model Split5 "Split || green | yellow | green"
 // Component of the ClaRa library, version: 1.1.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -42,7 +42,7 @@ model Split5 "Split || green | yellow | green"
   outer ClaRa.SimCenter simCenter;
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_2(fixed=false) "Mass flow rate of outlet 1";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_3 = m_flow_1-m_flow_2 "Mass flow rate of outlet 2";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_3=m_flow_1 - m_flow_2 "Mass flow rate of outlet 2";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Spec. enthalpy at inlet";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_1(fixed=false) "Mass flow rate of inlet";
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Split pressure";

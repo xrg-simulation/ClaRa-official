@@ -3,7 +3,7 @@ block TinyPIP "A minimum implementation of a PI controller with anti windup comp
 
 
   parameter Real K_p = 1 "Controller gain" annotation (Dialog(group= "Control characteristics"));
-  parameter ClaRa.Basics.Units.Time Tau_i "Integrator time constant" annotation (Dialog(group= "Control characteristics"));
+  parameter ClaRa.Basics.Units.Time Tau_i "Integrator time constant" annotation (Dialog(group="Control characteristics"));
   parameter Real N_i= 0.9 "Ni is time constant for anti-windup compensation"  annotation (Dialog(group= "Control characteristics"));
 
   parameter Real y_max = 1 "Maximum output"   annotation (Dialog(group= "Limits"));

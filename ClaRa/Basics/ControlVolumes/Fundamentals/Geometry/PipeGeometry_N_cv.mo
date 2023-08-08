@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model PipeGeometry_N_cv "Discretized pipe bundle || Tube type "
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -28,10 +28,11 @@ model PipeGeometry_N_cv "Discretized pipe bundle || Tube type "
                {((z_out - z_in)/(length*N_passes)*(sum(Delta_x[k] for k in 1:i - 1) + Delta_x[i]/2) + z_in) for i in 2:N_cv}),
     final Delta_z_in = {sum(Delta_x[1:i]) - Delta_x[i]/2 for i in 1:N_cv});
 
-  parameter Units.Length length=1 "Length of the component (one pass)" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Units.Length diameter=1 "Diameter of the component" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length length=1 "Length of the component (one pass)" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length diameter=1 "Diameter of the component" annotation (Dialog(group="Essential Geometry Definition"));
   parameter Integer N_tubes=1 "Number of tubes in parallel" annotation(Dialog(group="Essential Geometry Definition"));
   parameter Integer N_passes=1 "Number of passes of the tubes" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Integer orientation=0 "Main orientation of tube bundle (N_passes>1)" annotation(Dialog(group="Essential Geometry Definition", enable=(N_passes>1)), choices(choice = 0 "Horizontal", choice = 1 "Vertical"));
 
   annotation (Icon(graphics={Bitmap(
           extent={{-100,-100},{100,100}},

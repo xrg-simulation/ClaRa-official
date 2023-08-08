@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model BalanceTank_L3 "A balance tank with a vent"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -44,13 +44,10 @@ model BalanceTank_L3 "A balance tank with a vent"
   parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_ph=500 "|Expert Settings|Phase Border|HTC of the phase border";
   parameter ClaRa.Basics.Units.Area A_phaseBorder=volume.geo.A_hor*100 "|Expert Settings|Phase Border|Heat transfer area at phase border";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(liquidMedium,
-      p_start) "|Initialisation|Fluids|Start value ofliquid specific enthalpy";
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(liquidMedium, p_start) "|Initialisation|Fluids|Start value ofliquid specific enthalpy";
   parameter ClaRa.Basics.Units.Temperature T_gas_start=293.15 "|Initialisation|Fluids|Start value of gas zone's temperature";
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "|Initialisation|Fluids|Start value of sytsem pressure";
-  parameter ClaRa.Basics.Units.MassFraction xi_start[gasMedium.nc - 1]=zeros(gasMedium.nc
-       - 1) "|Initialisation|Fluids|Initial gas mass fraction";
+  parameter ClaRa.Basics.Units.MassFraction xi_start[gasMedium.nc - 1]=zeros(gasMedium.nc - 1) "|Initialisation|Fluids|Initial gas mass fraction";
   parameter Real relLevel_start=0.5 "|Initialisation|Fluids|Initial value for relative level";
   parameter String initFluid="No init, use start values as guess" "|Initialisation|Fluids|Type of initialisation"
                                                     annotation (choices(choice = "No init, use start values as guess", choice="Steady state in p, h_liq, T_gas",

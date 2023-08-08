@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorVLE_L3_T
   extends ClaRa.Basics.Icons.Sensor1;
 
@@ -12,20 +12,28 @@ model SensorVLE_L3_T
                                                                                                                         annotation (Dialog(group="Component Definition"));
   replaceable model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L2 "Pressure loss in pipe" annotation (choicesAllMatching=true, Dialog(group="Component Definition"));
 
-  parameter ClaRa.Basics.Units.Length thickness_sensor = 2e-3 "Thickness of wall between fluid and sensor" annotation(Dialog(group="Sensor Characteristics"));
-  parameter ClaRa.Basics.Units.Area A_sensor=2*thickness_sensor*Modelica.Constants.pi*diameter/2 "Surface area" annotation(Dialog(group="Sensor Characteristics"));
+  parameter ClaRa.Basics.Units.Length thickness_sensor=2e-3 "Thickness of wall between fluid and sensor" annotation (Dialog(group="Sensor Characteristics"));
+  parameter ClaRa.Basics.Units.Area A_sensor=2*thickness_sensor*Modelica.Constants.pi*diameter/2 "Surface area" annotation (Dialog(group="Sensor Characteristics"));
   replaceable model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2(alpha_nom=10000) constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L2 annotation (choicesAllMatching=true, Dialog(group="Sensor Characteristics"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom = 10 "Nominal Mass Flow Rate" annotation(Dialog(group="Sensor Characteristics"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal Mass Flow Rate" annotation (Dialog(group="Sensor Characteristics"));
 
 
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog( group="Sensor Characteristics"), choices(choice=1 "Kelvin", choice=2 "Degree Celsius",
                                                                                               choice=3 "Degree Fahrenheit"));
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of fluid's specific enthalpy" annotation(Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of fluid's pressure" annotation(Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.MassFraction xi_start[FluidMedium.nc - 1]=fluidVolume.medium.xi_default "Start value for mass fraction" annotation(Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.VLEFluidFunctions.temperature_phxi(FluidMedium, p_start, h_start,xi_start) "Start temperature of sensor wall" annotation(Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.VLEFluidFunctions.temperature_phxi(FluidMedium, p_start, h_start,xi_start) "Start temperature of sensor wall" annotation(Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of fluid's specific enthalpy" annotation (Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of fluid's pressure" annotation (Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction xi_start[FluidMedium.nc - 1]=fluidVolume.medium.xi_default "Start value for mass fraction" annotation (Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+      FluidMedium,
+      p_start,
+      h_start,
+      xi_start) "Start temperature of sensor wall" annotation (Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+      FluidMedium,
+      p_start,
+      h_start,
+      xi_start) "Start temperature of sensor wall" annotation (Dialog(group="Initialisation"));
 
   parameter Integer initOptionFluid=0 "Type of initialisation of pipe's fluid" annotation(Dialog(group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed rel.level (for phaseBorder = idealSeparated only)",  choice=205 "Fixed rel.level and steady pressure (for phaseBorder = idealSeparated only)"));
 
@@ -116,7 +124,7 @@ equation
         Text(
           extent={{50,90},{90,60}},
           lineColor=DynamicSelect({230, 230, 230},  if T > 273.15 then {0,131,169} else {167,25,48}),
-          textString=DynamicSelect("", if unitOption==1 then "K" elseif unitOption==2 then "C" else "F"),
+          textString=DynamicSelect("", if unitOption==1 then "K" elseif unitOption==2 then "°C" else "°F"),
           horizontalAlignment=TextAlignment.Left),                        Bitmap(
           extent={{-100,-100},{100,100}},
           imageSource=

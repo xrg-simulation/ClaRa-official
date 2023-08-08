@@ -9,7 +9,7 @@ partial model GenericPressureLoss
   outer Boolean checkValve;
   outer Boolean useHomotopy;
 
-  SI.MassFlowRate m_flow;
+  Basics.Units.MassFlowRate m_flow;
 
 
   Real flowIsChoked "1 if flow is choked, 0 if not";

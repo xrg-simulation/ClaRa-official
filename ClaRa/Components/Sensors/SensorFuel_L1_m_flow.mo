@@ -1,10 +1,10 @@
 within ClaRa.Components.Sensors;
 model SensorFuel_L1_m_flow "Ideal two port mass flow sensor"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,7 +19,7 @@ model SensorFuel_L1_m_flow "Ideal two port mass flow sensor"
 
   outer ClaRa.SimCenter simCenter;
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"), choices(choice=1 "kg/s", choice=2 "t/h", choice=3 "kg/h", choice=4 "t/s", choice=5 "per Unit"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_ref[2]={0,1} "Reference flow rate [min,max]" annotation(Dialog(group="Fundamental Definitions", enable = (unitOption==5)));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_ref[2]={0,1} "Reference flow rate [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 5)));
 
   Modelica.Blocks.Interfaces.RealOutput m_flow(
     final quantity="MassFlowRate",

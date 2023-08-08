@@ -9,10 +9,10 @@ equation
   flowIsChoked=SM(Delta_p_choke+100,Delta_p_choke-100,abs(Delta_p)) "1 if flow is choked, 0 if not";
   PR_choked=(-1*(Delta_p_choke-p_in))/p_in "Pressure ratio at which choking occurs";
 
-  m_flow =  if checkValve then if useHomotopy then homotopy(SM(Delta_p_eps/10,0, Delta_p) * 1/3600*0.1*Kv*F_P*ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(iCom.rho_in), aperture_*m_flow_nominal)
+  m_flow =  if checkValve then if useHomotopy then homotopy(SM(Delta_p_eps/10,0, Delta_p) * 1/3600*0.1*Kv*F_P*ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(max(Modelica.Constants.eps,iCom.rho_in)), aperture_*m_flow_nom)
                                        else SM(Delta_p_eps/10,0, Delta_p)*1/3600*0.1*Kv*F_P*
-    ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(iCom.rho_in) else if useHomotopy then homotopy(1/3600*0.1*Kv*F_P*ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(iCom.rho_in), aperture_*m_flow_nominal)
+    ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(max(Modelica.Constants.eps,iCom.rho_in)) else if useHomotopy then homotopy(1/3600*0.1*Kv*F_P*ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(max(Modelica.Constants.eps,iCom.rho_in)), aperture_*m_flow_nom)
                                        else 1/3600*0.1*Kv*F_P*
-    ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(iCom.rho_in);
+    ClaRa.Basics.Functions.ThermoRoot(sign(Delta_p)*min(abs(Delta_p),abs(Delta_p_choke)), Delta_p_eps)*sqrt(max(Modelica.Constants.eps,iCom.rho_in));
 
 end Quadratic_EN60534_incompressible;

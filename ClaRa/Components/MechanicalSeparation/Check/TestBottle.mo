@@ -21,13 +21,12 @@ model TestBottle
   BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(p_const=100e5) annotation (Placement(transformation(extent={{80,40},{60,60}})));
   inner SimCenter simCenter(showExpertSummary=true)
                             annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
-        m_flow_nominal=50,
-        Kvs=1,
-        rho_in_nom=100))                                                                                                                                                                 annotation (Placement(transformation(extent={{30,44},{50,56}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (paraOption=2, m_flow_nominal=8.45))
-                                                                                                                                                                                          annotation (Placement(transformation(extent={{30,-46},{50,-34}})));
+        m_flow_nom=50,
+        Kvs_in=1,
+        rho_in_nom=100)) annotation (Placement(transformation(extent={{30,44},{50,56}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (paraOption=2, m_flow_nom=8.45)) annotation (Placement(transformation(extent={{30,-46},{50,-34}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0.0,100; 999,100; 1000,120; 2500,120; 2501,50; 3000,50]) annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,2500e3; 1999,2500e3; 2000,2300e3; 3000,2300e3]) annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation

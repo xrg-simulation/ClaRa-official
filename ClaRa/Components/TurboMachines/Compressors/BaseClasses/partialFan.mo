@@ -32,14 +32,10 @@ protected
                               annotation(Dialog(tab="Start Values"));
 /****************** Additional variables **************/
 public
- ClaRa.Basics.Units.Pressure
-                Delta_p(final start=100) "pressure increase";
- ClaRa.Basics.Units.Power
-             P_hyd "Hydraulic power";
-  ClaRa.Basics.Units.Power
-              P_drive "Drive power";
-ClaRa.Basics.Units.VolumeFlowRate
-                      V_flow;
+  ClaRa.Basics.Units.Pressure Delta_p(final start=100) "pressure increase";
+  ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
+  ClaRa.Basics.Units.Power P_drive "Drive power";
+  ClaRa.Basics.Units.VolumeFlowRate V_flow;
 
 equation
   Delta_p = gasPortOut.p - gasPortIn.p;

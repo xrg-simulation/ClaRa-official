@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.FeedForward.Check;
 model TestBlockFF
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -42,15 +42,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(feedForwardBlock_3508_1.P_min_, const3.y) annotation (Line(
-      points={{-28,-67},{16,-67},{16,-60},{69,-60}},
+      points={{-28,-68},{16,-68},{16,-60},{69,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp2.y, feedForwardBlock_3508_1.derP_max_) annotation (Line(
-      points={{38.9,-77},{6.45,-77},{6.45,-74},{-28,-74}},
+      points={{38.9,-77},{6.45,-77},{6.45,-72},{-28,-72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp2.y, feedForwardBlock_3508_1.derP_StG_) annotation (Line(
-      points={{38.9,-77},{-28,-77}},
+      points={{38.9,-77},{6,-77},{6,-76},{-28,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp2.y, feedForwardBlock_3508_1.derP_T_) annotation (Line(

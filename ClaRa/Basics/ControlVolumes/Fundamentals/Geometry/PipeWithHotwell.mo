@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model PipeWithHotwell "Pipe bundle || Tube type || Hotwell"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -26,15 +26,15 @@ model PipeWithHotwell "Pipe bundle || Tube type || Hotwell"
     final height_fill = height_hotwell,
     final shape = [0, 1; 1, 1]);
 
-  parameter Units.Length diameter=1 "Diameter of the component" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Units.Length length=1 "Length of the component (one pass)" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length diameter=1 "Diameter of the component" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length length=1 "Length of the component (one pass)" annotation (Dialog(group="Essential Geometry Definition"));
   parameter Integer N_tubes=1 "Number of tubes in parallel" annotation(Dialog(group="Essential Geometry Definition"));
   parameter Integer N_passes=1 "Number of passes of the internal tubes"
                                                                        annotation(Dialog(group="Essential Geometry Definition", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PipeWithHotwell.png"));
 
-  parameter Units.Length height_hotwell=1 "Height of the hotwell" annotation(Dialog(group="Hotwel Geometry"));
-  parameter Units.Length width_hotwell=1 "Width of the hotwell" annotation(Dialog(group="Hotwel Geometry"));
-  parameter Units.Length length_hotwell=1 "Length of the hotwell" annotation(Dialog(group="Hotwel Geometry"));
+  parameter Units.Length height_hotwell=1 "Height of the hotwell" annotation (Dialog(group="Hotwel Geometry"));
+  parameter Units.Length width_hotwell=1 "Width of the hotwell" annotation (Dialog(group="Hotwel Geometry"));
+  parameter Units.Length length_hotwell=1 "Length of the hotwell" annotation (Dialog(group="Hotwel Geometry"));
 
 equation
   assert(A_cross>0, "The cross section of the shell side must be > 0 but is "+String(A_cross, significantDigits=3) + " in instance" + getInstanceName() + ".");

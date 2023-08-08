@@ -74,14 +74,14 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
     x1=pump_3.P_shaft) annotation (Placement(transformation(extent={{-82,-152},{-22,-136}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(
     checkValve=false,
     openingInputIsActive=true,
     useStabilisedMassFlow=true,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
-        m_flow_nominal=1000,
-        Delta_p_nom=1000))     annotation (Placement(transformation(extent={{0,-126},{20,-114}})));
+        m_flow_nom=1000,
+        Delta_p_nom=1000)) annotation (Placement(transformation(extent={{0,-126},{20,-114}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=-1,
     offset=1,

@@ -1,6 +1,6 @@
 GenericPressureLoss
 LinearNominalPoint
-Quadratic_EN60534
+Quadratic_EN60534_compressible
 Quadratic_EN60534_incompressible
 Quadratic_FlowFunction
 QuadraticZeta

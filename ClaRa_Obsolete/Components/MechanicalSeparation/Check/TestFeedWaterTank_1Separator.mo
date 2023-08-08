@@ -148,7 +148,7 @@ model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and Fee
     z_feedwater=0.1) annotation (Placement(transformation(extent={{-30,-202},{30,-182}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSource_XRG9(h_const=3152.9e3, p_const=12e5) annotation (Placement(transformation(extent={{62,-68},{42,-48}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=2e5*423/14, m_flow_nom=423)) annotation (Placement(transformation(extent={{20,-56},{0,-44}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=2e5*423/14, m_flow_nom=423)) annotation (Placement(transformation(extent={{20,-56},{0,-44}})));
   ClaRa.Visualisation.Quadruple quadruple annotation (Placement(transformation(extent={{-16,-26},{4,-16}})));
   ClaRa.Visualisation.Quadruple quadruple1 annotation (Placement(transformation(extent={{-14,-100},{6,-90}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_XRG6(

@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace;
 model SimpleCombustionChamber
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,28 +21,29 @@ model SimpleCombustionChamber
 
  model Summary
  extends ClaRa.Basics.Icons.RecordIcon;
- input ClaRa.Basics.Units.Temperature T_flueGas_out "Outlet temperature";
- input ClaRa.Basics.Units.Temperature T_slag_bottom "Slag temperature";
+    input ClaRa.Basics.Units.Temperature T_flueGas_out "Outlet temperature";
+    input ClaRa.Basics.Units.Temperature T_slag_bottom "Slag temperature";
  input Real xi_slag "Slag fraction";
- input ClaRa.Basics.Units.MassFlowRate m_flow_slag_out "Slag mass flow rate";
- input ClaRa.Basics.Units.MassFlowRate m_flow_coal_in "Coal mass flow rate";
- input ClaRa.Basics.Units.MassFlowRate m_flow_combustible_in "Mass flow rate of combustibles";
- input ClaRa.Basics.Units.MassFlowRate m_flow_gas_in "Inlet mass flow rate";
- input ClaRa.Basics.Units.MassFlowRate m_flow_flueGas_out "Flue gas mass flow rate";
- input ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value";
- input ClaRa.Basics.Units.HeatFlowRate Q_flow_boiler "Combustion Heat";
- input ClaRa.Basics.Units.MassFlowRate m_flow_O2_req "Required O2 flow rate for stochiometric combustion";
- input ClaRa.Basics.Units.MassFlowRate m_flow_Air_req "Required air flow rate for stochiometric combustion";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_slag_out "Slag mass flow rate";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_coal_in "Coal mass flow rate";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_combustible_in "Mass flow rate of combustibles";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_gas_in "Inlet mass flow rate";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_flueGas_out "Flue gas mass flow rate";
+    input ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value";
+    input ClaRa.Basics.Units.HeatFlowRate Q_flow_boiler "Combustion Heat";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_O2_req "Required O2 flow rate for stochiometric combustion";
+    input ClaRa.Basics.Units.MassFlowRate m_flow_Air_req "Required air flow rate for stochiometric combustion";
  input Real lambda "Excess air";
  input Real xi_NOx "NOx fraction at outlet";
  input Real xi_SOx "SOx fraction at outlet";
- input ClaRa.Basics.Units.Pressure p_combustion_chamber "Combustion chamber pressure";
+    input ClaRa.Basics.Units.Pressure p_combustion_chamber "Combustion chamber pressure";
  end Summary;
 
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
-    powerIn=0,
-    powerOut=0,
-    powerAux=inlet.fuel.m_flow*fuelObject.LHV) if contributeToCycleSummary;
+    powerIn=inlet.fuel.m_flow*fuelObject.LHV,
+    powerOut_th=0,
+    powerOut_elMech=0,
+    powerAux=0) if contributeToCycleSummary;
 
 //__________________________/ Media definintions \______________________________________________
   outer ClaRa.SimCenter simCenter;
@@ -53,14 +54,12 @@ model SimpleCombustionChamber
  inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //___________________________/ Parameters \_________________________________________________________
- parameter ClaRa.Basics.Units.Temperature T_flueGas_out = 573.15 "Temeperature of fluegas leaving the combustion chamber towards deNOx-Filter"
-                                                                                              annotation(Dialog(group="Fixed Boundaries"));
- parameter ClaRa.Basics.Units.Temperature T_slag_bottom = 773.15 "Temeperature of slag collected at bottom of the chamber" annotation(Dialog(group="Fixed Boundaries"));
+  parameter ClaRa.Basics.Units.Temperature T_flueGas_out=573.15 "Temeperature of fluegas leaving the combustion chamber towards deNOx-Filter" annotation (Dialog(group="Fixed Boundaries"));
+  parameter ClaRa.Basics.Units.Temperature T_slag_bottom=773.15 "Temeperature of slag collected at bottom of the chamber" annotation (Dialog(group="Fixed Boundaries"));
  parameter Real xi_slag(min = 0, max= 1) = 0.1 "Mass fraction of slag leaving chamber at bottom, related to ash fraction entering the chamber"
                                                                                               annotation(Dialog(group="Fixed Boundaries"));
 
- parameter ClaRa.Basics.Units.MassFraction_ppm xi_NOx = 1000 "NOx mass fraction [ug/kg] in fluegas leaving the combustion chamber"
-                                                                                              annotation(Dialog(group="Fixed Boundaries"));
+  parameter ClaRa.Basics.Units.MassFraction_ppm xi_NOx=1000 "NOx mass fraction [ug/kg] in fluegas leaving the combustion chamber" annotation (Dialog(group="Fixed Boundaries"));
 /* parameter ClaRa.Basics.Units.MassFraction_ppm xi_SOx = 1000 
     "SOx mass fraction [ug/kg] in fluegas leaving the combustion chamber"                                                           annotation(Dialog(group="Fixed Boundariess"));
 */
@@ -91,8 +90,8 @@ protected
 //_____________/ Calculated quantities \_________________________________
 
 protected
-ClaRa.Basics.Units.MassFraction xi_coal_in[fuelModel.N_e-1];
-ClaRa.Basics.Units.MassFraction xi_gas_in[medium.nc-1];
+  ClaRa.Basics.Units.MassFraction xi_coal_in[fuelModel.N_e - 1];
+  ClaRa.Basics.Units.MassFraction xi_gas_in[medium.nc - 1];
 
 //Stoichometric coefficents
 //_________/Educts\__________________
@@ -122,15 +121,11 @@ Modelica.SIunits.MolarMass M_NO;
 Modelica.SIunits.MolarMass M_coal;
 
 public
-ClaRa.Basics.Units.MassFlowRate
-                            m_flow_combustible_in "Mass of the combustible, i.e. Mass of coal w/o water and ash";
-ClaRa.Basics.Units.MassFlowRate
-                            m_flow_oxygen_req "Required O2 flow rate for stochiometric combustion";
-ClaRa.Basics.Units.MassFlowRate
-                            m_flow_air_req "Required combustion air flow rate for stochiometric combustion determined in dependence of m_flow_oxygen_req and actual Xi of gasInlet";
+  ClaRa.Basics.Units.MassFlowRate m_flow_combustible_in "Mass of the combustible, i.e. Mass of coal w/o water and ash";
+  ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_req "Required O2 flow rate for stochiometric combustion";
+  ClaRa.Basics.Units.MassFlowRate m_flow_air_req "Required combustion air flow rate for stochiometric combustion determined in dependence of m_flow_oxygen_req and actual Xi of gasInlet";
 
-ClaRa.Basics.Units.MassFlowRate
-                            m_flow_O2_NOx "O2 mass flow rate consumption for NOx fraction";
+  ClaRa.Basics.Units.MassFlowRate m_flow_O2_NOx "O2 mass flow rate consumption for NOx fraction";
 
 //ClaRa.Basics.Units.MassFlowRate m_flow_O2_SOx
 //    "O2 mass flow rate consumption for SOx fraction";

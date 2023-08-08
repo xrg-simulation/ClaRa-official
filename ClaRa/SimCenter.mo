@@ -4,7 +4,7 @@ model SimCenter
 // Component of the ClaRa library, version: 1.2.2                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -39,11 +39,17 @@ model SimCenter
   replaceable parameter ClaRa.Basics.Media.Slag.Slag_v1 slagModel constrainedby ClaRa.Basics.Media.Slag.PartialSlag "Medium name of slag model" annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: Fuel, Coal and Slag"), choicesAllMatching);
 
 ///////////////////////
-  input ClaRa.Basics.Units.AbsolutePressure p_amb = 1.013e5 "Ambient pressure" annotation(Dialog(tab="Ambience", group="Variable Input"));
-  input ClaRa.Basics.Units.Temperature T_amb = 293.15 "Ambient temperature" annotation(Dialog(tab="Ambience", group="Variable Input"));
-  input ClaRa.Basics.Units.RelativeHumidity rh_amb = 0.2 "Ambient relative humidity (0 < rh < 1)" annotation(Dialog(tab="Ambience", group="Variable Input"));
-  parameter ClaRa.Basics.Units.AbsolutePressure p_amb_start(fixed=false) "Initial ambient pressure (automatically calculated)" annotation(Dialog(tab="Ambience", group="Start Values", enable=false));
-  parameter ClaRa.Basics.Units.Temperature T_amb_start(fixed=false) "Initial ambient temperature (automatically calculated)" annotation(Dialog(tab="Ambience", group="Start Values", enable=false));
+  input ClaRa.Basics.Units.AbsolutePressure p_amb=1.013e5 "Ambient pressure" annotation (Dialog(tab="Ambience", group="Variable Input"));
+  input ClaRa.Basics.Units.Temperature T_amb=293.15 "Ambient temperature" annotation (Dialog(tab="Ambience", group="Variable Input"));
+  input ClaRa.Basics.Units.RelativeHumidity rh_amb=0.2 "Ambient relative humidity (0 < rh < 1)" annotation (Dialog(tab="Ambience", group="Variable Input"));
+  parameter ClaRa.Basics.Units.AbsolutePressure p_amb_start(fixed=false) "Initial ambient pressure (automatically calculated)" annotation (Dialog(
+      tab="Ambience",
+      group="Start Values",
+      enable=false));
+  parameter ClaRa.Basics.Units.Temperature T_amb_start(fixed=false) "Initial ambient temperature (automatically calculated)" annotation (Dialog(
+      tab="Ambience",
+      group="Start Values",
+      enable=false));
 
 ///////////////////////
     parameter Boolean showExpertSummary=false "|Summary and Visualisation||True, if expert summary should be applied";
@@ -73,49 +79,34 @@ model SimCenter
   ClaRa.Basics.Units.EnthalpyMassSpecific h_amb_fluid3 "Ambient enthalpy of VLE fluid 3";
   ClaRa.Basics.Units.EntropyMassSpecific s_amb_fluid3 "Ambient entropy of VLE fluid 3";
 
- TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointerAmb_fluid1=
-       TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      fluid1.concatVLEFluidName,
-      7,
-      fluid1.xi_default,
-      fluid1.nc_propertyCalculation,
-      fluid1.nc,
-      0) "Pointer to external medium memory";
+protected
+  TILMedia.VLEFluid vleFluid_amb1(vleFluidType=fluid1) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  TILMedia.VLEFluid vleFluid_amb2(vleFluidType=fluid2) annotation (Placement(transformation(extent={{-60,-12},{-40,8}})));
+  TILMedia.VLEFluid vleFluid_amb3(vleFluidType=fluid3) annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
 
- TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointerAmb_fluid2=
-       TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      fluid2.concatVLEFluidName,
-      7,
-      fluid2.xi_default,
-      fluid2.nc_propertyCalculation,
-      fluid2.nc,
-      0) "Pointer to external medium memory";
-
- TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointerAmb_fluid3=
-       TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      fluid3.concatVLEFluidName,
-      7,
-      fluid3.xi_default,
-      fluid3.nc_propertyCalculation,
-      fluid3.nc,
-      0) "Pointer to external medium memory";
-
+public
 record summary_clara
   extends ClaRa.Basics.Icons.RecordIcon;
-  Real eta_th "Thermal efficiency";
-  Real eta_el "Electrical efficiency";
+  Real eta_gross  "Gross electrical efficiency";
+  Real eta_net    "Net electrical efficiency";
+  Real eta_util   "Utilization efficiency";
+  Real spec_heat_cons "Specific heat consumption";
 end summary_clara;
-  summary_clara summary(eta_th=cycleSumPort.power_out/(cycleSumPort.power_in + 1e-6), eta_el=(cycleSumPort.power_out - cycleSumPort.power_aux)/(1e-6 + cycleSumPort.power_in));
+  summary_clara summary(eta_gross=(cycleSumPort.power_out_elMech)/(cycleSumPort.power_in + 1e-6),
+                        eta_net=(cycleSumPort.power_out_elMech - cycleSumPort.power_aux) /(cycleSumPort.power_in + 1e-6),
+                        eta_util=(cycleSumPort.power_out_elMech + cycleSumPort.power_out_th - cycleSumPort.power_aux)/(1e-6 + cycleSumPort.power_in),
+                        spec_heat_cons = if summary.eta_gross > 0 then 1/summary.eta_gross*3600 else 0);
+
 initial equation
  p_amb_start=p_amb;
  T_amb_start=T_amb;
 equation
- h_amb_fluid1 =  TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_amb,T_amb,fluid1.xi_default,vleFluidPointerAmb_fluid1);
- s_amb_fluid1 =  TILMedia.VLEFluidObjectFunctions.specificEntropy_pTxi(p_amb,T_amb,fluid1.xi_default,vleFluidPointerAmb_fluid1);
- h_amb_fluid2 =  TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_amb,T_amb,fluid2.xi_default,vleFluidPointerAmb_fluid2);
- s_amb_fluid2 =  TILMedia.VLEFluidObjectFunctions.specificEntropy_pTxi(p_amb,T_amb,fluid2.xi_default,vleFluidPointerAmb_fluid2);
- h_amb_fluid3 =  TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p_amb,T_amb,fluid3.xi_default,vleFluidPointerAmb_fluid3);
- s_amb_fluid3 =  TILMedia.VLEFluidObjectFunctions.specificEntropy_pTxi(p_amb,T_amb,fluid3.xi_default,vleFluidPointerAmb_fluid3);
+ h_amb_fluid1 =  vleFluid_amb1.h_pTxi(p_amb,T_amb,fluid1.xi_default);
+ s_amb_fluid1 =  vleFluid_amb1.s_pTxi(p_amb,T_amb,fluid1.xi_default);
+ h_amb_fluid2 =  vleFluid_amb2.h_pTxi(p_amb,T_amb,fluid2.xi_default);
+ s_amb_fluid2 =  vleFluid_amb2.s_pTxi(p_amb,T_amb,fluid2.xi_default);
+ h_amb_fluid3 =  vleFluid_amb3.h_pTxi(p_amb,T_amb,fluid3.xi_default);
+ s_amb_fluid3 =  vleFluid_amb3.s_pTxi(p_amb,T_amb,fluid3.xi_default);
 
 annotation (   defaultComponentName="simCenter",
     defaultComponentPrefixes="inner",
@@ -130,12 +121,12 @@ annotation (   defaultComponentName="simCenter",
           lineColor={0,131,169},
           textStyle={TextStyle.Bold},
           horizontalAlignment=TextAlignment.Left,
-          textString=DynamicSelect("eta_th", "eta_th = " + String(summary.eta_th*100, format="1.2f") + " %%")),Text(
+          textString=DynamicSelect("eta_gross", "eta_gross = " + String(summary.eta_gross*100, format="1.2f") + " %%")),Text(
           visible=contributeToCycleSummary,
           extent={{200,-20},{800,-80}},
           lineColor={0,131,169},
           textStyle={TextStyle.Bold},
           horizontalAlignment=TextAlignment.Left,
-          textString=DynamicSelect("eta_el", "eta_el = " + String(summary.eta_el*100, format="1.2f") + " %%"))}),
+          textString=DynamicSelect("eta_net", "eta_net = " + String(summary.eta_net*100, format="1.2f") + " %%"))}),
     Documentation(info="<html></html>"));
 end SimCenter;

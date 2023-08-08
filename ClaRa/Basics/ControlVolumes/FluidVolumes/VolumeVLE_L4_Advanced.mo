@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with detailed dynamic momentum and energy balance."
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -28,44 +28,35 @@ model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-pha
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary annotation(Dialog(hide));
 
-    input Basics.Units.Volume
-                    volume_tot "Total volume of system" annotation(Dialog(show));
+    input Units.Volume volume_tot "Total volume of system" annotation (Dialog(show));
 
     parameter Integer N_cv  "Number of finite volumes" annotation(Dialog(group="Discretisation"));
 
-    input Basics.Units.Pressure
-                      Delta_p "Pressure difference between outlet and inlet" annotation(Dialog);
-    input Basics.Units.Mass
-                  mass_tot "Total fluid mass in system mass"  annotation(Dialog(show));
-    input Basics.Units.Enthalpy
-                      H_tot if showExpertSummary "Total system enthalpy" annotation(Dialog(show));
-    input Basics.Units.HeatFlowRate
-                          Q_flow_tot "Heat flow through entire pipe wall"     annotation(Dialog);
+    input Units.Pressure Delta_p "Pressure difference between outlet and inlet" annotation (Dialog);
+    input Units.Mass mass_tot "Total fluid mass in system mass" annotation (Dialog(show));
+    input Units.Enthalpy H_tot if
+                               showExpertSummary "Total system enthalpy" annotation (Dialog(show));
+    input Units.HeatFlowRate Q_flow_tot "Heat flow through entire pipe wall" annotation (Dialog);
 
-    input Basics.Units.Mass
-                  mass[N_cv] if showExpertSummary "Fluid mass in cells" annotation(Dialog(show));
-    input Basics.Units.Momentum
-                      I[N_cv+1] if  showExpertSummary "Momentum of fluid flow volumes through cell borders"     annotation(Dialog(show));
-    input Basics.Units.Force
-                   I_flow[N_cv+2] if showExpertSummary "Momentum flow through cell borders"     annotation(Dialog(show));
-    input Basics.Units.MassFlowRate
-                          m_flow[N_cv+1] if  showExpertSummary "Mass flow through cell borders"
-                                                                          annotation(Dialog(show));
-    input Basics.Units.Velocity
-                          w[N_cv+1] if  showExpertSummary "Velocity of fluid through cell borders"
-                                                                          annotation(Dialog(show));
+    input Units.Mass mass[N_cv] if
+                                showExpertSummary "Fluid mass in cells" annotation (Dialog(show));
+    input Units.Momentum I[N_cv + 1] if
+                                    showExpertSummary "Momentum of fluid flow volumes through cell borders" annotation (Dialog(show));
+    input Units.Force I_flow[N_cv + 2] if
+                                     showExpertSummary "Momentum flow through cell borders" annotation (Dialog(show));
+    input Units.MassFlowRate m_flow[N_cv + 1] if
+                                             showExpertSummary "Mass flow through cell borders" annotation (Dialog(show));
+    input Units.Velocity w[N_cv + 1] if showExpertSummary "Velocity of fluid through cell borders" annotation (Dialog(show));
   end Outline;
 
   model Wall_L4
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary annotation(Dialog(hide));
     parameter Integer N_wall "Number of wall segments"  annotation(Dialog(hide));
-    input Basics.Units.Temperature
-                         T[N_wall] if  showExpertSummary "Temperatures of wall segments"
-                                              annotation(Dialog);
-    input Basics.Units.HeatFlowRate
-                          Q_flow[N_wall] if  showExpertSummary "Heat flows through wall segments"
-                                              annotation(Dialog);
+    input Units.Temperature T[N_wall] if
+                                       showExpertSummary "Temperatures of wall segments" annotation (Dialog);
+    input Units.HeatFlowRate Q_flow[N_wall] if
+                                             showExpertSummary "Heat flows through wall segments" annotation (Dialog);
   end Wall_L4;
 
   model Summary
@@ -80,9 +71,11 @@ model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-pha
 //## P A R A M E T E R S #######################################################################################
 
 protected
-  final inner parameter Basics.Units.Length
-                                  zFM[geo.N_cv+1]=
-  cat(1,{0},{(geo.z[i]+geo.z[i+1])/2 for i in 1:geo.N_cv-1},{geo.z_out-geo.z_in}) "height of center of flow model cells == height of energy-grid cell borders (for an equidistant grid)";
+  final inner parameter Units.Length zFM[geo.N_cv + 1]=cat(
+      1,
+      {0},
+      {(geo.z[i] + geo.z[i + 1])/2 for i in 1:geo.N_cv - 1},
+      {geo.z_out - geo.z_in}) "height of center of flow model cells == height of energy-grid cell borders (for an equidistant grid)";
 //____Media Data_____________________________________________________________________________________
 public
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component" annotation(Dialog(group="Fundamental Definitions"));
@@ -108,31 +101,34 @@ public
       Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry_N_cv                          constrainedby Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry_N_cv "Pipe geometry"
    annotation(choicesAllMatching,Dialog(group="Geometry"));
 
+  replaceable model MechanicalEquilibrium = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.Homogeneous_L4
+                                                                                                  constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.MechanicalEquilibrium_L4
+                                                                                                                                                                                         "Mechanical equilibrium model"
+                                                                                             annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
 //____Nominal Values_________________________________________________________________________________
-  parameter Basics.Units.Pressure p_nom[geo.N_cv]= ones(geo.N_cv)*1e5 "Nominal pressure" annotation(Dialog(group="Nominal Values"));
-  parameter Basics.Units.EnthalpyMassSpecific
-                                  h_nom[geo.N_cv]= ones(geo.N_cv)*1e5 "Nominal specific enthalpy for single tube" annotation(Dialog(group="Nominal Values"));
-  inner parameter Basics.Units.MassFlowRate
-                                  m_flow_nom=100 "Nominal mass flow for single tube" annotation(Dialog(group="Nominal Values"));
-  inner parameter Basics.Units.Pressure
-                                 Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation(Dialog(group="Nominal Values"));
+  parameter Units.Pressure p_nom[geo.N_cv]=ones(geo.N_cv)*1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  parameter Units.EnthalpyMassSpecific h_nom[geo.N_cv]=ones(geo.N_cv)*1e5 "Nominal specific enthalpy for single tube" annotation (Dialog(group="Nominal Values"));
+  inner parameter Units.MassFlowRate m_flow_nom=100 "Nominal mass flow for single tube" annotation (Dialog(group="Nominal Values"));
+  inner parameter Units.Pressure Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Basics.Units.DensityMassSpecific
-                                   rho_nom[geo.N_cv]= TILMedia.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
+  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.VLEFluidFunctions.density_phxi(
+      medium,
+      p_nom,
+      h_nom) "Nominal density";
 
 //____Initialisation_____________________________________________________________________________________
   parameter Integer initOption = 1 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy", choice=208 "steady presure and enthalpy"));
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation" annotation(Dialog(tab="Initialisation",group="Model Settings"));
 
-  parameter Basics.Units.EnthalpyMassSpecific
-                                    h_start[geo.N_cv]=ones(geo.N_cv)*800e3 "Initial specific enthalpy for single tube" annotation(Dialog(tab="Initialisation"));
-  parameter Basics.Units.Pressure
-                        p_start[geo.N_cv]=ones(geo.N_cv)*1e5 "Initial pressure" annotation(Dialog(tab="Initialisation"));
-  parameter Basics.Units.MassFlowRate
-                        m_flow_start[geo.N_cv+1]=ones(geo.N_cv+1)*100 "Initial mass flow rate" annotation(Dialog(tab="Initialisation"));
+  parameter Units.EnthalpyMassSpecific h_start[geo.N_cv]=ones(geo.N_cv)*800e3 "Initial specific enthalpy for single tube" annotation (Dialog(tab="Initialisation"));
+  parameter Units.Pressure p_start[geo.N_cv]=ones(geo.N_cv)*1e5 "Initial pressure" annotation (Dialog(tab="Initialisation"));
+  parameter Units.MassFlowRate m_flow_start[geo.N_cv + 1]=ones(geo.N_cv + 1)*100 "Initial mass flow rate" annotation (Dialog(tab="Initialisation"));
+  parameter Units.MassFraction xi_start[medium.nc - 1]=zeros(medium.nc - 1) "Initial composition" annotation (Dialog(tab="Initialisation"));
 protected
-  parameter Basics.Units.Pressure
-                        p_start_internal[geo.N_cv]=if size(p_start,1)==2 then linspace(p_start[1],p_start[2],geo.N_cv) else p_start "Internal p_start array which allows the user to either state p_inlet, p_outlet if p_start has length 2, otherwise the user can specify an individual pressure profile for initialisation";
+  parameter Units.Pressure p_start_internal[geo.N_cv]=if size(p_start, 1) == 2 then linspace(
+      p_start[1],
+      p_start[2],
+      geo.N_cv) else p_start "Internal p_start array which allows the user to either state p_inlet, p_outlet if p_start has length 2, otherwise the user can specify an individual pressure profile for initialisation";
 //____Summary and Visualisation_____________________________________________________________________________________
 public
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "True, if a summary shall be shown, else false"
@@ -199,57 +195,49 @@ public
 //## V A R I A B L E   P A R T#######################################################################################
 
 //____Energy / Enthalpy_________________________________________________________________________________________
-    Basics.Units.EnthalpyMassSpecific
-                            h[geo.N_cv](nominal=h_nom,start=h_start,each stateSelect = StateSelect.prefer) "Cell enthalpy";
-    Basics.Units.Energy
-              E_kin[geo.N_cv] "Kinetic energy of fluid in cells";
-    Basics.Units.Energy
-              E_pot[geo.N_cv] "Potential energy of fluid in cells";
-    Basics.Units.Power
-             dE_kin_dt[geo.N_cv] "time derivative of kinetic energy";
-    Basics.Units.Power
-             dE_pot_dt[geo.N_cv] "time derivative of potential energy";
+  Units.EnthalpyMassSpecific h[geo.N_cv](
+    nominal=h_nom,
+    start=h_start,
+    each stateSelect=StateSelect.prefer) "Cell enthalpy";
+  Units.Energy E_kin[geo.N_cv] "Kinetic energy of fluid in cells";
+  Units.Energy E_pot[geo.N_cv] "Potential energy of fluid in cells";
+  Units.Power dE_kin_dt[geo.N_cv] "time derivative of kinetic energy";
+  Units.Power dE_pot_dt[geo.N_cv] "time derivative of potential energy";
 //    Basics.Units.EnthalpyMassSpecific[
 //                            geo.N_cv + 1] h_FM;
 
 
 //____Pressure__________________________________________________________________________________________________
 protected
-  Basics.Units.DensityMassSpecific[
-                           geo.N_cv + 1] rho_FM "Density at flow model states";
+  Units.DensityMassSpecific[geo.N_cv + 1] rho_FM "Density at flow model states";
 
-  Basics.Units.Pressure
-              p[geo.N_cv](nominal=p_nom,start=p_start_internal) "Cell pressure";
+  Units.Pressure p[geo.N_cv](nominal=p_nom, start=p_start_internal) "Cell pressure";
 
-  Basics.Units.Pressure
-              Delta_p_adv[geo.N_cv+1] "Pressure difference due to the momentum of liquid flow";
-  Basics.Units.Pressure
-              Delta_p_fric[geo.N_cv+1](start=ones(geo.N_cv+1)*100) "Pressure difference due to friction";
-  Basics.Units.Pressure
-              Delta_p_grav[geo.N_cv+1] "pressure drop due to gravity";
+  Units.Pressure Delta_p_adv[geo.N_cv + 1] "Pressure difference due to the momentum of liquid flow";
+  Units.Pressure Delta_p_fric[geo.N_cv + 1](start=ones(geo.N_cv + 1)*100) "Pressure difference due to friction";
+  Units.Pressure Delta_p_grav[geo.N_cv + 1] "pressure drop due to gravity";
 //    Basics.Units.Pressure[
 //                geo.N_cv + 1] p_FM;
 
 //____Mass and Density__________________________________________________________________________________________
 public
-  Basics.Units.Mass
-              mass[geo.N_cv] "Mass of fluid in cells";
+  Units.Mass mass[geo.N_cv] "Mass of fluid in cells";
   Real drhodt[geo.N_cv];//(unit="kg/(m3s)")
 
-//____Flows and Velocities______________________________________________________________________________________
-  Basics.Units.Power
-               H_flow[geo.N_cv+1] "Enthalpy flow rate at cell borders";
-  Basics.Units.MassFlowRate
-               m_flow[geo.N_cv+1](nominal=ones(geo.N_cv+1)*m_flow_nom, start=m_flow_start);
+//____Mass Fractions____________________________________________________________________________________________
+  Modelica.SIunits.MassFraction xi[geo.N_cv, medium.nc - 1] "Mass fraction";
+  Real[geo.N_cv + 1, medium.nc - 1] Xi_flow "Mass flow rate of fraction";
+  Modelica.SIunits.MassFraction xi_inlet[medium.nc - 1] "Inlet mass fraction of component";
+  Modelica.SIunits.MassFraction xi_outlet[medium.nc - 1] "Outlet mass fraction of component";
 
-   Basics.Units.Velocity
-               w[geo.N_cv] "flow velocities within cells of energy model == flow velocities across cell borders of flow model ";
-   Basics.Units.Velocity
-               w_inlet "flow velocity at inlet";
-   Basics.Units.Velocity
-               w_outlet "flow velocity at outlet";
-   Basics.Units.Velocity
-               w_FM[geo.N_cv+1] "flow velocities within cells of flow model == flow velocities across cell borders of energy model ";
+//____Flows and Velocities______________________________________________________________________________________
+  Units.Power H_flow[geo.N_cv + 1] "Enthalpy flow rate at cell borders";
+  Units.MassFlowRate m_flow[geo.N_cv + 1](nominal=ones(geo.N_cv + 1)*m_flow_nom, start=m_flow_start);
+
+  Units.Velocity w[geo.N_cv] "flow velocities within cells of energy model == flow velocities across cell borders of flow model ";
+  Units.Velocity w_inlet "flow velocity at inlet";
+  Units.Velocity w_outlet "flow velocity at outlet";
+  Units.Velocity w_FM[geo.N_cv + 1] "flow velocities within cells of flow model == flow velocities across cell borders of energy model ";
 
 //____Connectors________________________________________________________________________________________________
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium) "Inlet port"
@@ -265,23 +253,34 @@ public
          origin={0,40})));
 //___Instantiation of Replaceable Models___________________________________________________________________________
 
-  inner TILMedia.VLEFluid_ph  fluid[geo.N_cv](p=p, h=h, each vleFluidType =    medium,
-    each computeTransportProperties=true)                       annotation (Placement(transformation(extent={{-10,-50},
+  inner TILMedia.VLEFluid_ph  fluid[geo.N_cv](
+    computeSurfaceTension=false,
+    p=p,
+    h=h,
+    each vleFluidType=medium,
+    each computeTransportProperties=true,
+    xi=xi)                       annotation (Placement(transformation(extent={{-10,-50},
             {10,-30}},                                                                                                   rotation=0)));
-//    inner TILMedia.VLEFluid_ph  fluidFM[geo.N_cv + 1](p=p_FM, h=h_FM, each vleFluidType = medium)
-//                                                          annotation (Placement(transformation(extent={{-10,-28},
-//              {10,-8}},                                                                                                    rotation=0)));
+
+// inner TILMedia.VLEFluid_ph  fluidFM[geo.N_cv + 1](
+//   p=p_FM,
+//   h=h_FM,
+//   each vleFluidType = medium)
+//                                 annotation (Placement(transformation(extent={{-10,-28},{10,-8}},rotation=0)));
+
   inner TILMedia.VLEFluid_ph fluidInlet(
+    computeSurfaceTension=false,
     p=inlet.p,
     h=noEvent(actualStream(inlet.h_outflow)),
-    xi={noEvent(actualStream(inlet.xi_outflow[i])) for i in 1:medium.nc - 1},
+    xi=xi_inlet,
     vleFluidType=medium) annotation (Placement(transformation(extent={{-90,
             -30},{-70,-10}}, rotation=0)));
 
   inner TILMedia.VLEFluid_ph fluidOutlet(
+    computeSurfaceTension=false,
     p=outlet.p,
     h=noEvent(actualStream(outlet.h_outflow)),
-    xi={noEvent(actualStream(outlet.xi_outflow[i])) for i in 1:medium.nc - 1},
+    xi=xi_outlet,
     vleFluidType=medium) annotation (Placement(transformation(extent={{70,
             -30},{90,-10}}, rotation=0)));
 
@@ -289,15 +288,18 @@ protected
   inner Basics.Records.IComVLE_L3_OnePort iCom(
     mediumModel = medium,
     N_cv = geo.N_cv,
+    xi=xi,
     volume=geo.volume,
     p_in={inlet.p},
     T_in = {fluidInlet.T},
     m_flow_in={inlet.m_flow},
     h_in={fluidInlet.h},
+    xi_in={fluidInlet.xi},
     p_out={outlet.p},
     T_out={fluidOutlet.T},
     m_flow_out={outlet.m_flow},
     h_out={fluidOutlet.h},
+    xi_out={fluidOutlet.xi},
     p_nom=p_nom[1],
     Delta_p_nom=Delta_p_nom,
     m_flow_nom=m_flow_nom,
@@ -317,10 +319,13 @@ public
     HeatTransfer heatTransfer(A_heat=geo.A_heat_CF[:,1]) "heat transfer model"
                             annotation(Placement(transformation(extent={{-80,0},
             {-60,20}})));
+    MechanicalEquilibrium
+                        mechanicalEquilibrium(final h_start=h_start) "Mechanical equilibrium model" annotation (Placement(transformation(extent={{40,0},{60,20}})));
     inner Geometry geo annotation (Placement(transformation(extent={{0,0},{20,20}})));
 //### E Q U A T I O N P A R T #######################################################################################
 //-------------------------------------------
 //initialisation
+
 
 initial equation
 
@@ -384,6 +389,11 @@ initial equation
   else
     assert(false, "Unknown initialisation option in " + getInstanceName());
   end if;
+
+  // composition of mass components
+  for i in 1:geo.N_cv loop
+    xi[i, :] = xi_start[1:end];
+  end for;
 //--------------------------------------------------------------------------------------
 
 
@@ -461,8 +471,9 @@ equation
   m_flow[geo.N_cv+1]=-outlet.m_flow;
 
 //-------------------------------------------
-//data exchange with heat transfer model
+//data exchange with replaceable models
   heatTransfer.m_flow=m_flow;
+  mechanicalEquilibrium.m_flow = m_flow;
 
 //-------------------------------------------
 //pressure drop due to momentum current, friction, gravity
@@ -561,35 +572,44 @@ equation
 //-------------------------------------------
 //Enthalpy flows
   for i in 2:geo.N_cv loop
-    H_flow[i] = if useHomotopy then homotopy(semiLinear(m_flow[i], h[i-1], h[i]), h[i-1]*m_flow_nom) else semiLinear(m_flow[i], h[i-1], h[i]);
+    H_flow[i] = if useHomotopy then homotopy(semiLinear(
+      m_flow[i],
+      mechanicalEquilibrium.h[i - 1],
+      mechanicalEquilibrium.h[i]), mechanicalEquilibrium.h[i - 1]*m_flow_nom) else semiLinear(
+      m_flow[i],
+      mechanicalEquilibrium.h[i - 1],
+      mechanicalEquilibrium.h[i]);
   end for;
-  H_flow[1] = if useHomotopy then homotopy(semiLinear(m_flow[1],inStream(inlet.h_outflow), h[1]), inStream(inlet.h_outflow)*m_flow_nom) else semiLinear(m_flow[1],inStream(inlet.h_outflow), h[1]);
-  H_flow[geo.N_cv+1]=if useHomotopy then homotopy(semiLinear(m_flow[geo.N_cv+1], h[geo.N_cv], inStream(outlet.h_outflow)), h[geo.N_cv]*m_flow_nom) else semiLinear(m_flow[geo.N_cv+1], h[geo.N_cv], inStream(outlet.h_outflow));
-
+  H_flow[1] = if useHomotopy then homotopy(semiLinear(
+    m_flow[1],
+    inStream(inlet.h_outflow),
+    mechanicalEquilibrium.h[1]), inStream(inlet.h_outflow)*m_flow_nom) else semiLinear(
+    m_flow[1],
+    inStream(inlet.h_outflow),
+    mechanicalEquilibrium.h[1]);
+  H_flow[geo.N_cv + 1] = if useHomotopy then homotopy(semiLinear(
+    m_flow[geo.N_cv + 1],
+    mechanicalEquilibrium.h[geo.N_cv],
+    inStream(outlet.h_outflow)), mechanicalEquilibrium.h[geo.N_cv]*m_flow_nom) else semiLinear(
+    m_flow[geo.N_cv + 1],
+    mechanicalEquilibrium.h[geo.N_cv],
+    inStream(outlet.h_outflow));
 //-------------------------------------------
 //Fluid mass in cells
  // mass = if useHomotopy then homotopy(volume.*fluid.d, volume.*rho_nom) else volume.*fluid.d;
-mass = geo.volume.*fluid.d;
+  mass = if useHomotopy then homotopy(geo.volume .* mechanicalEquilibrium.rho_mix, geo.volume .* rho_nom) else geo.volume .* mechanicalEquilibrium.rho_mix;
 //-------------------------------------------
 // definition of the cells' states:
 // Energy balance without flow of potential/kinetic energy through cell borders
   for i in 1:geo.N_cv loop
 
-     der(h[i])= (H_flow[i]- H_flow[i+1]
-                 + heat[i].Q_flow
-                 + der(p[i])*geo.volume[i]
-                 - h[i]*geo.volume[i]*drhodt[i]
-                 + m_flow[i]*(w_FM[i]^2/2+zFM[i]*g_n)
-                 - m_flow[i+1]*(w_FM[i+1]^2/2+zFM[i+1]*g_n))
-                  /mass[i];
+    der(h[i])= (H_flow[i]- H_flow[i+1] + heat[i].Q_flow + der(p[i])*geo.volume[i] - h[i]*geo.volume[i]*drhodt[i]
+                 + m_flow[i]*(w_FM[i]^2/2+zFM[i]*g_n) - m_flow[i+1]*(w_FM[i+1]^2/2+zFM[i+1]*g_n))/mass[i];
 //                  -dE_kin_dt_[i]
 //                  -dE_pot_dt_[i]
-
-
+    der(xi[i, :]) = 1/mass[i]*((Xi_flow[i, :] -  m_flow[i]*xi[i, :]) - (Xi_flow[i + 1, :] - m_flow[i+1]*xi[i, :])) "Component mass balance";
     drhodt[i]*geo.volume[i]=m_flow[i]-m_flow[i+1] "Mass balance";
-    fluid[i].drhodp_hxi
-                   *der(p[i])=(drhodt[i]-der(h[i])*fluid[i].drhodh_pxi) "Calculate pressure from enthalpy and density derivative";
-
+    fluid[i].drhodp_hxi*der(p[i])=(drhodt[i]-der(h[i])*fluid[i].drhodh_pxi- sum({fluid[i].drhodxi_ph[j]*der(xi[i, j]) for j in 1:medium.nc - 1})) "Calculate pressure from enthalpy and density derivative";
 
 
     dE_pot_dt[i]=drhodt[i]*geo.volume[i]*g_n*geo.z[i];//time derivative of potential energy
@@ -611,9 +631,10 @@ mass = geo.volume.*fluid.d;
                           homotopy(p[i-1]+suppFreqCorr*der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-suppFreqCorr*der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i] -Delta_p_grav[i],0)
                         else
                           p[i-1]+suppFreqCorr*der(p[i-1])*geo.Delta_x[i-1]/fluid[i].w/2 - p[i]-suppFreqCorr*der(p[i])*geo.Delta_x[i]/fluid[i].w/2 + Delta_p_adv[i]- Delta_p_fric[i] -Delta_p_grav[i];
-                        end for;
-  inlet.h_outflow=h[1];
-  outlet.h_outflow=h[geo.N_cv];
+        end for;
+
+  inlet.h_outflow = mechanicalEquilibrium.h[1];
+  outlet.h_outflow = mechanicalEquilibrium.h[geo.N_cv];
 
 if not frictionAtInlet and not frictionAtOutlet then
   inlet.p = fluid[1].p;
@@ -645,14 +666,36 @@ else //inlet_dp_innerPipe_dp_outlet
 end if;
 
 //-------------------------------------------
-//xi
-  inlet.xi_outflow=inStream(outlet.xi_outflow);
-  outlet.xi_outflow=inStream(inlet.xi_outflow);
+//species balance
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-50},
-            {140,50}}),
-                   graphics),
-        Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-140,-50},{140,50}}),
-                                      graphics));
+   for i in 2:geo.N_cv loop
+     Xi_flow[i, :] = if useHomotopy then homotopy(semiLinear(
+       m_flow[i],
+       (xi[i - 1, :]),
+       (xi[i, :])), (xi[i - 1, :])*m_flow_nom) else semiLinear(
+       m_flow[i],
+       (xi[i - 1, :]),
+       (xi[i, :]));
+   end for;
+   Xi_flow[1, :] = if useHomotopy then homotopy(semiLinear(
+     m_flow[1],
+     (fluidInlet.xi[:]),
+     (xi[1, :])), (fluidInlet.xi[:])*m_flow_nom) else semiLinear(
+     m_flow[1],
+     (fluidInlet.xi[:]),
+     (xi[1, :]));
+   Xi_flow[geo.N_cv + 1, :] = if useHomotopy then homotopy(semiLinear(
+     m_flow[geo.N_cv + 1],
+     (xi[geo.N_cv, :]),
+     (fluidOutlet.xi[:])), (xi[geo.N_cv, :])*m_flow_nom) else semiLinear(
+     m_flow[geo.N_cv + 1],
+     (xi[geo.N_cv, :]),
+     (fluidOutlet.xi[:]));
+  inlet.xi_outflow[:] = xi[1, :];
+  outlet.xi_outflow[:] = xi[geo.N_cv, :];
+
+
+  xi_inlet = noEvent(actualStream(inlet.xi_outflow));
+  xi_outlet = noEvent(actualStream(outlet.xi_outflow));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-50},{140,50}}), graphics), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-50},{140,50}}), graphics));
 end VolumeVLE_L4_Advanced;

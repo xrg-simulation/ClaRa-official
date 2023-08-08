@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveGas_L1_simple "Three way valve for flue gas with controllable mass fraction"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -25,8 +25,7 @@ model ThreeWayValveGas_L1_simple "Three way valve for flue gas with controllable
 
  model FlangeGas "A summary record for gas flanges"
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
  end FlangeGas;

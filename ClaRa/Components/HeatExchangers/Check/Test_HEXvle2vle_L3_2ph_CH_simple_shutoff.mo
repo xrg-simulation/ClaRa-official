@@ -47,20 +47,18 @@ model Test_HEXvle2vle_L3_2ph_CH_simple_shutoff "Quickly reduce the steam mass fl
     offset=76.8,
     height=-76,
     duration=3)   annotation (Placement(transformation(extent={{128,-2},{108,18}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     checkValve=true,
     openingInputIsActive=true,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
-        m_flow_nominal=100,
-        Delta_p_nom=100))
-    annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
+        m_flow_nom=100,
+        Delta_p_nom=100)) annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                           Delta_p_nom=1000, m_flow_nom=11500))
-    annotation (Placement(transformation(extent={{-10,-6},{10,6}},
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=1000, m_flow_nom=11500)) annotation (Placement(transformation(
+        extent={{-10,-6},{10,6}},
         rotation=180,
         origin={-24,-8})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=21e5,

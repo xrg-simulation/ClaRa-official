@@ -4,7 +4,7 @@ model StatePoint "State Point of fluid without visualisation"
 // Component of the ClaRa library, version: 1.2.2                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -24,16 +24,11 @@ model StatePoint "State Point of fluid without visualisation"
   Real s "Specific entropy in kJ/(kg*s)";
   Real T "Temperature in C";
   Real m_flow "Mass flow rate in kg/s";
-  input ClaRa.Basics.Units.Pressure p_in=1e5 "Input pressure"
-                                                             annotation(Dialog(group="Input", enable= not useEyeIn));
-  input ClaRa.Basics.Units.EnthalpyMassSpecific h_in=200e3 "Specific enthalpy of state"
-                                                                                       annotation(Dialog(group="Input", enable= not useEyeIn));
-  input ClaRa.Basics.Units.EntropyMassSpecific s_in=1e3 "Specific enthalpy of state"
-                                                                                    annotation(Dialog(group="Input", enable= not useEyeIn));
-  input ClaRa.Basics.Units.Temperature T_in=273.15+20 "Temperature of state"
-                                                                            annotation(Dialog(group="Input", enable= not useEyeIn));
-  input ClaRa.Basics.Units.MassFlowRate m_flow_in=1 "Mass flow rate"
-                                                                    annotation(Dialog(group="Input", enable= not useEyeIn));
+  input ClaRa.Basics.Units.Pressure p_in=1e5 "Input pressure" annotation (Dialog(group="Input", enable=not useEyeIn));
+  input ClaRa.Basics.Units.EnthalpyMassSpecific h_in=200e3 "Specific enthalpy of state" annotation (Dialog(group="Input", enable=not useEyeIn));
+  input ClaRa.Basics.Units.EntropyMassSpecific s_in=1e3 "Specific enthalpy of state" annotation (Dialog(group="Input", enable=not useEyeIn));
+  input ClaRa.Basics.Units.Temperature T_in=273.15 + 20 "Temperature of state" annotation (Dialog(group="Input", enable=not useEyeIn));
+  input ClaRa.Basics.Units.MassFlowRate m_flow_in=1 "Mass flow rate" annotation (Dialog(group="Input", enable=not useEyeIn));
   outer ClaRa.SimCenter simCenter;
 
   ClaRa.Basics.Interfaces.EyeIn eye(p(value=p), h(value=h), s(value=s), T(value=T), m_flow(value=m_flow)) if useEyeIn  annotation (Placement(transformation(extent={{-40,-10},{-20,10}}), iconTransformation(extent={{-40,-10},{-20,10}})));

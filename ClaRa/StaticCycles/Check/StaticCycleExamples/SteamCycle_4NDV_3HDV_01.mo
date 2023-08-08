@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model SteamCycle_4NDV_3HDV_01 "Helps you to find reasonable start values for steam cycles"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -26,59 +26,46 @@ model SteamCycle_4NDV_3HDV_01 "Helps you to find reasonable start values for ste
 
 //__________________global parameter_______________________
   inner parameter Real P_target_= 1 "Value of load in p.u."    annotation(Dialog(group="Global parameter"));
-  parameter SI.MassFlowRate m_flow_nom=417 "Feedwater massflow rate at nominal point" annotation (Dialog(group="Global parameter"));
-  parameter SI.Temperature T_LS_nom=823 "Live steam temperature at nominal point" annotation (Dialog(group="Global parameter"));
-  parameter SI.Temperature T_RS_nom=833 "Reheated steam temperature at nominal point" annotation (Dialog(group="Global parameter"));
+  parameter Basics.Units.MassFlowRate m_flow_nom=417 "Feedwater massflow rate at nominal point" annotation (Dialog(group="Global parameter"));
+  parameter Basics.Units.Temperature T_LS_nom=823 "Live steam temperature at nominal point" annotation (Dialog(group="Global parameter"));
+  parameter Basics.Units.Temperature T_RS_nom=833 "Reheated steam temperature at nominal point" annotation (Dialog(group="Global parameter"));
   parameter String mediumName = "R718" annotation(Dialog(group="Global parameter"));
-  final parameter SI.HeatFlowRate Q_nom=boiler.m_flow_feed*(boiler.h_LS_out - boiler.h_LS_in) + boiler.m_flow_cRH*(boiler.h_RS_out - boiler.h_RS_in) "Nominal heat flow rate"
-     annotation (Dialog(group="Global parameter"));
-  final parameter SI.MassFlowRate m_flow_FW=m_flow_nom*P_target_ "Feedwater massflow rate at nominal point" annotation (Dialog(group="Global parameter"));
+  final parameter Basics.Units.HeatFlowRate Q_nom=boiler.m_flow_feed*(boiler.h_LS_out - boiler.h_LS_in) + boiler.m_flow_cRH*(boiler.h_RS_out - boiler.h_RS_in) "Nominal heat flow rate" annotation (Dialog(group="Global parameter"));
+  final parameter Basics.Units.MassFlowRate m_flow_FW=m_flow_nom*P_target_ "Feedwater massflow rate at nominal point" annotation (Dialog(group="Global parameter"));
 
 //________________preheater_HP parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_HP_p_tap=55.95e5
-                                                              annotation(Dialog(group = "preheater_HP",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_HP_m_flow_tap=42.812
-                                                                       annotation(Dialog(group = "preheater_HP",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_HP_p_tap=55.95e5 annotation (Dialog(group="preheater_HP", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_HP_m_flow_tap=42.812 annotation (Dialog(group="preheater_HP", tab="Preheater"));
 
 //________________preheater_IP1 parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_IP1_p_tap=26.77e5
-                                                               annotation(Dialog(group = "preheater_IP1",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_IP1_m_flow_tap=19.337
-                                                                    annotation(Dialog(group = "preheater_IP1",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_IP1_p_tap=26.77e5 annotation (Dialog(group="preheater_IP1", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_IP1_m_flow_tap=19.337 annotation (Dialog(group="preheater_IP1", tab="Preheater"));
 
 //________________turbine_IP2 parameter________________________
-parameter ClaRa.Basics.Units.Pressure p_out_IP2=13.2e5         annotation(Dialog(group = "turbine_IP2",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate IP2_m_flow_tap=17.102     annotation(Dialog(group = "turbine_IP2",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure p_out_IP2=13.2e5 annotation (Dialog(group="turbine_IP2", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate IP2_m_flow_tap=17.102 annotation (Dialog(group="turbine_IP2", tab="Preheater"));
 
 //________________preheater_IP3 parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_IP3_p_tap=6.488e5
-                                                               annotation(Dialog(group = "preheater_IP3",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_IP3_m_flow_tap=23.75
-                                                                    annotation(Dialog(group = "preheater_IP3",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_IP3_p_tap=6.488e5 annotation (Dialog(group="preheater_IP3", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_IP3_m_flow_tap=23.75 annotation (Dialog(group="preheater_IP3", tab="Preheater"));
 
 //________________preheater_LP1 parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_LP1_p_tap=2.011e5
-                                                               annotation(Dialog(group = "preheater_LP1",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_LP1_m_flow_tap=23.072
-                                                                    annotation(Dialog(group = "preheater_LP1",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_LP1_p_tap=2.011e5 annotation (Dialog(group="preheater_LP1", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_LP1_m_flow_tap=23.072 annotation (Dialog(group="preheater_LP1", tab="Preheater"));
 
 //________________preheater_LP2 parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_LP2_p_tap=0.49e5
-                                                               annotation(Dialog(group = "preheater_LP2",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_LP2_m_flow_tap=7.724
-                                                                    annotation(Dialog(group = "preheater_LP2",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_LP2_p_tap=0.49e5 annotation (Dialog(group="preheater_LP2", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_LP2_m_flow_tap=7.724 annotation (Dialog(group="preheater_LP2", tab="Preheater"));
 //________________preheater_LP3 parameter________________________
-parameter ClaRa.Basics.Units.Pressure preheater_LP3_p_tap=0.207e5
-                                                               annotation(Dialog(group = "preheater_LP3",tab="Preheater"));
-parameter ClaRa.Basics.Units.MassFlowRate preheater_LP3_m_flow_tap=14.504
-                                                                    annotation(Dialog(group = "preheater_LP3",tab="Preheater"));
+  parameter ClaRa.Basics.Units.Pressure preheater_LP3_p_tap=0.207e5 annotation (Dialog(group="preheater_LP3", tab="Preheater"));
+  parameter ClaRa.Basics.Units.MassFlowRate preheater_LP3_m_flow_tap=14.504 annotation (Dialog(group="preheater_LP3", tab="Preheater"));
 
 //____________________boiler parameter_____________________
 //  parameter ClaRa.Basics.Units.HeatFlowRate Q_nom = 1150e6 annotation(Dialog(tab="Boiler"));
-  parameter SI.Pressure p_LS_out_nom=250.2e5 "Live steam pressure at nomninal point" annotation (Dialog(tab="Boiler"));
-  parameter SI.Pressure p_RS_out_nom=51e5 "Reaheated steam pressure at nomninal point" annotation (Dialog(tab="Boiler"));
-  parameter SI.Pressure dp_LS_nom=89e5 "Live steam pressure loss in boiler at nomninal point" annotation (Dialog(tab="Boiler"));
-  parameter SI.Pressure dp_RS_nom=5e5 "Reheated steam pressure loss in boiler at nomninal point" annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure p_LS_out_nom=250.2e5 "Live steam pressure at nomninal point" annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure p_RS_out_nom=51e5 "Reaheated steam pressure at nomninal point" annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure dp_LS_nom=89e5 "Live steam pressure loss in boiler at nomninal point" annotation (Dialog(tab="Boiler"));
+  parameter Basics.Units.Pressure dp_RS_nom=5e5 "Reheated steam pressure loss in boiler at nomninal point" annotation (Dialog(tab="Boiler"));
 
   parameter Real CharLine_dpHP_mLS_[:,:]=[0,0; 0.1,0.01; 0.2,0.04; 0.3,0.09; 0.4,
       0.16; 0.5,0.25; 0.6,0.36; 0.7,0.49; 0.8,0.64; 0.9,0.81; 1,1] "Characteristic line of pressure drop as function of mass flow rate"
@@ -107,28 +94,21 @@ parameter Real efficiency_Turb_LP3=1 "Efficiency of turbine" annotation(Dialog(t
 parameter Real efficiency_Turb_LP4=1 "Efficiency of turbine" annotation(Dialog(tab="Turbines"));
 
 // __________________Feewatertank parameter________________
-parameter SI.Pressure p_FWT=14e5 "Feedwater tank pressure" annotation(Dialog(tab="Heat exchangers",group="Feedwatertank"));
+  parameter Basics.Units.Pressure p_FWT=14e5 "Feedwater tank pressure" annotation (Dialog(tab="Heat exchangers", group="Feedwatertank"));
 
 //___________________condenser parameter___________________
-  parameter SI.Pressure p_condenser=4000 "Condenser Pressure" annotation (Dialog(tab="Heat exchangers",group="Condenser"));
+  parameter Basics.Units.Pressure p_condenser=4000 "Condenser Pressure" annotation (Dialog(tab="Heat exchangers", group="Condenser"));
 
   //________________ valves parameter________________________
-  parameter ClaRa.Basics.Units.Pressure valve_HP_control_dp_nominal=2e5
-                                                             annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_IP_control_dp_nominal=2e5
-                                                             annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve1_HP_dp_nominal=2e5 annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_IP1_dp_nominal=1e5  annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_IP2_dp_nominal=0.8e5
-                                                            annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_IP3_dp_nominal=1e5
-                                                            annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_LP1_dp_nominal=0.001e5
-                                                                 annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_LP2_dp_nominal=0.001e5
-                                                                 annotation(Dialog(tab="Valves"));
-parameter ClaRa.Basics.Units.Pressure valve_LP3_dp_nominal=0.001e5
-                                                                 annotation(Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_HP_control_dp_nominal=2e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_IP_control_dp_nominal=2e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve1_HP_dp_nominal=2e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_IP1_dp_nominal=1e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_IP2_dp_nominal=0.8e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_IP3_dp_nominal=1e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_LP1_dp_nominal=0.001e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_LP2_dp_nominal=0.001e5 annotation (Dialog(tab="Valves"));
+  parameter ClaRa.Basics.Units.Pressure valve_LP3_dp_nominal=0.001e5 annotation (Dialog(tab="Valves"));
 
 //parameter Real efficiency_Turb_LP2=1 "Efficiency of turbine" annotation(Dialog(tab="Turbines"));
 

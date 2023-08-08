@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model FlueGasJunction_L2 "Adiabatic junction volume"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,18 +21,12 @@ extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L2");
 
  model Gas
   extends ClaRa.Basics.Icons.RecordIcon;
-  input ClaRa.Basics.Units.Mass m "Mass flow rate"
-                                               annotation(Dialog);
-  input ClaRa.Basics.Units.Temperature T "Temperature"
-                                                   annotation(Dialog);
-  input ClaRa.Basics.Units.Pressure p "Pressure"
-                                             annotation(Dialog);
-  input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy"
-                                                                  annotation(Dialog);
-  input ClaRa.Basics.Units.Enthalpy H "Specific enthalpy"
-                                                      annotation(Dialog);
-  input ClaRa.Basics.Units.DensityMassSpecific rho "Specific enthalpy"
-                                                                   annotation(Dialog);
+    input ClaRa.Basics.Units.Mass m "Mass flow rate" annotation (Dialog);
+    input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
+    input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
+    input ClaRa.Basics.Units.EnthalpyMassSpecific h "Specific enthalpy" annotation (Dialog);
+    input ClaRa.Basics.Units.Enthalpy H "Specific enthalpy" annotation (Dialog);
+    input ClaRa.Basics.Units.DensityMassSpecific rho "Specific enthalpy" annotation (Dialog);
  end Gas;
 
  inner model Summary
@@ -58,28 +52,35 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
   Basics.Interfaces.GasPortIn      portA(Medium = medium, m_flow)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
-  Basics.Interfaces.GasPortIn      portB(Medium=medium, m_flow)
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
-        iconTransformation(extent={{90,-10},{110,10}})));
-  Basics.Interfaces.GasPortIn      portC(Medium=medium, m_flow)
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Basics.Interfaces.GasPortIn portB(Medium=medium, m_flow) annotation (Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+  Basics.Interfaces.GasPortIn portC(Medium=medium, m_flow) annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-parameter ClaRa.Basics.Units.Volume volume;
+  parameter ClaRa.Basics.Units.Volume volume;
 
-  TILMedia.Gas_pT     flueGasPortA(gasType = medium, p=p, T=noEvent(actualStream(portA.T_outflow)), xi=noEvent(actualStream(portA.xi_outflow)))
-    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-  TILMedia.Gas_pT flueGasPortB(
+  replaceable model PressureLossA =
+    Fundamentals.NoFriction constrainedby Fundamentals.BaseDp "Pressure loss model at inlet" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model PressureLossB =
+      Fundamentals.NoFriction  constrainedby Fundamentals.BaseDp "Pressure loss model at outlet 1" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model PressureLossC =
+      Fundamentals.NoFriction constrainedby Fundamentals.BaseDp "Pressure loss model at outlet 2" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
+                                                              annotation(Dialog(tab="Initialisation"));
+
+  TILMedia.Gas_pT flueGasIn(
+    gasType=medium,
+    p=p,
+    T=noEvent(actualStream(portA.T_outflow)),
+    xi=noEvent(actualStream(portA.xi_outflow))) annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
+  TILMedia.Gas_pT flueGasOut1(
     gasType=medium,
     p=portB.p,
     T=noEvent(actualStream(portB.T_outflow)),
-    xi=noEvent(actualStream(portB.xi_outflow)))
-    annotation (Placement(transformation(extent={{60,-14},{80,6}})));
-  TILMedia.Gas_pT flueGasPortC(
+    xi=noEvent(actualStream(portB.xi_outflow))) annotation (Placement(transformation(extent={{60,-14},{80,6}})));
+  TILMedia.Gas_pT flueGasOut2(
     gasType=medium,
     p=portC.p,
     T=noEvent(actualStream(portC.T_outflow)),
-    xi=noEvent(actualStream(portC.xi_outflow)))
-    annotation (Placement(transformation(extent={{-10,-82},{10,-62}})));
+    xi=noEvent(actualStream(portC.xi_outflow))) annotation (Placement(transformation(extent={{-10,-82},{10,-62}})));
   inner TILMedia.Gas_ph     bulk(
     computeTransportProperties=false,
     gasType = medium,p=p,h=h,xi=xi,
@@ -91,21 +92,17 @@ parameter ClaRa.Basics.Units.Volume volume;
   /****************** Initial values *******************/
 
 public
-  parameter ClaRa.Basics.Units.Pressure p_start=1.013e5 "Initial value for air pressure"
-    annotation(Dialog(group="Initial Values"));
+  parameter ClaRa.Basics.Units.Pressure p_start=1.013e5 "Initial value for air pressure" annotation (Dialog(tab="Initialisation"));
 //   parameter Boolean fixedInitialPressure = true
 //     "if true, initial pressure is fixed" annotation(Dialog(group="Initial Values"));
 
-  parameter ClaRa.Basics.Units.Temperature T_start=298.15 "Initial value for air temperature"
-    annotation(Dialog(group="Initial Values"));
+  parameter ClaRa.Basics.Units.Temperature T_start=298.15 "Initial value for air temperature" annotation (Dialog(tab="Initialisation"));
 
-  parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1]
-                                                         mixingRatio_initial=zeros(medium.nc-1) "Initial value for mixing ratio"
-                                     annotation(Dialog(group="Initial Values"));
+  parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1] xi_start=medium.xi_default "Initial value for mixing ratio" annotation(Dialog(tab="Initialisation"));
 
-  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, mixingRatio_initial) "Start value for specific Enthalpy inside volume";
+  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start) "Start value for specific Enthalpy inside volume";
 
-  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=mixingRatio_initial);
+  ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=xi_start);
   Modelica.SIunits.SpecificEnthalpy h(start=h_start) "Specific enthalpy";
   ClaRa.Basics.Units.Pressure p(start=p_start) "Pressure";
 
@@ -113,11 +110,42 @@ public
 
   Real drhodt "Density derivative";
 
-  inner Summary    summary(portA(mediumModel=medium, m_flow=portA.m_flow,  T=flueGasPortA.T, p=portA.p, h=flueGasPortA.h, xi=flueGasPortA.xi, H_flow=portA.m_flow*flueGasPortA.h),
-                           portB(mediumModel=medium, m_flow=portB.m_flow,  T=flueGasPortB.T, p=portB.p, h=flueGasPortB.h, xi=flueGasPortB.xi, H_flow=portB.m_flow*flueGasPortB.h),
-                           portC(mediumModel=medium, m_flow=portC.m_flow,  T=flueGasPortC.T, p=portC.p, h=flueGasPortC.h, xi=flueGasPortC.xi, H_flow=portC.m_flow*flueGasPortC.h),
-                   gas(m=mass, T=bulk.T, p=p, h=h, H=h*mass, rho=bulk.d))
-    annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
+PressureLossA pressureLossA;
+PressureLossB pressureLossB;
+PressureLossC pressureLossC;
+
+  inner Summary summary(
+    portA(
+      mediumModel=medium,
+      m_flow=portA.m_flow,
+      T=flueGasIn.T,
+      p=portA.p,
+      h=flueGasIn.h,
+      xi=flueGasIn.xi,
+      H_flow=portA.m_flow*flueGasIn.h),
+    portB(
+      mediumModel=medium,
+      m_flow=portB.m_flow,
+      T=flueGasOut1.T,
+      p=portB.p,
+      h=flueGasOut1.h,
+      xi=flueGasOut1.xi,
+      H_flow=portB.m_flow*flueGasOut1.h),
+    portC(
+      mediumModel=medium,
+      m_flow=portC.m_flow,
+      T=flueGasOut2.T,
+      p=portC.p,
+      h=flueGasOut2.h,
+      xi=flueGasOut2.xi,
+      H_flow=portC.m_flow*flueGasOut2.h),
+    gas(
+      m=mass,
+      T=bulk.T,
+      p=p,
+      h=h,
+      H=h*mass,
+      rho=bulk.d)) annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 
 public
   Basics.Interfaces.EyeOutGas
@@ -172,14 +200,23 @@ equation
   portB.T_outflow = bulk.T;
   portC.T_outflow = bulk.T;
 
-  portA.p = p; // Volume is located at PortA
+  pressureLossA.m_flow=portA.m_flow;
+  pressureLossB.m_flow=-portB.m_flow;
+  pressureLossC.m_flow=-portC.m_flow;
 
-  der(h) = 1/mass*(portA.m_flow*(flueGasPortA.h - h) +
-      portB.m_flow*(flueGasPortB.h - h) +  portC.m_flow*(flueGasPortC.h - h)
-      + volume*der(p)) "Energy balance";
+//   inlet.p = p; // Volume is located at PortA
+//   inlet.p - outlet1.p = 0 "Momentum balance";
+//   inlet.p - outlet2.p = 0 "Momentum balance";
 
-  der(xi) = 1/mass*(portA.m_flow*(flueGasPortA.xi-xi) +
-      portB.m_flow*(flueGasPortB.xi-xi) + portC.m_flow*(flueGasPortC.xi-xi)) "Mass balance";
+  portB.p = p - pressureLossB.dp;
+  portC.p = p - pressureLossC.dp;
+  portA.p=p+pressureLossA.dp;
+
+  der(h) =1/mass*(portA.m_flow*(flueGasIn.h - h) + portB.m_flow*(flueGasOut1.h - h) + portC.m_flow*(flueGasOut2.h - h) + volume*der(p))
+                       "Energy balance";
+
+  der(xi) =1/mass*(portA.m_flow*(flueGasIn.xi - xi) + portB.m_flow*(flueGasOut1.xi - xi) + portC.m_flow*(flueGasOut2.xi - xi))
+                                                                             "Mass balance";
 
       //______________ Balance euqations _______________________
 
@@ -187,23 +224,22 @@ equation
 
     drhodt = bulk.drhodh_pxi*der(h) + bulk.drhodp_hxi*der(p) + sum({bulk.drhodxi_ph[i] * der(bulk.xi[i]) for i in 1:medium.nc-1});
 
-    drhodt*volume = portA.m_flow + portB.m_flow + portC.m_flow "Mass balance";
+    drhodt*volume =portA.m_flow + portB.m_flow + portC.m_flow  "Mass balance";
 
-    portA.p - portB.p = 0 "Momentum balance";
-    portA.p - portC.p = 0 "Momentum balance";
 
-   eye_int[1].T= flueGasPortB.T-273.15;
-    eye_int[1].s=flueGasPortB.s/1e3;
-    eye_int[1].p=flueGasPortB.p/1e5;
-    eye_int[1].h=flueGasPortB.h/1e3;
-    eye_int[2].T= flueGasPortC.T-273.15;
-    eye_int[2].s=flueGasPortC.s/1e3;
-    eye_int[2].p=flueGasPortC.p/1e5;
-    eye_int[2].h=flueGasPortC.h/1e3;
+
+   eye_int[1].T=flueGasOut1.T - 273.15;
+    eye_int[1].s=flueGasOut1.s/1e3;
+    eye_int[1].p=flueGasOut1.p/1e5;
+    eye_int[1].h=flueGasOut1.h/1e3;
+    eye_int[2].T=flueGasOut2.T - 273.15;
+    eye_int[2].s=flueGasOut2.s/1e3;
+    eye_int[2].p=flueGasOut2.p/1e5;
+    eye_int[2].h=flueGasOut2.h/1e3;
     eye_int[1].m_flow=-portB.m_flow;
     eye_int[2].m_flow=-portC.m_flow;
-    eye_int[1].xi=flueGasPortB.xi;
-    eye_int[2].xi=flueGasPortC.xi;
+    eye_int[1].xi=flueGasOut1.xi;
+    eye_int[2].xi=flueGasOut2.xi;
 
   connect(eye_int[1],eye1)  annotation (Line(
       points={{56,-50.5},{84,-50.5},{84,-50},{110,-50}},
@@ -214,9 +250,25 @@ equation
       color={190,190,190},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=true),
-                      graphics), Icon(coordinateSystem(extent={{-100,-100},{100,
-            100}}, preserveAspectRatio=true),
-        graphics));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics={Rectangle(
+          extent={{-92,32},{-74,-32}},
+          pattern=LinePattern.None,
+          fillColor={118,106,98},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossIn.hasPressureLoss), Rectangle(
+          extent={{74,32},{92,-32}},
+          pattern=LinePattern.None,
+          fillColor={118,106,98},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossOut1.hasPressureLoss),
+        Rectangle(
+          extent={{-32,-76},{32,-92}},
+          pattern=LinePattern.None,
+          fillColor={118,106,98},
+          fillPattern=FillPattern.Solid,
+          visible=pressureLossOut2.hasPressureLoss)}),
+                              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                      graphics));
 end FlueGasJunction_L2;

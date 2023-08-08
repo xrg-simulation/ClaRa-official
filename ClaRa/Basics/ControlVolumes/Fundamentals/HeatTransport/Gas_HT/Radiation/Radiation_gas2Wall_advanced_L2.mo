@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
 model Radiation_gas2Wall_advanced_L2 "All Geo || L2 || Radiation Between Gas And Wall (Advanced)"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -39,15 +39,13 @@ model Radiation_gas2Wall_advanced_L2 "All Geo || L2 || Radiation Between Gas And
   parameter Real emissivity_particle=0.2 "Value considering dust particles if emissivity and absorbance are calculated"
                                                                                       annotation (Dialog(enable=(suspension_calculationType == "Gas calculated, particles fixed"), group="Emissivity and absorbance factor calculation of the suspension volume"));
 
-  parameter ClaRa.Basics.Units.DensityMassSpecific soot_load_n=163.5e-6 "Amount of soot inside the products at standard temperature and pressure"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Soot particle properties"));
+  parameter ClaRa.Basics.Units.DensityMassSpecific soot_load_n=163.5e-6 "Amount of soot inside the products at standard temperature and pressure" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Soot particle properties"));
 
   parameter ClaRa.Basics.Units.MassFraction x_coke=0.1 "Coke fraction of used coal" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
   parameter ClaRa.Basics.Units.DensityMassSpecific d_coke=850 "Coke density" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
-  parameter ClaRa.Basics.Units.Length diameter_mean_coke=65e-6 "Mean weighted diameter of coke particles (Rosin-Rammler-Distribution)"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
+  parameter ClaRa.Basics.Units.Length diameter_mean_coke=65e-6 "Mean weighted diameter of coke particles (Rosin-Rammler-Distribution)" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
 
   parameter Real n_var_coke=1.5 "Variance parameter of coke particle distribution (Rosin-Rammler-Distribution)"
                                                                                       annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Coal particle properties"));
@@ -56,16 +54,22 @@ model Radiation_gas2Wall_advanced_L2 "All Geo || L2 || Radiation Between Gas And
 
   parameter ClaRa.Basics.Units.DensityMassSpecific d_ash=2200 "Ash density" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
-  parameter ClaRa.Basics.Units.Length diameter_mean_ash=16.8e-6 "Mean weighted diameter of ash particles (Rosin-Rammler-Distribution)"
-                                                                                      annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
+  parameter ClaRa.Basics.Units.Length diameter_mean_ash=16.8e-6 "Mean weighted diameter of ash particles (Rosin-Rammler-Distribution)" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
   parameter Real n_var_ash=1.5 "Variance parameter of ash particle distribution (Rosin-Rammler-Distribution)"
                                                                                       annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
   parameter Real Q_mean_abs_ash=0.2 "Mean relative cross section for absorption of ash particles" annotation (Dialog(enable=(suspension_calculationType == "Calculated"), group="Ash particle properties"));
 
+  parameter String temperatureDifference="Outlet" "Temperature Difference" annotation (Dialog(group="Heat Transfer"), choices(
+      choice="Arithmetic mean",
+      choice="Inlet",
+      choice="Outlet",
+      choice = "Bulk"));
+
+  Units.Temperature Delta_T_mean "Mean temperature";
+
 public
-  Units.Temperature T_mean "Mean temperature for radiation";
   Real emissivity_suspension "Emissivity";
   Real absorbance_suspension "Absorbance";
   Real view_factor_wall "Radiation view factor";
@@ -98,13 +102,26 @@ protected
 
   TILMedia.Gas_pT properties(
     p=(iCom.p_in + iCom.p_out)/2,
-    T=T_mean,
+    T=Delta_T_mean,
     xi=xi_mean,
     gasType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 
 equation
-  //T_mean = (iCom.T_out + iCom.T_in)/2;
-  T_mean = iCom.T_out;
+
+  if temperatureDifference == "Arithmetic mean" then
+    Delta_T_mean = (iCom.T_in + iCom.T_out)/2;
+  elseif temperatureDifference == "Inlet" then
+    Delta_T_mean = iCom.T_in;
+  elseif temperatureDifference == "Outlet" then
+    Delta_T_mean = iCom.T_out;
+  elseif temperatureDifference == "Bulk" then
+    Delta_T_mean = iCom.T_bulk;
+  else
+    Delta_T_mean = -1;
+    assert(true, "Unknown temperature difference option in HT model");
+    end if;
+
+  //T_mean = iCom.T_out;
   //zeros(iCom.mediumModel.nc-1) = - xi_mean * (iCom.m_flow_in - iCom.m_flow_out)
   //                      + (iCom.m_flow_in*iCom.xi_in - iCom.m_flow_out*iCom.xi_out);
   xi_mean = iCom.xi_out;
@@ -140,7 +157,7 @@ equation
     ash_load = 0;
     soot_load = 0;
 
-    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*T_mean^4);
+    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*Delta_T_mean^4);
 
   elseif suspension_calculationType == "Gas calculated, particles fixed" then
 
@@ -150,9 +167,9 @@ equation
     ash_load = 0;
     soot_load = 0;
 
-    a1_T_gas = 0.13 + 0.265*(T_mean/1000);
-    a2_T_gas = 0.595 - 0.15*(T_mean/1000);
-    a3_T_gas = 0.275 - 0.115*(T_mean/1000);
+    a1_T_gas = 0.13 + 0.265*(Delta_T_mean/1000);
+    a2_T_gas = 0.595 - 0.15*(Delta_T_mean/1000);
+    a3_T_gas = 0.275 - 0.115*(Delta_T_mean/1000);
 
     a1_T_wall = 0.13 + 0.265*(heat.T/1000);
     a2_T_wall = 0.595 - 0.15*(heat.T/1000);
@@ -170,13 +187,13 @@ equation
 
     absorbance_suspension = absorbance_H2O_CO2 + emissivity_particle - absorbance_H2O_CO2*emissivity_particle;
 
-    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*T_mean^4);
+    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*Delta_T_mean^4);
 
   elseif suspension_calculationType == "Calculated" then
 
-    a1_T_gas = 0.13 + 0.265*(T_mean/1000);
-    a2_T_gas = 0.595 - 0.15*(T_mean/1000);
-    a3_T_gas = 0.275 - 0.115*(T_mean/1000);
+    a1_T_gas = 0.13 + 0.265*(Delta_T_mean/1000);
+    a2_T_gas = 0.595 - 0.15*(Delta_T_mean/1000);
+    a3_T_gas = 0.275 - 0.115*(Delta_T_mean/1000);
 
     a1_T_wall = 0.13 + 0.265*(heat.T/1000);
     a2_T_wall = 0.595 - 0.15*(heat.T/1000);
@@ -186,7 +203,7 @@ equation
 
     absorbance_H2O_CO2 = a1_T_wall*(1 - exp(0*(properties.p_i[3] + properties.p_i[8])/1e5*s_gl)) + a2_T_wall*(1 - exp(-0.824*(properties.p_i[3] + properties.p_i[8])/1e5*s_gl)) + a3_T_wall*(1 - exp(-25.91*(properties.p_i[3] + properties.p_i[8])/1e5*s_gl));
 
-    soot_load = soot_load_n*(273.15/T_mean);
+    soot_load = soot_load_n*(273.15/Delta_T_mean);
 
     coke_load = x_coke*xi_fuel*properties.d;
     k_coke = Q_mean_abs_coke*3*Modelica.Constants.pi/(2*d_coke*diameter_mean_coke*n_var_coke*sin(Modelica.Constants.pi/n_var_coke));
@@ -201,7 +218,7 @@ equation
     emissivity_suspension = a1_T_gas*emissivity_S_1 + a2_T_gas*emissivity_S_2 + a3_T_gas*emissivity_S_3;
     absorbance_suspension = a1_T_wall*emissivity_S_1 + a2_T_wall*emissivity_S_2 + a3_T_wall*emissivity_S_3;
 
-    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*(emissivity_S_1*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_1))*(a1_T_wall*heat.T^4 - a1_T_gas*T_mean^4) + emissivity_S_2*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_2))*(a2_T_wall*heat.T^4 - a2_T_gas*T_mean^4) + emissivity_S_3*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_3))*(a3_T_wall*heat.T^4 - a3_T_gas*T_mean^4));
+    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*(emissivity_S_1*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_1))*(a1_T_wall*heat.T^4 - a1_T_gas*Delta_T_mean^4) + emissivity_S_2*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_2))*(a2_T_wall*heat.T^4 - a2_T_gas*Delta_T_mean^4) + emissivity_S_3*emissivity_wall/(1 - (1 - emissivity_wall)*(1 - emissivity_S_3))*(a3_T_wall*heat.T^4 - a3_T_gas*Delta_T_mean^4));
 
   else
     emissivity_suspension = emissivity_suspension_fixed;
@@ -223,7 +240,7 @@ equation
     ash_load = 0;
     soot_load = 0;
 
-    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*T_mean^4);
+    heat.Q_flow = CF_fouling*geo.A_heat_CF[heatSurfaceAlloc]*view_factor_wall*Modelica.Constants.sigma*emissivity_wall/(absorbance_suspension + emissivity_wall - absorbance_suspension*emissivity_wall)*(absorbance_suspension*heat.T^4 - emissivity_suspension*Delta_T_mean^4);
   end if;
 
   heat_flux_density = -heat.Q_flow/(1000*geo.A_heat[heatSurfaceAlloc]);

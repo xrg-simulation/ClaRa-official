@@ -41,10 +41,8 @@ block LimPID "P, PI, PD, and PID controller with limited output, anti-windup com
 
 parameter Boolean use_activateInput = false "Provide Boolean input to switch controller on/off."
                                                     annotation(Dialog(tab="Controller activation"));
-parameter ClaRa.Basics.Units.Time t_activation=0.0 "Time when controller is switched on. For use_activateInput==true the controller is switched on if (time>t_activation AND activateController=true)."
-    annotation (Dialog(tab="Controller activation"));
-parameter ClaRa.Basics.Units.Time Tau_lag_I=0.0 "Time lag for activation of integral part AFTER controller is being switched on "
-    annotation (Dialog(tab="Controller activation"));
+  parameter ClaRa.Basics.Units.Time t_activation=0.0 "Time when controller is switched on. For use_activateInput==true the controller is switched on if (time>t_activation AND activateController=true)." annotation (Dialog(tab="Controller activation"));
+  parameter ClaRa.Basics.Units.Time Tau_lag_I=0.0 "Time lag for activation of integral part AFTER controller is being switched on " annotation (Dialog(tab="Controller activation"));
 
 parameter Real y_inactive = 1 "Controller output if controller is not active" annotation(Dialog(tab="Controller activation"));
 

@@ -1,10 +1,10 @@
 within ClaRa.Components.Sensors;
 model SensorGas_L1_xi "Ideal one port gas component sensor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -29,7 +29,7 @@ extends ClaRa.Components.Sensors.gasSensorBase;
 
 Real inFraction "fraction of component";
  Integer N;
-  TILMedia.Gas_pT gas(p = inlet.p, T = actualStream(inlet.T_outflow), xi = actualStream(inlet.xi_outflow), gasType= medium)
+  TILMedia.Gas_pT gas(p = inlet.p, T = noEvent(actualStream(inlet.T_outflow)), xi = noEvent(actualStream(inlet.xi_outflow)), gasType= medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   N = 10;
@@ -73,7 +73,7 @@ fraction = inFraction;
           extent={{-100,60},{100,90}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          lineColor=DynamicSelect({230, 230, 230},  if gas.p > 0 then {0,131,169} else {167,25,48}),
+          lineColor=DynamicSelect({230, 230, 230},  if gas.p > 0 then {118,106,98} else {167,25,48}),
           textString=DynamicSelect(" xi ", String(inFraction,significantDigits=integer(1)))),
         Line(
           points={{-98,-100},{96,-100}},

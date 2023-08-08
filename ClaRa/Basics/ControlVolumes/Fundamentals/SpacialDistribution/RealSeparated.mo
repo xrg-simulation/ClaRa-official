@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model RealSeparated "Separation | Real | outlet states depending on filling Level | All geometries"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -20,29 +20,29 @@ model RealSeparated "Separation | Real | outlet states depending on filling Leve
   import ClaRa.Basics.Functions.Stepsmoother;
   import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
 
-  parameter SI.Length radius_flange=0.05 "Flange radius" annotation(Dialog(group="Flange Geometry and Inlet Behaviour"));
+  parameter Units.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Flange Geometry and Inlet Behaviour"));
   parameter Real absorbInflow(
     min=0,
     max=1) = 1 "absorption of incoming mass flow to the zones 1: perfect in the allocated zone, 0: perfect according to steam quality"
                                                                                           annotation(Dialog(group="Flange Geometry and Inlet Behaviour"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation" annotation(Dialog(group="Shape interpretation"));
 
-  final parameter SI.Length z_max_in[geo.N_inlet]={min(geo.z_in[i] + radius_flange, geo.height_fill) for i in 1:geo.N_inlet} "Upper edges of inlet flanges";
-  final parameter SI.Length z_min_in[geo.N_inlet]={max(1e-3, geo.z_in[i] - radius_flange) for i in 1:geo.N_inlet} "Lower edges of inlet flanges";
-  final parameter SI.Length z_max_out[geo.N_outlet]={min(geo.z_out[i] + radius_flange, geo.height_fill) for i in 1:geo.N_outlet} "Upper edges of outlet flanges";
-  final parameter SI.Length z_min_out[geo.N_outlet]={max(1e-3, geo.z_out[i] - radius_flange) for i in 1:geo.N_outlet} "Lower edges of outlet flanges";
-  SI.DensityMassSpecific rho[iCom.N_cv] "Zonal density";
-  SI.MassFraction steamQuality_in[geo.N_inlet] "Inlet steam quality";
-  SI.MassFraction steamQuality_out[geo.N_outlet] "Outlet steam quality";
-  SI.Area A_hor_act "Actual horizontal surface size";
+  final parameter Units.Length z_max_in[geo.N_inlet]={min(geo.z_in[i] + radius_flange, geo.height_fill) for i in 1:geo.N_inlet} "Upper edges of inlet flanges";
+  final parameter Units.Length z_min_in[geo.N_inlet]={max(1e-3, geo.z_in[i] - radius_flange) for i in 1:geo.N_inlet} "Lower edges of inlet flanges";
+  final parameter Units.Length z_max_out[geo.N_outlet]={min(geo.z_out[i] + radius_flange, geo.height_fill) for i in 1:geo.N_outlet} "Upper edges of outlet flanges";
+  final parameter Units.Length z_min_out[geo.N_outlet]={max(1e-3, geo.z_out[i] - radius_flange) for i in 1:geo.N_outlet} "Lower edges of outlet flanges";
+  Units.DensityMassSpecific rho[iCom.N_cv] "Zonal density";
+  Units.MassFraction steamQuality_in[geo.N_inlet] "Inlet steam quality";
+  Units.MassFraction steamQuality_out[geo.N_outlet] "Outlet steam quality";
+  Units.Area A_hor_act "Actual horizontal surface size";
 
 protected
-  constant SI.Length level_abs_min=1e-6 "Min. absolute level";
+  constant Units.Length level_abs_min=1e-6 "Min. absolute level";
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
-  SI.EnthalpyMassSpecific h_bubin[geo.N_inlet] "Inlet bubble spec. enthalpy";
-  SI.EnthalpyMassSpecific h_bubout[geo.N_outlet] "Outlet bubble spec. enthalpy";
-  SI.EnthalpyMassSpecific h_dewin[geo.N_inlet] "Inlet dew spec. enthalpy";
-  SI.EnthalpyMassSpecific h_dewout[geo.N_outlet] "Outlet dew spec. enthalpy";
+  Units.EnthalpyMassSpecific h_bubin[geo.N_inlet] "Inlet bubble spec. enthalpy";
+  Units.EnthalpyMassSpecific h_bubout[geo.N_outlet] "Outlet bubble spec. enthalpy";
+  Units.EnthalpyMassSpecific h_dewin[geo.N_inlet] "Inlet dew spec. enthalpy";
+  Units.EnthalpyMassSpecific h_dewout[geo.N_outlet] "Outlet dew spec. enthalpy";
 equation
   //_________________________Calculation of the Level______________________________
   A_hor_act = geo.A_hor*table.y[1];
@@ -166,8 +166,9 @@ equation
   end for;
 
   //__________________Calculation of the geostatic pressure differences_______________
-  Delta_p_geo_in = {(level_abs - geo.z_in[i])*Modelica.Constants.g_n*noEvent(if level_abs > geo.z_in[i] then rho[1] else rho[2]) for i in 1:geo.N_inlet};
-  Delta_p_geo_out = {(level_abs - geo.z_out[i])*Modelica.Constants.g_n*noEvent(if level_abs > geo.z_out[i] then rho[1] else rho[2]) for i in 1:geo.N_outlet};
-
+//   Delta_p_geo_in = {(level_abs - geo.z_in[i])*Modelica.Constants.g_n*noEvent(if level_abs > geo.z_in[i] then rho[1] else rho[2]) for i in 1:geo.N_inlet};
+//   Delta_p_geo_out = {(level_abs - geo.z_out[i])*Modelica.Constants.g_n*noEvent(if level_abs > geo.z_out[i] then rho[1] else rho[2]) for i in 1:geo.N_outlet};
+   Delta_p_geo_in = {(level_abs - geo.z_in[i])*Modelica.Constants.g_n*SZT(rho[1], rho[2], level_abs - geo.z_in[i], (z_max_in[i]-z_min_in[i])/2) for i in 1:geo.N_inlet};
+   Delta_p_geo_out = {(level_abs - geo.z_out[i])*Modelica.Constants.g_n*SZT(rho[1], rho[2], level_abs - geo.z_out[i], (z_max_out[i]-z_min_out[i])/2) for i in 1:geo.N_outlet};
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
 end RealSeparated;

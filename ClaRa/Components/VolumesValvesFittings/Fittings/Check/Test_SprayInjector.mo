@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_SprayInjector
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -64,12 +64,10 @@ Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.s
     offset=3000e3,
     duration=0.100)
     annotation (Placement(transformation(extent={{98,-94},{78,-74}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                       valve(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534 (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
         m_flow_nominal=300,
-        rho_in_nom=20))
-    annotation (Placement(transformation(extent={{2,-56},{22,-44}})));
+        rho_in_nom=20)) annotation (Placement(transformation(extent={{2,-56},{22,-44}})));
   Visualisation.Quadruple quadruple
     annotation (Placement(transformation(extent={{-8,-74},{12,-64}})));
   SprayInjectorVLE_L3_advanced injector1(
@@ -88,12 +86,10 @@ Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.s
     h_const=3000e3,
     variable_h=true,
     variable_p=true) annotation (Placement(transformation(extent={{60,14},{40,34}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                       valve1(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534 (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve1(redeclare model PressureLoss = Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
         m_flow_nominal=300,
-        rho_in_nom=20))
-    annotation (Placement(transformation(extent={{4,18},{24,30}})));
+        rho_in_nom=20)) annotation (Placement(transformation(extent={{4,18},{24,30}})));
   Visualisation.Quadruple quadruple1
     annotation (Placement(transformation(extent={{-8,0},{12,10}})));
 equation

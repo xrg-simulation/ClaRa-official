@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model EnthalpyPredictor "Prediction of evaporator outlet enthalpy using characteristic lines and transfer functions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -69,8 +69,13 @@ equation
       points={{81,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(graphics={Text(
-          extent={{-100,28},{100,-28}},
-          lineColor={0,0,255},
-          textString="h_evap")}), Diagram(graphics));
+  annotation (Icon(graphics={   Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={221,222,223},
+          fillColor={118,124,127},
+          fillPattern=FillPattern.Solid), Rectangle(extent={{-80,80},{80,-80}}, lineColor={221,222,223}),
+        Line(
+          points={{-80,-40},{-28,-40},{40,40},{80,40}},
+          color={221,222,223},
+          smooth=Smooth.Bezier)}),Diagram(graphics));
 end EnthalpyPredictor;

@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveVLE_L2 "A voluminous three way valve for VLE media"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,7 +21,7 @@ model ThreeWayValveVLE_L2 "A voluminous three way valve for VLE media"
   outer ClaRa.SimCenter simCenter;
 model Outline
   extends ClaRa.Basics.Icons.RecordIcon;
-  input ClaRa.Basics.Units.Volume volume_tot "Total volume";
+    input ClaRa.Basics.Units.Volume volume_tot "Total volume";
 end Outline;
 
 model Summary
@@ -46,15 +46,13 @@ end Summary;
 
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-   parameter SI.Volume volume(min=1e-6)=0.1 "System Volume"                               annotation(Dialog(tab="General", group="Geometry"));
-  parameter SI.MassFlowRate m_flowOut_nom[2]= {10, 10} "Nominal mass flow rates at outlet"
-                                         annotation(Dialog(tab="General", group="Nominal Values"));
-  parameter SI.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  parameter SI.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy"                      annotation(Dialog(group="Nominal Values"));
+  parameter Basics.Units.Volume volume(min=1e-6) = 0.1 "System Volume" annotation (Dialog(tab="General", group="Geometry"));
+  parameter Basics.Units.MassFlowRate m_flowOut_nom[2]={10,10} "Nominal mass flow rates at outlet" annotation (Dialog(tab="General", group="Nominal Values"));
+  parameter Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  parameter Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
 
-  parameter SI.EnthalpyMassSpecific h_start= 1e5 "Start value of sytsem specific enthalpy"
-                                             annotation(Dialog(tab="Initialisation"));
-  parameter SI.Pressure p_start= 1e5 "Start value of sytsem pressure"               annotation(Dialog(tab="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
   inner parameter Integer  initOption=0 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed rel.level (for phaseBorder = idealSeparated only)",  choice=205 "Fixed rel.level and steady pressure (for phaseBorder = idealSeparated only)"));
 
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "|Summary and Visualisation||True, if expert summary should be applied";
@@ -62,16 +60,19 @@ end Summary;
   parameter Boolean preciseTwoPhase = true "|Expert Settings||True, if two-phase transients should be capured precisely";
 
 protected
-    parameter SI.DensityMassSpecific rho_nom= TILMedia.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
-    SI.Power Hdrhodt =  if preciseTwoPhase then h*volume*drhodt else 0 "h*V*drhodt";
+  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+      medium,
+      p_nom,
+      h_nom) "Nominal density";
+  Basics.Units.Power Hdrhodt=if preciseTwoPhase then h*volume*drhodt else 0 "h*V*drhodt";
 public
   Real splitRatio;
-  SI.EnthalpyFlowRate H_flow_in;
-  SI.EnthalpyFlowRate H_flow_out[2];
-  SI.EnthalpyMassSpecific h(start=h_start);
-  SI.Mass mass "Total system mass";
+  Basics.Units.EnthalpyFlowRate H_flow_in;
+  Basics.Units.EnthalpyFlowRate H_flow_out[2];
+  Basics.Units.EnthalpyMassSpecific h(start=h_start);
+  Basics.Units.Mass mass "Total system mass";
   Real drhodt;//(unit="kg/(m3s)");
-  SI.Pressure p(start=p_start, stateSelect=StateSelect.prefer) "System pressure";
+  Basics.Units.Pressure p(start=p_start, stateSelect=StateSelect.prefer) "System pressure";
 
 public
    Summary summary(outline(volume_tot = volume),

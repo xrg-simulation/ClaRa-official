@@ -14,8 +14,6 @@ model Dispatcher "Ideal fuel dispatcher"
 // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
-  // Yellow input: Values of p, h are unknown and provided BY neighbor component, values of m_flow is known in component and provided FOR neighbor component.
-  // Blue output: Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
 
   import ClaRa.Basics.Constants.*;
   import ClaRa.Basics.Media.FuelFunctions.massFraction_i_xi;
@@ -26,15 +24,19 @@ model Dispatcher "Ideal fuel dispatcher"
 
 
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Coal elemental composition used for combustion" annotation (Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific LHV = LHV_pTxi(p, T, xi_c, fuelModel) "Nominal lower heating value" annotation(Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFraction xi_c[fuelModel.N_c-1] = fuelModel.defaultComposition "Fuel composition" annotation(Dialog(group="Fundamental Definitions"));
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific LHV=LHV_pTxi(
+      p,
+      T,
+      xi_c,
+      fuelModel) "Nominal lower heating value" annotation (Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.MassFraction xi_c[fuelModel.N_c - 1]=fuelModel.defaultComposition "Fuel composition" annotation (Dialog(group="Fundamental Definitions"));
   parameter Integer N_burner_levels = 1  "Number of burner levels" annotation(Dialog(group="Fundamental Definitions"));
 
   parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Combustion Air"));
-  parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc-1] = {0,0,0,0,0.77,0.23,0,0,0} "Primary air inlet composition" annotation(Dialog(group="Combustion Air"));
+  parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc - 1]={0,0,0,0,0.77,0.23,0,0,0} "Primary air inlet composition" annotation (Dialog(group="Combustion Air"));
   parameter Real lambda = 1.15 "Excess air" annotation(Dialog(group="Combustion Air"));
 
-  parameter ClaRa.Basics.Units.Power P_el_nom "Nominal electric power" annotation(Dialog(group="Nominal Operation Point"));
+  parameter ClaRa.Basics.Units.Power P_el_nom "Nominal electric power" annotation (Dialog(group="Nominal Operation Point"));
   parameter Real eta_el_nom "Nominal plant efficiency" annotation(Dialog(group="Nominal Operation Point"));
 
   parameter Real CharLine_P_el_[:,2]=[0,1;1,1] "Characteristic line of P_el as function of P_target_" annotation(Dialog(group="Part Load Definition"));
@@ -43,9 +45,9 @@ model Dispatcher "Ideal fuel dispatcher"
   final parameter ClaRa.Basics.Units.Power P_el(fixed=false) "Electric power";
   final parameter Real eta_el(fixed=false) "Plant efficiency";
 
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fuel = P_el/(eta_el*LHV)/N_burner_levels "Fuel mass flow (per burner level)";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_pa = Pi_m_flows*m_flow_fuel "Rprt: Primary air mass flow (per burner level)";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_total = (m_flow_fuel + m_flow_pa)*N_burner_levels "Total flue gass implied by all mills";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fuel=P_el/(eta_el*LHV)/N_burner_levels "Fuel mass flow (per burner level)";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_pa=Pi_m_flows*m_flow_fuel "Rprt: Primary air mass flow (per burner level)";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_total=(m_flow_fuel + m_flow_pa)*N_burner_levels "Total flue gass implied by all mills";
 
   final parameter Real Pi_m_flows = lambda*(n_flow_C_primary + n_flow_H_primary/4.0 + n_flow_S_primary - n_flow_O_primary/2)*ClaRa.Basics.Constants.M_O *2.0/max(1e-32,xi_pa_in[6])/m_flow_fuel;
 
@@ -62,7 +64,7 @@ protected
   Modelica.Blocks.Tables.CombiTable1D table1(table=CharLine_P_el_, u = {P_target_});
   Modelica.Blocks.Tables.CombiTable1D table2(table=CharLine_eta_el_, u = {P_target_});
   constant ClaRa.Basics.Units.Pressure p=1e5;
-  constant ClaRa.Basics.Units.Temperature T = 273.15;
+  constant ClaRa.Basics.Units.Temperature T=273.15;
 
 initial equation
   P_el= P_el_nom*table1.y[1];

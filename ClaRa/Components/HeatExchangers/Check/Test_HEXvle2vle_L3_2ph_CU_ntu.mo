@@ -48,20 +48,15 @@ model Test_HEXvle2vle_L3_2ph_CU_ntu
     duration=600,
     offset=17.5,
     startTime=1800)  annotation (Placement(transformation(extent={{112,26},{92,46}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     checkValve=true,
-    redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                           Delta_p_nom=1000, m_flow_nom=20),
-    openingInputIsActive=false)
-    annotation (Placement(transformation(extent={{-20,-92},{-40,-80}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=1000, m_flow_nom=20),
+    openingInputIsActive=false) annotation (Placement(transformation(extent={{-20,-92},{-40,-80}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
-         m_flow_nom=if ((333) > 0) then (333) else 10, Delta_p_nom=if ((1000)
-             <> 0) then (1000) else 1000))
-    annotation (Placement(transformation(extent={{10,6},{-10,-6}},
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((333) > 0) then (333) else 10, Delta_p_nom=if ((1000) <> 0) then (1000) else 1000)) annotation (Placement(transformation(
+        extent={{10,6},{-10,-6}},
         rotation=180,
         origin={74,-54})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=2100000,

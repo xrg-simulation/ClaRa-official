@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Buffer_setFlow1 "Flow Anchour || par.: m_flow_nom || green | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -38,14 +38,14 @@ model Buffer_setFlow1 "Flow Anchour || par.: m_flow_nom || green | green"
   //---------Summary Definition---------
   outer ClaRa.SimCenter simCenter;
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_out "Nominal mass flow" annotation(Dialog(group= "Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_out "Nominal mass flow" annotation (Dialog(group="Fundamental Definitions"));
 
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
-  final parameter ClaRa.Basics.Units.Pressure p_out = p_in "Outlet pressure";
+  final parameter ClaRa.Basics.Units.Pressure p_out=p_in "Outlet pressure";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in(fixed=false) "Inlet mass flow";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_diff = m_flow_in - m_flow_out "Rprt: Mass flow difference";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_diff=m_flow_in - m_flow_out "Rprt: Mass flow difference";
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_a inlet(Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
   ClaRa.StaticCycles.Fundamentals.SteamSignal_green_b outlet(
     h=h_out,

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3_standalone "A three-zonal NTU cell model with internally calculated zone size"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -20,7 +20,7 @@ model NTU_L3_standalone "A three-zonal NTU cell model with internally calculated
   extends ClaRa.Basics.Icons.NTU;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
-  import smooth=ClaRa.Basics.Functions.Stepsmoother;
+  import smooth = ClaRa.Basics.Functions.Stepsmoother;
 
 //_____________material definitions_________________________________________//
 
@@ -72,6 +72,9 @@ model NTU_L3_standalone "A three-zonal NTU cell model with internally calculated
   parameter Real gain_eff= 1 "Avoid effectiveness > 1, high gain_eff leads to stricter observation but may cause numeric errors"  annotation(Dialog(choicesAllMatching, tab="Expert Settings"));
   parameter SI.Time Tau_stab=0.1 "Time constant for numeric stabilisation w.r.t. heat flow rates"  annotation(Dialog(choicesAllMatching, tab="Expert Settings"));
   parameter Boolean showExpertSummary = false "True,if expert summaries shall be shown"  annotation(Dialog(choicesAllMatching, tab="Expert Settings"));
+
+  final parameter Modelica.SIunits.ThermalResistance HR_nom=nTU.HR_nom "Nominal conductive heat resistance";
+
 //______________Inputs_____________________________________________________//
 public
   input Units.Pressure p_o "Pressure at outer side" annotation (Dialog(group="Input"));
@@ -84,10 +87,11 @@ public
   input Units.MassFlowRate m_flow_i "Mass flow rate of inner side"      annotation (Dialog(group="Input"));
   input Units.MassFlowRate m_flow_o "Mass flow rate of outer side" annotation (Dialog(group="Input"));
 
-  input Units.CoefficientOfHeatTransfer alpha_i[3] "Coefficient of heatTransfer for inner side for regions |A|B|C|"
-                                                                     annotation (Dialog(group="Input"));
-  input Units.CoefficientOfHeatTransfer alpha_o[3] "Coefficient of heatTransfer for outer side for regions |A|B|C|"
-                                                                     annotation (Dialog(group="Input"));
+  input ClaRa.Basics.Units.MassFraction xi_i[medium_tubes.nc-1] "Mass fraction at outer side" annotation (Dialog(group="Input"));
+  input ClaRa.Basics.Units.MassFraction xi_o[medium_shell.nc-1] "Mass fraction at outer side" annotation (Dialog(group="Input"));
+
+  input Units.CoefficientOfHeatTransfer alpha_i[3] "Coefficient of heatTransfer for inner side for regions |A|B|C|" annotation (Dialog(group="Input"));
+  input Units.CoefficientOfHeatTransfer alpha_o[3] "Coefficient of heatTransfer for outer side for regions |A|B|C|" annotation (Dialog(group="Input"));
 
 //   SI.AreaFraction yps_A "Area fraction of zone A";
 //   SI.AreaFraction yps_B "Area fraction of zone B";
@@ -114,7 +118,7 @@ model Summary
   input Real yps[3] "Area fractions";
   input Real effectiveness[3] "effectiveness in zones |1|2|3|";
   input Real cp_error_[3] if showExpertSummary "Check: Deviation from constant cp in zones |1|2|3|";
-  input Real kA[3](unit="W/K") "The product U*A for regions |1|2|3|";
+  input ClaRa.Basics.Units.HeatCapacityFlowRate kA[3] "The product U*A for regions |1|2|3|";
 end Summary;
 
 model ECom
@@ -176,7 +180,9 @@ protected
     gain_eff=gain_eff,
     showExpertSummary=showExpertSummary,
     Tau_stab=Tau_stab,
-    initOption=initOption)
+    initOption=initOption,
+    xi_i=xi_i,
+    xi_o=xi_o)
     annotation (Placement(transformation(extent={{-14,-10},{14,12}})));
 public
   ClaRa.Basics.Interfaces.HeatPort_a

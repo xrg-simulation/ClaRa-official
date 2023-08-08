@@ -4,7 +4,7 @@ model Sink_brown
 // Component of the ClaRa library, version: 1.1.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -14,21 +14,18 @@ model Sink_brown
 // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
+  // Brown input:   Value of xi is known in component and provided FOR neighbor component, values of p, T and m_flow are unknown and provided BY neighbor component.
 
   outer ClaRa.SimCenter simCenter;
   parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component";
 
-parameter ClaRa.Basics.Units.Temperature T_fg_nom "Temperature at the sink";
-parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_nom "Mass flow into the sink";
-parameter ClaRa.Basics.Units.Pressure p_fg_nom  "Temperature at the sink";
-final parameter ClaRa.Basics.Units.MassFraction xi_fg_nom[flueGas.nc-1](fixed=false)  "Flue gas composition at the sink";
+  parameter ClaRa.Basics.Units.Temperature T_fg_nom "Temperature at the sink";
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_nom "Mass flow into the sink";
+  parameter ClaRa.Basics.Units.Pressure p_fg_nom "Temperature at the sink";
+  final parameter ClaRa.Basics.Units.MassFraction xi_fg_nom[flueGas.nc - 1](fixed=false) "Flue gas composition at the sink";
 
-// final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_FG_out=TILMedia.GasFunctions.specificEnthalpy_pTxi(
-//       flueGas,
-//       1e5,
-//       T_FG_nom,
-//       xi_nom) "Outlet specific enthalpy";
-final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_out=m_flow_fg_nom;
+
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_out=m_flow_fg_nom;
 
   ClaRa.StaticCycles.Fundamentals.FlueGasSignal_brown_a inlet(
     flueGas=flueGas,

@@ -17,15 +17,11 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(variable_m_flow=true, variable_h=true,
     showData=true)                                                                                                     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(variable_p=true) annotation (Placement(transformation(extent={{-38,74},{-18,94}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      m_flow_nom=40, Delta_p_nom=3e5))
-                                                                                            annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={0,70})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_2(openingInputIsActive=true, redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                    Delta_p_nom=3e5, m_flow_nom=40))
-                                                                                            annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(openingInputIsActive=true, redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=3e5, m_flow_nom=40)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={0,-48})));
@@ -66,15 +62,11 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
     showData=true)                                                                                                     annotation (Placement(transformation(extent={{130,0},{150,20}})));
   BoundaryConditions.BoundaryVLE_phxi                  boundaryVLE_phxi2(
                                                                         variable_p=true) annotation (Placement(transformation(extent={{154,74},{174,94}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                  valveVLE_L1_3(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      m_flow_nom=40, Delta_p_nom=3e5))
-                                                                                            annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_3(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={194,70})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                  valveVLE_L1_4(openingInputIsActive=true, redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                      Delta_p_nom=3e5, m_flow_nom=100))
-                                                                                            annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_4(openingInputIsActive=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=3e5, m_flow_nom=100)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={192,-48})));

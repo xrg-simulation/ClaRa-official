@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,8 +22,8 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
   model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
     parameter Boolean showExpertSummary;
-    input SI.VolumeFlowRate V_flow "Volume flow rate";
-    input SI.PressureDifference Delta_p "Pressure difference p_out - p_in";
+    input Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+    input Basics.Units.PressureDifference Delta_p "Pressure difference p_out - p_in";
     input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
     input Real PR_crit if   showExpertSummary "Critical pressure ratio";
     input Real flowIsChoked "1 if flow is choked, 0 if not";
@@ -32,8 +32,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
 
   model Coal
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
     input ClaRa.Basics.Units.EnthalpyMassSpecific LHV annotation (Dialog);
@@ -80,13 +79,16 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "|Summary and Visualisation||True, if expert summary should be applied";
   parameter Boolean showData=true "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
   parameter Boolean useStabilisedMassFlow=false "|Expert Settings|Numerical Robustness|";
-  parameter SI.Time Tau= 0.1 "Time Constant of Stabilisation" annotation(Dialog(tab="Expert Settings", group = "Numerical Robustness", enable=useStabilisedMassFlow));
+  parameter Basics.Units.Time Tau=0.1 "Time Constant of Stabilisation" annotation (Dialog(
+      tab="Expert Settings",
+      group="Numerical Robustness",
+      enable=useStabilisedMassFlow));
   parameter Real opening_leak_ = 0 "Leakage valve opening in p.u." annotation(Dialog(tab="Expert Settings", group = "Numerical Robustness"));
 
   outer ClaRa.SimCenter simCenter;
 
   Real opening_ "Valve opening in p.u.";
-  SI.MassFlowRate m_flow_ "stabilised mass flow rate";
+  Basics.Units.MassFlowRate m_flow_ "stabilised mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput opening_in(
     min=0,
@@ -106,19 +108,19 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
   ClaRa.Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=medium), fuelModel=fuelModel) "Outlet port" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  ClaRa.Basics.Units.MassFraction xi_in[fuelModel.N_c-1]= noEvent(actualStream(inlet.fuel.xi_outflow)) "Actual composition at inlet";
-  ClaRa.Basics.Units.MassFraction xi_out[fuelModel.N_c-1]= noEvent(actualStream(outlet.fuel.xi_outflow)) "Actual composition at outlet";
+  ClaRa.Basics.Units.MassFraction xi_in[fuelModel.N_c - 1]=noEvent(actualStream(inlet.fuel.xi_outflow)) "Actual composition at inlet";
+  ClaRa.Basics.Units.MassFraction xi_out[fuelModel.N_c - 1]=noEvent(actualStream(outlet.fuel.xi_outflow)) "Actual composition at outlet";
   TILMedia.Gas_pT gasOut(gasType=medium,
     p=outlet.flueGas.p,
-    T=if checkValve == true then outlet.flueGas.T_outflow else actualStream(outlet.flueGas.T_outflow),
-    xi=if checkValve == true then outlet.flueGas.xi_outflow else actualStream(outlet.flueGas.xi_outflow))
+    T=if checkValve == true then outlet.flueGas.T_outflow else noEvent(actualStream(outlet.flueGas.T_outflow)),
+    xi=if checkValve == true then outlet.flueGas.xi_outflow else noEvent(actualStream(outlet.flueGas.xi_outflow)))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   TILMedia.Gas_pT      gasIn(gasType=medium,
     p=inlet.flueGas.p,
-    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else actualStream(
-        inlet.flueGas.T_outflow),
-    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else actualStream(inlet.flueGas.xi_outflow))
+    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else noEvent(actualStream(
+        inlet.flueGas.T_outflow)),
+    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else noEvent(actualStream(inlet.flueGas.xi_outflow)))
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 public
@@ -133,9 +135,9 @@ public
             flowIsChoked= pressureLoss.flowIsChoked,
             opening_ = iCom.opening_),
     inlet(coal(m_flow=inlet.fuel.m_flow,
-               T=actualStream(inlet.fuel.T_outflow),
+               T=noEvent(actualStream(inlet.fuel.T_outflow)),
                p=inlet.fuel.p,
-               LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(inlet.fuel.p,actualStream(inlet.fuel.T_outflow), xi_in,fuelModel)),
+               LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(inlet.fuel.p,noEvent(actualStream(inlet.fuel.T_outflow)), xi_in,fuelModel)),
           gas(mediumModel=medium, m_flow=inlet.flueGas.m_flow,
               T=gasIn.T,
               p=inlet.flueGas.p,
@@ -143,9 +145,9 @@ public
               xi=gasIn.xi,
               H_flow=gasIn.h*inlet.flueGas.m_flow)),
     outlet(coal(m_flow=-outlet.fuel.m_flow,
-                T=actualStream(outlet.fuel.T_outflow),
+                T=noEvent(actualStream(outlet.fuel.T_outflow)),
                 p=outlet.fuel.p,
-                LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(outlet.fuel.p,actualStream(outlet.fuel.T_outflow), xi_out, fuelModel)),
+                LHV= ClaRa.Basics.Media.FuelFunctions.LHV_pTxi(outlet.fuel.p,noEvent(actualStream(outlet.fuel.T_outflow)), xi_out, fuelModel)),
            gas(mediumModel=medium, m_flow=-outlet.flueGas.m_flow,
                T=gasOut.T,
                p=outlet.flueGas.p,

@@ -3,6 +3,8 @@ model Test_HEXvle2vle_L3_2ph_BU_ntu
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
   HEXvle2vle_L3_2ph_BU_ntu hex(
+    Delta_z_par=0.075,
+    Delta_z_ort=0.075,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoeffcient_L2 (Delta_p_smooth=100, zeta_TOT=5),
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3,
@@ -50,20 +52,18 @@ model Test_HEXvle2vle_L3_2ph_BU_ntu
     offset=76.8,
     duration=600,
     height=-30)   annotation (Placement(transformation(extent={{126,-6},{106,14}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     checkValve=true,
     openingInputIsActive=false,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
-        m_flow_nominal=10,
-        Delta_p_nom=250))
-    annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
+        m_flow_nom=10,
+        Delta_p_nom=250)) annotation (Placement(transformation(extent={{-30,-92},{-50,-80}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                           Delta_p_nom=1000, m_flow_nom=11500))
-    annotation (Placement(transformation(extent={{10,-6},{-10,6}},
+    redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=1000, m_flow_nom=11500)) annotation (Placement(transformation(
+        extent={{10,-6},{-10,6}},
         rotation=180,
         origin={54,-32})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=21e5,

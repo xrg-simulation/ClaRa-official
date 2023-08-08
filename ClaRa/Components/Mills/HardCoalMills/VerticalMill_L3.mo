@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,7 +19,8 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=0,
+    powerOut_elMech=0,
+    powerOut_th=0,
     powerAux=P_mills) if contributeToCycleSummary;
 
   outer ClaRa.SimCenter simCenter;
@@ -27,7 +28,7 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
 ////////////////// PARAMETERS /////////////////////////
 //________Materials and Media_______
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel = simCenter.fuelModel1  "Fuel type"   annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFraction xi_coal_h2o_res = 0 "Residual moisture of coal" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.MassFraction xi_coal_h2o_res=0 "Residual moisture of coal" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter TILMedia.GasTypes.BaseGas  gas= simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //________Mill definition___________
@@ -36,11 +37,11 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
   parameter Integer N_mills= 1 "Number of equal mills in parallel" annotation(Dialog(group="Mill Definition"));
 
 //________Initialisation____________
-  parameter Basics.Units.Temperature T_out_start = simCenter.T_amb_start "Initial temperature in mill"  annotation(Dialog(tab="Initialisation"));
-  parameter Basics.Units.Mass mass_rct_start= 1000 "Initial mass of Raw Coal on the Table" annotation(Dialog(tab="Initialisation"));
-  parameter Basics.Units.Mass mass_pct_start= 100 "Initial mass of Pulverized Coal on the Table" annotation(Dialog(tab="Initialisation"));
-  parameter Basics.Units.Mass  mass_pca_start= 100 "Initial mass of Pulverized Coal in the Air" annotation(Dialog(tab="Initialisation"));
-  parameter SI.MassFraction xi_wc_start[fuelModel.N_c-1]=fuelModel.defaultComposition "Initial Wet Coal composition" annotation(Dialog(tab="Initialisation"));
+  parameter Basics.Units.Temperature T_out_start=simCenter.T_amb_start "Initial temperature in mill" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.Mass mass_rct_start=1000 "Initial mass of Raw Coal on the Table" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.Mass mass_pct_start=100 "Initial mass of Pulverized Coal on the Table" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.Mass mass_pca_start=100 "Initial mass of Pulverized Coal in the Air" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.MassFraction xi_wc_start[fuelModel.N_c - 1]=fuelModel.defaultComposition "Initial Wet Coal composition" annotation (Dialog(tab="Initialisation"));
   inner parameter Integer  initOption=0 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=203 "Steady temperature", choice = 801 "Steady masses"));
 
 //________Summary and Visualisation_
@@ -49,7 +50,7 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
 
 //________Expert Settings___________
   parameter Boolean applyGrindingDelay = false "True if grinding process introduces a dead time" annotation(Dialog(tab="Expert Settings"));
-  parameter SI.Time Tau_delay = 120 "Grinding dead time" annotation(Dialog(enable=applyGrindingDelay, tab="Expert Settings"));
+  parameter Basics.Units.Time Tau_delay=120 "Grinding dead time" annotation (Dialog(enable=applyGrindingDelay, tab="Expert Settings"));
   parameter Boolean activateGrindingStatus=false "True, if Status input is activated which makes it possible to stop the grinding process" annotation(Dialog(group="Shutdown",tab="Expert Settings"));
 
 ///////////////// VARAIABLE DECLARATION ///////////////
@@ -75,15 +76,23 @@ protected
   Basics.Units.MassFlowRate m_flow_dc_out "Mass flow of dried coal leaving the mill";
 
 //________Mass Fractions_______
-  SI.MassFraction xi_rc_in[fuelModel.N_c-1] "Mositure content of incoming raw coal";
-  SI.MassFraction xi_wc_out[fuelModel.N_c-1] "Average composition of wet coal after grinding";
+  Basics.Units.MassFraction xi_rc_in[fuelModel.N_c - 1] "Mositure content of incoming raw coal";
+  Basics.Units.MassFraction xi_wc_out[fuelModel.N_c - 1] "Average composition of wet coal after grinding";
 
-  SI.MassFraction xi_dc_out[fuelModel.N_c-1] "Coal composition of dried coal at outlet";
+  Basics.Units.MassFraction xi_dc_out[fuelModel.N_c - 1] "Coal composition of dried coal at outlet";
 
-  SI.MassFraction xi_air_in[gas.nc-1] "Composition of incoming air";
-  SI.MassFraction xi_air_out[ gas.nc-1] "Composition of outgoing air";
-  constant  SI.MassFraction xi_evap_coal[fuelModel.N_c-1] = cat(1,zeros(fuelModel.waterIndex-1), if fuelModel.waterIndex < fuelModel.N_c then {1} else zeros(0), zeros(max(0,fuelModel.N_c - fuelModel.waterIndex - 1)))  "Composition of evaporating water (in terms of coal)";
-  constant SI.MassFraction xi_evap_air[ gas.nc-1] = cat(1,zeros(gas.condensingIndex-1), {1}, zeros(gas.nc-gas.condensingIndex-1)) "Composition of evaporating water (in terms of air)";
+  Basics.Units.MassFraction xi_air_in[gas.nc - 1] "Composition of incoming air";
+  Basics.Units.MassFraction xi_air_out[gas.nc - 1] "Composition of outgoing air";
+  constant Basics.Units.MassFraction xi_evap_coal[fuelModel.N_c - 1]=cat(
+      1,
+      zeros(fuelModel.waterIndex - 1),
+      if fuelModel.waterIndex < fuelModel.N_c then {1} else zeros(0),
+      zeros(max(0, fuelModel.N_c - fuelModel.waterIndex - 1))) "Composition of evaporating water (in terms of coal)";
+  constant Basics.Units.MassFraction xi_evap_air[gas.nc - 1]=cat(
+      1,
+      zeros(gas.condensingIndex - 1),
+      {1},
+      zeros(gas.nc - gas.condensingIndex - 1)) "Composition of evaporating water (in terms of air)";
 
 //________Pressures____________
   Basics.Units.Pressure Delta_p_pa(displayUnit="Pa") "Primary air difference pressure";
@@ -106,14 +115,6 @@ protected
   //______Auxilliary Variables_
 
   ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_W_c= ClaRa.Basics.Functions.ClaRaDelay.ExternalTable() "Pointer for delay memory allocation";
-  TILMedia.VLEFluidObjectFunctions.VLEFluidPointer H2O_props=
-      TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.concatVLEFluidName,
-      0,
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.mixingRatio_propertyCalculation[1:end - 1]/sum(TILMedia.VLEFluidTypes.TILMedia_SplineWater.mixingRatio_propertyCalculation),
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.nc_propertyCalculation,
-      TILMedia.VLEFluidTypes.TILMedia_SplineWater.nc,
-      TILMedia.Internals.redirectModelicaFormatMessage()) "Pointer to external medium memory for evaporation enthalpy and heat capacity";
 
   Real grindingStatus_;
 
@@ -180,6 +181,8 @@ public
     T=outlet.fuel.T_outflow,
     xi_c=outlet.fuel.xi_outflow,
     fuelModel=fuelModel) annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+protected
+  TILMedia.VLEFluid H2O_props(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
 initial equation
   xi_wc_out = xi_wc_start;
 
@@ -203,7 +206,7 @@ initial equation
 equation
 ////////////////////////////////////////////
 /// Additional Media Data                ///
-  Delta_h_evap = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props);
+  Delta_h_evap = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer);
 
 ////////////////////////////////////////////
 /// Grinding Process                     ///

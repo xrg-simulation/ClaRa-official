@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_phxi "A boundary defining pressure, enthalpy and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,35 +17,32 @@ model BoundaryVLE_phxi "A boundary defining pressure, enthalpy and composition"
   import SI = ClaRa.Basics.Units;
 extends ClaRa.Basics.Icons.FlowSink;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
-    powerIn=if massFlowIsLoss then 0 else max(0, -steam_a.m_flow*actualStream(steam_a.h_outflow)),
-    powerOut=if massFlowIsLoss then 0 else max(0, steam_a.m_flow*actualStream(steam_a.h_outflow)),
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
-
+    powerIn=if energyType == 1 then -steam_a.m_flow*actualStream(steam_a.h_outflow) else 0,
+    powerOut_th=if energyType == 2 then steam_a.m_flow*actualStream(steam_a.h_outflow) else 0,
+    powerOut_elMech=0,
+    powerAux=0) if  contributeToCycleSummary;
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used"
                                                                                               annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
  parameter Boolean showData=true "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
-  parameter Boolean massFlowIsLoss = true "True if mass flow is a loss (not a process product)" annotation(Dialog(tab="Summary and Visualisation"));
+  parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
 
   parameter Boolean variable_p=false "True, if pressure defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_h=false "True, if spc. enthalpy defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_xi=false "True, if composition defined by variable input"    annotation(Dialog(group="Define Variable Boundaries"));
 
-  parameter SI.Pressure p_const=0 "Constant pressure"  annotation(Dialog(group="Constant Boundaries", enable= not variable_p));
-  parameter SI.EnthalpyMassSpecific h_const=1e5 "Constant specific enthalpy of source"
-                                            annotation(Dialog(group="Constant Boundaries", enable= not variable_h));
-  parameter SI.MassFraction xi_const[medium.nc-1]=zeros(medium.nc-1) "Constant composition"
-                            annotation(Dialog(group="Constant Boundaries", enable= not variable_xi));
-  parameter SI.Pressure Delta_p= 0 "Flange pressure drop at nominal mass flow (zero refers to ideal boundary)"
-                                                                                              annotation(Dialog(group="Nominal Values"));
-  parameter SI.MassFlowRate m_flow_nom= 1 "Nominal flange mass flow "            annotation(Dialog(group="Nominal Values"));
+  parameter Basics.Units.Pressure p_const=0 "Constant pressure" annotation (Dialog(group="Constant Boundaries", enable=not variable_p));
+  parameter Basics.Units.EnthalpyMassSpecific h_const=1e5 "Constant specific enthalpy of source" annotation (Dialog(group="Constant Boundaries", enable=not variable_h));
+  parameter Basics.Units.MassFraction xi_const[medium.nc - 1]=zeros(medium.nc - 1) "Constant composition" annotation (Dialog(group="Constant Boundaries", enable=not variable_xi));
+  parameter Basics.Units.Pressure Delta_p=0 "Flange pressure drop at nominal mass flow (zero refers to ideal boundary)" annotation (Dialog(group="Nominal Values"));
+  parameter Basics.Units.MassFlowRate m_flow_nom=1 "Nominal flange mass flow " annotation (Dialog(group="Nominal Values"));
   outer ClaRa.SimCenter simCenter;
 protected
-  SI.Pressure p_in;
-  SI.EnthalpyMassSpecific h_in;
-  SI.MassFraction xi_in[medium.nc-1];
+  Basics.Units.Pressure p_in;
+  Basics.Units.EnthalpyMassSpecific h_in;
+  Basics.Units.MassFraction xi_in[medium.nc - 1];
 
 protected
    TILMedia.VLEFluid_ph fluidOut(

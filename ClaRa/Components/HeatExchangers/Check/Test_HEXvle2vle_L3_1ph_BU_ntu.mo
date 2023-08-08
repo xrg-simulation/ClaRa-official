@@ -2,14 +2,19 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_BU_ntu
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
-  HEXvle2vle_L3_1ph_BU_ntu hEXvle2vle_L3_1ph_BU_ntu(
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
-    mass_struc=25000,
-    redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltShell1ph_L2,
+  HEXvle2vle_L3_1ph_BU_ntu hex(
+    length=6,
+    height=2,
+    width=2,
+    Delta_z_par=1.5*hex.diameter_o,
+    Delta_z_ort=1.5*hex.diameter_o,
+    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+    mass_struc=5000,
+    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltShell1ph_L2,
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     h_start_shell=2975e3,
     p_start_shell=21.05e5,
-    redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe1ph_L2,
+    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe1ph_L2,
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     p_nom_tubes=250e5,
     h_nom_tubes=1130e3,
@@ -17,12 +22,12 @@ model Test_HEXvle2vle_L3_1ph_BU_ntu
     p_start_tubes=250e5,
     flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
     N_tubes=200,
-    N_passes=10,
-    N_rows=50,
+    N_passes=5,
+    N_rows=30,
     redeclare model HeatExchangerType = Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes.CrossFlow,
     initOptionShell=1,
     initOptionTubes=1,
-    initOptionWall=1) annotation (Placement(transformation(extent={{-2,-76},{18,-56}})));
+    initOptionWall=0) annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
 
   Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{16,2},{36,22}})));
   Sensors.SensorVLE_L1_T Temp_Shell_out annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));
@@ -32,7 +37,7 @@ model Test_HEXvle2vle_L3_1ph_BU_ntu
     duration=1500,
     startTime=5000,
     offset=3375e3,
-    height=0)
+    height=200e3)
     annotation (Placement(transformation(extent={{140,-14},{120,6}})));
   Modelica.Blocks.Sources.Ramp m_cold1(
     duration=600,
@@ -46,22 +51,15 @@ model Test_HEXvle2vle_L3_1ph_BU_ntu
     duration=600,
     offset=21.6)
     annotation (Placement(transformation(extent={{142,18},{122,38}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_shell1(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_shell1(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
-         m_flow_nom=if ((15) > 0) then (15) else 10, Delta_p_nom=if ((1000) <>
-            0) then (1000) else 1000))
-    annotation (Placement(transformation(extent={{-40,-88},{-60,-76}})));
-  VolumesValvesFittings.Valves.ValveVLE_L1                      valve_tubes1(
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((15) > 0) then (15) else 10, Delta_p_nom=if ((1000) <> 0) then (1000) else 1000)) annotation (Placement(transformation(extent={{-40,-88},{-60,-76}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_tubes1(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
-         m_flow_nom=if ((333) > 0) then (333) else 10, Delta_p_nom=if ((1000)
-             <> 0) then (1000) else 1000))
-    annotation (Placement(transformation(extent={{10,-6},{-10,6}},
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((333) > 0) then (333) else 10, Delta_p_nom=if ((1000) <> 0) then (1000) else 1000)) annotation (Placement(transformation(
+        extent={{10,-6},{-10,6}},
         rotation=180,
         origin={64,-60})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(                 h_const=300e3,
@@ -80,10 +78,11 @@ model Test_HEXvle2vle_L3_1ph_BU_ntu
     startTime=10000,
     height=-200e3)
     annotation (Placement(transformation(extent={{140,-72},{120,-52}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(
+    showExpertSummary=true, useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
-    T_o={hEXvle2vle_L3_1ph_BU_ntu.shell.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T},
-    T_i={hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T},
+    T_o={hex.shell.summary.inlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T},
+    T_i={hex.tubes.summary.inlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T},
     Unit="HEX Temperature in K",
     y_min=500,
     y_max=800,
@@ -142,13 +141,13 @@ equation
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hEXvle2vle_L3_1ph_BU_ntu.In2, Temp_Tubes_in.port) annotation (Line(
-      points={{18,-72},{26,-72},{26,-42}},
+  connect(hex.In2, Temp_Tubes_in.port) annotation (Line(
+      points={{20,-72},{26,-72},{26,-42}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hEXvle2vle_L3_1ph_BU_ntu.Out2, valve_tubes1.inlet) annotation (Line(
-      points={{18,-60},{54,-60}},
+  connect(hex.Out2, valve_tubes1.inlet) annotation (Line(
+      points={{20,-60},{54,-60}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5,
@@ -161,18 +160,18 @@ equation
       points={{119,-36},{102,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Temp_Shell_out.port, hEXvle2vle_L3_1ph_BU_ntu.Out1) annotation (Line(
-      points={{-36,-82},{8,-82},{8,-76}},
+  connect(Temp_Shell_out.port, hex.Out1) annotation (Line(
+      points={{-36,-82},{10,-82},{10,-76}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hEXvle2vle_L3_1ph_BU_ntu.In1, massFlowSource_h.steam_a) annotation (Line(
-      points={{8,-56.2},{8,-4},{80,-4}},
+  connect(hex.In1, massFlowSource_h.steam_a) annotation (Line(
+      points={{10,-56.2},{10,-4},{80,-4}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(hEXvle2vle_L3_1ph_BU_ntu.eye2, quadruple1.eye) annotation (Line(points={{-2,-70.2},{-6,-70.2},{-6,-65},{-26,-65}}, color={190,190,190}));
-  connect(hEXvle2vle_L3_1ph_BU_ntu.eye1, quadruple.eye) annotation (Line(points={{10.8,-75.8},{10.8,-83},{14,-83}}, color={190,190,190}));
+  connect(hex.eye2, quadruple1.eye) annotation (Line(points={{0,-70.2},{-6,-70.2},{-6,-65},{-26,-65}}, color={190,190,190}));
+  connect(hex.eye1, quadruple.eye) annotation (Line(points={{12.8,-75.8},{12.8,-83},{14,-83}}, color={190,190,190}));
   connect(p_cold1.y, pressureSink_ph1.p) annotation (Line(points={{119,-96},{100,-96}}, color={0,0,127}));
   connect(p_hot1.y, pressureSink_ph.p) annotation (Line(points={{-99,-76},{-92,-76},{-84,-76}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{140,100}},

@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Condenser "Condenser || par.: pressure, level_abs || blue |green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -40,15 +40,14 @@ model Condenser "Condenser || par.: pressure, level_abs || blue |green"
                        choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
                                                           Dialog(group="Fundamental Definitions"));
 
-  parameter ClaRa.Basics.Units.Pressure
-                        p_condenser = 4000 "|Fundamental Definitions|Condenser pressure";
-  parameter ClaRa.Basics.Units.Length level_abs(min = 0) = 0 "|Fundamental Definitions|Filling level in hotwell";
+  parameter ClaRa.Basics.Units.Pressure p_condenser=4000 "|Fundamental Definitions|Condenser pressure";
+  parameter ClaRa.Basics.Units.Length level_abs(min=0) = 0 "|Fundamental Definitions|Filling level in hotwell";
 
-  final parameter ClaRa.Basics.Units.Pressure p_in = p_condenser "Inlet pressure";
-  final parameter ClaRa.Basics.Units.Pressure p_out = p_condenser + Modelica.Constants.g_n*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_condenser)*level_abs "Outlet pressure";
+  final parameter ClaRa.Basics.Units.Pressure p_in=p_condenser "Inlet pressure";
+  final parameter ClaRa.Basics.Units.Pressure p_out=p_condenser + Modelica.Constants.g_n*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_condenser)*level_abs "Outlet pressure";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_condenser) "Outlet enthalpy";
-  final parameter ClaRa.Basics.Units.MassFlowRate    m_flow_in(fixed=false) "Inlet mass flow";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in(fixed=false) "Inlet mass flow";
 //    final parameter ClaRa.Basics.Units.MassFlowRate    m_flow_out=m_flow_cond;
 protected
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";

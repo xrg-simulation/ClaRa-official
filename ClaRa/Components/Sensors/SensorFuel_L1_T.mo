@@ -1,10 +1,10 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorFuel_L1_T "Ideal one port temperature sensor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,7 +22,7 @@ model SensorFuel_L1_T "Ideal one port temperature sensor"
 
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog( group="Fundamental Definitions"), choices(choice=1 "Kelvin", choice=2 "Degree Celsius",
                                                                                               choice=3 "Degree Fahrenheit", choice = 4 "per Unit"));
-  parameter ClaRa.Basics.Units.Temperature T_ref[2]={0,273.15} "Reference temperature [min,max]" annotation(Dialog(group="Fundamental Definitions", enable = (unitOption==4)));
+  parameter ClaRa.Basics.Units.Temperature T_ref[2]={0,273.15} "Reference temperature [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 4)));
   ClaRa.Basics.Units.Temperature_DegC T_celsius "Temperatur in Degree Celsius";
 
   Modelica.Blocks.Interfaces.RealOutput T "Temperature in port medium" annotation (Placement(transformation(extent={{100,-10},{120,10}},
@@ -32,7 +32,7 @@ model SensorFuel_L1_T "Ideal one port temperature sensor"
         iconTransformation(extent={{-10,-110},{10,-90}})));
 
 protected
-    ClaRa.Basics.Units.Temperature T_Kelvin "Temperatur in Kelvin";
+  ClaRa.Basics.Units.Temperature T_Kelvin "Temperatur in Kelvin";
 equation
   if unitOption == 1 then //Kelvin
     T = T_Kelvin;
@@ -78,6 +78,6 @@ equation
         Text(
           extent={{50,90},{90,60}},
           lineColor=DynamicSelect({230, 230, 230},  if T_celsius>0 then {27,36,42} else {167,25,48}),
-          textString=DynamicSelect("", if unitOption==1 then "K" elseif unitOption==2 then "C" elseif unitOption==3 then "F" else "p.u."),
+          textString=DynamicSelect("", if unitOption==1 then "K" elseif unitOption==2 then "°C" elseif unitOption==3 then "°F" else "p.u."),
           horizontalAlignment=TextAlignment.Left)}));
 end SensorFuel_L1_T;

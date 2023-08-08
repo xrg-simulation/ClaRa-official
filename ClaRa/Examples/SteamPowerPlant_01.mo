@@ -1,5 +1,19 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
+  //___________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.4.0                            //
+  //                                                                           //
+  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  //___________________________________________________________________________//
+  // DYNCAP and DYNSTART are research projects supported by the German Federal //
+  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
+  // The research team consists of the following project partners:             //
+  // Institute of Energy Systems (Hamburg University of Technology),           //
+  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
+  // XRG Simulation GmbH (Hamburg, Germany).                                   //
+  //___________________________________________________________________________//
     extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
    import Modelica.Utilities.Files.loadResource;
@@ -12,43 +26,14 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
   parameter Real CF_fouling_glob = 0.8;
   parameter Real CF_fouling_rad_glob = 0.78;
   Real P_gen_act = electricalPower.x1/633;
-model Regression
-  extends ClaRa.Basics.Icons.RegressionSummary;
 
-  Modelica.Blocks.Interfaces.RealInput T_FG_out;
-  Modelica.Blocks.Interfaces.RealInput T_burner_4_out;
-  Modelica.Blocks.Interfaces.RealInput T_burner_in;
-  Modelica.Blocks.Interfaces.RealInput T_LS_out;
-  Modelica.Blocks.Interfaces.RealInput T_RS_out;
-  Modelica.Blocks.Interfaces.RealInput m_flow_LS;
-
-  Real y_T_FG_out_int = integrator1.y;
-  Real y_T_LS_out_int = integrator2.y;
-  Real y_T_RS_out_int = integrator3.y;
-  Real y_m_flow_LS_int = integrator4.y;
-  Real y_T_burner_4_out = integrator5.y;
-  Real y_T_burner_in = integrator6.y;
-
-  protected
-  ClaRa.Components.Utilities.Blocks.Integrator integrator1(u = T_FG_out, startTime=1000)
-                                                                                      annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  ClaRa.Components.Utilities.Blocks.Integrator integrator2(u = T_LS_out, startTime=1000)
-                                                                                      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  ClaRa.Components.Utilities.Blocks.Integrator integrator3(u = T_RS_out, startTime=1000)
-                                                                                   annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  ClaRa.Components.Utilities.Blocks.Integrator integrator4(u = m_flow_LS, startTime=1000)
-                                                                                   annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  ClaRa.Components.Utilities.Blocks.Integrator integrator5(u = T_burner_4_out, startTime=1000)
-                                                                                      annotation (Placement(transformation(extent={{20,-56},{40,-36}})));
-  ClaRa.Components.Utilities.Blocks.Integrator integrator6(u = T_burner_in, startTime=1000)
-                                                                                   annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
-end Regression;
 
   ClaRa.Basics.Units.HeatFlowRate totalHeat;
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource_burner3(
     m_flow_const=42/4,
     xi_const={0.84,0.07},
-    variable_m_flow=true) annotation (Placement(transformation(extent={{-244,-106},{-224,-86}})));
+    variable_m_flow=true,
+    energyType=1)         annotation (Placement(transformation(extent={{-244,-106},{-224,-86}})));
 
   ClaRa.Components.Adapters.FuelSlagFlueGas_split             coalSlagFlueGas_split_top
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -70,7 +55,8 @@ end Regression;
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource_burner1(
     m_flow_const=42/4,
     xi_const={0.84,0.07},
-    variable_m_flow=true) annotation (Placement(transformation(extent={{-244,-158},{-224,-138}})));
+    variable_m_flow=true,
+    energyType=1)         annotation (Placement(transformation(extent={{-244,-158},{-224,-138}})));
   ClaRa.Components.Adapters.FuelFlueGas_join coalGas_join_burner1 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -78,7 +64,8 @@ end Regression;
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource_burner2(
     m_flow_const=42/4,
     xi_const={0.84,0.07},
-    variable_m_flow=true) annotation (Placement(transformation(extent={{-244,-132},{-224,-112}})));
+    variable_m_flow=true,
+    energyType=1)         annotation (Placement(transformation(extent={{-244,-132},{-224,-112}})));
   ClaRa.Components.Adapters.FuelFlueGas_join coalGas_join_burner2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -204,20 +191,21 @@ end Regression;
     m_flow_nom=550,
     p_start_flueGas_out(displayUnit="bar") = 101000,
     redeclare model HeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (CF_fouling=CF_fouling_glob, alpha_nom=alpha_wall),
+    redeclare model HeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
+        temperatureDifference="Logarithmic mean - smoothed",
+        suspension_calculationType="Calculated",
+        CF_fouling=0.9),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_4.geo.z_out[1]},
         z_out={71.45},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         height=flameRoom_rh_2.geo.z_out[1] - flameRoom_rh_2.geo.z_in[1],
         length=14.576,
         diameter_t=rh_2_wall.diameter_o,
         N_tubes=rh_2.N_tubes,
-        N_passes=rh_2.N_passes),
-    redeclare model HeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
-        temperatureDifference="Logarithmic mean - smoothed",
-        suspension_calculationType="Calculated",
-        CF_fouling=0.9))                                                                                annotation (Placement(transformation(extent={{-148,76},{-88,96}})));
+        N_passes=rh_2.N_passes,
+        N_rows=32))                                                                                     annotation (Placement(transformation(extent={{-148,76},{-88,96}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature5(T=658.15)
                 annotation (Placement(transformation(
@@ -255,7 +243,8 @@ end Regression;
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource_burner4(
     m_flow_const=42/4,
     xi_const={0.84,0.07},
-    variable_m_flow=true) annotation (Placement(transformation(extent={{-244,-80},{-224,-60}})));
+    variable_m_flow=true,
+    energyType=1)         annotation (Placement(transformation(extent={{-244,-80},{-224,-60}})));
   ClaRa.Components.Adapters.FuelFlueGas_join coalGas_join_burner4 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -330,7 +319,7 @@ end Regression;
         z_in={flameRoom_evap_2.geo.z_out[1]},
         z_out={59.36},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         height=flameRoom_sh_1.geo.z_out[1] - flameRoom_sh_1.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
@@ -357,7 +346,7 @@ end Regression;
         z_in={flameRoom_sh_1.geo.z_out[1]},
         z_out={63.91},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         height=flameRoom_sh_2.geo.z_out[1] - flameRoom_sh_2.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
@@ -382,7 +371,7 @@ end Regression;
         z_in={flameRoom_sh_2.geo.z_out[1]},
         z_out={67.89},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         height=flameRoom_sh_4.geo.z_out[1] - flameRoom_sh_4.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
@@ -407,7 +396,7 @@ end Regression;
         z_in={flameRoom_rh_2.geo.z_out[1]},
         z_out={75.18},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         height=flameRoom_sh_3.geo.z_out[1] - flameRoom_sh_3.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
@@ -429,19 +418,19 @@ end Regression;
     m_flow_nom=550,
     p_start_flueGas_out(displayUnit="bar") = 101000,
     redeclare model HeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (CF_fouling=CF_fouling_glob, alpha_nom=alpha_wall),
+    redeclare model HeatTransfer_TubeBundle = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_tubeBank_L2 (temperatureDifference="Logarithmic mean - smoothed", CF_fouling=0.9),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_3.geo.z_out[1]},
         z_out={82.9},
         width=14.576,
-        parallelTubes=false,
+        tubeOrientation=0,
         diameter_t=rh_1_wall.diameter_o,
         height=flameRoom_rh_1.geo.z_out[1] - flameRoom_rh_1.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
         N_tubes=rh_1.N_tubes,
-        N_passes=rh_1.N_passes),
-    redeclare model HeatTransfer_TubeBundle = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_tubeBank_L2 (temperatureDifference="Logarithmic mean - smoothed", CF_fouling=0.9))
-                                                                                        annotation (Placement(transformation(extent={{-148,132},{-88,152}})));
+        N_passes=rh_1.N_passes,
+        N_rows=50))                                                                     annotation (Placement(transformation(extent={{-148,132},{-88,152}})));
 
   ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic flameRoom_eco(
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime,
@@ -462,13 +451,14 @@ end Regression;
         z_in={flameRoom_rh_1.geo.z_out[1]},
         z_out={85.6},
         width=14.576,
-        parallelTubes=false,
         diameter_t=eco_wall.diameter_o,
         height=flameRoom_eco.geo.z_out[1] - flameRoom_eco.geo.z_in[1],
         length=14.576,
         flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
         N_tubes=eco.N_tubes,
-        N_passes=eco.N_passes))                                                        annotation (Placement(transformation(extent={{-148,160},{-88,180}})));
+        N_passes=eco.N_passes,
+        N_rows=30,
+        tubeOrientation=0))                                                            annotation (Placement(transformation(extent={{-148,160},{-88,180}})));
 
   ClaRa.Components.Furnace.Hopper.Hopper_L2 hopper(
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
@@ -478,7 +468,7 @@ end Regression;
         height=abs(hopper.geo.z_out[1] - hopper.geo.z_in[1]),
         z_out={burner1.geo.z_in[1]},
         z_in={4.03}),
-    T_Slag=600 + 273.15,
+    T_slag=600 + 273.15,
     Tau=0.01,
     T_start_flueGas_out=INIT.brnr4.T_fg_out - 500,
     T_top_initial=INIT.brnr1.T_fg_out,
@@ -523,11 +513,12 @@ end Regression;
     p_start={(INIT.brnr1.p_vle_wall_out + INIT.eco_down.p_out)/2,INIT.brnr2.p_vle_wall_out,INIT.brnr3.p_vle_wall_out,INIT.brnr4.p_vle_wall_out,(INIT.brnr4.p_vle_wall_out + INIT.evap_rad.p_vle_wall_out)/2},
     length=93,
     N_tubes=330,
-    showData=true)
+    showData=true,
+    contributeToCycleSummary=false)
                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-120})));
+        origin={123,-120})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 evap_2_wall(
     redeclare replaceable model Material = TILMedia.SolidTypes.TILMedia_Steel,
     N_ax=evap_2.N_cv,
@@ -585,11 +576,12 @@ end Regression;
         NOM.evap_rad.h_vle_wall_out,
         evap_2.N_cv),
     length=46,
-    showData=true)
+    showData=true,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-24})));
+        origin={123,-24})));
 
   ClaRa.Components.Adapters.Scalar2VectorHeatPort scalar2VectorHeatPort(
     length=evap_2.length,
@@ -635,11 +627,13 @@ end Regression;
     m_flow_nom=NOM.eco.m_flow_vle_wall_in,
     Delta_p_nom=(NOM.sh1.Delta_p_vle_wall + NOM.sh2.Delta_p_vle_wall + NOM.sh4.Delta_p_vle_wall + NOM.rh2.Delta_p_vle_wall),
     N_tubes=970,
-    showData=true)         "former length: 14.618"
+    showData=true,
+    contributeToCycleSummary=false)
+                           "former length: 14.618"
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,40})));
+        origin={123,40})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 evap_4_wall(
     redeclare replaceable model Material = TILMedia.SolidTypes.TILMedia_Steel,
     N_ax=evap_4.N_cv,
@@ -655,7 +649,7 @@ end Regression;
                   annotation (Placement(transformation(
         extent={{-14,-4.99998},{13.9999,4.99998}},
         rotation=90,
-        origin={111,142})));
+        origin={109,142})));
   ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple evap_4(
     diameter_i=0.0298,
     z_in=flameRoom_sh_3.geo.z_in[1],
@@ -676,10 +670,12 @@ end Regression;
     Delta_p_nom=(NOM.sh3.Delta_p_vle_wall + NOM.rh1.Delta_p_vle_wall + NOM.eco.Delta_p_vle_wall),
     showData=true,
     length=20,
-    N_tubes=500)  annotation (Placement(transformation(
+    N_tubes=500,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,142})));
+        origin={123,142})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 sh_1_wall(
     redeclare replaceable model Material = TILMedia.SolidTypes.TILMedia_Steel,
     N_ax=sh_1.N_cv,
@@ -737,7 +733,9 @@ end Regression;
     showData=true,
     length=12,
     redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
-    N_tubes=300)  annotation (Placement(transformation(
+    N_tubes=300,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={370,-82})));
@@ -807,7 +805,9 @@ end Regression;
     length=15,
     N_passes=2,
     redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
-    N_tubes=250)  annotation (Placement(transformation(
+    N_tubes=250,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={370,20})));
@@ -877,7 +877,8 @@ end Regression;
     N_tubes=500,
     length=15,
     N_passes=2,
-    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4)
+    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
@@ -947,7 +948,9 @@ end Regression;
     length=15,
     N_passes=2,
     redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
-    N_tubes=530)  annotation (Placement(transformation(
+    N_tubes=530,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={370,216})));
@@ -1017,10 +1020,12 @@ end Regression;
     frictionAtOutlet=true,
     showData=true,
     length=15,
-    N_passes=6)   annotation (Placement(transformation(
+    N_passes=6,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-298})));
+        origin={123,-298})));
 
   ClaRa.Components.Adapters.Scalar2VectorHeatPort scalar2VectorHeatPort13(
     length=eco.length,
@@ -1088,7 +1093,9 @@ end Regression;
     length=15.3,
     N_passes=6,
     redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
-    N_tubes=420)  annotation (Placement(transformation(
+    N_tubes=420,
+    contributeToCycleSummary=false)
+                  annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={596,-2})));
@@ -1157,7 +1164,8 @@ end Regression;
         rh_1.N_cv),
     length=15,
     N_passes=2,
-    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4)
+    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
@@ -1227,11 +1235,13 @@ end Regression;
         INIT.eco_down.p_out - INIT.brnr1.Delta_p_vle/2,
         evap_0.N_cv),
     m_flow_nom=NOM.eco.m_flow_vle_wall_in,
-    showData=true)             "zin/zout changed to hopper from burner1 in/flameroom out"
+    showData=true,
+    contributeToCycleSummary=false)
+                               "zin/zout changed to hopper from burner1 in/flameroom out"
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-180})));
+        origin={123,-180})));
   ClaRa.Components.Adapters.Scalar2VectorHeatPort scalar2VectorHeatPort2(
     length=evap_0.length,
     N=evap_0.N_cv,
@@ -1297,7 +1307,8 @@ end Regression;
     length=32,
     N_tubes=310,
     N_cv=7,
-    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4)
+    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{14,-5},{-14,5}},
         rotation=90,
@@ -1359,10 +1370,11 @@ end Regression;
         INIT.eco_down.p_out,
         eco_down.N_cv),
     Delta_p_nom=NOM.eco_down.Delta_p_nom,
-    frictionAtInlet=false)                annotation (Placement(transformation(
+    frictionAtInlet=false,
+    contributeToCycleSummary=false)       annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-244})));
+        origin={123,-244})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 eco_down_wall(
     redeclare replaceable model Material = TILMedia.SolidTypes.TILMedia_Steel,
@@ -1434,7 +1446,8 @@ end Regression;
     p_start=linspace(
         INIT.rh2.p_vle_bundle_out,
         INIT.rh2.p_vle_bundle_out,
-        rh_pipe.N_cv))
+        rh_pipe.N_cv),
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
@@ -1486,7 +1499,8 @@ end Regression;
         INIT.sh4_down.p_in,
         INIT.sh4_down.p_out,
         sh_pipe.N_cv),
-    frictionAtOutlet=false)
+    frictionAtOutlet=false,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
@@ -1509,8 +1523,6 @@ end Regression;
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={347,262})));
-
-        Regression regression(T_FG_out=flameRoom_eco.summary.outlet.flueGas.T/(273.15+500),T_LS_out=sh_4.summary.outlet.T/(273.15+500),T_RS_out=sh_2.summary.outlet.T/(273.15+500),m_flow_LS=sh_4.summary.outlet.m_flow/420, T_burner_4_out = burner4.outlet.flueGas.T_outflow,  T_burner_in = burner1.summary.fuelFlueGas_inlet.flueGas.T) annotation (Placement(transformation(extent={{1502,320},{1522,340}})));
 
   StaticCycles.Check.StaticCycleExamples.InitSteamPowerPlant_01 INIT(
     P_target_=1,
@@ -1569,6 +1581,7 @@ end Regression;
       xi_e_waf={{0.884524,0.047619,0.0404762,0.0154762}},
       C_LHV={3.30983e7*1.033,0,-2500e3}))                         annotation (Placement(transformation(extent={{1478,380},{1518,400}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_HP1(
+    contributeToCycleSummary=false,
     p_nom=NOM.Turbine_HP.p_in,
     m_flow_nom=NOM.Turbine_HP.m_flow,
     Pi=NOM.Turbine_HP.p_out/NOM.Turbine_HP.p_in,
@@ -1586,6 +1599,7 @@ end Regression;
     eta_mech=NOM.Turbine_HP.efficiency)
     annotation (Placement(transformation(extent={{842,-30},{852,-10}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP1(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
@@ -1601,6 +1615,7 @@ end Regression;
     eta_mech=NOM.Turbine_IP1.efficiency)
                             annotation (Placement(transformation(extent={{926,-30},{936,-10}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP4(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency =
         ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (
@@ -1659,6 +1674,7 @@ end Regression;
     Tau_evap=10)                                    annotation (Placement(transformation(extent={{944,-208},{1004,-188}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity
                                                          Pump_cond(            showExpertSummary=true,
+    contributeToCycleSummary=false,
     J=1,
     rpm_nom=3000,
     redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
@@ -1667,12 +1683,12 @@ end Regression;
     useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{1420,-188},{1400,-208}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{952,-230},{1012,-210}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_IP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow), checkValve=true)
-                                                                                                                                                                                                    annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow), checkValve=true) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={990,-100})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP1(
+    contributeToCycleSummary=false,
     p_nom=NOM.Turbine_LP1.p_in,
     m_flow_nom=NOM.Turbine_LP1.m_flow,
     Pi=NOM.Turbine_LP1.p_out/NOM.Turbine_LP1.p_in,
@@ -1703,12 +1719,11 @@ end Regression;
         origin={1170,-30})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_preheater_LP1(eta_mech=0.9, inlet(m_flow(start=NOM.pump_preheater_LP1.summary.inlet.m_flow)))
                                                                                         annotation (Placement(transformation(extent={{1070,-230},{1050,-250}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_IP3(                                                                                                                                                                                    checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP3(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
-        m_flow_nominal=NOM.valve_IP2.m_flow,
+        m_flow_nom=NOM.valve_IP2.m_flow,
         Delta_p_nom=NOM.valve_IP2.Delta_p,
-        rho_in_nom=2.4))
-    annotation (Placement(transformation(
+        rho_in_nom=2.4)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1100,-100})));
@@ -1724,21 +1739,21 @@ end Regression;
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={812,-52})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valve_HP(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_HP(
     openingInputIsActive=false,
     showExpertSummary=true,
     checkValve=true,
-    redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534 (
+    redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
-        m_flow_nominal=NOM.valve_HP.m_flow,
+        m_flow_nom=NOM.valve_HP.m_flow,
         Delta_p_nom=NOM.valve_HP.Delta_p_nom,
-        rho_in_nom=25))                  annotation (Placement(transformation(
+        rho_in_nom=25)) annotation (Placement(transformation(
         extent={{10,6},{-10,-6}},
         rotation=90,
         origin={812,-100})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
-        m_flow_nominal=NOM.valve2_HP.m_flow,
+        m_flow_nom=NOM.valve2_HP.m_flow,
         Delta_p_nom=NOM.valve2_HP.Delta_p*0.01,
         rho_in_nom=800)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
@@ -1760,7 +1775,7 @@ end Regression;
     y_start=0.1,
     T=1)
     annotation (Placement(transformation(extent={{1484,-344},{1476,-336}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={1060,-192})));
@@ -1830,6 +1845,7 @@ end Regression;
     unit="MW") annotation (Placement(transformation(extent={{1432,-6},{1472,6}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1
                                                        Turbine_IP3(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
@@ -1846,6 +1862,7 @@ end Regression;
                             annotation (Placement(transformation(extent={{1006,-30},{1016,-10}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1
                                                        Turbine_IP2(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
@@ -1889,6 +1906,7 @@ end Regression;
   ClaRa.Visualisation.Quadruple quadruple16
     annotation (Placement(transformation(extent={{1020,-10},{1080,10}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP3(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
     p_in_start=INIT.Turbine_LP1.p_in,
@@ -1904,6 +1922,7 @@ end Regression;
     eta_mech=NOM.Turbine_LP3.efficiency)
     annotation (Placement(transformation(extent={{1226,-30},{1236,-10}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP2(
+    contributeToCycleSummary=false,
     allowFlowReversal=true,
     redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
     p_in_start=INIT.Turbine_LP1.p_in,
@@ -1942,9 +1961,7 @@ end Regression;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={1250,-30})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valve_LP2(checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow))
-                                                                                                                                                                                                    annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP2(checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1170,-100})));
@@ -2029,21 +2046,17 @@ end Regression;
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={1220,-240})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valve_afterPumpLP3(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=30, Delta_p_nom=1000))
-                                                                                                                                                                                                    annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_afterPumpLP3(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=30, Delta_p_nom=1000)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={1204,-220})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valveControl_preheater_LP2(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP2(
     checkValve=true,
     openingInputIsActive=true,
     redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
         CL_valve=[0,0; 1,1],
         m_flow_nom=25,
-        Delta_p_nom=0.2e5))
-                        annotation (Placement(transformation(
+        Delta_p_nom=0.2e5)) annotation (Placement(transformation(
         extent={{10,-6},{-10,6}},
         rotation=90,
         origin={1170,-220})));
@@ -2061,8 +2074,7 @@ end Regression;
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={1204,-192})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valveControl_preheater_LP4(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP4(
     checkValve=true,
     openingInputIsActive=true,
     redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
@@ -2072,15 +2084,11 @@ end Regression;
         extent={{-10,6},{10,-6}},
         rotation=0,
         origin={1350,-240})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valve_LP3(                                                                                                                                            checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow))
-                                                                                                                                                                                                    annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP3(checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1240,-100})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valve_LP4(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=NOM.valve_LP3.m_flow, Delta_p_nom=NOM.valve_LP3.Delta_p), checkValve=true)
-                                                                                                                                                                                                    annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP4(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=NOM.valve_LP3.m_flow, Delta_p_nom=NOM.valve_LP3.Delta_p), checkValve=true) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1310,-100})));
@@ -2159,7 +2167,8 @@ end Regression;
   Modelica.Mechanics.Rotational.Components.Inertia inertia(J=2000, phi(start=0))
                                                                    annotation (Placement(transformation(extent={{1412,-30},{1432,-10}})));
   ClaRa.Components.Electrical.SimpleGenerator
-                                        simpleGenerator(hasInertia=true) annotation (Placement(transformation(extent={{1442,-30},{1462,-10}})));
+                                        simpleGenerator(contributeToCycleSummary=true,
+                                                        hasInertia=true) annotation (Placement(transformation(extent={{1442,-30},{1462,-10}})));
   ClaRa.Components.BoundaryConditions.BoundaryElectricFrequency
                                                           boundaryElectricFrequency annotation (Placement(transformation(extent={{1502,-30},{1482,-10}})));
   ClaRa.Visualisation.Quadruple quadruple19
@@ -2289,10 +2298,11 @@ end Regression;
     initOption="fixed slip",
     J=800,
     useCharLine=true,
-    charLine_tau_s_=[0,2; 0.7,1.8; 0.95,2.8; 1,0],
+    charLine_tau_rpm_=[0,2; 0.7,1.8; 0.95,2.8; 1,0],
     P_nom=NOM.Pump_cond.P_pump,
     I_rotor_nom=50,
     U_term_nom=10e3,
+    contributeToCycleSummary=true,
     shaft(phi(start=0)))                annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -2309,11 +2319,10 @@ end Regression;
     x1=Pump_cond.summary.outline.rpm,
     unit="1/min",
     decimalSpaces=0) annotation (Placement(transformation(extent={{1424,-230},{1464,-218}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1
-                                                      valveControl_preheater_LP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
         CL_valve=[0,0; 1,1],
         Delta_p_nom=1000,
-        m_flow_nom=25000))   annotation (Placement(transformation(
+        m_flow_nom=25000)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=0,
         origin={1486,-100})));
@@ -2349,11 +2358,12 @@ end Regression;
         INIT.eco_riser.p_out,
         eco_riser.N_cv),
     h_start=ones(eco_riser.N_cv)*INIT.eco_riser.h_in,
-    Delta_p_nom=NOM.eco_riser.Delta_p_nom)
+    Delta_p_nom=NOM.eco_riser.Delta_p_nom,
+    contributeToCycleSummary=false)
                   annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
-        origin={125,-336})));
+        origin={123,-336})));
   ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_flex splitVLE_L2_flex(
     p_nom=NOM.eco_riser.p_in,
     h_nom=NOM.eco_riser.h_in,
@@ -2366,7 +2376,7 @@ end Regression;
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={654,-250})));
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=0.1e5, m_flow_nom=420)) annotation (Placement(transformation(extent={{690,-256},{710,-244}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=0.1e5, m_flow_nom=420)) annotation (Placement(transformation(extent={{690,-256},{710,-244}})));
   ClaRa.Visualisation.Quadruple quadruple26
     annotation (Placement(transformation(extent={{380,-70},{440,-50}})));
   ClaRa.Visualisation.Quadruple quadruple27
@@ -2413,7 +2423,7 @@ end Regression;
     xi_nom={0,0,0.0005,0,0.7681,0.2314,0,0,0},
     m_flow_out_nom={475.6/4,475.6/4,475.6/4,475.6/4},
     T_start=673,
-    mixingRatio_initial={0,0,0.0005,0,0.7681,0.2314,0,0,0},
+    xi_start={0,0,0.0005,0,0.7681,0.2314,0,0,0},
     T_nom=1119.15,
     p_start(displayUnit="bar") = 133900) annotation (Placement(transformation(extent={{-400,-116},{-380,-96}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow fluelGasFlowSource_burner1(
@@ -2656,7 +2666,7 @@ end Regression;
         rotation=270,
         origin={-186,86})));
   Visualisation.Quadruple       quadruple35
-    annotation (Placement(transformation(extent={{134,-26},{194,-6}})));
+    annotation (Placement(transformation(extent={{132,-26},{192,-6}})));
   Visualisation.Quadruple       quadruple36
     annotation (Placement(transformation(extent={{132,52},{192,72}})));
   Visualisation.Quadruple       quadruple37
@@ -2810,7 +2820,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(evap_1.outlet, evap_2.inlet) annotation (Line(
-      points={{125,-106},{125,-38}},
+      points={{123,-106},{123,-38}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
@@ -2821,24 +2831,24 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(evap_2.outlet, evap_3.inlet) annotation (Line(
-      points={{125,-10},{125,26}},
+      points={{123,-10},{123,26}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
 
   connect(flameRoom_rh_1.heat_wall, evap_4_wall.outerPhase[2]) annotation (Line(
-      points={{-88,142},{10,142},{10,142},{106,142}},
+      points={{-88,142},{8,142},{8,142},{104,142}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
   connect(evap_3.outlet, evap_4.inlet) annotation (Line(
-      points={{125,54},{125,128}},
+      points={{123,54},{123,128}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
 
   connect(eco_wall.innerPhase, eco.heat) annotation (Line(
-      points={{100,-298},{121,-298}},
+      points={{100,-298},{119,-298}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
@@ -2872,7 +2882,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(flameRoom_eco.heat_wall, evap_4_wall.outerPhase[3]) annotation (Line(
-      points={{-88,170},{0,170},{0,142},{106,142}},
+      points={{-88,170},{0,170},{0,142},{104,142}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
@@ -2900,13 +2910,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(evap_0_wall.innerPhase, evap_0.heat) annotation (Line(
-      points={{102,-180},{121,-180}},
+      points={{102,-180},{119,-180}},
       color={167,25,48},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(evap_0.outlet, evap_1.inlet) annotation (Line(
-      points={{125,-166},{125,-134}},
-      color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
 
@@ -2933,7 +2938,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(flameRoom_sh_3.heat_wall, evap_4_wall.outerPhase[1]) annotation (Line(
-      points={{-88,114},{0,114},{0,142},{106,142}},
+      points={{-88,114},{0,114},{0,142},{104,142}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
@@ -3053,7 +3058,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eco_down_wall.innerPhase, eco_down.heat) annotation (Line(
-      points={{112,-244},{121,-244}},
+      points={{112,-244},{119,-244}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
@@ -3063,7 +3068,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(separator.inlet, evap_4.outlet) annotation (Line(
-      points={{164,178},{125,178},{125,156}},
+      points={{164,178},{123,178},{123,156}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
@@ -3085,16 +3090,6 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
 
-  connect(eco.outlet, eco_down.inlet) annotation (Line(
-      points={{125,-284},{125,-258}},
-      color={0,131,169},
-      pattern=LinePattern.Solid,
-      thickness=0.5));
-  connect(eco_down.outlet, evap_0.inlet) annotation (Line(
-      points={{125,-230},{125,-194}},
-      color={0,131,169},
-      pattern=LinePattern.Solid,
-      thickness=0.5));
   connect(ct_1.outlet, sh_1.inlet) annotation (Line(
       points={{229,64},{229,-120},{370,-120},{370,-96}},
       color={0,131,169},
@@ -3580,16 +3575,16 @@ equation
   connect(sh_pipe.eye, quadruple2.eye) annotation (Line(points={{373.4,276.6},{373.4,288},{406,288}},     color={190,190,190}));
   connect(rh_pipe.eye, quadruple1.eye) annotation (Line(points={{599.4,186.6},{599.4,202},{632,202}},        color={190,190,190}));
   connect(eco_riser.outlet, eco.inlet) annotation (Line(
-      points={{125,-322},{125,-312}},
+      points={{123,-322},{123,-312}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(eco_riser_wall.innerPhase, eco_riser.heat) annotation (Line(
-      points={{108,-336},{121,-336}},
+      points={{108,-336},{119,-336}},
       color={167,25,48},
       thickness=0.5));
   connect(splitVLE_L2_flex.outlet[1], eco_riser.inlet) annotation (Line(
-      points={{644,-249.25},{644,-250},{482,-250},{482,-356},{125,-356},{125,-350}},
+      points={{644,-249.25},{644,-250},{482,-250},{482,-356},{123,-356},{123,-350}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -3601,7 +3596,7 @@ equation
   connect(sh_1.eye, quadruple26.eye) annotation (Line(points={{373.4,-67.4},{373.4,-66},{374,-66},{374,-60},{380,-60}},      color={190,190,190}));
   connect(sh_2.eye, quadruple27.eye) annotation (Line(points={{373.4,34.6},{373.4,38},{376,38}},      color={190,190,190}));
   connect(sh_3.eye, quadruple28.eye) annotation (Line(points={{373.4,118.6},{373.4,138},{378,138}},                         color={190,190,190}));
-  connect(quadruple30.eye, evap_4.eye) annotation (Line(points={{132,158},{128.4,158},{128.4,156.6}},                         color={190,190,190}));
+  connect(quadruple30.eye, evap_4.eye) annotation (Line(points={{132,158},{126.4,158},{126.4,156.6}},                         color={190,190,190}));
   connect(ct_1.eye, quadruple29.eye) annotation (Line(points={{232.4,63.4},{232,63.4},{232,60}},         color={190,190,190}));
   connect(flameRoom_sh_1.heat_CarrierTubes, ct_1_wall.outerPhase[7]) annotation (Line(
       points={{-98,12},{20,12},{20,78},{204,78}},
@@ -3798,19 +3793,19 @@ equation
       color={167,25,48},
       thickness=0.5));
   connect(evap_4_wall.innerPhase, evap_4.heat) annotation (Line(
-      points={{116,142},{118,142},{118,142},{121,142}},
+      points={{114,142},{116,142},{116,142},{119,142}},
       color={167,25,48},
       thickness=0.5));
   connect(evap_3_wall.innerPhase, evap_3.heat) annotation (Line(
-      points={{112,40},{121,40}},
+      points={{112,40},{119,40}},
       color={167,25,48},
       thickness=0.5));
   connect(evap_2_wall.innerPhase, evap_2.heat) annotation (Line(
-      points={{110,-24},{121,-24}},
+      points={{110,-24},{119,-24}},
       color={167,25,48},
       thickness=0.5));
   connect(evap_1_wall.innerPhase, evap_1.heat) annotation (Line(
-      points={{112,-120},{116,-120},{116,-120},{121,-120}},
+      points={{112,-120},{116,-120},{116,-120},{119,-120}},
       color={167,25,48},
       thickness=0.5));
   connect(quadruple32.eye, rh_1.eye) annotation (Line(points={{534,26},{599.4,26},{599.4,12.6}},      color={190,190,190}));
@@ -3832,11 +3827,11 @@ equation
   connect(regenerativeAirPreheater.eye_flueGas, quadrupleGas14.eye) annotation (Line(points={{-371.8,32.6},{-371.8,37.3},{-366,37.3},{-366,41}}, color={190,190,190}));
   connect(boilergasTemperatures.y, xYplot.y1) annotation (Line(points={{-240,19},{-240,29.7857},{-239.333,29.7857}}, color={0,0,127}));
   connect(boilerZpositions.y, xYplot.x1) annotation (Line(points={{-186,97},{-186,98},{-195.933,98},{-195.933,98.1429}},             color={0,0,127}));
-  connect(evap_3.eye, quadruple36.eye) annotation (Line(points={{128.4,54.6},{128.4,62},{132,62}},      color={190,190,190}));
-  connect(evap_2.eye, quadruple35.eye) annotation (Line(points={{128.4,-9.4},{134,-9.4},{134,-16}},                    color={190,190,190}));
-  connect(evap_1.eye, quadruple37.eye) annotation (Line(points={{128.4,-105.4},{128.4,-96},{146,-96}},     color={190,190,190}));
-  connect(evap_0.eye, quadruple38.eye) annotation (Line(points={{128.4,-165.4},{128.4,-166},{140,-166}},     color={190,190,190}));
-  connect(eco.eye, quadruple39.eye) annotation (Line(points={{128.4,-283.4},{128.4,-284},{140,-284}},     color={190,190,190}));
+  connect(evap_3.eye, quadruple36.eye) annotation (Line(points={{126.4,54.6},{126.4,62},{132,62}},      color={190,190,190}));
+  connect(evap_2.eye, quadruple35.eye) annotation (Line(points={{126.4,-9.4},{132,-9.4},{132,-16}},                    color={190,190,190}));
+  connect(evap_1.eye, quadruple37.eye) annotation (Line(points={{126.4,-105.4},{126.4,-96},{146,-96}},     color={190,190,190}));
+  connect(evap_0.eye, quadruple38.eye) annotation (Line(points={{126.4,-165.4},{126.4,-166},{140,-166}},     color={190,190,190}));
+  connect(eco.eye, quadruple39.eye) annotation (Line(points={{126.4,-283.4},{126.4,-284},{140,-284}},     color={190,190,190}));
   connect(boilerZpositions2.y, xYplot.x2) annotation (Line(points={{-186,137},{-186,147.857},{-195.933,147.857}},            color={0,0,127}));
   connect(boilervleTemperatures.y, xYplot.y2) annotation (Line(points={{-219,19},{-219,29.7857},{-218.667,29.7857}},           color={0,0,127}));
   connect(PTarget.y, feedForwardBlock_3508_1.P_G_target_) annotation (Line(points={{-455,-396},{-444,-396}}, color={0,0,127}));
@@ -3844,9 +3839,9 @@ equation
   connect(feedForwardBlock_3508_1.QF_FF_, rollerBowlMill_L1_1.rawCoal) annotation (Line(points={{-421,-396},{-390.8,-396}}, color={0,0,127}));
   connect(rollerBowlMill_L1_1.coalDust, Nominal_PowerFeedwaterPump1.u) annotation (Line(points={{-369,-396},{865.2,-396}}, color={0,0,127}));
   connect(feedForwardBlock_3508_1.P_max_, P_max_.y) annotation (Line(points={{-440,-380},{-440,-364},{-457,-364}}, color={0,0,127}));
-  connect(feedForwardBlock_3508_1.P_min_, P_min_.y) annotation (Line(points={{-437,-380},{-437,-346},{-457,-346}}, color={0,0,127}));
-  connect(P_min_1.y, feedForwardBlock_3508_1.derP_max_) annotation (Line(points={{-457,-328},{-430,-328},{-430,-380}}, color={0,0,127}));
-  connect(P_min_1.y, feedForwardBlock_3508_1.derP_StG_) annotation (Line(points={{-457,-328},{-427,-328},{-427,-380}}, color={0,0,127}));
+  connect(feedForwardBlock_3508_1.P_min_, P_min_.y) annotation (Line(points={{-436,-380},{-436,-346},{-457,-346}}, color={0,0,127}));
+  connect(P_min_1.y, feedForwardBlock_3508_1.derP_max_) annotation (Line(points={{-457,-328},{-432,-328},{-432,-380}}, color={0,0,127}));
+  connect(P_min_1.y, feedForwardBlock_3508_1.derP_StG_) annotation (Line(points={{-457,-328},{-428,-328},{-428,-380}}, color={0,0,127}));
   connect(P_min_1.y, feedForwardBlock_3508_1.derP_T_) annotation (Line(points={{-457,-328},{-424,-328},{-424,-380}}, color={0,0,127}));
   connect(Nominal_PowerFeedwaterPump1.y, PI_feedwaterPump.u_s) annotation (Line(points={{874.4,-396},{890,-396}}, color={0,0,127}));
   connect(sensorFWflow.m_flow, PI_feedwaterPump.u_m) annotation (Line(points={{875,-240},{902.1,-240},{902.1,-384}}, color={0,0,127}));
@@ -3925,6 +3920,21 @@ equation
                                                                                                          color={190,190,190}));
   connect(quadruple34.eye, sprayInjector_sh4.eye) annotation (Line(points={{302,174},{362,174},{362,170}}, color={190,190,190}));
   connect(quadruple31.eye, sprayInjector_sh1.eye) annotation (Line(points={{532,80},{588,80}},          color={190,190,190}));
+  connect(eco.outlet, eco_down.inlet) annotation (Line(
+      points={{123,-284},{123,-284},{123,-258}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
+  connect(eco_down.outlet, evap_0.inlet) annotation (Line(
+      points={{123,-230},{123,-213},{123,-213},{123,-194}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
+  connect(evap_0.outlet, evap_1.inlet) annotation (Line(
+      points={{123,-166},{123,-150},{123,-150},{123,-134}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-580,-480},{1540,460}}),
                       graphics={
         Rectangle(

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Desulfurization_L2 "Gas || L2 || Desulfurization"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -29,8 +29,8 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   parameter Modelica.SIunits.Temperature T_in_H2O = 313.15 "Inlet Temperature of water" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Real specificPowerConsumption(unit="J/m3") = 9000 "Specific power consumption per standard m^3" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
-  SI.EnthalpyMassSpecific delta_h_evap;
-  SI.MassFraction xi_H2O_sat_out "outlet mass fraction of H2O at saturation";
+  Units.EnthalpyMassSpecific delta_h_evap;
+  Units.MassFraction xi_H2O_sat_out "outlet mass fraction of H2O at saturation";
 
   //required molar flow rates of reaction educts
   Modelica.SIunits.MolarFlowRate n_flow_CaCO3_req "Required molar flow of calcium carbonate";
@@ -61,22 +61,14 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   ClaRa.Basics.Units.VolumeFlowRate V_flow_std "Standardized volume flow rate";
 
   //Auxillary variables for upstream reaction before entering the flue gas cell
-  SI.EnthalpyMassSpecific h_in;
+  Units.EnthalpyMassSpecific h_in;
 
-  SI.MassFraction xi_out[iCom.mediumModel.nc-1];
+  Units.MassFraction xi_out[iCom.mediumModel.nc - 1];
   Modelica.SIunits.MassFlowRate m_flow_out;
-  SI.EnthalpyMassSpecific h_out;
+  Units.EnthalpyMassSpecific h_out;
 
-  TILMedia.GasObjectFunctions.GasPointer gasPointerAux=
-      TILMedia.GasObjectFunctions.GasPointer(
-       iCom.mediumModel.concatGasName,
-       0,
-       iCom.mediumModel.xi_default,
-       iCom.mediumModel.nc_propertyCalculation,
-       iCom.mediumModel.nc,
-       8,
-       0);
 
+  TILMedia.Gas gasAux(gasType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 initial equation
   m_flow_aux = m_flow_out;
   h_aux = h_out;
@@ -97,7 +89,7 @@ equation
   m_flow_reaction[6] = 0;
   m_flow_reaction[7] = 0;
 
-  xi_H2O_sat_out = TILMedia.GasObjectFunctions.saturationMassFraction_phxi(iCom.p_in,h_aux,xi_aux,gasPointerAux);
+  xi_H2O_sat_out = TILMedia.GasObjectFunctions.saturationMassFraction_phxi(iCom.p_in,h_aux,xi_aux,gasAux.gasPointer);
   delta_h_evap = TILMedia.GasObjectFunctions.specificEnthalpyOfVaporisation_T(iCom.T_in, iCom.fluidPointer_in);
   h_in = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
 

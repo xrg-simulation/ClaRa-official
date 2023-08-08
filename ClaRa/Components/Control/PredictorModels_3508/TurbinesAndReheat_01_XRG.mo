@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model TurbinesAndReheat_01_XRG "A predictor for the generator power including the HP and IP/LP turbines aswell as the energy storage in the reheater"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -16,6 +16,8 @@ model TurbinesAndReheat_01_XRG "A predictor for the generator power including th
 //___________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="01");
+  extends ClaRa.Components.Control.PredictorModels_3508.Icons.TurbineAndReheat;
+
   parameter Modelica.SIunits.Pressure p_nom= 240e5 "Nominal pressure at inlet of HP turbine"
                                                                                     annotation(Dialog(group="Nominal values"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nom= 419 "Nominal mass flow rate at inlet of HP turbine"
@@ -62,9 +64,9 @@ parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "Time Constant for Energy Stor
         origin={-98,0}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-98,80})));
+        origin={-98,0})));
   Modelica.Blocks.Interfaces.RealOutput P_gen_ "Generator power in p.u."
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Tables.CombiTable1D convert2SpecificpowerOutput(columns={2},
       table=CL_Deltah_p)
     annotation (Placement(transformation(extent={{6,60},{26,80}})));
@@ -106,7 +108,7 @@ assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain2.y, P_gen_) annotation (Line(
-      points={{85,10},{90,10},{90,0},{100,0}},
+      points={{85,10},{90,10},{90,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, gain2.u) annotation (Line(
@@ -114,7 +116,7 @@ assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
       color={0,0,127},
       smooth=Smooth.None));
   connect(inlet.p_, gain.u) annotation (Line(
-      points={{-98,0},{-84,0},{-84,70},{-32,70}},
+      points={{-98.1,0.1},{-84,0.1},{-84,70},{-32,70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -122,7 +124,7 @@ assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(inlet.m_flow_, energyStroage_RH_IPLP_turbine.u) annotation (Line(
-      points={{-98,0},{-78,0},{-78,-26},{-64,-26}},
+      points={{-98.1,0.1},{-78,0.1},{-78,-26},{-64,-26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -130,71 +132,14 @@ assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(inlet.m_flow_, energyStorage_HP_turbine.u) annotation (Line(
-      points={{-98,0},{-78,0},{-78,34},{-64,34}},
+      points={{-98.1,0.1},{-78,0.1},{-78,34},{-64,34}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Icon(graphics={
-        Polygon(
-          points={{-94,10},{-74,18},{-74,-18},{-94,-10},{-94,10}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-100,80},{-94,80},{-94,10}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-46,100},{6,62}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-74,18},{-74,80},{-34,80},{-20,92},{-20,68},{-6,80},{20,80},{
-              20,18}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Polygon(
-          points={{20,20},{40,40},{40,-40},{20,-20},{20,20}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{80,40},{100,60},{100,-60},{80,-40},{80,40}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{80,40},{60,60},{60,-60},{80,-40},{80,40}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{40,40},{40,80},{80,80},{80,40}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-74,2},{20,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{40,2},{60,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,2},{-94,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}), Diagram(graphics),
+  annotation (                              Diagram(graphics),
     Documentation(info="<html>
 <p>A model calculating the time response of a HP, IP and LP turbine with reheating</p>
 <p>Be carefully: This model extends the VDI/VDE guideline for Unit Control of Thermal Power Stations in the following:</p>

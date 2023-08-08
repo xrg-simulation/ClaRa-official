@@ -1,14 +1,10 @@
 within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
 partial model PartialMigrationSpeed "Base class for the particle migration speed"
 
-outer ClaRa.Basics.Units.VolumeFlowRate
-                                    V_flow_flueGas_in;
-  outer ClaRa.Basics.Units.VolumeFlowRate
-                                      V_flow_flueGas_out;
-  outer ClaRa.Basics.Units.Area
-                            A_cross;
-ClaRa.Basics.Units.Velocity
-                        w;
+  outer ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in;
+  outer ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out;
+  outer ClaRa.Basics.Units.Area A_cross;
+  ClaRa.Basics.Units.Velocity w;
 
   annotation (Icon(graphics={
         Ellipse(extent={{-100,100},{100,-100}}, lineColor={0,0,255}),

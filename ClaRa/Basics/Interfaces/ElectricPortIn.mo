@@ -1,7 +1,7 @@
 within ClaRa.Basics.Interfaces;
 connector ElectricPortIn
-  flow SI.Power P "Active power";
-  SI.Frequency f "Frequency";
+  flow Units.Power P "Active power";
+  Units.Frequency f "Frequency";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={Ellipse(

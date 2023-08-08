@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Turbines;
 model TurbineGas_L1_stageStacked "Advanced gas turbine model using the stage stacking method according to N. Gasparovic"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,16 +21,17 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=-P_hyd,
-    powerAux=P_hyd - P_shaft) if                                                                                                   contributeToCycleSummary;
+    powerOut_th=0,
+    powerOut_elMech=P_shaft,
+    powerAux=0) if contributeToCycleSummary;
 
   model Outline
    extends ClaRa.Basics.Icons.RecordIcon;
-   input SI.VolumeFlowRate V_flow "Volume flow rate";
-   input SI.Power P_hyd "Hydraulic power";
+    input Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
+    input Basics.Units.Power P_hyd "Hydraulic power";
    input Real Pi "Pressure ratio";
-   input SI.PressureDifference Delta_p "Pressure difference";
-   input SI.RPM rpm "Rotational speed";
+    input Basics.Units.PressureDifference Delta_p "Pressure difference";
+    input Basics.Units.RPM rpm "Rotational speed";
    input Real Delta_alpha "Angle of VIGV";
    input Real eta_isen "Hydraulic efficiency";
    input Real eta_mech "Mechanic efficiency";
@@ -82,28 +83,26 @@ public
   //__________________________/ Parameters \_____________________________
   parameter Integer N_stages = 12 "Number of stages";
   parameter Integer N_VIGVstages = 1 "Number of VIGV stages";
-  parameter SI.RPM rpm_nom = 3000 "|Nominal Values|Nomial rotational speed";
+  parameter Basics.Units.RPM rpm_nom=3000 "|Nominal Values|Nomial rotational speed";
   parameter Real eta_isen_stage_nom = 0.9 "|Nominal Values|Nominal isentropic stage efficiency (axial: ca. 0.9, radial: ca. 0.82)"; //Axial compressor: ca. 0.9, Radial compressor: 0.82
   parameter Boolean useExternalVIGVangle= false "True, if an external source should be used to set VIGV angle";
-  parameter SI.Angle Delta_alpha_fixed = 0 "Fixed angle of VIGV (variable inlet guide vanes)"
-                                                                                          annotation(Dialog(enable = not useExternalVIGVangle));
+  parameter Basics.Units.Angle Delta_alpha_fixed=0 "Fixed angle of VIGV (variable inlet guide vanes)" annotation (Dialog(enable=not useExternalVIGVangle));
   parameter Real eta_mech = 0.99 "Mechanical efficiency";
   parameter Modelica.SIunits.Inertia J "Moment of inertia" annotation(Dialog(group="Time Response Definitions", enable= not steadyStateTorque));
   parameter Boolean useMechanicalPort=false "|Fundamental Definitions|True, if a mechenical flange should be used";
   parameter Boolean steadyStateTorque=false "|Fundamental Definitions|True, if steady state mechanical momentum shall be used";
   parameter Boolean useBoundaryAssert=true "True, if simulation should stop when surge or choke boundary is hit"
                                                                            annotation(Dialog(tab = "Advanced"));
-  parameter SI.RPM rpm_fixed = 3000 "Constant rotational speed of pump" annotation (Dialog( group = "Fundamental Definitions", enable = not useMechanicalPort));
-  parameter SI.Time Tau_aux=0.1 "Time constant of auxilliary kappa states"  annotation(Dialog(tab = "Advanced"));
+  parameter Basics.Units.RPM rpm_fixed=3000 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
+  parameter Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states" annotation (Dialog(tab="Advanced"));
 
-  parameter SI.MassFlowRate  m_flow_nom = 100 "|Nominal Values|Nominal mass flow";
+  parameter Basics.Units.MassFlowRate m_flow_nom=100 "|Nominal Values|Nominal mass flow";
   parameter Real Pi_nom = 7 "|Nominal Values|Nominal pressure ratio";
-  parameter SI.Temperature T_in_nom = 293.15 "|Nominal Values|Nominal inlet temperature";
-  parameter SI.Pressure p_in_nom = 1.01325e5 "|Nominal Values|Nominal inlet pressure";
-  parameter SI.MassFraction xi_nom[medium.nc - 1]=
-     {0,0,0,0,0.76,0.23,0,0,0} "|Nominal Values|Nominal gas composition";
+  parameter Basics.Units.Temperature T_in_nom=293.15 "|Nominal Values|Nominal inlet temperature";
+  parameter Basics.Units.Pressure p_in_nom=1.01325e5 "|Nominal Values|Nominal inlet pressure";
+  parameter Basics.Units.MassFraction xi_nom[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0} "|Nominal Values|Nominal gas composition";
   parameter Boolean useFixedEnthalpyCharacteristic=false "|Nominal Values|True, if a fixed nominal stage enthalpy characteristic should be used";
-  parameter SI.Length diameter[N_stages] = ones(N_stages)*1.5 "Individual or mean stage diameter" annotation(Dialog( group = "Nominal Values", enable = not useFixedEnthalpyCharacteristic));
+  parameter Basics.Units.Length diameter[N_stages]=ones(N_stages)*1.5 "Individual or mean stage diameter" annotation (Dialog(group="Nominal Values", enable=not useFixedEnthalpyCharacteristic));
   parameter Real psi_nom_fixed[N_stages]=ones(N_stages)*0.8 "Fixed nominal enthalpy stage characteristic (axial: 0.2 to 0.9, radial: 0.9 to 1.4)"
                                                                                            annotation(Dialog( group = "Nominal Values", enable = useFixedEnthalpyCharacteristic));
   parameter String VIGVInfluence= "Lower" "Influence of VIGV on psi, phi and eta"
@@ -114,8 +113,8 @@ public
   Basics.Units.Power P_hyd "Hydraulic power";
   Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
 //   Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
-  SI.Power P_shaft "Mechanical power at shaft";
-  SI.RPM rpm "Rotational speed";
+  Basics.Units.Power P_shaft "Mechanical power at shaft";
+  Basics.Units.RPM rpm "Rotational speed";
   //Modelica.SIunits.Torque tau_fluid "Fluid torque";
   //SI.EnthalpyMassSpecific Delta_h;
   Real tau "Overall temperature ratio";
@@ -164,28 +163,28 @@ public
   Real Pi_st_max[i]( each final start = Pi_nom^(1/N_stages)) "Maximum stage pressure ratio at surge line";
   Real Pi_prod_st[i](  each final start = 1) "Overall pressure ratio until actual stage"; //not important, just for evaluation
 
-  SI.Temperature T_out_st[i]( each final start = T_in_nom) "Calculated outlet stage temperature";
-  SI.Pressure p_out_st[i](each final start = 1e5) "Calculated outlet stage pressure";
+  Basics.Units.Temperature T_out_st[i](each final start=T_in_nom) "Calculated outlet stage temperature";
+  Basics.Units.Pressure p_out_st[i](each final start=1e5) "Calculated outlet stage pressure";
 
 //Stufenvariablen nominal
-  SI.HeatCapacityMassSpecific cp_in_nom "Nominal isobaric heat capacity at stage inlet";
-  SI.HeatCapacityMassSpecific cv_in_nom "Nominal isochoric heat capacity at stage inlet";
-  SI.HeatCapacityMassSpecific cp_out_nom_st[i] "Nominal isobaric heat capacity at stage outlet";
-  SI.HeatCapacityMassSpecific cv_out_nom_st[i] "Nominal isochoric heat capacity at stage outlet";
+  Basics.Units.HeatCapacityMassSpecific cp_in_nom "Nominal isobaric heat capacity at stage inlet";
+  Basics.Units.HeatCapacityMassSpecific cv_in_nom "Nominal isochoric heat capacity at stage inlet";
+  Basics.Units.HeatCapacityMassSpecific cp_out_nom_st[i] "Nominal isobaric heat capacity at stage outlet";
+  Basics.Units.HeatCapacityMassSpecific cv_out_nom_st[i] "Nominal isochoric heat capacity at stage outlet";
   Real Pi_nom_st[i](each final start = Pi_nom^(1/N_stages)) "Nominal stage pressure ratio";
   Real Pi_nom_st_vigv[i](each final start = Pi_nom^(1/N_stages)) "Nominal stage pressure ratio for VIGV";
   Real Pi_prod_nom_st[i]( each final start = 1) "Overall nominal pressure ratio until actual stage";
                                                                             //(not important for design point calculation, just for evaluation)
   Real kappa_nom_st[i] "Nominal stage heat capacity ratio";
   Real kappa_nom_st_vigv[i] "Nominal stage heat capacity ratio for VIGV";
-  SI.Temperature T_out_nom_st[i](each final start = T_in_nom) "Nominal stage outlet temperature";
-  SI.Efficiency eta_isen_nom_st[i](each final start=eta_isen_stage_nom) "Nominal isentropic stage efficiency";
+  Basics.Units.Temperature T_out_nom_st[i](each final start=T_in_nom) "Nominal stage outlet temperature";
+  Basics.Units.Efficiency eta_isen_nom_st[i](each final start=eta_isen_stage_nom) "Nominal isentropic stage efficiency";
   Real tau_nom_st[i](each final start = 1.001) "Nominal stage temperature ratio";
   Real tau_nom_st_vigv[i](each final start = 1.001) "Nominal stage temperature ratio for VIGV";
-  SI.EnthalpyMassSpecific h_out_nom_st[i] "Nominal stage outlet enthalpy";
-  SI.EnthalpyMassSpecific h_in_nom_st "Nominal compressor inlet enthalpy";
-  SI.EnthalpyMassSpecific Delta_h_nom_st[i] "Nominal stage enthalpy difference";
-  SI.Pressure p_out_nom_st[i]( each final start = 1e5) "Nominal outlet stage pressure";
+  Basics.Units.EnthalpyMassSpecific h_out_nom_st[i] "Nominal stage outlet enthalpy";
+  Basics.Units.EnthalpyMassSpecific h_in_nom_st "Nominal compressor inlet enthalpy";
+  Basics.Units.EnthalpyMassSpecific Delta_h_nom_st[i] "Nominal stage enthalpy difference";
+  Basics.Units.Pressure p_out_nom_st[i](each final start=1e5) "Nominal outlet stage pressure";
 
 protected
  Real kappa_aux_st[i] "Auxiliary state for kappa (needed when composition changes)";
@@ -214,7 +213,7 @@ protected
  Real psi_nom_rp2;
  Real epsilon_rel_rp2(final start = 1);
  Real Delta_h_nom_rp2;
- SI.MassFlowRate m_flow_aux(start=m_flow_nom);
+  Basics.Units.MassFlowRate m_flow_aux(start=m_flow_nom);
 
 //Version 4 mit eta neu (passt sehr gut)
  final parameter Real vigv_coeff_eta_a = if VIGVInfluence=="Lower" then 7e-7 else if VIGVInfluence=="Higher" then 3e-6 else 2e-6;
@@ -227,75 +226,6 @@ protected
 
  final parameter Integer i = N_stages;
 
-     TILMedia.GasObjectFunctions.GasPointer GasPointerRp2OutNom=
-       TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) "Pointer to external medium memory";
-
-     TILMedia.GasObjectFunctions.GasPointer GasPointerRp2Out=
-       TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) "Pointer to external medium memory";
-
-     TILMedia.GasObjectFunctions.GasPointer GasPointerInletNom=
-       TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) "Pointer to external medium memory";
-
-     TILMedia.GasObjectFunctions.GasPointer GasPointerOutletNom[i]=
-      {TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) for dummy in 1:i};
-
-     TILMedia.GasObjectFunctions.GasPointer GasPointerInlet=
-       TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) "Pointer to external medium memory";
-
-     TILMedia.GasObjectFunctions.GasPointer GasPointerOutlet[i]=
-      {TILMedia.GasObjectFunctions.GasPointer(
-       medium.concatGasName,
-       0,
-       medium.xi_default,
-       medium.nc_propertyCalculation,
-       medium.nc,
-       8,
-       0) for dummy in 1:i};
-
-    TILMedia.GasObjectFunctions.GasPointer GasPointerOutletVigv[i]=
-     {TILMedia.GasObjectFunctions.GasPointer(
-      medium.concatGasName,
-      0,
-      medium.xi_default,
-      medium.nc_propertyCalculation,
-      medium.nc,
-      8,
-      0) for dummy in 1:i};
 
 public
   inner Summary summary(outline(
@@ -333,25 +263,33 @@ protected
             {-8,-52}}),           iconTransformation(extent={{90,-84},{84,-78}})));
 
 public
-   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b if
-                                                              useMechanicalPort annotation (Placement(transformation(extent={{-70,-10},{-50,10}}),
+   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b if  useMechanicalPort annotation (Placement(transformation(extent={{-70,-10},{-50,10}}),
                                                                                                                                                  iconTransformation(extent={{-70,-10},{-50,10}})));
+
+protected
+  TILMedia.Gas Rp2OutNom(gasType=medium);
+  TILMedia.Gas Rp2Out(gasType=medium);
+  TILMedia.Gas InletNom(gasType=medium);
+  TILMedia.Gas OutletNom[i](each gasType=medium);
+  TILMedia.Gas Inlet(gasType=medium);
+  TILMedia.Gas Outlet[i](each gasType=medium);
+  TILMedia.Gas OutletVigv[i](each gasType=medium);
 initial equation
 
 inlet.m_flow = m_flow_corr_st[1]*flueGas_inlet.p/ flueGas_inlet.T^0.5;
 
      if N_stages > 1 then
       for i in 1:N_stages loop
-       kappa_st[i] =  TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet);
+       kappa_st[i] =  TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer);
        kappa_nom_st[i] =  kappa_st[i];
        kappa_nom_st_vigv[i] = kappa_st[i];
       end for;
-       kappa = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet);
+       kappa = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer);
      else
       for i in 1:N_stages loop
-       kappa_st[i] =  TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet);
+       kappa_st[i] =  TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer);
        kappa_nom_st[i] =  kappa_st[i];
-       kappa_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,GasPointerInlet);
+       kappa_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(flueGas_inlet.p,flueGas_inlet.T,flueGas_inlet.xi,Inlet.gasPointer);
        kappa_nom_rp2 = kappa_rp2;
        kappa_nom_st_vigv[i] = kappa_st[i];
       end for;
@@ -410,10 +348,10 @@ end for;
 if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    cp_in_nom = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-    cv_in_nom = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-    cp_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
-    cv_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
+    cp_in_nom = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+    cv_in_nom = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+    cp_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
+    cv_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
     kappa_nom_aux_st[1] = (cp_in_nom/cv_in_nom + cp_out_nom_st[1]/cv_out_nom_st[1]) / 2;
     der(kappa_nom_st[1]) = 1/Tau_aux*(kappa_nom_aux_st[1]-kappa_nom_st[1]);
     //kappa_nom_st[1] =1.4;
@@ -421,8 +359,8 @@ if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY///
     tau_nom_st[1] = 1 + (Pi_nom_st[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * eta_isen_nom_st[1];
     T_out_nom_st[1] = tau_nom_st[1] * T_in_nom; //eq. 18
     p_out_nom_st[1] = p_in_nom * Pi_nom;
-    h_in_nom_st = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-    h_out_nom_st[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
+    h_in_nom_st = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+    h_out_nom_st[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
     Delta_h_nom_st[1] = h_out_nom_st[1] - h_in_nom_st;
 
     //_______/Alternative design point for efficiency on new rpm-curve\________________________________________
@@ -439,10 +377,10 @@ if N_stages == 1 then  ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY///
 else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   cp_in_nom = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-   cv_in_nom = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-   cp_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
-   cv_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
+   cp_in_nom = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+   cv_in_nom = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+   cp_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
+   cv_out_nom_st[1] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
    kappa_nom_aux_st[1] = (cp_in_nom/cv_in_nom + cp_out_nom_st[1]/cv_out_nom_st[1]) / 2;
    der(kappa_nom_st[1]) = 1/Tau_aux*(kappa_nom_aux_st[1]-kappa_nom_st[1]); //Auxiliary state for kappa (needed when composition changes)
    //kappa_nom_st[1] =1.4;
@@ -450,8 +388,8 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
    tau_nom_st[1] = 1 + ((p_out_nom_st[1] / p_in_nom)^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * eta_isen_nom_st[1];
    T_out_nom_st[1] = tau_nom_st[1] * T_in_nom; //eq. 18
    p_out_nom_st[1] = p_in_nom * Pi_nom_st[1];
-   h_in_nom_st = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom);
-   h_out_nom_st[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,GasPointerOutletNom[1]);
+   h_in_nom_st = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer);
+   h_out_nom_st[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[1],T_out_nom_st[1],xi_nom,OutletNom[1].gasPointer);
    Delta_h_nom_st[1] = h_out_nom_st[1] - h_in_nom_st;
 
    eta_isen_nom_st[1] = eta_isen_stage_nom;
@@ -462,8 +400,8 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
    for i in 2:N_stages loop  ////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       cp_out_nom_st[i] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,GasPointerOutletNom[i]);
-       cv_out_nom_st[i] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,GasPointerOutletNom[i]);
+       cp_out_nom_st[i] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].gasPointer);
+       cv_out_nom_st[i] = TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].gasPointer);
        kappa_nom_aux_st[i] = (cp_out_nom_st[i-1]/cv_out_nom_st[i-1] + cp_out_nom_st[i]/cv_out_nom_st[i]) / 2;
        der(kappa_nom_st[i]) = 1/Tau_aux*(kappa_nom_aux_st[i]-kappa_nom_st[i]); //Auxiliary state for kappa (needed when composition changes)
        //kappa_nom_st[i] =1.4;
@@ -471,7 +409,7 @@ else   ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STA
        tau_nom_st[i] = 1 + (Pi_nom_st[i]^((kappa_nom_st[i]-1)/kappa_nom_st[i])-1) * eta_isen_nom_st[i]; //eq. 25
        T_out_nom_st[i] = tau_nom_st[i] * T_out_nom_st[i-1]; //eq. 18
        Pi_nom_st[i] = p_out_nom_st[i] / p_out_nom_st[i-1];
-       h_out_nom_st[i] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,GasPointerOutletNom[i]);
+       h_out_nom_st[i] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_out_nom_st[i],T_out_nom_st[i],xi_nom,OutletNom[i].gasPointer);
        Delta_h_nom_st[i] = h_out_nom_st[i] - h_out_nom_st[i-1];
 
        eta_isen_nom_st[i] = eta_isen_stage_nom;
@@ -496,10 +434,10 @@ end if;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  if N_stages == 1 then ////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY////FOR A SINGLE STAGE ONLY/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      kappa_in = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.xi_outflow),GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.
-      xi_outflow),                                                                                                    GasPointerInlet);
-      kappa_out_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(outlet.p,outlet.T_outflow,inStream(inlet.xi_outflow),GasPointerOutlet[1])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(outlet.p,outlet.T_outflow,inStream(inlet.
-      xi_outflow),                                                                                                    GasPointerOutlet[1]);
+      kappa_in = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.xi_outflow),Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.
+      xi_outflow),                                                                                                    Inlet.gasPointer);
+      kappa_out_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(outlet.p,outlet.T_outflow,inStream(inlet.xi_outflow),Outlet[1].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(outlet.p,outlet.T_outflow,inStream(inlet.
+      xi_outflow),                                                                                                    Outlet[1].gasPointer);
       kappa_aux_st[1] = (kappa_in + kappa_out_st[1])/2.0;
       der(kappa_st[1]) = 1/Tau_aux*(kappa_aux_st[1]-kappa_st[1]);
       //kappa_st[1] =1.4;
@@ -538,8 +476,8 @@ end if;
       psi_rel_st_vigv[1] = 1 + vigv_coeff_psi_a*Delta_alpha_int[1]^2 + vigv_coeff_psi_b*Delta_alpha_int[1]; // 1 + 0.014 * Delta_alpha_int[1];
       epsilon_rel_st_vigv[1] =(-C_1_st[1]*(psi_rel_st_vigv[1]^2+1) + (C_1_st[1]^2+1)* psi_rel_st_vigv[1])/C_2_st[1]^2;
 
-      der(kappa_nom_st_vigv[1]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom)
-                        + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,GasPointerOutletVigv[1])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,GasPointerOutletVigv[1]))/2 -kappa_nom_st_vigv[1]);
+      der(kappa_nom_st_vigv[1]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer)
+                        + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].gasPointer))/2 -kappa_nom_st_vigv[1]);
 
       // tau_nom_st_vigv[1] = if N_VIGVstages > 0 then 1 + (Pi_nom_st_vigv[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * 1/(eta_isen_od_rpm *min(1 + vigv_coeff_eta_a*Delta_alpha_int[1]^3 + vigv_coeff_eta_b*Delta_alpha_int[1]^2 + vigv_coeff_eta_c*Delta_alpha_int[1],1)) else tau_nom_st[1]; //(1 - 0.000111 * Delta_alpha_int[1]^2)
       // Pi_nom_st_vigv[1] = if N_VIGVstages > 0 then (1 +  epsilon_rel_st_vigv[1] * (Pi_nom_st[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1))^(kappa_nom_st[1]/(kappa_nom_st[1]-1)) else Pi_nom_st[1];
@@ -611,15 +549,15 @@ end if;
    tau_nom_rp2 = 1 + (Pi_nom^((kappa_nom_rp2-1)/kappa_nom_rp2)-1) * eta_isen_stage_nom;//* min(1 - 0.0004*Delta_alpha_int[1]^2 + 0.0007*Delta_alpha_int[1],1));//*(1 - 0.000111 * Delta_alpha_int[1]^2)
    tau_rp2 = 1 + psi_rel_rp2 * rpm_corr_rel_rp2^2 * (tau_nom_rp2-1);
    T_out_rp2 = tau_rp2 * flueGas_inlet.T;
-   Delta_h_nom_rp2 = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,GasPointerRp2OutNom) - h_in_nom_st;
+   Delta_h_nom_rp2 = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.gasPointer) - h_in_nom_st;
 
-   kappa_out_nom_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,GasPointerRp2OutNom)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,GasPointerRp2OutNom);
+   kappa_out_nom_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom,T_in_nom*tau_nom_rp2,xi_nom,Rp2OutNom.gasPointer);
    kappa_aux_nom_rp2 = (cp_in_nom/cv_in_nom + kappa_out_nom_rp2)/2.0;
    der(kappa_nom_rp2) = 1/Tau_aux*(kappa_aux_nom_rp2-kappa_nom_rp2);
    //kappa_nom_rp2 =1.4;
 
-   kappa_out_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p*Pi_rp2,T_out_rp2,inStream(inlet.xi_outflow),GasPointerRp2Out)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p*Pi_rp2,T_out_rp2,inStream(inlet.
-      xi_outflow),                                                                                                    GasPointerRp2Out);
+   kappa_out_rp2 = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p*Pi_rp2,T_out_rp2,inStream(inlet.xi_outflow),Rp2Out.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p*Pi_rp2,T_out_rp2,inStream(inlet.
+      xi_outflow),                                                                                                    Rp2Out.gasPointer);
    kappa_aux_rp2 = (kappa_in + kappa_out_rp2)/2.0;
    der(kappa_rp2) = 1/Tau_aux*(kappa_aux_rp2-kappa_rp2);
    //kappa_rp2 =1.4;
@@ -631,10 +569,10 @@ end if;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   else ////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE////FIRST STAGE/////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    kappa_in = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.xi_outflow),GasPointerInlet)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.
-      xi_outflow),                                                                                                    GasPointerInlet);
-    kappa_out_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[1],T_out_st[1],inStream(inlet.xi_outflow),GasPointerOutlet[1])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[1],T_out_st[1],inStream(inlet.
-      xi_outflow),                                                                                                    GasPointerOutlet[1]);
+    kappa_in = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.xi_outflow),Inlet.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(inlet.p,inStream(inlet.T_outflow),inStream(inlet.
+      xi_outflow),                                                                                                    Inlet.gasPointer);
+    kappa_out_st[1] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[1],T_out_st[1],inStream(inlet.xi_outflow),Outlet[1].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[1],T_out_st[1],inStream(inlet.
+      xi_outflow),                                                                                                    Outlet[1].gasPointer);
     kappa_aux_st[1] = (kappa_in + kappa_out_st[1])/2.0;
     der(kappa_st[1]) = 1/Tau_aux*(kappa_aux_st[1]-kappa_st[1]);
     //kappa_st[1]=1.4;
@@ -674,8 +612,8 @@ end if;
     psi_rel_st_vigv[1] = 1 + vigv_coeff_psi_a*Delta_alpha_int[1]^2 + vigv_coeff_psi_b*Delta_alpha_int[1];//1 + 0.014 * Delta_alpha_int[1];
     epsilon_rel_st_vigv[1] =(-C_1_st[1]*(psi_rel_st_vigv[1]^2+1) + (C_1_st[1]^2+1)* psi_rel_st_vigv[1])/C_2_st[1]^2;
 
-    der(kappa_nom_st_vigv[1]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,GasPointerInletNom)
-                              + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,GasPointerOutletVigv[1])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,GasPointerOutletVigv[1]))/2 -kappa_nom_st_vigv[1]);
+    der(kappa_nom_st_vigv[1]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom,T_in_nom,xi_nom,InletNom.gasPointer)
+                              + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_in_nom*Pi_nom_st_vigv[1],T_in_nom*tau_nom_st_vigv[1],xi_nom,OutletVigv[1].gasPointer))/2 -kappa_nom_st_vigv[1]);
 
     //tau_nom_st_vigv[1] = if N_VIGVstages > 0 then 1 + (Pi_nom_st_vigv[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1) * 1/(eta_isen_nom_st[1] * min(1 + vigv_coeff_eta_a*Delta_alpha_int[1]^3 + vigv_coeff_eta_b*Delta_alpha_int[1]^2 + vigv_coeff_eta_c*Delta_alpha_int[1],1)) else tau_nom_st[1];
     //Pi_nom_st_vigv[1] = if N_VIGVstages > 0 then (1 +  epsilon_rel_st_vigv[1] * (Pi_nom_st[1]^((kappa_nom_st[1]-1)/kappa_nom_st[1])-1))^(kappa_nom_st[1]/(kappa_nom_st[1]-1)) else Pi_nom_st[1];
@@ -737,8 +675,8 @@ end if;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  for i in 2:N_stages loop ////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP////STAGE LOOP///////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     kappa_out_st[i] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(inlet.xi_outflow),GasPointerOutlet[i])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(inlet.
-        xi_outflow),                                                                                                    GasPointerOutlet[i]);
+     kappa_out_st[i] = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(inlet.xi_outflow),Outlet[i].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_st[i],T_out_st[i],inStream(inlet.
+        xi_outflow),                                                                                                    Outlet[i].gasPointer);
      kappa_aux_st[i] = (kappa_out_st[i-1] + kappa_out_st[i])/2.0;
      der(kappa_st[i]) = 1/Tau_aux*(kappa_aux_st[i]-kappa_st[i]);
      //kappa_st[i]=1.4;
@@ -776,8 +714,8 @@ end if;
     psi_rel_st_vigv[i] = 1 + vigv_coeff_psi_a*Delta_alpha_int[i]^2 + vigv_coeff_psi_b*Delta_alpha_int[i];//1 + 0.014 * Delta_alpha_int[i];
     epsilon_rel_st_vigv[i] =(-C_1_st[i]*(psi_rel_st_vigv[i]^2+1) + (C_1_st[i]^2+1)* psi_rel_st_vigv[i])/C_2_st[i]^2;
 
-    der(kappa_nom_st_vigv[i]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,GasPointerOutletNom[i-1])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,GasPointerOutletNom[i-1])
-                              + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,GasPointerOutletVigv[i])/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,GasPointerOutletVigv[i]))/2 -kappa_nom_st_vigv[i]);
+    der(kappa_nom_st_vigv[i]) =  1/Tau_aux*((TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1],T_out_nom_st[i-1],xi_nom,OutletNom[i-1].gasPointer)
+                              + TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_pTxi(p_out_nom_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].gasPointer)/TILMedia.GasObjectFunctions.specificIsochoricHeatCapacity_pTxi(p_out_nom_st[i-1]*Pi_nom_st_vigv[i],T_out_nom_st[i-1]*tau_nom_st_vigv[i],xi_nom,OutletVigv[i].gasPointer))/2 -kappa_nom_st_vigv[i]);
 
     //tau_nom_st_vigv[i] = if N_VIGVstages > 0 then 1 + (Pi_nom_st_vigv[i]^((kappa_nom_st[i]-1)/kappa_nom_st[i])-1) * 1/(eta_isen_nom_st[i] *min(1 + vigv_coeff_eta_a*Delta_alpha_int[i]^3 + vigv_coeff_eta_b*Delta_alpha_int[i]^2 + vigv_coeff_eta_c*Delta_alpha_int[i],1)) else tau_nom_st[i];
     //Pi_nom_st_vigv[i] = if N_VIGVstages > 0 then (1 +  epsilon_rel_st_vigv[i] * (Pi_nom_st[i]^((kappa_nom_st[i]-1)/kappa_nom_st[i])-1))^(kappa_nom_st[i]/(kappa_nom_st[i]-1)) else Pi_nom_st[i];

@@ -8,10 +8,10 @@ model MetaStable_Q124 "Metastable(d Delta_p/d V_flow) = 0 at V_flow = 0 | normal
                                                          annotation(Dialog(group = "Characteristic Field",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpHydraulicsMetaStable124.png"));
   parameter Real drp_exp= 0 "Droop of exp_hyd w.r.t. rpm" annotation(Dialog(group = "Characteristic Field"));
 
-  parameter SI.Pressure Delta_p_eps= 100 "Small pressure difference for linearisation around zero mass flow" annotation(Dialog(tab = "Expert Settings", group="Numerical Robustness"));
+  parameter Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero mass flow" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
-  SI.VolumeFlowRate V_flow_maxrpm "Max. volume flow at current rpm";
-  SI.Pressure Delta_p_maxrpm "Maximum pressure difference at current speed";
+  Basics.Units.VolumeFlowRate V_flow_maxrpm "Max. volume flow at current rpm";
+  Basics.Units.Pressure Delta_p_maxrpm "Maximum pressure difference at current speed";
 equation
 //____________________ Affinity Laws _______________________
 

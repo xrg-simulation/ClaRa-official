@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Hopper;
 model Hopper_L2 "Model for a hopper section of a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -36,38 +36,28 @@ inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy met
   model Outline
   //  parameter Boolean showExpertSummary annotation(Dialog(hide));
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.Volume
-                                volume "Volume";
-    input ClaRa.Basics.Units.Area
-                              A_cross "Cross sectional area";
-    input ClaRa.Basics.Units.Area
-                              A_wall "Wall area";
-    input ClaRa.Basics.Units.Length
-                                height "Height of volume";
-    input ClaRa.Basics.Units.Mass
-                              mass "Mass inside volume";
-    input ClaRa.Basics.Units.Temperature
-                                     T_out "Outlet temperature";
-    input ClaRa.Basics.Units.EnthalpyMassSpecific
-                                              h_out "Flue gas enthalpy at outlet";
+    input ClaRa.Basics.Units.Volume volume "Volume";
+    input ClaRa.Basics.Units.Area A_cross "Cross sectional area";
+    input ClaRa.Basics.Units.Area A_wall "Wall area";
+    input ClaRa.Basics.Units.Length height "Height of volume";
+    input ClaRa.Basics.Units.Mass mass "Mass inside volume";
+    input ClaRa.Basics.Units.Temperature T_out "Outlet temperature";
+    input ClaRa.Basics.Units.EnthalpyMassSpecific h_out "Flue gas enthalpy at outlet";
   end Outline;
 
   model Fuel
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
-    input ClaRa.Basics.Units.HeatCapacityMassSpecific cp "Specific heat capacity"
-                               annotation (Dialog);
+    input ClaRa.Basics.Units.HeatCapacityMassSpecific cp "Specific heat capacity" annotation (Dialog);
     input ClaRa.Basics.Units.EnthalpyMassSpecific LHV "Lower heating value" annotation (Dialog);
 
   end Fuel;
 
   model Slag
     extends ClaRa.Basics.Icons.RecordIcon;
-    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate"
-      annotation (Dialog);
+    input ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate" annotation (Dialog);
     input ClaRa.Basics.Units.Temperature T "Temperature" annotation (Dialog);
     input ClaRa.Basics.Units.Pressure p "Pressure" annotation (Dialog);
   end Slag;
@@ -98,38 +88,38 @@ inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy met
     inlet(
       flueGas(mediumModel=flueGas,
         m_flow=inlet.flueGas.m_flow,
-        T=actualStream(inlet.flueGas.T_outflow),
+        T=noEvent(actualStream(inlet.flueGas.T_outflow)),
         p=inlet.flueGas.p,
         h=flueGasInlet.h,
-        xi=actualStream(inlet.flueGas.xi_outflow),
+        xi=noEvent(actualStream(inlet.flueGas.xi_outflow)),
         H_flow=flueGasInlet.h*inlet.flueGas.m_flow),
       fuel(
         m_flow=inlet.fuel.m_flow,
-        T=actualStream(inlet.fuel.T_outflow),
+        T=noEvent(actualStream(inlet.fuel.T_outflow)),
         p=inlet.fuel.p,
         cp=fuelInlet.cp,
         LHV=fuelInlet.LHV),
       slag(
         m_flow=inlet.slag.m_flow,
-        T=actualStream(inlet.slag.T_outflow),
+        T=noEvent(actualStream(inlet.slag.T_outflow)),
         p=inlet.slag.p)),
     outlet(
       flueGas(mediumModel=flueGas,
         m_flow=-outlet.flueGas.m_flow,
-        T=actualStream(outlet.flueGas.T_outflow),
+        T=noEvent(actualStream(outlet.flueGas.T_outflow)),
         p=outlet.flueGas.p,
         h=h_flueGas_out,
-        xi=actualStream(outlet.flueGas.xi_outflow),
+        xi=noEvent(actualStream(outlet.flueGas.xi_outflow)),
         H_flow=-h_flueGas_out*outlet.flueGas.m_flow),
       fuel(
         m_flow=-outlet.fuel.m_flow,
-        T=actualStream(outlet.fuel.T_outflow),
+        T=noEvent(actualStream(outlet.fuel.T_outflow)),
         p=outlet.fuel.p,
         cp=fuelOutlet.cp,
         LHV=fuelOutlet.LHV),
       slag(
         m_flow=outlet.slag.m_flow,
-        T=actualStream(outlet.slag.T_outflow),
+        T=noEvent(actualStream(outlet.slag.T_outflow)),
         p=outlet.slag.p))) annotation (Placement(transformation(extent={{274,-102},{300,-76}})));
 
 //___________________/ Media Objects \_________
@@ -160,7 +150,10 @@ protected
     m_flow_out=m_flow_out_del,
     V_flow_out=V_flow_flueGas_out,
     xi_out=xi_flueGas,
-    xi_nom=flueGas.xi_default) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
+    xi_nom=flueGas.xi_default,
+    xi_bulk=bulk.xi,
+    h_bulk=bulk.h,
+    mass=mass) annotation (Placement(transformation(extent={{244,-102},{268,-76}})));
 
 initial equation
 
@@ -212,8 +205,8 @@ equation
   heat_bottom.T = bulk.T;
 
   if slagTemperature_calculationType==1 then
-    inlet.slag.T_outflow = T_Slag;
-    outlet.slag.T_outflow = T_Slag;
+    inlet.slag.T_outflow = T_slag;
+    outlet.slag.T_outflow = T_slag;
   elseif slagTemperature_calculationType==2 then
     inlet.slag.T_outflow = flueGasOutlet.T;
     outlet.slag.T_outflow = flueGasOutlet.T;
@@ -224,8 +217,8 @@ equation
     inlet.slag.T_outflow = flueGasInlet.T;
     outlet.slag.T_outflow = flueGasInlet.T;
   else
-    inlet.slag.T_outflow = T_Slag;
-    outlet.slag.T_outflow = T_Slag;
+    inlet.slag.T_outflow = T_slag;
+    outlet.slag.T_outflow = T_slag;
     assert(slagTemperature_calculationType==1 or slagTemperature_calculationType==2 or slagTemperature_calculationType==3 or slagTemperature_calculationType==4, "Invalid slag temperature calculation type");
   end if;
 

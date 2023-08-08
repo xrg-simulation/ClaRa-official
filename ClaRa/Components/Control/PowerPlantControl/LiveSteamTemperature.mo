@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PowerPlantControl;
 model LiveSteamTemperature "A simple controller for the live steam temperature based on Strauss: \"Kraftwerkstechnik\", 5th edition, 2006."
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -101,7 +101,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(MeasurementValues.T_a2, PID2.u_m) annotation (Line(
-      points={{0,98},{-72,98},{-72,68},{-3.8,68}},
+      points={{0,98},{-72,98},{-72,67.9},{-3.8,67.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -125,7 +125,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(MeasurementValues.T_a1, PID1.u_m) annotation (Line(
-      points={{0,98},{-72,98},{-72,-28},{-12.8,-28}},
+      points={{0,98},{-72,98},{-72,-28.1},{-12.8,-28.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -153,7 +153,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(MeasurementValues.T_e2, feedback2.u_m) annotation (Line(
-      points={{0,98},{-72,98},{-72,36},{-3.9,36}},
+      points={{0,98},{-72,98},{-72,35.9},{-3.9,35.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -161,7 +161,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(MeasurementValues.T_e1, P1.u_m) annotation (Line(
-      points={{0,98},{-72,98},{-72,-68},{-14,-68}},
+      points={{0,98},{-72,98},{-72,-68.1},{-14,-68.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -169,19 +169,21 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (Diagram(graphics), Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+                                Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={221,222,223},
+          fillColor={118,124,127},
+          fillPattern=FillPattern.Solid), Rectangle(extent={{-80,80},{80,-80}}, lineColor={221,222,223}),
+        Line(points={{-68,60},{-68,-70},{72,-70}}, color={221,222,223}),
         Line(
-          points={{-100,100},{0,2},{-100,-100}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Text(
-          extent={{2,42},{84,-40}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="T")}));
+          points={{-68,-40},{-40,-40},{-40,-40},{-40,40},{-40,40},{-4,8},{72,8}},
+          color={186,72,88},
+          smooth=Smooth.Bezier),
+        Rectangle(
+          extent={{2,-20},{48,-48}},
+          lineColor={221,222,223},
+          fillColor={118,124,127},
+          fillPattern=FillPattern.Solid),
+        Line(points={{22,-60},{22,-34},{36,-26}}, color={221,222,223}),
+        Line(points={{36,-40},{22,-34},{36,-34}}, color={221,222,223})}));
 end LiveSteamTemperature;

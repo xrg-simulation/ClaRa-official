@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model FlowAnchor_cutPressure1 "Valve || yellow | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -38,15 +38,15 @@ model FlowAnchor_cutPressure1 "Valve || yellow | blue"
   outer ClaRa.SimCenter simCenter;
 
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom = 10 "Nominal mass flow rate" annotation(Dialog(group="Nominal Operation Point"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow rate" annotation (Dialog(group="Nominal Operation Point"));
   parameter Real CharLine_m_flow_P_target_[:,:]=[0,1;1,1] "Characteristic line of pressure drop as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p=p_in-p_out "Pressure difference";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed = false) "Actual mass flow";
+  final parameter ClaRa.Basics.Units.Pressure Delta_p=p_in - p_out "Pressure difference";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Actual mass flow";
   outer parameter Real P_target_ "Target power in p.u.";
 protected
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_m_flow_P_target_, u = {P_target_});

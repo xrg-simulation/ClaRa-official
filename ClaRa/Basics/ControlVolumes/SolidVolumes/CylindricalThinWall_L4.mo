@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -32,8 +32,8 @@ public
   parameter Units.Length length "Length of cylinder" annotation (Dialog(group="Geometry"));
   parameter Integer N_tubes=1 "Number of tubes in parallel" annotation (Dialog(group="Geometry"));
   parameter Units.Temperature T_start[N_ax]=ones(N_ax)*293.15 "Start values of wall temperature" annotation (Dialog(group="Initialisation"));
-  inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog(group="Initialisation"), choices(
-      choice=0 "Use guess values",
+  inner parameter Integer initOption=213 "Type of initialisation" annotation (Dialog(group="Initialisation"), choices(
+      choice=213 "Fixed temperature",
       choice=1 "Steady state",
       choice=203 "Steady temperature"));
   parameter Integer stateLocation=2 "Location of states" annotation (Dialog(group="Numerical Efficiency"), choices(
@@ -42,8 +42,7 @@ public
       choice=3 "Outer location of states"));
   parameter String suppressChattering="True" "Enable to suppress possible chattering" annotation (Dialog(group="Numerical Efficiency"), choices(choice="False" "False (faster if no chattering occurs)",
                                                                                             choice="True" "True (faster if chattering occurs)"));
-  final parameter Units.Mass mass_nominal=sum(solid.d .* (Modelica.Constants.pi/4*(diameter_o^2 - diameter_i^2)*Delta_x*N_tubes)) "Mass of wall (deprecated)";
-  final parameter Units.Mass mass=sum(solid.d .* (Modelica.Constants.pi/4*(diameter_o^2 - diameter_i^2)*Delta_x*N_tubes)) "Mass of wall";
+  final parameter Units.Mass mass=sum(solid.d .* (Modelica.Constants.pi/4*(diameter_o^2 - diameter_i^2)*Delta_x*N_tubes)) "Wall mass";
 protected
   final parameter Units.HeatFlowRate Q_flow_nom=1;
   constant Real Q_flow_eps=1e-9;
@@ -79,7 +78,21 @@ public
     input Units.DensityMassSpecific d[N_ax] "Material density";
   end Summary;
 
-Summary summary(diameter_o=diameter_o, diameter_i=diameter_i, length=length, N_tubes=N_tubes, mass=mass, N_ax=N_ax, U=U, T_i=innerPhase.T, T_o=outerPhase.T,T=T, lambda=solid.lambda, Q_flow_i=innerPhase.Q_flow, Q_flow_o=outerPhase.Q_flow, cp=solid.cp, d=solid.d);
+Summary summary(diameter_o=diameter_o,
+                diameter_i=diameter_i,
+                length=length,
+                N_tubes=N_tubes,
+                mass=mass,
+                N_ax=N_ax,
+                U=U,
+                T_i=innerPhase.T,
+                T_o=outerPhase.T,
+                T=T,
+                lambda=solid.lambda,
+                Q_flow_i=innerPhase.Q_flow,
+                Q_flow_o=outerPhase.Q_flow,
+                cp=solid.cp,
+                d=solid.d);
 
 equation
   assert(diameter_o > diameter_i, "The outer diameter has to be greater then the inner diameter!");
@@ -117,7 +130,9 @@ initial equation
    elseif initOption == 203 then //steady temperature
      der(T)=zeros(N_ax);
    elseif initOption == 0 then //no init
-    T=T_start; // do nothing
+     T=T_start; // fixed temperature
+   elseif initOption == 213 then // fixed temperature
+     T=T_start;
    else
     assert(initOption == 0,"Invalid init option");
    end if;

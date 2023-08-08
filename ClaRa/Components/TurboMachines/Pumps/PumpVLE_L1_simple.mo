@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate depending on drive power and pressure difference only"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,16 +21,17 @@ model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate dependi
 
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=inlet.m_flow*(fluidIn.h - fluidOut.h),
-    powerAux=(P_drive - inlet.m_flow*(fluidOut.h - fluidIn.h))) if  contributeToCycleSummary;
+    powerOut_elMech=0,
+    powerOut_th=0,
+    powerAux=P_drive) if  contributeToCycleSummary;
 
 
 
   parameter Real eta_mech = 0.98 "Mechanic efficiency of the drive"
    annotation(Dialog(group="Part Load and Efficiency"));
 
-  parameter ClaRa.Basics.Units.MassFlowRate m_flow_start=1 "Initial guess value for mass flow" annotation(Dialog(group="Initialisation"));
-   parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero" annotation(Dialog(tab="Expert Settings", group="Numerical Robustnes"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_start=1 "Initial guess value for mass flow" annotation (Dialog(group="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero" annotation (Dialog(tab="Expert Settings", group="Numerical Robustnes"));
 
   Modelica.Blocks.Interfaces.RealInput P_drive "Power input of the pump's motor"
                                       annotation (Placement(transformation(

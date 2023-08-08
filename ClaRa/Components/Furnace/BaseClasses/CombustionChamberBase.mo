@@ -11,14 +11,13 @@ partial model CombustionChamberBase
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"), Dialog(group="Media Definitions"));
   inner parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(choicesAllMatching, Dialog(group="Media Definitions"));
 
-  parameter Integer slagTemperature_calculationType=1 "Calculation type of outflowing slag temperature" annotation (Dialog(group="Slag temperature definitions"), choices(
+  parameter Integer slagTemperature_calculationType=1 "Calculation type of outflowing slag temperature" annotation (Dialog(tab="Combustion Settings",group="Slag temperature definitions"), choices(
       choice=1 "Fixed slag temperature",
       choice=2 "Outlet flue gas temperature",
       choice=3 "Mean flue gas temperature",
       choice=4 "Inlet flue gas temperature"));
 
-  inner parameter ClaRa.Basics.Units.Temperature T_slag=900 "Constant slag outlet temperature" annotation (Dialog(enable=(slagTemperature_calculationType ==
-          1),group="Slag temperature definitions"));
+  inner parameter ClaRa.Basics.Units.Temperature T_slag=900 "Constant slag outlet temperature" annotation (Dialog(enable=(slagTemperature_calculationType == 1), tab="Combustion Settings", group="Slag temperature definitions"));
 
   //__________________________/ HeatTransfer \______________________________________________
     replaceable model HeatTransfer_Wall =
@@ -30,21 +29,17 @@ partial model CombustionChamberBase
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "1st: choose geometry definition | 2nd: edit corresponding record"
                                                                        annotation (Dialog(group="Heat Transfer"), choicesAllMatching=true);
-  inner parameter Modelica.SIunits.Time Tau_rad= 0.1 "Radiation time constant" annotation(Dialog(group="Heat Transfer"));
-
-
 
   replaceable model Burning_time =
       ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime
     constrainedby ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.PartialBurningTime "Model for the buring time"
-                                annotation (Dialog(group="Combustion"),
+                                annotation (Dialog(tab="Combustion Settings",group="Combustion"),
       choicesAllMatching=true);
 
   replaceable model ParticleMigration =
       ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed
     constrainedby ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.PartialMigrationSpeed "Model for the particle migration speed"
-                                             annotation (Dialog(group=
-          "Combustion"), choicesAllMatching=true);
+                                             annotation (Dialog(tab="Combustion Settings",group="Combustion"), choicesAllMatching=true);
 
   //__________________________/ Geometry \______________________________________________
   replaceable model Geometry =
@@ -61,7 +56,7 @@ partial model CombustionChamberBase
    replaceable model ReactionZone =
        ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone
      constrainedby ClaRa.Components.Furnace.ChemicalReactions.PartialReactionZone "Model to regard chemical reactions"
-                                          annotation (Dialog(group=
+                                          annotation (Dialog(tab="Combustion Settings",group=
            "Combustion"), choicesAllMatching=true);
 
 
@@ -70,27 +65,25 @@ partial model CombustionChamberBase
   inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(group="Nominal Values"));
 
   //_______________________/ Start values \_____________________________________________________________
-   parameter ClaRa.Basics.Units.Pressure p_start_flueGas_out=1e5 "Start pressure at outlet" annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_start_flueGas_out=700 "Start temperature at outlet" annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Pressure p_start_flueGas_out=1e5 "Start pressure at outlet" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.Temperature T_start_flueGas_out=700 "Start temperature at outlet" annotation (Dialog(tab="Initialisation"));
   inner parameter Modelica.SIunits.Temperature T_top_initial= T_start_flueGas_out "Initial temperature of top volume" annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas_out[flueGas.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start composition of flue gas"
-                                                                                            annotation(Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas_out[flueGas.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start composition of flue gas" annotation (Dialog(tab="Initialisation"));
   //   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in_start=1 annotation(Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out_start=-15 "Start volume flow at outlet" annotation(Dialog(tab="Initialisation"));
   final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
                                                                                             annotation(Dialog(tab="Initialisation"));
 
   constant Real T_0=298.15 "Reference temperature";
-  inner parameter ClaRa.Basics.Units.Time Tau = 0.001 "Time constant for heat transfer temperature delay" annotation(Dialog(tab="Expert Settings"));
+  inner parameter ClaRa.Basics.Units.Time Tau=0.001 "Time constant for heat transfer temperature delay" annotation (Dialog(tab="Expert Settings"));
 
 //## V A R I A B L E   P A R T##################################################################################
 
 protected
- inner ClaRa.Basics.Units.MassFraction xi_fuel "amount of fuel per flue gas mass";
+  inner ClaRa.Basics.Units.MassFraction xi_fuel "amount of fuel per flue gas mass";
   ClaRa.Basics.Units.Pressure Delta_p_aux "auxillary state for pressure drop";
 //________________/ FlueGas Composition \_____________________
 public
- ClaRa.Basics.Units.MassFraction xi_flueGas[flueGas.nc - 1] "Flue gas composition ";
+  ClaRa.Basics.Units.MassFraction xi_flueGas[flueGas.nc - 1] "Flue gas composition ";
 //________________/ Fuel Composition \_____________________
   ClaRa.Basics.Units.MassFraction xi_fuel_out[fuelModel.N_c - 1] "Fuel outlet composition";
 
@@ -172,7 +165,7 @@ public
 
    //_____________________/ Media Objects \_________________________________
 protected
-    TILMedia.Gas_pT     flueGasInlet(p=inlet.flueGas.p, T= actualStream(inlet.flueGas.T_outflow), xi=actualStream(inlet.flueGas.xi_outflow),
+    TILMedia.Gas_pT     flueGasInlet(p=inlet.flueGas.p, T= noEvent(actualStream(inlet.flueGas.T_outflow)), xi=noEvent(actualStream(inlet.flueGas.xi_outflow)),
       gasType=flueGas)
       annotation (Placement(transformation(extent={{-130,-88},{-110,-68}})));
   ClaRa.Basics.Media.FuelObject fuelInlet(
@@ -201,7 +194,7 @@ public
 
   inner HeatTransfer_Top heattransfer_top annotation(Placement(transformation(extent={{94,50},
             {74,70}})));
-  inner ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities.ThermalLowPass radiationTimeConstant(                                   Tau=Tau_rad, T_out_initial=T_top_initial)
+  inner ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities.ThermalLowPass radiationTimeConstant(                                                T_out_initial=T_top_initial, Tau=Tau)
                                                                                                                                                                     annotation (Placement(transformation(extent={{32,50},
              {52,70}})));
    ReactionZone reactionZone(flueGas=flueGas, fuelModel=fuelModel,elementaryComposition_fuel_in=elementaryComposition_fuel_in)

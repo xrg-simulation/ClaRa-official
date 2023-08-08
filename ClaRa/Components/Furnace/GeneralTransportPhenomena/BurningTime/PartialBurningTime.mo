@@ -1,8 +1,7 @@
 within ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime;
 partial model PartialBurningTime "Base class for the burning time"
 
-ClaRa.Basics.Units.Time
-                    t;
+  ClaRa.Basics.Units.Time t;
 
   annotation (Icon(graphics={Ellipse(extent={{-100,100},{100,-100}}, lineColor={
               0,0,255}), Text(

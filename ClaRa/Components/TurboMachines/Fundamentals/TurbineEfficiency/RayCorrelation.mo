@@ -4,7 +4,7 @@ model RayCorrelation "Semi-empirical correlation | Shaft speed and isentropic en
 // Component of the ClaRa library, version: 1.1.0                        //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,8 +19,8 @@ model RayCorrelation "Semi-empirical correlation | Shaft speed and isentropic en
   extends ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.EfficiencyModelBase;
  parameter Real eta_nom=0.94 "Isentropic efficiency at nominal load";
  parameter Real C_load=2 "Form factor for load dependency";
- parameter SI.RPM rpm_nom=3000 "Nominal shaft speed";
- parameter SI.EnthalpyMassSpecific Delta_h_is_nom=250e3 "Nominal isentropic enthalpy drop";
+  parameter Basics.Units.RPM rpm_nom=3000 "Nominal shaft speed";
+  parameter Basics.Units.EnthalpyMassSpecific Delta_h_is_nom=250e3 "Nominal isentropic enthalpy drop";
      Real eta "Efficiency";
 
 equation

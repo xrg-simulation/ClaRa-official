@@ -89,7 +89,7 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
     U_term_nom=3e3,
     J=800,
     useCharLine=true,
-    charLine_tau_s_=[0,2; 0.7,1.8; 0.95,2.8; 1,0])
+    charLine_tau_rpm_=[0,2; 0.7,1.8; 0.95,2.8; 1,0])
                                         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,

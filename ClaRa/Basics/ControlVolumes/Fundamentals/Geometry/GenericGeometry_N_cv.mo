@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model GenericGeometry_N_cv "Dicretized geometry base class|| All shapes"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.3.1                            //
+  // Component of the ClaRa library, version: 1.4.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,44 +17,40 @@ model GenericGeometry_N_cv "Dicretized geometry base class|| All shapes"
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.TubeType;
 
-  parameter Units.Volume volume[N_cv](min=ones(N_cv)*Modelica.Constants.eps) = ones(N_cv) "Volume of the control volume" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Volume volume[N_cv](min=ones(N_cv)*Modelica.Constants.eps) = ones(N_cv) "Volume of the control volume" annotation (Dialog(group="Essential Geometry Definition"));
   parameter Integer N_heat=2 "No. of heat transfer areas" annotation(Dialog(group="Essential Geometry Definition"));
   parameter Real CF_geo[N_heat](each min=Modelica.Constants.eps) = ones(N_heat) "Correction factor for heat transfer area: /1/ dedicated to lateral surface"
                                                                                           annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Units.Area A_heat[N_cv, N_heat](each min=Modelica.Constants.eps) = ones(N_cv, N_heat) "Heat transfer area: /1/ dedicated to lateral surface" annotation(Dialog(group="Essential Geometry Definition"));
-  final parameter Units.Area A_heat_CF[N_cv, N_heat](each min=Modelica.Constants.eps) = {{A_heat[j, i]*CF_geo[i] for i in 1:N_heat} for j in 1:N_cv} "Corrected heat transfer area: /1/ dedicated to lateral surface"
-                                                                                                                                                                                              annotation(Dialog(group="Essential Geometry Definition"));
-  final parameter Units.Area A_heat_tot[N_heat] = {sum(A_heat[:,i]) for i in 1:N_heat} "Total Heat transfer area: /1/ dedicated to lateral surface" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Area A_heat[N_cv,N_heat](each min=Modelica.Constants.eps) = ones(N_cv, N_heat) "Heat transfer area: /1/ dedicated to lateral surface" annotation (Dialog(group="Essential Geometry Definition"));
+  final parameter Units.Area A_heat_CF[N_cv,N_heat](each min=Modelica.Constants.eps) = {{A_heat[j, i]*CF_geo[i] for i in 1:N_heat} for j in 1:N_cv} "Corrected heat transfer area: /1/ dedicated to lateral surface" annotation (Dialog(group="Essential Geometry Definition"));
+  final parameter Units.Area A_heat_tot[N_heat]={sum(A_heat[:, i]) for i in 1:N_heat} "Total Heat transfer area: /1/ dedicated to lateral surface" annotation (Dialog(group="Essential Geometry Definition"));
 
-  parameter Units.Area A_cross[N_cv](min=ones(N_cv)*Modelica.Constants.eps) = ones(N_cv)*1 "Cross section for mass flow" annotation(Dialog(group="Essential Geometry Definition"));
-  final parameter Units.Area A_cross_FM[N_cv + 1](min=ones(N_cv+1)*Modelica.Constants.eps) = cat(
+  parameter Units.Area A_cross[N_cv](min=ones(N_cv)*Modelica.Constants.eps) = ones(N_cv)*1 "Cross section for mass flow" annotation (Dialog(group="Essential Geometry Definition"));
+  final parameter Units.Area A_cross_FM[N_cv + 1](min=ones(N_cv + 1)*Modelica.Constants.eps) = cat(
     1,
     {A_cross[1]},
     {(A_cross[i] + A_cross[i + 1])/2 for i in 1:N_cv - 1},
-    {A_cross[N_cv]}) "Cross section for mass flow" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Units.Length z_in=0 "Height of inlet ports" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Units.Length z_out=0 "Height of outlet ports" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter Basics.Units.Length z[N_cv]=fill(1,N_cv) "Height of center of cells" annotation(Dialog(group="Essential Geometry Definition"));
-  parameter ClaRa.Basics.Units.Length Delta_z_in[N_cv] = {sum(Delta_x[1:i]) - Delta_x[i]/2 for i in 1:N_cv} "Length from inlet to center of cells"
-                                                                                          annotation(Dialog(group="Essential Geometry Definition"));
+    {A_cross[N_cv]}) "Cross section for mass flow" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length z_in=0 "Height of inlet ports" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length z_out=0 "Height of outlet ports" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length z[N_cv]=fill(1, N_cv) "Height of center of cells" annotation (Dialog(group="Essential Geometry Definition"));
+  parameter ClaRa.Basics.Units.Length Delta_z_in[N_cv]={sum(Delta_x[1:i]) - Delta_x[i]/2 for i in 1:N_cv} "Length from inlet to center of cells" annotation (Dialog(group="Essential Geometry Definition"));
 
-  parameter Units.Length diameter_hyd[N_cv]=ones(N_cv) "Hydraulic diameter of the component" annotation(Dialog(group="Essential Geometry Definition"));
+  parameter Units.Length diameter_hyd[N_cv]=ones(N_cv) "Hydraulic diameter of the component" annotation (Dialog(group="Essential Geometry Definition"));
 
   parameter Integer N_cv=3 "Number of control volumes" annotation(Dialog(group="Discretisation"));
-  parameter Units.Length Delta_x[N_cv]=fill(1,N_cv) "Discretisation scheme"
-                                                                           annotation(Dialog(group="Discretisation"));
+  parameter Units.Length Delta_x[N_cv]=fill(1, N_cv) "Discretisation scheme" annotation (Dialog(group="Discretisation"));
   parameter Units.Length Delta_x_FM[N_cv + 1]=cat(
       1,
       {Delta_x[1]/2},
       {(Delta_x[i - 1] + Delta_x[i])/2 for i in 2:N_cv},
-      {Delta_x[N_cv]/2}) "Discretisation scheme (Flow model)"
-                                                             annotation(Dialog(group="Discretisation"));
+      {Delta_x[N_cv]/2}) "Discretisation scheme (Flow model)" annotation (Dialog(group="Discretisation"));
 
-  final parameter Units.Volume volume_FM[N_cv+1]=cat(
-    1,
-    {volume[1]/2},
-    {volume[i-1]*Delta_x[i-1]/2/Delta_x_FM[i] + volume[i]*Delta_x[i]/2/Delta_x_FM[i] for i in 2:N_cv},
-    {volume[N_cv]/2});
+  final parameter Units.Volume volume_FM[N_cv + 1]=cat(
+      1,
+      {volume[1]/2},
+      {volume[i - 1]*Delta_x[i - 1]/2/Delta_x_FM[i] + volume[i]*Delta_x[i]/2/Delta_x_FM[i] for i in 2:N_cv},
+      {volume[N_cv]/2});
 
   annotation (Icon(graphics={Bitmap(
           extent={{-100,-100},{100,100}},

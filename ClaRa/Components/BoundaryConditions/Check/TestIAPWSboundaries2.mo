@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions.Check;
 model TestIAPWSboundaries2
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -22,10 +22,11 @@ model TestIAPWSboundaries2
   Modelica.Blocks.Sources.CombiTimeTable ramp1(extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,
         2e5; 0.5,2e5; 2,5e5; 3,5e5; 3.1,3e5; 4,3e5])
     annotation (Placement(transformation(extent={{18,-66},{38,-46}})));
-  BoundaryVLE_hxim_flow massFlowSource_T(variable_m_flow=true, massFlowIsLoss=false)
-                                                               annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
-  BoundaryVLE_phxi pressureSink_pT(variable_p=true, Delta_p=1000,
-    massFlowIsLoss=false)                                         annotation (Placement(transformation(extent={{60,-20},{38,0}})));
+  BoundaryVLE_hxim_flow massFlowSource_T(variable_m_flow=true, energyType=1) annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
+  BoundaryVLE_phxi pressureSink_pT(
+    variable_p=true,
+    Delta_p=1000,
+    energyType=1) annotation (Placement(transformation(extent={{60,-20},{38,0}})));
 equation
   connect(ramp1.y[1], pressureSink_pT.p) annotation (Line(
       points={{39,-56},{78,-56},{78,-4},{60,-4}},

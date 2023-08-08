@@ -108,17 +108,15 @@ public
     N_rad=n_wall,
     initOption=1) annotation (Placement(transformation(extent={{38,42},{58,62}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1   valve(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(
     medium=medium,
     openingInputIsActive=true,
     showExpertSummary=showExpertSummary,
     showData=false,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
-         CL_valve =     CharLineValve_, Kvs=Kvs),
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (CL_valve=CharLineValve_, Kvs_in=Kvs),
     useStabilisedMassFlow=true,
-    Tau=0.001)                        annotation (Placement(transformation(
+    Tau=0.001) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={-20,-46})));

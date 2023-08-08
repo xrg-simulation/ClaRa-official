@@ -4,16 +4,16 @@ model QuadraticFrictionFlowAreaSymetric_TWV "| Quadratic Pressure Dependency | F
   extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.TWV_L1;
   extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.TWV_L2;
   import SI = ClaRa.Basics.Units;
-  parameter SI.Area effectiveFlowArea1=7.85e-3 "Effective flow area for straight outlet"
-    annotation(Dialog(group="Valve Characteristics"));
-  parameter SI.Area effectiveFlowArea2=effectiveFlowArea1 "Effective flow area for shunt outlet"
-    annotation(Dialog(group="Valve Characteristics"));
+  parameter Basics.Units.Area effectiveFlowArea1=7.85e-3 "Effective flow area for straight outlet" annotation (Dialog(group="Valve Characteristics"));
+  parameter Basics.Units.Area effectiveFlowArea2=effectiveFlowArea1 "Effective flow area for shunt outlet" annotation (Dialog(group="Valve Characteristics"));
   parameter Boolean useStabilisedMassFlow=false "|Expert Settings|Numerical Robustness|";
-  parameter SI.Time Tau= 0.001 "Time Constant of Stabilisation" annotation(Dialog(tab="Expert Settings", group = "Numerical Robustness", enable=useStabilisedMassFlow));
-  parameter SI.PressureDifference Delta_p_smooth = 100 "Below this value, root function is approximated linearly"
-                                                                                 annotation(Dialog(tab = "Expert Settings", group="Numerical Robustness"));
+  parameter Basics.Units.Time Tau=0.001 "Time Constant of Stabilisation" annotation (Dialog(
+      tab="Expert Settings",
+      group="Numerical Robustness",
+      enable=useStabilisedMassFlow));
+  parameter Basics.Units.PressureDifference Delta_p_smooth=100 "Below this value, root function is approximated linearly" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
-  SI.Pressure Delta_p[2](start={10,10}) "Pressure differences";
+  Basics.Units.Pressure Delta_p[2](start={10,10}) "Pressure differences";
 equation
 //////////// Simple hydraulics: ///////////////////////////////
   if useStabilisedMassFlow==false then

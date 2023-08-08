@@ -1,13 +1,13 @@
 within ClaRa.Basics.Media.FuelFunctions;
 function massFraction_i_xi "Elementary composition as function of fuel xi"
-   input ClaRa.Basics.Units.MassFraction xi_c[:] "Composition of fuel";
+  input ClaRa.Basics.Units.MassFraction xi_c[:] "Composition of fuel";
    input Integer compNo "Component number";
    input ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
 
-   output ClaRa.Basics.Units.MassFraction xi_element "Composition of elements";
+  output ClaRa.Basics.Units.MassFraction xi_element "Composition of elements";
 
 protected
-   ClaRa.Basics.Units.MassFraction xi_elements[fuelType.N_e-1];
+  ClaRa.Basics.Units.MassFraction xi_elements[fuelType.N_e - 1];
 algorithm
      xi_elements:=zeros(fuelType.N_e - 1);
    if fuelType.N_c==fuelType.N_e then

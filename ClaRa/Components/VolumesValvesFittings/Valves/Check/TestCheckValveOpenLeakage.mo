@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model TestCheckValveOpenLeakage
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -26,14 +26,12 @@ Real a;
     offset=2e5,
     startTime=30)
                 annotation (Placement(transformation(extent={{40,12},{60,32}})));
-  ValveVLE_L1                                                      valve4(
-      showExpertSummary=true,
+  GenericValveVLE_L1 valve4(
+    showExpertSummary=true,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint,
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint,
     opening_leak_=0,
-    openingInputIsActive=true)
-    annotation (Placement(transformation(extent={{4,-64},{24,-52}})));
+    openingInputIsActive=true) annotation (Placement(transformation(extent={{4,-64},{24,-52}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG6(p_const=3e5, h_const=150e3) annotation (Placement(transformation(extent={{-54,-68},{-34,-48}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG7(variable_p=true) annotation (Placement(transformation(extent={{62,-68},{42,-48}})));
   Modelica.Blocks.Sources.Ramp pulse1(
@@ -42,14 +40,12 @@ Real a;
     startTime=10,
     height=-1.1)
                 annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  ValveVLE_L1                                                      valve1(
-      showExpertSummary=true,
+  GenericValveVLE_L1 valve1(
+    showExpertSummary=true,
     checkValve=true,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint,
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint,
     openingInputIsActive=true,
-    opening_leak_=0)
-    annotation (Placement(transformation(extent={{4,-6},{24,-18}})));
+    opening_leak_=0) annotation (Placement(transformation(extent={{4,-6},{24,-18}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG1(p_const=3e5, h_const=150e3) annotation (Placement(transformation(extent={{-56,-22},{-36,-2}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG2(variable_p=true) annotation (Placement(transformation(extent={{60,-22},{40,-2}})));
   Modelica.Blocks.Math.Add add
@@ -59,14 +55,12 @@ Real a;
     offset=0,
     startTime=40,
     height=1.2) annotation (Placement(transformation(extent={{-86,-60},{-66,-40}})));
-  ValveVLE_L1                                                      valve2(
-      showExpertSummary=true,
+  GenericValveVLE_L1 valve2(
+    showExpertSummary=true,
     openingInputIsActive=true,
     opening_leak_=1e-2,
     checkValve=false,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction (                  Delta_p_eps=1e4))
-    annotation (Placement(transformation(extent={{4,-156},{24,-144}})));
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction (Delta_p_eps=1e4)) annotation (Placement(transformation(extent={{4,-156},{24,-144}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG3(p_const=3e5, h_const=150e3) annotation (Placement(transformation(extent={{-54,-160},{-34,-140}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG4(variable_p=true) annotation (Placement(transformation(extent={{62,-160},{42,-140}})));
   Modelica.Blocks.Sources.Ramp pulse3(
@@ -74,15 +68,12 @@ Real a;
     offset=1,
     startTime=10,
     height=-1)  annotation (Placement(transformation(extent={{-86,-120},{-66,-100}})));
-  ValveVLE_L1                                                      valve3(
-      showExpertSummary=true,
+  GenericValveVLE_L1 valve3(
+    showExpertSummary=true,
     opening_leak_=1e-2,
-    redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction (
-         Delta_p_eps=1e4),
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction (Delta_p_eps=1e4),
     checkValve=false,
-    openingInputIsActive=true)
-    annotation (Placement(transformation(extent={{4,-98},{24,-110}})));
+    openingInputIsActive=true) annotation (Placement(transformation(extent={{4,-98},{24,-110}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG5(p_const=3e5, h_const=150e3) annotation (Placement(transformation(extent={{-56,-114},{-36,-94}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG8(variable_p=true) annotation (Placement(transformation(extent={{60,-114},{40,-94}})));
   Modelica.Blocks.Math.Add add1

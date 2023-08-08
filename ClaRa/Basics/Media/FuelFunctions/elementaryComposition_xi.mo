@@ -3,7 +3,7 @@ function elementaryComposition_xi "Elementary composition as function of fuel xi
   input ClaRa.Basics.Units.MassFraction xi_c[:] "Composition of fuel";
   input ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelType=ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1() "Fuel type";
 
-  output ClaRa.Basics.Units.MassFraction xi_elements[fuelType.N_e-1] "Composition of elements";
+  output ClaRa.Basics.Units.MassFraction xi_elements[fuelType.N_e - 1] "Composition of elements";
 
 algorithm
     xi_elements:=zeros(fuelType.N_e - 1);

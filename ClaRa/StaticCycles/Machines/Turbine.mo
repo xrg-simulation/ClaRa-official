@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Machines;
 model Turbine "Turbine || par.: efficiency || green | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.3.1                            //
+// Component of the ClaRa library, version: 1.4.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -21,10 +21,8 @@ model Turbine "Turbine || par.: efficiency || green | blue"
 
   model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
-      parameter Basics.Units.Pressure
-                        Delta_p "Pressure difference between outlet and inlet" annotation(Dialog);
-      parameter Basics.Units.Power
-                        P_turbine "Turbine power" annotation(Dialog);
+    parameter Basics.Units.Pressure Delta_p "Pressure difference between outlet and inlet" annotation (Dialog);
+    parameter Basics.Units.Power P_turbine "Turbine power" annotation (Dialog);
   end Outline;
 
   model Summary
@@ -54,23 +52,25 @@ model Turbine "Turbine || par.: efficiency || green | blue"
                                                           Dialog(group="Fundamental Definitions"));
 
   parameter Real efficiency= 1 "Hydraulic efficiency" annotation(Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in =  TILMedia.VLEFluidFunctions.density_phxi(medium, p_in,h_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluidFunctions.density_phxi(
+      medium,
+      p_in,
+      h_in) "Inlet density";
   final parameter ClaRa.Basics.Units.Power P_turbine=(-h_out + h_in)*m_flow "Rprt: Turbine power";
 
 //protected
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
-  final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false,start=1) "Mass flow rate";
+  final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false, start=1) "Mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific       h_out=h_in +
-      efficiency*(TILMedia.VLEFluidFunctions.specificEnthalpy_psxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + efficiency*(TILMedia.VLEFluidFunctions.specificEnthalpy_psxi(
       medium,
       p_out,
       TILMedia.VLEFluidFunctions.specificEntropy_phxi(
         medium,
         p_in,
         h_in)) - h_in) "Outlet enthalpy";
-  final parameter ClaRa.Basics.Units.PressureDifference Delta_p = p_in - p_out "Rprt: p_in - p_out";
+  final parameter ClaRa.Basics.Units.PressureDifference Delta_p=p_in - p_out "Rprt: p_in - p_out";
 
 public
   Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-70,30},{-60,50}}), iconTransformation(extent={{-70,30},{-60,50}})));

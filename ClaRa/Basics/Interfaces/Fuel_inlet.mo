@@ -5,7 +5,7 @@ connector Fuel_inlet
   ClaRa.Basics.Units.Pressure p "Pressure";
   flow ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow";
   stream ClaRa.Basics.Units.Temperature T_outflow "Temperature valid for outflow conditions";
-  stream ClaRa.Basics.Units.MassFraction xi_outflow[fuelModel.N_c-1] "Composition valid for outflow conditions";
+  stream ClaRa.Basics.Units.MassFraction xi_outflow[fuelModel.N_c - 1] "Composition valid for outflow conditions";
 
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
