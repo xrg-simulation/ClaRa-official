@@ -1,0 +1,509 @@
+//Convert Package from ClaRa 1.1.2
+convertClear();
+
+// Turbines ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1",{"p_in_0"},{"p_in_start=%p_in_0%"},true);
+convertModifiers("ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1",{"p_out_0"},{"p_out_start=%p_out_0%"},true);
+
+convertModifiers("ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1",{"CL_eta_mflow"},{"redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.EfficiencyModels.TableMassFlow(eta_mflow=%CL_eta_mflow%)"}, true);
+
+
+// Move ClaRa.Basics.Functions.TableInterpolation to ClaRa_Obsolete ////////////////////////////////////////////////////////////////////////////////////////
+convertClass("ClaRa.Basics.Functions.TableInterpolation.tableInit", "ClaRa_Obsolete.Basics.Functions.TableInterpolation.tableInit" ) ; 
+convertClass("ClaRa.Basics.Functions.TableInterpolation.tableIpo", "ClaRa_Obsolete.Basics.Functions.TableInterpolation.tableIpo" ) ; 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Convert Initialisation Options from Types to Integers/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Gas components
+convertModifiers("ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L4",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_simple",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_ntu",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_2ph_BU_simple",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4",{"initType_cells"}, {"initOptionCells=if(%initType_cells%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4",{"initType_cells"}, {"initOptionCells=if(%initType_cells%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa_Dev.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4",{"initType_cells"}, {"initOptionCells=if(%initType_cells%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa_Dev.Components.HeatExchangers.RegenerativeAirPreheater_L4",{"initType_cells"}, {"initOptionCells=if(%initType_cells%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_cells%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.FlueGasCleaning.Denitrification.Denitrification_L1",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.FlueGasCleaning.Denitrification.Denitrification_L1_NH3port",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowGas_L4_Simple",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.FlueGasJunction_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.JoinGas_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitGas_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SprayInjectorVLE_L3_advanced",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+
+convertModifiers("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_simple",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_empirical",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+convertModifiers("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_detailed",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 210 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 else 0"},true);
+
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.ThinWall_L2",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.ThinWall_L4",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("Basics.ControlVolumes.SolidVolumes.ThinWall_L4",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.ThickWall_L4",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L2",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L2_effectiveResistance",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_kA",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_ntu",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_ntu",{"initTypeWall"}, {"initOptionWall=if(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple",{"initTypeWall"}, {"initOptionWall=if(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu",{"initTypeWall"}, {"initOptionWall=if(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple",{"initTypeWall"}, {"initOptionWall=if(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu",{"initTypeWall"}, {"initOptionWall=if(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initTypeWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_simple",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_ntu",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_2ph_BU_simple",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4",{"initType_wall"}, {"initOptionWall=if(%initType_wall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initType_wall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4",{"initType_wall"}, {"initOptionWall=if(%initType_wall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initType_wall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.BalanceTank_L3",{"initWall"}, {"initOptionWall=if(%initWall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initWall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced",{"initChoice_wall"}, {"initOptionWall=if(%initChoice_wall%==ClaRa.Basics.Choices.Init.steadyState) then 1 elseif(%initChoice_wall%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+//ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 and Descendents --------
+convertModifiers("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.TubeBundle_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.IdealShell_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_kA",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_kA",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeShell%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_ntu",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_ntu",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeShell%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_ntu",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_simple",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_ntu",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeTubes%"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 205 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SprayInjectorVLE_L3",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+
+///ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_flex and descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+///ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_flex and descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_Yand descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_Y",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+///ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_Yand descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_Y",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_flex and descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+///ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_flex and descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_flex",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa.Components.VolumesValvesFittings.Valves.ThreeWayValveVLE_L2
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.ThreeWayValveVLE_L2",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+
+///ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_Yand descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_Y",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+///ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Yand descendents-----
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Y",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_Kvs_L3 and descendents -----
+convertModifiers("ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_Kvs_L3",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_L3 and descendents -----
+convertModifiers("ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_L3",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+///ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_Kvs_L3_noMixer and descendents -----
+convertModifiers("ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_Kvs_L3_noMixer",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType%"},true);
+
+/// ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH and descendents -----
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH",{"initTypeSH1"}, {"initOptionSH1=if(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH1%"},true);
+
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH",{"initTypeSH2"}, {"initOptionSH2=if(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH2%"},true);
+
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH",{"initTypeSH3"}, {"initOptionSH3=if(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH3%"},true);
+
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH",{"initType_Spray1"}, {"initOptionSH2=if(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType_Spray1%"},true);
+
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_3SH",{"initType_Spray2"}, {"initOptionSH2=if(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType_Spray2%"},true);
+
+/// ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH and descendents -----
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initTypeSH1"}, {"initOptionSH1=if(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH1%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH1%"},true);
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initTypeSH2"}, {"initOptionSH2=if(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH2%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH2%"},true);
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initTypeSH3"}, {"initOptionSH3=if(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH3%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH3%"},true);
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initTypeSH4"}, {"initOptionSH3=if(%initTypeSH4%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initTypeSH4%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeSH4%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeSH4%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initTypeSH4%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initTypeSH4%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initTypeSH4%"},true);
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initType_Spray1"}, {"initOption_Spray1=if(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType_Spray1%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType_Spray1%"},true);
+convertModifiers("ClaRa_Obsolete.SubSystems.ConvectiveHeatingPart_4SH",{"initType_Spray2"}, {"initOption_Spray2=if(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType_Spray2%==ClaRa.Basics.Choices.Init.noInit) then 0 else %initType_Spray2%"},true);
+
+/// ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L4 and descendents -----
+convertModifiers("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L4",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L2_Simple",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+/// ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L4_Advanced and descendents -----
+convertModifiers("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L4_Advanced",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Advanced",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 0  elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 else 0"},true);
+
+/// ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L3_TwoZonesNPort and descendents -----
+convertModifiers("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L3_TwoZonesNPort",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_ntu",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle_L3_2ph_BU",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu",{"initTypeShell"}, {"initOptionShell=if(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeShell%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3_advanced",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.SteamSeparatorVLE_L3",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L3_Y",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SprayInjectorVLE_L3_advanced",{"initFluid"}, {"initOptionFluid=if(%initFluid%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initFluid%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa_Obsolete.Components.VolumesValvesFittings.Fittings.SprayInjector_L3_advanced",{"initFluid"}, {"initOptionFluid=if(%initFluid%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initFluid%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initFluid%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+/// ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_3_TwoZones and descendents -----
+convertModifiers("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_3_TwoZones",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 0 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 else if(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_2ph_BU_simple",{"initTypeTubes"}, {"initOptionTubes=if(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyState) then 209 		elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initTypeTubes%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3",{"initType"}, {"initOption=if(%initType%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initType%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initType%==ClaRa.Basics.Choices.Init.noInit) then 211 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensity) then 204 elseif(%initType%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 else 0"},true);
+
+/// ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 ---
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3",{"initChoice"}, {"initOption=if(%initChoice%==ClaRa.Basics.Choices.Init.steadyState) then 1 		elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyPressure)   then 0 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 0 elseif(%initChoice%==ClaRa.Basics.Choices.Init.noInit) then 0 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyDensity) then 801 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then 0 elseif(%initChoice%==ClaRa.Basics.Choices.Init.steadyTemperature) then 203 else 0"},true);
+
+///  ClaRa.SubSystems.Boiler.SteamGenerator_L3-----
+convertModifiers("ClaRa.SubSystems.Boiler.SteamGenerator_L3",{"initHP"}, {"initOption_HP=if(%initHP%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initHP%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initHP%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initHP%==ClaRa.Basics.Choices.Init.noInit) then 0 elseif(%initHP%==ClaRa.Basics.Choices.Init.steadyDensity) then -1 else if(%initHP%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then -1 else 0"},true);
+convertModifiers("ClaRa.SubSystems.Boiler.SteamGenerator_L3",{"initIP"}, {"initOption_IP=if(%initIP%==ClaRa.Basics.Choices.Init.steadyState) then 208 		elseif(%initIP%==ClaRa.Basics.Choices.Init.steadyPressure)   then 201 elseif(%initIP%==ClaRa.Basics.Choices.Init.steadyEnthalpy) then 202 elseif(%initIP%==ClaRa.Basics.Choices.Init.noInit) then 0 elseif(%initIP%==ClaRa.Basics.Choices.Init.steadyDensity) then -1 else if(%initIP%==ClaRa.Basics.Choices.Init.steadyDensityPressure) then -1 else 0"},true);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"d_ct"}, fill("",0),true);
+//convertModifiers("Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"d_ct"}, fill("",0),true);
+//convertModifiers("ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"d_ct"}, fill("",0),true);
+//convertModifiers("Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"d_ct"}, fill("",0),true);
+
+//convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"N_ct"}, fill("",0),true);
+//convertModifiers("Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"N_ct"}, fill("",0),true);
+//convertModifiers("ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"N_ct"}, fill("",0),true);
+//convertModifiers("Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"N_ct"}, fill("",0),true);
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_laminar_L2")
+convertClass("ClaRa.Basics.Functions.TableInterpolation.tableIpo", "ClaRa_Obsolete.Basics.Functions.TableInterpolation.tableIpo" ) ; 
+
+
+// StaCy Preheaters ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"setMassFlow"}, fill("",0), true);
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"m_flow_tap"}, {"m_flow_tap_nom=%m_flow_tap%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"levelAbs"}, {"level_abs=%absLevel%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.Preheater2", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.Preheater2", {"levelAbs"}, {"level_abs=%absLevel%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater1", {"setMassFlow"}, fill("",0), true);
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater1", {"m_flow_tap"}, {"m_flow_tap_nom=%m_flow_tap%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater1", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater1", {"levelAbs"}, {"level_abs=%absLevel%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater2", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Preheater2", {"levelAbs"}, {"level_abs=%absLevel%"}, true);
+convertModifiers("ClaRa.StaticCycles.FixedFlow", {"m_flow_nom2"}, {"m_flow_nom=%m_flow_nom2%"}, true);
+
+// Restructure StaticCycle package /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertClass("ClaRa.StaticCycles.Turbine","ClaRa.StaticCycles.Machines.Turbine");
+convertClass("ClaRa.StaticCycles.Condenser","ClaRa.StaticCycles.HeatExchanger.Condenser");
+convertClass("ClaRa.StaticCycles.Boiler","ClaRa_Obsolete.StaticCycles.Boiler");
+convertClass("ClaRa.StaticCycles.Feedwatertank3","ClaRa.StaticCycles.Storage.Feedwatertank3");
+convertClass("ClaRa.StaticCycles.Feedwatertank4","ClaRa.StaticCycles.Storage.Feedwatertank4");
+convertClass("ClaRa.StaticCycles.Preheater1","ClaRa.StaticCycles.HeatExchanger.Preheater1");
+convertClass("ClaRa.StaticCycles.Preheater2","ClaRa.StaticCycles.HeatExchanger.Preheater2");
+convertClass("ClaRa.StaticCycles.Preheater_twoShell","ClaRa.StaticCycles.HeatExchanger.Preheater_twoShell");
+convertClass("ClaRa.StaticCycles.Preheater_Delta_T","ClaRa.StaticCycles.HeatExchanger.Preheater_Delta_T");
+convertClass("ClaRa.StaticCycles.Reboiler","ClaRa.StaticCycles.HeatExchanger.Reboiler");
+convertClass("ClaRa.StaticCycles.Pump","ClaRa.StaticCycles.Machines.Pump");
+convertClass("ClaRa.StaticCycles.Pump_real","ClaRa.StaticCycles.Machines.Pump_real");
+convertClass("ClaRa.StaticCycles.Valve_dp_nom1","ClaRa.StaticCycles.ValvesConnects.Valve_dp_nom1");
+convertClass("ClaRa.StaticCycles.Valve_dp_nom2","ClaRa.StaticCycles.ValvesConnects.Valve_dp_nom2");
+convertClass("ClaRa.StaticCycles.Valve_dp_nom3","ClaRa.StaticCycles.ValvesConnects.Valve_dp_nom3");
+convertClass("ClaRa.StaticCycles.Valve_cutFlow","ClaRa.StaticCycles.ValvesConnects.Valve_cutPressure2");
+convertClass("ClaRa.StaticCycles.Valve_cutPressure","ClaRa.StaticCycles.ValvesConnects.Valve_cutPressure1");
+convertClass("ClaRa.StaticCycles.FixedFlow","ClaRa.StaticCycles.ValvesConnects.FlowAnchor_constPressure1");
+convertClass("ClaRa.StaticCycles.FixedPressure","ClaRa.StaticCycles.ValvesConnects.PressureAnchor_constFlow1");
+convertClass("ClaRa.StaticCycles.Split1","ClaRa.StaticCycles.Fittings.Split1");
+convertClass("ClaRa.StaticCycles.Mixer1","ClaRa.StaticCycles.Fittings.Mixer1");
+convertClass("ClaRa.StaticCycles.Mixer2","ClaRa.StaticCycles.Fittings.Mixer2");
+convertClass("ClaRa.StaticCycles.Mixer3","ClaRa.StaticCycles.Fittings.Mixer3");
+convertClass("ClaRa.StaticCycles.SprayAttemperator","ClaRa.StaticCycles.Fittings.SprayAttemperator");
+convertClass("ClaRa.StaticCycles.Split2","ClaRa.StaticCycles.Fittings.Split2");
+convertClass("ClaRa.StaticCycles.Split3","ClaRa.StaticCycles.Fittings.Split3");
+convertClass("ClaRa.StaticCycles.Split4","ClaRa.StaticCycles.Fittings.Split4");
+convertClass("ClaRa.StaticCycles.Tube1","ClaRa.StaticCycles.ValvesConnects.Tube1");
+convertClass("ClaRa.StaticCycles.Tube2","ClaRa.StaticCycles.ValvesConnects.Tube2");
+//convertClass("ClaRa.StaticCycles.Triple","");
+convertClass("ClaRa.StaticCycles.Tube3","ClaRa.StaticCycles.ValvesConnects.Tube3");
+
+convertClassIf("ClaRa.StaticCycles.Boundary_blue","source", "true", "ClaRa.StaticCycles.Boundaries.Source_blue");
+convertClassIf("ClaRa.StaticCycles.Boundary_green","source", "true", "ClaRa.StaticCycles.Boundaries.Source_green");
+convertClassIf("ClaRa.StaticCycles.Boundary_red","source", "true", "ClaRa.StaticCycles.Boundaries.Source_red");
+convertClassIf("ClaRa.StaticCycles.Boundary_yellow","source", "true", "ClaRa.StaticCycles.Boundaries.Source_yellow");
+convertClassIf("ClaRa.StaticCycles.Boundary_blue","source", "false", "ClaRa.StaticCycles.Boundaries.Sink_blue");
+convertClassIf("ClaRa.StaticCycles.Boundary_green","source", "false", "ClaRa.StaticCycles.Boundaries.Sink_green");
+convertClassIf("ClaRa.StaticCycles.Boundary_red","source", "false", "ClaRa.StaticCycles.Boundaries.Sink_red");
+convertClassIf("ClaRa.StaticCycles.Boundary_yellow","source", "false", "ClaRa.StaticCycles.Boundaries.Sink_yellow");
+convertClass("ClaRa.StaticCycles.Boundary_blue", "ClaRa.StaticCycles.Boundaries.Source_blue");
+convertClass("ClaRa.StaticCycles.Boundary_green", "ClaRa.StaticCycles.Boundaries.Source_green");
+convertClass("ClaRa.StaticCycles.Boundary_red", "ClaRa.StaticCycles.Boundaries.Source_red");
+convertClass("ClaRa.StaticCycles.Boundary_yellow","ClaRa.StaticCycles.Boundaries.Source_yellow");
+
+// StaCy Preheaters ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"setMassFlow"}, fill("",0), true);
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"m_flow_tap"}, {"m_flow_tap_nom=%m_flow_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.Preheater1", {"levelAbs"}, {"level_abs=%absLevel%"}, true);
+
+convertModifiers("ClaRa.StaticCycles.Preheater2", {"p_tap"}, {"p_tap_nom=%p_tap%"}, true);
+convertModifiers("ClaRa.StaticCycles.Preheater2", {"absLevel"}, {"level_abs=%absLevel%"}, true);
+convertModifiers("ClaRa.StaticCycles.HeatExchanger.Condenser", {"absLevel"}, {"level_abs=%absLevel%"}, true);
+
+
+
+
+// StaCy Valves and Connects //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.StaticCycles.ValvesConnects.FlowAnchor_constPressue1", {"m_flow_nom2"}, {"m_flow_nom=%m_flow_nom2%"}, true);
+convertModifiers("ClaRa.StaticCycles.ValvesConnects.FlowAnchor_cutPressure1", {"m_flow_nom2"}, {"m_flow_nom=%m_flow_nom2%"}, true);
+convertElement("ClaRa.StaticCycles.ValvesConnects.Tube2","green","outlet");
+
+// New Connections //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertClass("ClaRa_Dev.StaticCycles.Split5","ClaRa.StaticCycles.Fittings.Split5");
+convertClass("ClaRa_Dev.StaticCycles.Split6","ClaRa.StaticCycles.Fittings.Split6");
+convertClass("ClaRa_Dev.StaticCycles.Buffer_setFlow1","ClaRa.StaticCycles.ValvesConnects.Buffer_setFlow1");
+convertClass("ClaRa_Dev.StaticCycles.Buffer_cutFlow1","ClaRa.StaticCycles.ValvesConnects.Buffer_cutFlow1");
+
+
+// StaCy Furnace /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertElement("ClaRa.StaticCycles.Furnace.Burner1a","inlet","inletWall");
+
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1a","outlet","outletWall");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1a","flueGasIn","inletGas");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1a","flueGasOut","outletGas");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1a","primAirIn","inletPrimAir");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1a","fuelInlet","inletFuel");
+
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","inlet","inletWall");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","outlet","outletWall");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","flueGasIn","inletGas");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","flueGasOut","outletGas");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","primAirIn","inletPrimAir");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2a","fuelInlet","inletFuel");
+
+
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","inlet","inletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","outlet","outletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","evapInlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","evapOutlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","flueGasOut","outletGas");
+
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","inlet","inletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","outlet","outletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","evapInlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","evapOutlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","flueGasOut","outletGas");
+
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","inlet","inletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","outlet","outletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","evapInlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","evapOutlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","flueGasOut","outletGas");
+
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","inlet","inletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","outlet","outletBundle");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","evapInlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","evapOutlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","flueGasOut","outletGas");
+
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","CharLine_h_walls_P_target_","CharLine_h_wall_P_target_");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom4","CharLine_h_P_target_","CharLine_h_bundle_P_target_");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom3","CharLine_h_P_target_","CharLine_h_bundle_P_target_");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom2","CharLine_T_P_target_","CharLine_T_bundle_P_target_");
+convertElement("ClaRa.StaticCycles.Furnace.FlameRoom1","CharLine_h_P_target_","CharLine_h_bundle_P_target_");
+
+
+convertClass("ClaRa.StaticCycles.Boundaries.FlueGasSource", "ClaRa.StaticCycles.Boundaries.Source_brown");
+convertClass("ClaRa.StaticCycles.Boundaries.FlueGasSource2", "ClaRa.StaticCycles.Boundaries.Source_purple");
+convertClass("ClaRa.StaticCycles.Boundaries.FlueGasSource3", "ClaRa.StaticCycles.Boundaries.Source_orange");
+convertClass("ClaRa.StaticCycles.Boundaries.FuelSource", "ClaRa.StaticCycles.Boundaries.Source_black");
+convertClass("ClaRa.StaticCycles.Boundaries.FlueGasSink", "ClaRa.StaticCycles.Boundaries.Sink_brown");
+
+convertElement("ClaRa.StaticCycles.Boundaries.Sink_brown","flueGasOut","inlet");
+convertElement("ClaRa.StaticCycles.Boundaries.Source_brown","flueGasOut","outlet");
+
+convertElement("ClaRa.StaticCycles.Boundaries.Source_brown","T_FG_nom","T_fg_nom");
+convertElement("ClaRa.StaticCycles.Boundaries.Source_brown","m_flow_FG_nom","m_flow_fg_nom");
+convertElement("ClaRa.StaticCycles.Boundaries.Source_brown","flueGasOut","outlet");
+
+convertElement("ClaRa.StaticCycles.Boundaries.Source_purple","flueGasOut","outlet");
+convertElement("ClaRa.StaticCycles.Boundaries.Source_orange","flueGasOut","outlet");
+
+convertClass("ClaRa_Dev.StaticCycles.Furnace.Burner1a","ClaRa.StaticCycles.Furnace.Burner1");
+convertClass("ClaRa_Dev.StaticCycles.Furnace.Burner2a","ClaRa.StaticCycles.Furnace.Burner2");
+convertClass("ClaRa.StaticCycles.Furnace.Burner1a","ClaRa.StaticCycles.Furnace.Burner1");
+convertClass("ClaRa.StaticCycles.Furnace.Burner2a","ClaRa.StaticCycles.Furnace.Burner2");
+
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1","h_vle_out_nom","h_vle_wall_out_nom");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner1","Delta_p_vle_nom","Delta_p_vle_wall_nom");
+
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2","h_vle_out_nom","h_vle_wall_out_nom");
+convertElement("ClaRa_Dev.StaticCycles.Furnace.Burner2","Delta_p_vle_nom","Delta_p_vle_wall_nom");
+
+
+convertModifiers("ClaRa.StaticCycles.ValvesConnects.PressureAnchor_constFlow1", {"p"},{"p_nom=%p%"}, true);
+
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","inlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","outlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","flueGasOut","outletGas");
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","primAirIn","inletPrimAir");
+convertElement("ClaRa.StaticCycles.Furnace.Burner1","fuelInlet","inletFuel");
+
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","inlet","inletWall");
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","outlet","outletWall");
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","flueGasIn","inletGas");
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","flueGasOut","outletGas");
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","primAirIn","inletPrimAir");
+convertElement("ClaRa.StaticCycles.Furnace.Burner2","fuelInlet","inletFuel");
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////Mechanical Sepration Conversions////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3", {"tau_evap"}, {"Tau_evap=%tau_evap%"}, true);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////Mill Conversions///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"M_c_0"}, {"mass_rct_start=%M_c_0%"}, true);
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"M_pf_0"}, {"mass_pct_start=%M_pf_0%"}, true);
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"M_cair_0"}, {"mass_pca_start=%M_cair_0%"}, true);
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"xi_coal_0"}, {"xi_wc_start=%xi_coal_0%"}, true);
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"Tau_grind"}, {"Tau_delay=%Tau_grind%"}, true);
+convertModifiers("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3", {"T_0"}, {"T_out_start=%T_0%"}, true);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////Fittings Conversions/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_flex", "ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_flex");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_Y", "ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L2_Y");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_Y", "ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Y");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Join_L3_Y", "ClaRa.Components.VolumesValvesFittings.Fittings.JoinVLE_L3_Y");
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_flex", {"V"}, {"volume=%V%"}, true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SplitVLE_L2_flex", {"showSummary"}, fill("", 0), true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_base", {"xi_start"}, {"steamQuality_start=%xi_start%"}, true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L2", {"xi_start"}, {"steamQuality_start=%xi_start%"}, true);
+
+//convertModifiers("ClaRa_Dev.StaticCycles.Furnace.FlameRoom1", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+//convertModifiers("ClaRa.StaticCycles.Furnace.FlameRoom1", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+
+//convertModifiers("ClaRa_Dev.StaticCycles.Furnace.FlameRoom2", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+//convertModifiers("ClaRa.StaticCycles.Furnace.FlameRoom2", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+
+//convertModifiers("ClaRa_Dev.StaticCycles.Furnace.FlameRoom3", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+//convertModifiers("ClaRa.StaticCycles.Furnace.FlameRoom3", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+
+//convertModifiers("ClaRa_Dev.StaticCycles.Furnace.FlameRoom4", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+//convertModifiers("ClaRa.StaticCycles.Furnace.FlameRoom4", {"Pi_Q_flow"}, {"h_vle_wall_out_nom=(Q_flow_bundle/%Pi_Q_flow%*m_flow_vle_wall_in+h_vle_wall_in)/table3.y[1]"}, true);
+
+//SimCenter Summary
+convertClass("ClaRa.SimCenter.Summary","ClaRa.SimCenter.summary_clara");
+convertElement("ClaRa.SimCenter","Summary","summary_clara");
+
+//Gas pressure loss
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL.QuadraticPressureLoss_Simple_L4","ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL.QuadraticNominalPoint_L4");
+
+//Sensors
+convertClass("ClaRa.Components.Sensors.GasSensorBase","ClaRa.Components.Sensors.gasSensorBase");
+convertClass("ClaRa.Components.Sensors.Temperature","ClaRa.Components.Sensors.SensorVLE_L1_T");
+convertClass("ClaRa.Components.Sensors.vlePressureSensor","ClaRa.Components.Sensors.SensorVLE_L1_p");
+convertClass("ClaRa.Components.Sensors.vleMassflowSensor","ClaRa.Components.Sensors.SensorVLE_L1_m_flow");
+convertClass("ClaRa.Components.Sensors.GasTemperatureSensor","ClaRa.Components.Sensors.SensorGas_L1_T");
+convertClass("ClaRa.Components.Sensors.GasPressureSensor","ClaRa.Components.Sensors.SensorGas_L1_p");
+convertClass("ClaRa.Components.Sensors.GasMassflowSensor","ClaRa.Components.Sensors.SensorGas_L1_m_flow");
+convertClass("ClaRa.Components.Sensors.GasComponentSensor","ClaRa.Components.Sensors.SensorGas_L1_xi");
+convertClass("ClaRa.Components.Sensors.GasCompositionSensor","ClaRa.Components.Sensors.SensorGas_L1_xi_i");
+
+//Carrier tubes HT
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_laminar_L2", {"N_ct"}, fill("",0), true);
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"N_ct"}, fill("",0), true);
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_laminar_L2", {"d_ct"}, fill("",0), true);
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_L2", {"d_ct"}, fill("",0), true);
+
+convertModifiers("ClaRa.Components.Sensors.SensorGas_L1_xi_i",{"N"}, fill("",0), true);
+convertModifiers("ClaRa.Components.Sensors.GasCompositionSensor",{"N"}, fill("",0), true);
+
+//Valves: effectiveFlow Area
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.ThreeWayValveGas_L1",{"effectiveFlowArea"}, {"pressureLoss.effectiveFlowArea1=%effectiveFlowArea%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticFrictionNominalPointSymetric_TWV",{"effectiveFlowArea1"}, fill("",0), true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.ThreeWayValveVLE_L1",{"effectiveFlowArea"}, {"pressureLoss.effectiveFlowArea1=%effectiveFlowArea%"},true);
+
+//FlueGasCleaning
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"useStabilisedMassFlow"}, fill("",0), true);
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"Tau"}, fill("",0), true);
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"SOx_separationRate"}, fill("",0), true);
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"T_in_H2O"}, fill("",0), true);
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal",{"specificPowerConsumption"}, fill("",0), true);
+
+//convertModifiers("ClaRa.Components.FlueGasCleaning.Denitrification.Denitrification_L1_new","{"separationRate"}, fill("",0), true);
+
+convertClass("ClaRa.Components.FlueGasCleaning.Denitrification.Denitrification_L1_NH3port","ClaRa_Obsolete.Components.FlueGasCleaning.Denitrification.Denitrification_L1_NH3port");
+convertClass("ClaRa.Components.FlueGasCleaning.Denitrification.Denitrification_L1","ClaRa_Obsolete.Components.FlueGasCleaning.Denitrification.Denitrification_L1_old");
+convertClass("ClaRa.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal","ClaRa_Obsolete.Components.FlueGasCleaning.Desulfurization.Desulfurization_L1_ideal_old");
+convertClass("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_simple","ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter.E_Filter_L2_simple_old");
+convertClass("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_empirical","ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter.E_Filter_L2_empirical_old");
+convertClass("ClaRa.Components.FlueGasCleaning.E_Filter.E_Filter_L2_detailed","ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter.E_Filter_L2_detailed_old");
+
+
+//convertModifiers("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic", {"","Name"}, {"width=%Name%.geo.width","Name=%Name%"}, true);
+
+
+//HEX
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_ntu",{"parallelTubes"}, fill("",0), true);
+
+
+

@@ -1,0 +1,212 @@
+//Convert Package from ClaRa 1.2.1, 1.2.2 and 1.2.3 to version 1.3.0
+convertClear();
+
+// Replaceable models that used FluidDissipation ///////////////////////////////////////////////////////////////////////////////////
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe_L4", {"boundary"}, {"boundary = if (%boundary% == FluidDissipation.Utilities.Types.HeatTransferBoundary.UWTuDFF) then 1 elseif (%boundary% == FluidDissipation.Utilities.Types.HeatTransferBoundary.UHFuDFF) then 2 elseif (%boundary% == FluidDissipation.Utilities.Types.HeatTransferBoundary.UWTuUFF) then 3 else 4"}, true);
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe2ph_L2", "ClaRa_Obsolete.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe2ph_L2_obs");
+//					  ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe2ph_L2
+
+
+// Revision of MechanicalSeparation Components ///////////////////////////////////////////////////////////////////////////////////
+convertElement("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced", "down", "down_1");
+convertElement("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced", "riser", "riser_1");
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced", {"z_riser"}, {"z_risers=fill(%z_riser%, 3)"}, true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced", {"z_down"}, {"z_downs=fill(%z_down%, 3)"}, true);
+convertClass("ClaRa.Components.MechanicalSeparation.Drum_L3_advanced", "ClaRa.Components.MechanicalSeparation.Drum_L3");
+
+//convertClass("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3", "ClaRa_Obsolete.Components.MechanicalSeparation.FeedWaterTank_L3");
+convertClass("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3_advanced", "ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3");
+convertElement("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3", "outlet", "feedwater");
+convertElement("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L2", "outlet", "feedwater");
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3", {"z_feed"}, {"z_feedwater=%z_feed%"}, true);
+
+
+// Revision of TurboMachines components ///////////////////////////////////////////////////////////////////////////////////////////
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.EfficiencyModels.EfficiencyModelBase", "ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.EfficiencyModelBase");
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.EfficiencyModels.TableMassFlow", "ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow");
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.EfficiencyModels.TableVolumeFlow", "ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableVolumeFlow");
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.EfficiencyModels.RayCorrelation", "ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.RayCorrelation");
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.ICom", "ClaRa.Components.TurboMachines.Fundamentals.IComTurbine");
+
+convertClass("ClaRa.Components.TurboMachines.Pumps.Pump_Base", "ClaRa.Components.TurboMachines.Pumps.Fundamentals.Pump_Base");
+
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", {"exp_hyd = 0.5", "drp_exp =0", "eta_hyd_nom = 0.8", "exp_rpm = 2", "V_flow_opt_=0.6", "exp_flow=2", "clearSection=1","V_flow_leak=0.00002", "Delta_p_eps=100", "stabiliseDelta_p=false", "Tau_stab=1"}, {"redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (exp_hyd =  %exp_hyd%,  drp_exp = %drp_exp% ,     Delta_p_eps = %Delta_p_eps% )", "redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1(eta_hyd_nom = %eta_hyd_nom%,  exp_rpm = %exp_rpm%,   V_flow_opt_ = %V_flow_opt_%,  exp_flow = %exp_flow%, Delta_p_eps = %Delta_p_eps% , V_flow_leak = %V_flow_leak%, stabiliseDelta_p= %stabiliseDelta_p%, Tau_stab = %Tau_stab%)"}, true); 
+
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", {"rpm_stirrS ", "rpm_stirrE"} , {fill("",0), fill("",0)}, true);
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.Outline", "P_hyd ", "P_fluid");
+
+
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", {"exp_hyd = 0.5", "drp_exp =0", "eta_hyd_nom = 0.8", "exp_rpm = 2", "V_flow_opt_=0.6", "exp_flow=2", "clearSection=1","V_flow_leak=0.00002", "Delta_p_eps=100", "stabiliseDelta_p=false", "Tau_stab=1"}, {"redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (exp_hyd =  %exp_hyd%,  drp_exp = %drp_exp% ,     Delta_p_eps = %Delta_p_eps% )", "redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1(eta_hyd_nom = %eta_hyd_nom%,  exp_rpm = %exp_rpm%,   V_flow_opt_ = %V_flow_opt_%,  exp_flow = %exp_flow%, Delta_p_eps = %Delta_p_eps% , V_flow_leak = %V_flow_leak%, stabiliseDelta_p= %stabiliseDelta_p%, Tau_stab = %Tau_stab%)"}, true); 
+
+convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", {"rpm_stirrS ", "rpm_stirrE"} , {fill("",0), fill("",0)}, true);
+
+//conversion of summary variable names according to ClaRa nomenclature
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_simple.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_simple.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_simple.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_simple.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu.Outline", "relLevel", "level_rel");
+
+convertElement("ClaRa.Components.HeatExchangers.HEXvle_L3_2ph_BU.Outline", "absLevel", "level_abs");
+convertElement("ClaRa.Components.HeatExchangers.HEXvle_L3_2ph_BU.Outline", "relLevel", "level_rel");
+
+//NTU update
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Functions.ArithmeticMean", "ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.ArithmeticMean");
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Functions.GeneralMean", "ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.GeneralMean");
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Functions.InputOnly", "ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly");
+
+
+// Some Class Renaming 
+convertClass("ClaRa.Basics.Interfaces.fluidPort_XRG", "ClaRa.Basics.Interfaces.FluidPortIn");
+convertClass("ClaRa.StaticCycles.Machines.Pump", "ClaRa.StaticCycles.Machines.Pump1");
+convertClass("ClaRa.StaticCycles.Machines.Pump_real", "ClaRa.StaticCycles.Machines.Pump1_real");
+convertClass("ClaRa.StaticCycles.ValvesConnects.FlowAnchor_constPressue1", "ClaRa.StaticCycles.ValvesConnects.FlowAnchor_constPressure1");
+convertClass("ClaRa.StaticCycles.ValvesConnects.Tube3", "ClaRa.StaticCycles.ValvesConnects.Tube1");
+convertClass("ClaRa.StaticCycles.Dispatcher", "ClaRa.StaticCycles.Boundaries.Dispatcher");
+
+// Update initialisation of ClaRa's Blocks
+convertModifiers("ClaRa.Components.Utilities.Blocks.LimPID",{"initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState"}, {"initOption=if(%initType%==Modelica.Blocks.Types.InitPID.SteadyState) then 798 elseif(%initType%==Modelica.Blocks.Types.InitPID.InitialOutput)   then 796 elseif(%initType%==Modelica.Blocks.Types.InitPID.InitialState) then 797 elseif(%initType%==Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState) then 795 else 501"},true);
+
+convertModifiers("ClaRa.Components.Utilities.Blocks.Integrator",{"initType=Modelica.Blocks.Types.Init.InitialState"}, {"initOption=if(%initType%==Modelica.Blocks.Types.Init.SteadyState) then 504 elseif(%initType%==Modelica.Blocks.Types.Init.InitialState)   then 504 elseif(%initType%==Modelica.Blocks.Types.Init.InitialOutput) then 504 elseif(%initType%==Modelica.Blocks.Types.Init.NoInit) then 501 else 0"},true);
+
+convertModifiers("ClaRa.Components.Utilities.Blocks.DerivativeClaRa",{"initType=Modelica.Blocks.Types.Init.NoInit"}, {"initOption=if(%initType%==Modelica.Blocks.Types.Init.SteadyState) then 502 elseif(%initType%==Modelica.Blocks.Types.Init.InitialState)   then 799 elseif(%initType%==Modelica.Blocks.Types.Init.InitialOutput) then 504 elseif(%initType%==Modelica.Blocks.Types.Init.NoInit) then 501 else 0"},true);
+
+convertClass("ClaRa.StaticCycles.ValvesConnects.Tube3", "ClaRa.StaticCycles.ValvesConnects.Tube1");
+convertClass("ClaRa.StaticCycles.ValvesConnects.Tube3", "ClaRa.StaticCycles.ValvesConnects.Tube1");
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.ThinWall_L4","ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4")
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.ThickWall_L4","ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4")
+
+// Moved Component to ClaRaObsolete
+convertClass("ClaRa.Basics.ControlVolumes.SolidVolumes.ThinWall_L2","ClaRa_Obsolete.Basics.ControlVolumes.SolidVolumes.ThinWall_L2")
+
+//Visualisers
+convertModifiers("ClaRa.Visualisation.DynamicBar", {"provideConnector=false"}, {"provideOutputConnector = %provideConnector%"});
+
+//Stacy FlameRoom
+convertClass("ClaRa.StaticCycles.Furnace.FlameRoom4", "ClaRa.StaticCycles.Furnace.FlameRoom3");
+
+
+//New Fuel Definitions
+convertClass("ClaRa.Basics.Media.Fuel.PartialSlag", "ClaRa.Basics.Media.Slag.PartialSlag");
+convertClass("ClaRa.Basics.Media.Fuel.Slag_v1", "ClaRa.Basics.Media.Slag.Slag_v1");
+convertClass("ClaRa.Basics.Media.Fuel.Slag_v2", "ClaRa.Basics.Media.Slag.Slag_v2");
+
+//Renaming old Fuel Components to Obsolet
+convertClass("ClaRa.Components.Furnace.Burner.Burner_L2_Static", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Static");
+convertClass("Components.Furnace.Burner.Burner_L2_Static", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Static");
+
+convertClass("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Dynamic");
+convertClass("Components.Furnace.Burner.Burner_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Dynamic");
+
+convertClass("ClaRa.Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying");
+convertClass("Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying", "ClaRa_Obsolete.Components.Furnace.Burner.Burner_L2_Dynamic_fuelDrying");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoom_L2_Static");
+convertClass("Components.Furnace.FlameRoom.FlameRoom_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoom_L2_Static");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static");
+convertClass("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Static");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static");
+convertClass("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Static");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic");
+convertClass("Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic");
+convertClass("Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomAdditionalAir_L2_Dynamic");
+
+convertClass("ClaRa.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic");
+convertClass("Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic", "ClaRa_Obsolete.Components.Furnace.FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic");
+
+convertClass("ClaRa.Components.Furnace.Hopper.Hopper_L2", "ClaRa_Obsolete.Components.Furnace.Hopper.Hopper_L2");
+convertClass("Components.Furnace.Hopper.Hopper_L2", "ClaRa_Obsolete.Components.Furnace.Hopper.Hopper_L2");
+
+convertClass("ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone","ClaRa_Obsolete.Components.Furnace.ChemicalReactions.CoalReactionZone");
+convertClass("Components.Furnace.ChemicalReactions.CoalReactionZone","ClaRa_Obsolete.Components.Furnace.ChemicalReactions.CoalReactionZone");
+convertClass("Furnace.ChemicalReactions.CoalReactionZone","ClaRa_Obsolete.Components.Furnace.ChemicalReactions.CoalReactionZone");
+convertClass("ChemicalReactions.CoalReactionZone","ClaRa_Obsolete.Components.Furnace.ChemicalReactions.CoalReactionZone");
+
+convertClass("ClaRa.Components.Furnace.SimpleCombustionChamber","ClaRa_Obsolete.Components.Furnace.SimpleCombustionChamber");
+convertClass("Components.Furnace.SimpleCombustionChamber","ClaRa_Obsolete.Components.Furnace.SimpleCombustionChamber");
+
+convertClass("ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow","ClaRa_Obsolete.Components.BoundaryConditions.BoundaryFuel_Txim_flow");
+convertClass("Components.BoundaryConditions.BoundaryFuel_Txim_flow","ClaRa_Obsolete.Components.BoundaryConditions.BoundaryFuel_Txim_flow");
+
+convertClass("ClaRa.Components.BoundaryConditions.BoundaryFuel_pTxi","ClaRa_Obsolete.Components.BoundaryConditions.BoundaryFuel_pTxi");
+convertClass("Components.BoundaryConditions.BoundaryFuel_pTxi","ClaRa_Obsolete.Components.BoundaryConditions.BoundaryFuel_pTxi");
+
+convertClass("ClaRa.Components.Adapters.FuelSlagFlueGas_join","ClaRa_Obsolete.Components.Adapters.FuelSlagFlueGas_join");
+convertClass("Components.Adapters.FuelSlagFlueGas_join","ClaRa_Obsolete.Components.Adapters.FuelSlagFlueGas_join");
+
+convertClass("ClaRa.Components.Adapters.FuelSlagFlueGas_split","ClaRa_Obsolete.Components.Adapters.FuelSlagFlueGas_split");
+convertClass("Components.Adapters.FuelSlagFlueGas_split","ClaRa_Obsolete.Components.Adapters.FuelSlagFlueGas_split");
+
+convertClass("ClaRa.Components.Adapters.FuelFlueGas_join","ClaRa_Obsolete.Components.Adapters.FuelFlueGas_join");
+convertClass("Components.Adapters.FuelFlueGas_join","ClaRa_Obsolete.Components.Adapters.FuelFlueGas_join");
+
+convertClass("ClaRa.Components.Adapters.FuelFlueGas_split","ClaRa_Obsolete.Components.Adapters.FuelFlueGas_split");
+convertClass("Components.Adapters.FuelFlueGas_split","ClaRa_Obsolete.Components.Adapters.FuelFlueGas_split");
+
+convertClass("ClaRa.Components.Mills.HardCoalMills.RollerBowlMill_L1","ClaRa_Obsolete.Components.Mills.HardCoalMills.RollerBowlMill_L1");
+convertClass("Components.Mills.HardCoalMills.RollerBowlMill_L1","ClaRa_Obsolete.Components.Mills.HardCoalMills.RollerBowlMill_L1");
+
+convertClass("ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3","ClaRa_Obsolete.Components.Mills.HardCoalMills.VerticalMill_L3");
+convertClass("Components.Mills.HardCoalMills.VerticalMill_L3","ClaRa_Obsolete.Components.Mills.HardCoalMills.VerticalMill_L3");
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveFuelFlueGas_L1","ClaRa_Obsolete.Components.VolumesValvesFittings.Valves.ValveFuelFlueGas_L1");
+convertClass("Components.VolumesValvesFittings.Valves.ValveFuelFlueGas_L1","ClaRa_Obsolete.Components.VolumesValvesFittings.Valves.ValveFuelFlueGas_L1");
+
+convertClass("ClaRa.Basics.Interfaces.Fuel_inlet","ClaRa_Obsolete.Basics.Interfaces.Fuel_inlet");
+convertClass("Basics.Interfaces.Fuel_inlet","ClaRa_Obsolete.Basics.Interfaces.Fuel_inlet");
+
+convertClass("ClaRa.Basics.Interfaces.Fuel_outlet","ClaRa_Obsolete.Basics.Interfaces.Fuel_outlet");
+convertClass("Basics.Interfaces.Fuel_outlet","ClaRa_Obsolete.Basics.Interfaces.Fuel_outlet");
+
+convertClass("ClaRa.Basics.Interfaces.FuelFlueGas_inlet","ClaRa_Obsolete.Basics.Interfaces.FuelFlueGas_inlet");
+convertClass("Basics.Interfaces.FuelFlueGas_inlet","ClaRa_Obsolete.Basics.Interfaces.FuelFlueGas_inlet");
+
+convertClass("ClaRa.Basics.Interfaces.FuelFlueGas_outlet","ClaRa_Obsolete.Basics.Interfaces.FuelFlueGas_outlet");
+convertClass("Basics.Interfaces.FuelFlueGas_outlet","ClaRa_Obsolete.Basics.Interfaces.FuelFlueGas_outlet");
+
+convertClass("ClaRa.Basics.Interfaces.FuelSlagFlueGas_inlet","ClaRa_Obsolete.Basics.Interfaces.FuelSlagFlueGas_inlet");
+convertClass("Basics.Interfaces.FuelSlagFlueGas_inlet","ClaRa_Obsolete.Basics.Interfaces.FuelSlagFlueGas_inlet");
+
+convertClass("ClaRa.Basics.Interfaces.FuelSlagFlueGas_outlet","ClaRa_Obsolete.Basics.Interfaces.FuelSlagFlueGas_outlet");
+convertClass("Basics.Interfaces.FuelSlagFlueGas_outlet","ClaRa_Obsolete.Basics.Interfaces.FuelSlagFlueGas_outlet");
+
+//convertModifiers("ClaRa.StaticCycles.Boundaries.Dispatcher", {"xi_fuel"}, {"xi_c=%xi_fuel%"}, true);
+//convertModifiers("StaticCycles.Boundaries.Dispatcher", {"xi_fuel"}, {"xi_c=%xi_fuel%"}, true);
+
+
+convertClass("ClaRa.StaticCycles.Furnace.Burner2","ClaRa_Obsolete.StaticCycles.Burner2");
+convertClass("StaticCycles.Furnace.Burner2","ClaRa_Obsolete.StaticCycles.Burner2");
+
+convertClass("ClaRa.StaticCycles.Furnace.Burner1","ClaRa_Obsolete.StaticCycles.Burner1");
+convertClass("StaticCycles.Furnace.Burner1","ClaRa_Obsolete.StaticCycles.Burner1");
+
+convertClass("ClaRa.StaticCycles.Boundaries.Dispatcher","ClaRa_Obsolete.StaticCycles.Dispatcher");
+convertClass("StaticCycles.Boundaries.Dispatcher","ClaRa_Obsolete.StaticCycles.Dispatcher");
+
+convertClass("ClaRa.StaticCycles.Boundaries.Source_black","ClaRa_Obsolete.StaticCycles.Source_black");
+convertClass("StaticCycles.Boundaries.Source_black","ClaRa_Obsolete.StaticCycles.Source_black");
+
+convertClass("ClaRa.StaticCycles.Fundamentals.FuelSignal_black_a","ClaRa_Obsolete.StaticCycles.FuelSignal_black_a");
+convertClass("StaticCycles.Fundamentals.FuelSignal_black_a","ClaRa_Obsolete.StaticCycles.FuelSignal_black_a");
+
+convertClass("ClaRa.StaticCycles.Fundamentals.FuelSignal_black_b","ClaRa_Obsolete.StaticCycles.FuelSignal_black_b");
+convertClass("StaticCycles.Fundamentals.FuelSignal_black_b","ClaRa_Obsolete.StaticCycles.FuelSignal_black_b");

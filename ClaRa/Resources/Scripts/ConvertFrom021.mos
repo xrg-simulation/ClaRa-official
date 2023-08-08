@@ -1,0 +1,25 @@
+﻿convertClear();
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle_L3_2ph_BU",{"gain_eff"},fill("",0),true);
+convertModifiers("Components.HeatExchangers.HEXvle_L3_2ph_BU",{"gain_eff"},fill("",0),true);
+convertModifiers("HeatExchangers.HEXvle_L3_2ph_BU",{"gain_eff"},fill("",0),true);
+convertModifiers("HEXvle_L3_2ph_BU",{"gain_eff"},fill("",0),true);
+
+//_____________Luvo HT______________________________________
+convertElement("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("Components.HeatExchangers.RegenerativeAirPreheater_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("HeatExchangers.RegenerativeAirPreheater_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("RegenerativeAirPreheater_L4_array","HeatTransfer","HeatTransferFlueGas");
+
+convertElement("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4_array","HeatTransfer","HeatTransferFlueGas");
+convertElement("RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4_array","HeatTransfer","HeatTransferFlueGas");
+
+//____________FlueGasTubes___________________________
+convertClass("ClaRa.Components.VolumesValvesFittings.Pipes.Fundamentals.HeatTransport.HeatTransfer_FlueGas", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Constant_HTC_array");
+convertClass("Components.VolumesValvesFittings.Pipes.Fundamentals.HeatTransport.HeatTransfer_FlueGas", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Constant_HTC_array");
+convertClass("VolumesValvesFittings.Pipes.Fundamentals.HeatTransport.HeatTransfer_FlueGas", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Constant_HTC_array");
+convertClass("Pipes.Fundamentals.HeatTransport.HeatTransfer_FlueGas", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Constant_HTC_array");
+
+

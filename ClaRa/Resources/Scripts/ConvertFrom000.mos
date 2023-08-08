@@ -1,0 +1,198 @@
+﻿
+//Renaming of VLE components
+convertClass("ClaRa.Components.TurboMachines.Turbines.SteamTurbine_2","ClaRa.Components.TurboMachines.Turbines.SteamTurbine_L1");
+convertElement("ClaRa.Components.TurboMachines.Turbines.SteamTurbine_L1", "summary.h_out","summary.outlet.h");
+convertElement("ClaRa.Components.TurboMachines.Turbines.SteamTurbine_L1", "summary.m_out","summary.outlet.m_flow");
+
+convertClass("ClaRa.Components.TurboMachines.Pumps.Pump_2_simple","ClaRa.Components.TurboMachines.Pumps.Pump_L1_simple");
+convertClass("ClaRa.Components.HeatExchangers.CondenserOneSide_2","ClaRa.Components.HeatExchangers.CondenserOneSide_L2");
+convertClass("ClaRa.Components.MechanicalSeparation.FeedWaterTank_1","ClaRa.Components.MechanicalSeparation.FeedWaterTank_L2");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Join_XRG","ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_flex");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Split_Y","ClaRa.Components.VolumesValvesFittings.Fittings.Split_L2_Y");
+convertClass("ClaRa.Components.VolumesValvesFittings.Fittings.Join_Y","ClaRa.Components.VolumesValvesFittings.Fittings.Join_L2_Y");
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveLinear_2","ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear");
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveQuad_XRG2","ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Quadratic");
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.ValveQuad_2","ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Quadratic");
+convertClass("ClaRa.Components.Mills.HardCoalMills.VerticalMill_3_XRG","ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3");
+
+convertClass("ClaRa.Components.HeatExchangers.CondenserTwoSide_3","ClaRa.Components.HeatExchangers.CondenserTwoSide_L3");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "m_nom1","m_flow_nom_shell");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "h_nom1","h_nom_shell");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "p_nom1","p_nom_shell");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "m_nom2","m_flow_nom_tubes");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "h_nom2","h_nom_tubes");
+convertElement("ClaRa.Components.HeatExchangers.CondenserTwoSide_L3", "p_nom2","p_nom_tubes");
+
+convertClass("ClaRa.Components.HeatExchangers.Preheater_HP_3","ClaRa.Components.HeatExchangers.Preheater_L3_HP");
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Valve_2","ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1");
+
+//Renaming of some parameters in the simple boiler classes
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_1_XRG", "CharLineValve_","CharLineValve_");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "Tu","Tau_dead");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "Tg","Tau_bal");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "Ts","Tau_stor");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "T_IP","Tau_IP");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "dp_nomHP","Delta_p_nomHP");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "dp_nomIP","Delta_p_nomIP");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L1", "m_LS_nom","m_flow_nomLS");
+
+convertClass("ClaRa.SubSystems.Boiler.SteamGenerator_3_XRG","ClaRa.SubSystems.Boiler.SteamGenerator_L3");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "Tu","Tau_dead");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "Tg","Tau_bal");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "p_reheat_start","p_RH_start");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "h_reheat_start","h_RH_start");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "dp_nomHP","Delta_p_nomHP");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "dp_nomIP","Delta_p_nomIP");
+convertElement("ClaRa.SubSystems.Boiler.SteamGenerator_L3", "m_LS_nom","m_flow_nomLS");
+
+
+//_______________Relocating replaceable models ______________________________________________
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.IdealHeatTransfer", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.IdealHeatTransfer", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.IdealHeatTransfer", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer");
+convertClass("Fundamentals.HeatTransport.IdealHeatTransfer", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer");
+convertClass("HeatTransport.IdealHeatTransfer", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Adiabat", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.Adiabat", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.Adiabat", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat");
+convertClass("Fundamentals.HeatTransport.Adiabat", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat");
+convertClass("HeatTransport.Adiabat", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ConstantHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.ConstantHTC");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.ConstantHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.ConstantHTC");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.ConstantHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.ConstantHTC");
+convertClass("Fundamentals.HeatTransport.ConstantHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.ConstantHTC");
+convertClass("HeatTransport.ConstantHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.ConstantHTC");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.CharLineHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLineHTC");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.CharLineHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLineHTC");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.CharLineHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLineHTC");
+convertClass("Fundamentals.HeatTransport.CharLineHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLineHTC");
+convertClass("HeatTransport.CharLineHTC", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLineHTC");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltPipe2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph");
+convertClass("HeatTransport.HTC_NusseltPipe2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltPipe1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph");
+convertClass("HeatTransport.HTC_NusseltPipe1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph_k_eff");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph_k_eff");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph_k_eff");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltPipe1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph_k_eff");
+convertClass("HeatTransport.HTC_NusseltPipe1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe1ph_k_eff");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph_k_eff");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph_k_eff");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph_k_eff");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltShell1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph_k_eff");
+convertClass("HeatTransport.HTC_NusseltShell1ph_k_eff", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph_k_eff");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltShell1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph");
+convertClass("HeatTransport.HTC_NusseltShell1ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell1ph");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell2ph");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell2ph");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltShell2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell2ph");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltShell2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell2ph");
+convertClass("HeatTransport.HTC_NusseltShell2ph", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltShell2ph");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.constantAlphaA", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.constantAlphaA");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.constantAlphaA", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.constantAlphaA");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.constantAlphaA", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.constantAlphaA");
+convertClass("Fundamentals.HeatTransport.constantAlphaA", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.constantAlphaA");
+convertClass("HeatTransport.constantAlphaA", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.constantAlphaA");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3");
+convertClass("Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3");
+convertClass("HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3");
+convertClass("Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3");
+convertClass("HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_ideal_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_ideal_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_ideal_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_ideal_L3");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_ideal_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_ideal_L3");
+convertClass("Fundamentals.HeatTransport.HTC_ideal_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_ideal_L3");
+convertClass("HeatTransport.HTC_ideal_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_ideal_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3_3zones");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3_3zones");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3_3zones");
+convertClass("Fundamentals.HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3_3zones");
+convertClass("HeatTransport.HeatTransfer_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L3_3zones");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3_3zones");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3_3zones");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3_3zones");
+convertClass("Fundamentals.HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3_3zones");
+convertClass("HeatTransport.HTC_const_3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_const_L3_3zones");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph_L3");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.HTC_NusseltPipe2ph_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph_L3");
+convertClass("Fundamentals.HeatTransport.HTC_NusseltPipe2ph_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph_L3");
+convertClass("HeatTransport.HTC_NusseltPipe2ph_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HTC_NusseltPipe2ph_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss");
+convertClass("Fundamentals.PressureLoss.GenericPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss");
+convertClass("PressureLoss.GenericPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.NoFriction", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.NoFriction", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.NoFriction", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction");
+convertClass("Fundamentals.PressureLoss.NoFriction", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction");
+convertClass("PressureLoss.NoFriction", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss");
+convertClass("Fundamentals.PressureLoss.LinearPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss");
+convertClass("PressureLoss.LinearPressureLoss", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.GenericPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3");
+convertClass("Fundamentals.PressureLoss.GenericPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3");
+convertClass("PressureLoss.GenericPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.NoFriction_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.NoFriction_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.NoFriction_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3");
+convertClass("Fundamentals.PressureLoss.NoFriction_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3");
+convertClass("PressureLoss.NoFriction_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L3");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L3");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.LinearPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L3");
+convertClass("Fundamentals.PressureLoss.LinearPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L3");
+convertClass("PressureLoss.LinearPressureLoss_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossCoefficient", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoefficient");
+convertClass("Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossCoefficient", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoefficient");
+convertClass("ControlVolumes.Fundamentals.PressureLoss.PressureLossCoefficient", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoefficient");
+convertClass("Fundamentals.PressureLoss.PressureLossCoefficient", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoefficient");
+convertClass("PressureLoss.PressureLossCoefficient", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLossCoefficient");
+
+//convertElement("", "","");
+//convertElement("", "","");
+//convertElement("", "","");
+//convertElement("", "","");
+//convertClass("","");

@@ -1,0 +1,17 @@
+LibraryInfoMenuSeparator(
+ category="libraries",
+pos=001)
+
+LibraryInfoMenuCommand(
+ category="libraries",
+ text = "ClaRa",
+ reference= "ClaRa",
+ version="1.2.0",
+ isModel=true,
+ description="Simulation of Clausius-Rankine Cycles",
+ ModelicaVersion="3.2.1",
+ pos=001)
+
+ LibraryInfoMenuSeparator(
+ category="libraries",
+pos=002)

@@ -1,0 +1,199 @@
+﻿convertClear();
+////////////////VLE valves/////////////////////
+
+//____________NEW VALVES!______________________________________
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient",{"A_cross"},{"A=%A_cross%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient",{"zeta_TOT"},{"zeta=%zeta_TOT%"},true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient",{"dp_smooth"},fill("",0),true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.OldFundamentals.LinearPressureLoss",{"CharLineValve_[:, :]"},{""},true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.FlueGasValve_L1",{"JT_effect"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.FlueGasValve_L1",{"JT_coefficient"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.FlueGasValve_L1",{"m_flow_nom"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.FlueGasValve_L1",{"dp_nom"},fill("",0),true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.CoalDustValve_L1",{"JT_effect"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.CoalDustValve_L1",{"JT_coefficient"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.CoalDustValve_L1",{"m_flow_nom"},fill("",0),true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.CoalDustValve_L1",{"dp_nom"},fill("",0),true);
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.FlueGasValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1");
+convertClass("Components.VolumesValvesFittings.Valves.FlueGasValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1");
+convertClass("VolumesValvesFittings.Valves.FlueGasValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1");
+convertClass("Valves.FlueGasValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveGas_L1");
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.CoalDustValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveCoalDust_L1");
+convertClass("Components.VolumesValvesFittings.Valves.CoalDustValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveCoalDust_L1");
+convertClass("VolumesValvesFittings.Valves.CoalDustValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveCoalDust_L1");
+convertClass("Valves.CoalDustValve_L1", "ClaRa.Components.VolumesValvesFittings.Valves.ValveCoalDust_L1");
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta");
+convertClass("Components.VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta");
+convertClass("VolumesValvesFittings.Valves.Fundamentals.PressureLossCoeffcient", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticZeta");
+
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearPressureLoss", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint");
+convertClass("Components.VolumesValvesFittings.Valves.Fundamentals.LinearPressureLoss", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint");
+convertClass("VolumesValvesFittings.Valves.Fundamentals.LinearPressureLoss", "ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint");
+
+
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", {"m_flow_nominal", "dp_nominal"}, {"redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint(m_flow_nom= if(%m_flow_nominal%>0) then %m_flow_nominal% else 10, Delta_p_nom= if (%dp_nominal%<>0) then %dp_nominal% else 1000)"}, true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", {"opening_const"}, {"opening_const_ = %opening_const%"});
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", "ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1");
+
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Quadratic", {"m_flow_nominal","dp_nominal","rho_nominal","dp_smooth"}, {"redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint(m_flow_nom=  %m_flow_nominal%, Delta_p_nom=  %dp_nominal%, rho_in_nom= if (%rho_nominal% <> 0) then %rho_nominal% else 10, Delta_p_eps= if(%dp_smooth% >0) then %dp_smooth% else 100)"}, true);
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", {"opening_const"}, {"opening_const_ = %opening_const%"});
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Quadratic", "ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1");
+
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_QuadraticCompressible", {"m_flow_nominal","Delta_p_smooth", "A", "rho_nominal", "Delta_p_nominal"}, {"redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_FlowFunction(m_flow_nom=%m_flow_nominal%,Delta_p_eps= if (%Delta_p_smooth%>0) then %Delta_p_smooth% else 100, A=%A%, zeta =%Delta_p_nominal%*(if (%rho_nominal%>0) then %rho_nominal% else 10)*2/(%m_flow_nominal%)^2)"});
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", {"opening_const"}, {"opening_const_ = %opening_const%"});
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_QuadraticCompressible", "ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1");
+
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_DINEN", {"m_flow_nominal","dp_smooth","Kv","x_T", "diameter_inlet", "diameter_valve", "diameter_outlet"}, {"redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534(m_flow_nom= if(%m_flow_nominal%>0) then %m_flow_nominal% else if (%Kv% >0) then %Kv%/1000 else 1/1000, Delta_p_eps= if(%dp_smooth% >0) then %dp_smooth% else 100 , Kvs= if (%Kv% >0) then %Kv% else 1, x_T = if (%x_T% >0)then %x_T% else 0.75, diameter_inlet= if (%diameter_inlet%>0 ) then %diameter_inlet% else 0.01, diameter_valve= if (%diameter_valve% >0)then %diameter_valve% else 0.01, diameter_outlet= if (%diameter_outlet%>0) then %diameter_outlet% else 0.01)"});
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_Linear", {"opening_const"}, {"opening_const_ = %opening_const%"});
+convertClass("ClaRa.Components.VolumesValvesFittings.Valves.Valve_L1_DINEN", "ClaRa.Components.VolumesValvesFittings.Valves.ValveVLE_L1");
+
+convertModifiers("ClaRa.Visualisation.Quadruple",{"decimalSpaces"},fill("",0),true);
+
+//_____________Coal/Fuel renaming______________________
+convertClass("ClaRa.Basics.Media.Coal.PartialCoal", "ClaRa.Basics.Media.Fuel.PartialCoal");
+convertClass("Basics.Media.Coal.PartialCoal", "ClaRa.Basics.Media.Fuel.PartialCoal");
+convertClass("Media.Coal.PartialCoal", "ClaRa.Basics.Media.Fuel.PartialCoal");
+convertClass("Coal.PartialCoal", "ClaRa.Basics.Media.Fuel.PartialCoal");
+
+convertClass("ClaRa.Basics.Media.Coal.PartialSlag", "ClaRa.Basics.Media.Fuel.PartialSlag");
+convertClass("Basics.Media.Coal.PartialSlag", "ClaRa.Basics.Media.Fuel.PartialSlag");
+convertClass("Media.Coal.PartialSlag", "ClaRa.Basics.Media.Fuel.PartialSlag");
+convertClass("Coal.PartialSlag", "ClaRa.Basics.Media.Fuel.PartialSlag");
+
+convertClass("ClaRa.Basics.Media.Coal.Coal_v1", "ClaRa.Basics.Media.Fuel.Coal_v1");
+convertClass("Basics.Media.Coal.Coal_v1", "ClaRa.Basics.Media.Fuel.Coal_v1");
+convertClass("Media.Coal.Coal_v1", "ClaRa.Basics.Media.Fuel.Coal_v1");
+convertClass("Coal.Coal_v1", "ClaRa.Basics.Media.Fuel.Coal_v1");
+
+convertClass("ClaRa.Basics.Media.Coal.Slag_v1", "ClaRa.Basics.Media.Fuel.Slag_v1");
+convertClass("Basics.Media.Coal.Slag_v1", "ClaRa.Basics.Media.Fuel.Slag_v1");
+convertClass("Media.Coal.Slag_v1", "ClaRa.Basics.Media.Fuel.Slag_v1");
+convertClass("Coal.Slag_v1", "ClaRa.Basics.Media.Fuel.Slag_v1");
+
+convertClass("ClaRa.Basics.Media.Coal.Coal_v2", "ClaRa.Basics.Media.Fuel.Coal_v2");
+convertClass("Basics.Media.Coal.Coal_v2", "ClaRa.Basics.Media.Fuel.Coal_v2");
+convertClass("Media.Coal.Coal_v2", "ClaRa.Basics.Media.Fuel.Coal_v2");
+convertClass("Coal.Coal_v2", "ClaRa.Basics.Media.Fuel.Coal_v2");
+
+convertClass("ClaRa.Basics.Media.Coal.Slag_v2", "ClaRa.Basics.Media.Fuel.Slag_v2");
+convertClass("Basics.Media.Coal.Slag_v2", "ClaRa.Basics.Media.Fuel.Slag_v2");
+convertClass("Media.Coal.Slag_v2", "ClaRa.Basics.Media.Fuel.Slag_v2");
+convertClass("Coal.Slag_v2", "ClaRa.Basics.Media.Fuel.Slag_v2");
+
+convertClass("ClaRa.Basics.Media.Coal.Coal_Reference_HB", "ClaRa.Basics.Media.Fuel.Coal_Reference");
+convertClass("Basics.Media.Coal.Coal_Reference_HB", "ClaRa.Basics.Media.Fuel.Coal_Reference");
+convertClass("Media.Coal.Coal_Reference_HB", "ClaRa.Basics.Media.Fuel.Coal_Reference");
+convertClass("Coal.Coal_Reference_HB", "ClaRa.Basics.Media.Fuel.Coal_Reference");
+
+convertElement("ClaRa.ModelProperties",{"coalModel"},{"fuelModel1"});
+convertElement("ModelProperties",{"coalModel"},{"fuelModel1"});
+
+//_____________Geometries (moved from FluidVolumes)________________________
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.GenericGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.GenericGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.GenericGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry");
+convertClass("FluidVolumes.Fundamentals.Geometry.GenericGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry");
+convertClass("FluidVolumes.Fundamentals.Geometry.PipeGeometry", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeWithHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeWithHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.PipeWithHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell");
+convertClass("FluidVolumes.Fundamentals.Geometry.PipeWithHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinderWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinderWithTubes");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinderWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinderWithTubes");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinderWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinderWithTubes");
+convertClass("FluidVolumes.Fundamentals.Geometry.HollowCylinderWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinderWithTubes");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinder", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinder", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowCylinder", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder");
+convertClass("FluidVolumes.Fundamentals.Geometry.HollowCylinder", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_HP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_HP");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_HP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_HP");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_HP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_HP");
+convertClass("FluidVolumes.Fundamentals.Geometry.Preheater_HP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_HP");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_LP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_LP");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_LP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_LP");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.Preheater_LP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_LP");
+convertClass("FluidVolumes.Fundamentals.Geometry.Preheater_LP", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Preheater_LP");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlock", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlock", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlock", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock");
+convertClass("FluidVolumes.Fundamentals.Geometry.HollowBlock", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes");
+convertClass("FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubes", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell");
+convertClass("FluidVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndHotwell");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Condenser", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Condenser");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Condenser", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Condenser");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.Condenser", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Condenser");
+convertClass("FluidVolumes.Fundamentals.Geometry.Condenser", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Condenser");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Desuperheater", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Desuperheater");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.Desuperheater", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Desuperheater");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.Desuperheater", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Desuperheater");
+convertClass("FluidVolumes.Fundamentals.Geometry.Desuperheater", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.Desuperheater");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.TubeType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.TubeType");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.TubeType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.TubeType");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.TubeType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.TubeType");
+convertClass("FluidVolumes.Fundamentals.Geometry.TubeType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.TubeType");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.ShellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.ShellType");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.ShellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.ShellType");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.ShellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.ShellType");
+convertClass("FluidVolumes.Fundamentals.Geometry.ShellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.ShellType");
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HotwellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HotwellType");
+convertClass("Basics.ControlVolumes.FluidVolumes.Fundamentals.Geometry.HotwellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HotwellType");
+convertClass("ControlVolumes.FluidVolumes.Fundamentals.Geometry.HotwellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HotwellType");
+convertClass("FluidVolumes.Fundamentals.Geometry.HotwellType", "ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HotwellType");
+
+//________________HT_GasToGas/GasToWall________________________
+
+
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall",{"A_heat"},{"A_heat_fixed=%A_heat%","surfaceType=\"Defined\""},true);
+convertModifiers("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas",{"A_heat"},{"A_heat_fixed=%A_heat%","surfaceType=\"Defined\""},true);
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall");
+convertClass("Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToWall");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas");
+convertClass("Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas");
+convertClass("ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas");
+convertClass("Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas_geo", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.RadiantHeat_GasToGas");
+
+
+convertClass("", "");
+convertClass("", "");
+convertClass("", "");
+convertClass("", "");
