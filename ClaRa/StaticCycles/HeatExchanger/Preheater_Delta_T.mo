@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Preheater_Delta_T "1ph preheater || par.: shell pressure, shell m_flow, Delta_T"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -54,19 +54,19 @@ model Preheater_Delta_T "1ph preheater || par.: shell pressure, shell m_flow, De
   parameter ClaRa.Basics.Units.TemperatureDifference Delta_T "Lower temperature difference (T_tap_in - T_cond_out)" annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p_tap=1e5 "Pressure of heating steam" annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_tap "Mass flow rate of the heating steam" annotation (Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.Temperature T_tap_in=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_tap_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       medium,
       p_tap,
       h_tap_in) "Temperature at tapping inlet";
-  final parameter ClaRa.Basics.Units.Temperature T_cond_in=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_cond_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       medium,
       p_cond,
       h_cond_in) "Temperature at condensate inlet";
   final parameter ClaRa.Basics.Units.Temperature T_cond_out=T_tap_in - Delta_T "Temperature at condensate outlet";
-  final parameter ClaRa.Basics.Units.Temperature T_tap_out=T_tap_in - m_flow_cond*TILMedia.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(
+  final parameter ClaRa.Basics.Units.Temperature T_tap_out=T_tap_in - m_flow_cond*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(
       medium,
       p_cond,
-      T_cond_in)*(T_cond_out - T_cond_in)/(m_flow_tap*TILMedia.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(
+      T_cond_in)*(T_cond_out - T_cond_in)/(m_flow_tap*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(
       medium,
       p_tap,
       T_tap_in)) "Temperature at tapping outlet";
@@ -76,7 +76,7 @@ model Preheater_Delta_T "1ph preheater || par.: shell pressure, shell m_flow, De
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_cond(fixed=false) "Mass flow of the condensate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_in(fixed=false) "Spec. enthalpy at tapping inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_in(fixed=false) "Spec. enthalpy condensate inlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_out=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       medium,
       p_tap,
       T_tap_out) "Spec. enthalpy at tapping outlet";

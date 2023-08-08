@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -32,9 +32,9 @@ model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
   //Real opening;
   Modelica.Fluid.Types.HydraulicConductance k "Hydraulic conductance at full opening";
   //=m_flow_nominal/dp_nominal
-  Modelica.SIunits.Pressure Delta_p "p_inlet-p_outlet";
-  Modelica.SIunits.MassFlowRate m_flow "Mass flowrate";
-  parameter Modelica.SIunits.MassFlowRate m_flow_const=1 annotation (Dialog(
+  ClaRa.Basics.Units.Pressure Delta_p "p_inlet-p_outlet";
+  ClaRa.Basics.Units.MassFlowRate m_flow "Mass flowrate";
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_const=1 annotation (Dialog(
         group="Control Signals", enable=not m_flowInputIsActive));
   outer ClaRa.SimCenter simCenter;
 

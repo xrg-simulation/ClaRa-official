@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with static momentum balance and simple energy balance."
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -93,7 +93,7 @@ public
   parameter Units.EnthalpyMassSpecific h_nom[geo.N_cv]=ones(geo.N_cv)*1e5 "Nominal specific enthalpy for single tube" annotation (Dialog(group="Nominal Values"));
   inner parameter Units.MassFlowRate m_flow_nom=100 "Nominal mass flow w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
   inner parameter Units.PressureDifference Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
-  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -235,7 +235,7 @@ public
   MechanicalEquilibrium mechanicalEquilibrium(final h_start=h_start) "Mechanical equilibrium model" annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 protected
-  inner TILMedia.VLEFluid_ph fluid[geo.N_cv](
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluid[geo.N_cv](
     each computeSurfaceTension=false,
     p=p,
     h=h,
@@ -243,7 +243,7 @@ protected
     each computeTransportProperties=true,
     xi=xi)                                annotation (Placement(transformation(extent={{-10,-40},{10,-20}}, rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidInlet(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     computeSurfaceTension=false,
     p=inlet.p,
     vleFluidType=medium,
@@ -251,7 +251,7 @@ protected
     computeTransportProperties=true,
     xi=xi_inlet)                     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}}, rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidOutlet(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOutlet(
     computeSurfaceTension=false,
     p=outlet.p,
     vleFluidType=medium,

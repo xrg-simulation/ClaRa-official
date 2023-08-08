@@ -5,6 +5,7 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
     m_flow_nom=100,
     p_nom=100e5,
     p_start=101e5,
+    levelOutput=true,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     z_out1=0.1,
     z_out2=19.9,
@@ -43,8 +44,8 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
   Modelica.Blocks.Sources.TimeTable timeTable2(table=[0,2000e3; 7000,2000e3; 7200,3000e3; 10200,3000e3; 25000,3000e3; 25199,1200e3; 25200,1200e3; 30000,1200e3; 41000,2000e3; 45000,2000e3; 50000,2120e3; 60000,2120e3])
                                                                                             annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Blocks.Sources.TimeTable timeTable_p1(table=timeTable_p.table, offset=-1e5) annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  ClaRa.Visualisation.Quadruple quadruple3 annotation (Placement(transformation(extent={{16,18},{48,28}})));
-  ClaRa.Visualisation.Quadruple quadruple4 annotation (Placement(transformation(extent={{14,-12},{46,-2}})));
+  ClaRa.Visualisation.Quadruple quadruple3 annotation (Placement(transformation(extent={{26,18},{58,28}})));
+  ClaRa.Visualisation.Quadruple quadruple4 annotation (Placement(transformation(extent={{28,-12},{60,-2}})));
   SteamSeparatorVLE_L3 steamSeparator_controlled(
     m_flow_nom=100,
     p_nom=100e5,
@@ -92,6 +93,14 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
     Tau_i=100,
     sign=-1) annotation (Placement(transformation(extent={{262,20},{282,40}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=0.1) annotation (Placement(transformation(extent={{226,34},{240,46}})));
+  Visualisation.DynamicBar dynamicBar1(
+    provideInputConnectors=true,
+    u_set=0.1,
+    u_high=0.2,
+    u_low=0.05,
+    u=steamSeparator_controlled.volume.summary.outline.level_rel,
+    provideOutputConnector=false)
+                                 annotation (Placement(transformation(extent={{14,2},{24,22}})));
 equation
   connect(boundaryVLE_hxim_flow.steam_a, steamSeparator.inlet) annotation (Line(
       points={{-40,10},{-10,10}},
@@ -136,8 +145,8 @@ equation
       smooth=Smooth.None));
   connect(timeTable_p1.y, boundaryVLE_phxi1.p) annotation (Line(points={{-59,-90},{-30,-90},{-30,-98},{-6,-98}}, color={0,0,127}));
   connect(valveVLE_L1_1.eye, quadruple2.eye) annotation (Line(points={{4,80},{12,80},{12,83},{16,83}}, color={190,190,190}));
-  connect(steamSeparator.eye_out2, quadruple3.eye) annotation (Line(points={{4,21},{4,21},{4,22},{4,23},{16,23}}, color={190,190,190}));
-  connect(steamSeparator.eye_out1, quadruple4.eye) annotation (Line(points={{4,-1},{4,-1},{4,-7},{14,-7}}, color={190,190,190}));
+  connect(steamSeparator.eye_out2, quadruple3.eye) annotation (Line(points={{4,21},{4,23},{26,23}},               color={190,190,190}));
+  connect(steamSeparator.eye_out1, quadruple4.eye) annotation (Line(points={{4,-1},{4,-7},{28,-7}},        color={190,190,190}));
   connect(valveVLE_L1_1.inlet, steamSeparator.outlet2) annotation (Line(
       points={{0,60},{0,60},{0,20}},
       color={0,131,169},
@@ -191,6 +200,7 @@ equation
   connect(timeTable1.y, boundaryVLE_hxim_flow1.m_flow) annotation (Line(points={{-79,40},{-79,40},{-44,40},{110,40},{110,16},{128,16}}, color={0,0,127}));
   connect(timeTable2.y, boundaryVLE_hxim_flow1.h) annotation (Line(points={{-79,-20},{110,-20},{110,10},{128,10}}, color={0,0,127}));
   connect(timeTable_p1.y, boundaryVLE_phxi3.p) annotation (Line(points={{-59,-90},{-32,-90},{-32,-100},{186,-100},{186,-100},{186,-100},{186,-98},{186,-98}}, color={0,0,127}));
+  connect(steamSeparator.level, dynamicBar1.u_in) annotation (Line(points={{11,2},{13,2}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
         initialScale=0.1,
         extent={{-100,-100},{300,160}}), graphics={

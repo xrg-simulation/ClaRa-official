@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesign "Running the  L1 pump in off design, including reverse flow and switch off"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.0.0                        //
+// Component of the ClaRa library, version: 1.4.1                        //
 //                                                                           //
 // Licensed by the DYNCAP research team under Modelica License 2.            //
 // Copyright  2013-2015, DYNCAP research team.                                   //
@@ -19,18 +19,18 @@ model TestPump_L1_OffDesign "Running the  L1 pump in off design, including rever
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true) annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
     steadyStateTorque=false,
-    V_flow_max=2600/3600,
+    V_flow_zerohead=2600/3600,
     rpm_nom=4600,
     showExpertSummary=true,
     J=1,
     rpm_fixed=4600,
     useMechanicalPort=true,
-    Delta_p_max=100e5,
+    Delta_p_zeroflow_const=100e5,
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.5),
         drp_exp=(0),
         Delta_p_eps=(100)),
-    redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (
+    redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
         eta_hyd_nom=(0.82),
         exp_rpm=(0.15),
         V_flow_opt_=(0.6),

@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Condenser "Condenser || par.: pressure, level_abs || blue |green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -44,9 +44,9 @@ model Condenser "Condenser || par.: pressure, level_abs || blue |green"
   parameter ClaRa.Basics.Units.Length level_abs(min=0) = 0 "|Fundamental Definitions|Filling level in hotwell";
 
   final parameter ClaRa.Basics.Units.Pressure p_in=p_condenser "Inlet pressure";
-  final parameter ClaRa.Basics.Units.Pressure p_out=p_condenser + Modelica.Constants.g_n*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_condenser)*level_abs "Outlet pressure";
+  final parameter ClaRa.Basics.Units.Pressure p_out=p_condenser + Modelica.Constants.g_n*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_condenser)*level_abs "Outlet pressure";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_condenser) "Outlet enthalpy";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_condenser) "Outlet enthalpy";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in(fixed=false) "Inlet mass flow";
 //    final parameter ClaRa.Basics.Units.MassFlowRate    m_flow_out=m_flow_cond;
 protected

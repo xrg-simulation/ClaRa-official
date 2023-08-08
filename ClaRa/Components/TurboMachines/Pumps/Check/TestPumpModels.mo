@@ -2,7 +2,7 @@ within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPumpModels
   import ClaRa;
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -40,18 +40,18 @@ model TestPumpModels
         rotation=90,
         origin={-36,-97})));
   PumpVLE_L1_affinity pump_3(
+    Delta_p_zeroflow_const=876*9.81*3680,
     useMechanicalPort=true,
     steadyStateTorque=false,
-    V_flow_max=2600/3600,
-    Delta_p_max=876*9.81*3680,
-    redeclare model Losses =  ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (
-      eta_hyd_nom=0.82,
-      exp_rpm=0.15,
-      exp_flow=2.8),
+    V_flow_zerohead=2600/3600,
+    redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
+        eta_hyd_nom=0.82,
+        exp_rpm=0.15,
+        exp_flow=2.8),
     rpm_nom=4600,
-     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124,
     showExpertSummary=true,
-    J=1) annotation (Placement(transformation(extent={{-20,-156},{0,-136}})));
+    J=1,
+    redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124)    annotation (Placement(transformation(extent={{-20,-156},{0,-136}})));
   BoundaryConditions.BoundaryVLE_pTxi pressureSink_XRG4(p_const=1300000, T_const=463.15,
     variable_T=true)                                                                     annotation (Placement(transformation(extent={{-80,-156},{-60,-136}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG5(variable_p=true, p_const=1000000) annotation (Placement(transformation(extent={{60,-156},{40,-136}})));

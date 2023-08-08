@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Pipe_L4_Advanced
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -62,10 +62,11 @@ model Test_Pipe_L4_Advanced
         origin={-62,-59})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
-  Modelica.Blocks.Sources.Step inlet_pressure(
-    offset=1e5,
-    startTime=100,
-    height=1e4)
+  Modelica.Blocks.Sources.CombiTimeTable
+                               inlet_pressure(
+    table=[0,1e4],
+    offset={1e5},
+    startTime=100)
     annotation (Placement(transformation(extent={{-100,-75},{-80,-55}})));
   Modelica.Blocks.Sources.Ramp mass_flow_1(
     duration=1,
@@ -121,10 +122,6 @@ equation
       points={{65.98,-54},{64,-54},{62,-53}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(massFlowSink.p, inlet_pressure.y) annotation (Line(
-      points={{-72,-65},{-79,-65}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(multiSum.u[1], mass_flow_1.y) annotation (Line(
       points={{79,-56.1},{79,-32},{69,-32},{69,-10},{61,-10}},
       color={0,0,127},
@@ -163,6 +160,7 @@ equation
       points={{14,-59},{14,-59},{40,-59}},
       color={0,131,169},
       thickness=0.5));
+  connect(inlet_pressure.y[1], massFlowSink.p) annotation (Line(points={{-79,-65},{-76.5,-65},{-76.5,-65},{-72,-65}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-140},{100,
             120}}), graphics={Text(

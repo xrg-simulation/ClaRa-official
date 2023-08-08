@@ -1,7 +1,7 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L1 "A steam generation and reaheater model using characteristic lines and transfer functions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -112,9 +112,9 @@ public
   Modelica.Blocks.Tables.CombiTable1D convert2IntermediatePressure(columns={2}, table=
         CL_Ip_Hp_)
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  TILMedia.VLEFluid_pT       liveSteam(vleFluidType =    medium,   T=T_LS, p=p_LS)
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       liveSteam(vleFluidType =    medium,   T=T_LS, p=p_LS)
     annotation (Placement(transformation(extent={{10,154},{30,174}})));
-  TILMedia.VLEFluid_pT       reheatedSteam(vleFluidType =    medium,   T=convert2reheatTemperature.y[1]*T_RH_nom, p=to_pRH.y)
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       reheatedSteam(vleFluidType =    medium,   T=convert2reheatTemperature.y[1]*T_RH_nom, p=to_pRH.y)
     annotation (Placement(transformation(extent={{48,154},{68,174}})));
   Modelica.Blocks.Tables.CombiTable1D convert2reheatTemperature(columns={2}, table=
         CL_Trh_Q_)

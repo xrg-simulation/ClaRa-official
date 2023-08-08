@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Fittings;
 model SprayAttemperator "Mixer || green | red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -47,7 +47,7 @@ model SprayAttemperator "Mixer || green | red | green"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h2(fixed=false) "Specific enthalpy of flow 2";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_1(fixed=false) "Mass flow rate of flow 1";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_2=(h3*m_flow_3 - h1*m_flow_1)/h2 "Mass flow rate of flow 2";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h3=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h3=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       medium,
       p,
       T,

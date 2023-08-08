@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Denitrification_L2 "Gas || L2 || Denitrification"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -19,8 +19,8 @@ model Denitrification_L2 "Gas || L2 || Denitrification"
   extends ChemicalReactionsBaseGas(final i=1, final use_signal=false);
 
 
-parameter Modelica.SIunits.Temperature T_NH3_O2_mixture = 273.15+200 "Temperature of ammonia oxygen inlet"
-                                                                                                          annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+parameter ClaRa.Basics.Units.Temperature T_NH3_O2_mixture = 273.15+200 "Temperature of ammonia oxygen inlet"
+                                                                                                            annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 parameter Real separationRate(min = 0, max = 1) = 0.995 "Efficiency of NOx separation"
                                                                                       annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
@@ -32,7 +32,7 @@ final parameter Modelica.SIunits.MolarInternalEnergy Delta_f_H_H2O = -241.826e3 
 //## V A R I A B L E   P A R T##################################################################################
 
 // Quantaties for deNOx catalysis
-Modelica.SIunits.MassFlowRate NH3_O2_m_flow "Mass flow of ammoinia oxygen mix";
+ClaRa.Basics.Units.MassFlowRate NH3_O2_m_flow "Mass flow of ammoinia oxygen mix";
 //Molar flow rates
 Modelica.SIunits.MolarFlowRate n_flow_NOx_in "Molar flow rate of nitric oxides at inlet";
 Modelica.SIunits.MolarFlowRate n_flow_O2_in "Molar flow rate of oxygen at inlet";
@@ -41,7 +41,7 @@ Modelica.SIunits.MolarFlowRate n_flow_O2_req "Required molar flow rate of oxygen
 // standard reaction enthalpy
 Modelica.SIunits.MolarInternalEnergy Delta_R_H "Reaction enthalpy";
 
-Modelica.SIunits.MassFraction NH3_O2_in_xi[iCom.mediumModel.nc-1] "Inlet composition of ammonia oxygen mix";
+ClaRa.Basics.Units.MassFraction NH3_O2_in_xi[iCom.mediumModel.nc-1] "Inlet composition of ammonia oxygen mix";
 
 
     TILMedia.Gas_pT     NH3_O2_in(

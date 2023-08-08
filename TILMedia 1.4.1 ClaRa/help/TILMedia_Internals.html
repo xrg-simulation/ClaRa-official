@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>TILMedia.Internals</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Internal functions&quot;">
+<style type="text/css">
+*       { font-size: 100%; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 90%; font-family: Courier, monospace; white-space: pre; } /* For the Modelica code (in exported html). */
+h4      { font-size: 100%; font-weight: bold; color: green; } 
+h3      { font-size: 110%; font-weight: bold; color: green; }
+h2      { font-size: 130%; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { padding: 2px; border: 1px solid #808080; vertical-align: top; }
+th      { padding: 2px; border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+pre, code {font-family: "Courier New", monospace;}
+pre {white-space: pre; overflow-x : hidden;}
+.ModelicaDescription {font-weight: bold;} /* For the description string of the class. */
+.ModelicaBaseClass {} /* For the list of base-classes at the of the description. */
+.ModelicaKeyword { color: blue; font-weight: normal; font-style: normal; } /* Keywords in Modelica. */
+.ModelicaComment { color: #006400;  font-weight: normal; font-style: normal;} /* All three variants of comments in Modelica.  */
+.ModelicaString { color: #006400;  font-weight: normal; font-style: normal;} /* String constants. */
+.ModelicaClass { color: red; font-weight: normal; font-style: normal;} /* Formatting the names of referenced classes (for base-class and components). */
+.ModelicaFunction { color: red; font-weight: normal; font-style: normal;} /* Formatting for called functions. */
+.ModelicaTablePackageContent { } /* The table of contents for each package. */
+.ModelicaTableCrossReference { } /* The optional cross-reference table. */
+.ModelicaTableInputs {} /* The table of inputs for a function. */
+.ModelicaTableOutputs {} /* The table of outputs for a function. */
+.ModelicaTableParameters {} /* The table of parameters for a model/block. */
+.ModelicaTableConnectors {} /* The table of connectors for a model/block. */
+.ModelicaTableContents {} /* The table of contents for a connector. */
+.ModelicaStartAttribute { font-weight: bold; } /* The formatting used for start-attribute in the table of parameters, to separate them from parameter values. */
+.ModelicaParameterTab { background-color: #c0c0c0; font-weight: bold; } /* The tab-heading in the table of parameters */
+.ModelicaParameterGroup { background-color: #e0e0e0; } /* The group-heading in the table of parameters */
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Internals<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals"></a><a href="TILMedia.html#TILMedia"
+>TILMedia</a>.Internals</h2>
+<p>
+<span class="ModelicaDescription">Internal functions</span><br>
+</p>
+<h3>Package Content</h3>
+<table summary="Package Content" class="ModelicaTablePackageContent">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.ClassTypesS.png" alt="TILMedia.Internals.ClassTypes" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes"
+>ClassTypes</a>
+</td>
+<td>Icon definitions</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.GasObjectFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_GasObjectFunctions.html#TILMedia.Internals.GasObjectFunctions"
+>GasObjectFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.GasFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_GasFunctions.html#TILMedia.Internals.GasFunctions"
+>GasFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.GasConfigurations" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_GasConfigurations.html#TILMedia.Internals.GasConfigurations"
+>GasConfigurations</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.LiquidObjectFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_LiquidObjectFunctions.html#TILMedia.Internals.LiquidObjectFunctions"
+>LiquidObjectFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.LiquidFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_LiquidFunctions.html#TILMedia.Internals.LiquidFunctions"
+>LiquidFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.LiquidConfigurations" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_LiquidConfigurations.html#TILMedia.Internals.LiquidConfigurations"
+>LiquidConfigurations</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>VLEFluidObjectFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.VLEFluidFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidFunctions.html#TILMedia.Internals.VLEFluidFunctions"
+>VLEFluidFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.VLEFluidConfigurations" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidConfigurations.html#TILMedia.Internals.VLEFluidConfigurations"
+>VLEFluidConfigurations</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.SLEMedium" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_SLEMedium.html#TILMedia.Internals.SLEMedium"
+>SLEMedium</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.SLEMediumFunctions" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_SLEMediumFunctions.html#TILMedia.Internals.SLEMediumFunctions"
+>SLEMediumFunctions</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasObjectFunctionsS.png" alt="TILMedia.Internals.Units" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_Units.html#TILMedia.Internals.Units"
+>Units</a>
+</td>
+<td>Unit definitions</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasNameS.png" alt="TILMedia.Internals.GasName" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.GasName"
+>GasName</a>
+</td>
+<td>Gas name</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasNameS.png" alt="TILMedia.Internals.LiquidName" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.LiquidName"
+>LiquidName</a>
+</td>
+<td>Liquid name</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasNameS.png" alt="TILMedia.Internals.MoistAirName" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.MoistAirName"
+>MoistAirName</a>
+</td>
+<td>Moist air name</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasNameS.png" alt="TILMedia.Internals.VLEFluidName" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.VLEFluidName"
+>VLEFluidName</a>
+</td>
+<td>VLE Fluid name</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.GasNameS.png" alt="TILMedia.Internals.SLEMediumName" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.SLEMediumName"
+>SLEMediumName</a>
+</td>
+<td>SLEMaterial name</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.CriticalDataRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.CriticalDataRecord"
+>CriticalDataRecord</a>
+</td>
+<td>Critical data record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.PropertyRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.PropertyRecord"
+>PropertyRecord</a>
+</td>
+<td>Property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.VLERecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.VLERecord"
+>VLERecord</a>
+</td>
+<td>VLE property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.VLERecordSimple" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.VLERecordSimple"
+>VLERecordSimple</a>
+</td>
+<td>VLE property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.AdditionalVLERecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.AdditionalVLERecord"
+>AdditionalVLERecord</a>
+</td>
+<td>Additional VLE property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.VLETransportPropertyRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.VLETransportPropertyRecord"
+>VLETransportPropertyRecord</a>
+</td>
+<td>Transport property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.SLESaturationPropertyRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.SLESaturationPropertyRecord"
+>SLESaturationPropertyRecord</a>
+</td>
+<td>Solid-liquid equilibrium property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.SolidPropertyRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.SolidPropertyRecord"
+>SolidPropertyRecord</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.CriticalDataRecordS.png" alt="TILMedia.Internals.TransportPropertyRecord" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.TransportPropertyRecord"
+>TransportPropertyRecord</a>
+</td>
+<td>Transport property record</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.TableObject" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.TableObject"
+>TableObject</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.calcComputeFlags" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.calcComputeFlags"
+>calcComputeFlags</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.redirectModelicaFormatMessage" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.redirectModelicaFormatMessage"
+>redirectModelicaFormatMessage</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.concatNames" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.concatNames"
+>concatNames</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.getPropertiesVLE" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.getPropertiesVLE"
+>getPropertiesVLE</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.getProperties" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.getProperties"
+>getProperties</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.TableObjectS.png" alt="TILMedia.Internals.BasePointer" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals.html#TILMedia.Internals.BasePointer"
+>BasePointer</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GasName<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.GasName"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.GasName</h2>
+<p>
+<span class="ModelicaDescription">Gas name</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from String.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE LiquidName<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.LiquidName"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.LiquidName</h2>
+<p>
+<span class="ModelicaDescription">Liquid name</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from String.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAirName<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.MoistAirName"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.MoistAirName</h2>
+<p>
+<span class="ModelicaDescription">Moist air name</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from String.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEFluidName<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.VLEFluidName"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.VLEFluidName</h2>
+<p>
+<span class="ModelicaDescription">VLE Fluid name</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from String.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SLEMediumName<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.SLEMediumName"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.SLEMediumName</h2>
+<p>
+<span class="ModelicaDescription">SLEMaterial name</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from String.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE CriticalDataRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.CriticalDataRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.CriticalDataRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.CriticalDataRecord</h2>
+<p>
+<span class="ModelicaDescription">Critical data record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PropertyRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.PropertyRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.PropertyRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.PropertyRecord</h2>
+<p>
+<span class="ModelicaDescription">Property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLERecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.VLERecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLERecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.VLERecord</h2>
+<p>
+<span class="ModelicaDescription">VLE property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<h3>Parameters</h3>
+<table summary="Parameters" class="ModelicaTableParameters">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>nc</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLERecordSimple<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.VLERecordSimple" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLERecordSimple"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.VLERecordSimple</h2>
+<p>
+<span class="ModelicaDescription">VLE property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE AdditionalVLERecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.AdditionalVLERecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.AdditionalVLERecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.AdditionalVLERecord</h2>
+<p>
+<span class="ModelicaDescription">Additional VLE property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLETransportPropertyRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.VLETransportPropertyRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLETransportPropertyRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.VLETransportPropertyRecord</h2>
+<p>
+<span class="ModelicaDescription">Transport property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SLESaturationPropertyRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.SLESaturationPropertyRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.SLESaturationPropertyRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.SLESaturationPropertyRecord</h2>
+<p>
+<span class="ModelicaDescription">Solid-liquid equilibrium property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SolidPropertyRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.SolidPropertyRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.SolidPropertyRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.SolidPropertyRecord</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TransportPropertyRecord<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.CriticalDataRecordI.png" alt="TILMedia.Internals.TransportPropertyRecord" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.TransportPropertyRecord"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.TransportPropertyRecord</h2>
+<p>
+<span class="ModelicaDescription">Transport property record</span>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.Record"
+>TILMedia.Internals.ClassTypes.Record</a> (Partial Record).</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TableObject<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.TableObject"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.TableObject</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from ExternalObject.</span></p>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE calcComputeFlags<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.calcComputeFlags"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.calcComputeFlags</h2>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>computeTransportProperties</td><td>&nbsp;</td></tr>
+<tr><td>interpolateTransportProperties</td><td>&nbsp;</td></tr>
+<tr><td>computeSurfaceTension</td><td>&nbsp;</td></tr>
+<tr><td>deactivateTwoPhaseRegion</td><td>&nbsp;</td></tr>
+<tr><td>deactivateDensityDerivatives</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>flags</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE redirectModelicaFormatMessage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.redirectModelicaFormatMessage"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.redirectModelicaFormatMessage</h2>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>y</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>x</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE concatNames<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.concatNames"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.concatNames</h2>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>names[:]</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>concatName</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE getPropertiesVLE<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.getPropertiesVLE"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.getPropertiesVLE</h2>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>&nbsp;</td></tr>
+<tr><td>h</td><td>&nbsp;</td></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>s</td><td>&nbsp;</td></tr>
+<tr><td>T</td><td>&nbsp;</td></tr>
+<tr><td>cp</td><td>&nbsp;</td></tr>
+<tr><td>q</td><td>&nbsp;</td></tr>
+<tr><td>d_crit</td><td>&nbsp;</td></tr>
+<tr><td>h_crit</td><td>&nbsp;</td></tr>
+<tr><td>p_crit</td><td>&nbsp;</td></tr>
+<tr><td>s_crit</td><td>&nbsp;</td></tr>
+<tr><td>T_crit</td><td>&nbsp;</td></tr>
+<tr><td>d_l</td><td>&nbsp;</td></tr>
+<tr><td>h_l</td><td>&nbsp;</td></tr>
+<tr><td>p_l</td><td>&nbsp;</td></tr>
+<tr><td>s_l</td><td>&nbsp;</td></tr>
+<tr><td>T_l</td><td>&nbsp;</td></tr>
+<tr><td>d_v</td><td>&nbsp;</td></tr>
+<tr><td>h_v</td><td>&nbsp;</td></tr>
+<tr><td>p_v</td><td>&nbsp;</td></tr>
+<tr><td>s_v</td><td>&nbsp;</td></tr>
+<tr><td>T_v</td><td>&nbsp;</td></tr>
+<tr><td>Pr</td><td>&nbsp;</td></tr>
+<tr><td>lambda</td><td>&nbsp;</td></tr>
+<tr><td>eta</td><td>&nbsp;</td></tr>
+<tr><td>sigma</td><td>&nbsp;</td></tr>
+<tr><td>Pr_l</td><td>&nbsp;</td></tr>
+<tr><td>Pr_v</td><td>&nbsp;</td></tr>
+<tr><td>lambda_l</td><td>&nbsp;</td></tr>
+<tr><td>lambda_v</td><td>&nbsp;</td></tr>
+<tr><td>eta_l</td><td>&nbsp;</td></tr>
+<tr><td>eta_v</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>properties</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE getProperties<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.getProperties"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.getProperties</h2>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>&nbsp;</td></tr>
+<tr><td>h</td><td>&nbsp;</td></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>s</td><td>&nbsp;</td></tr>
+<tr><td>T</td><td>&nbsp;</td></tr>
+<tr><td>cp</td><td>&nbsp;</td></tr>
+<tr><td>Pr</td><td>&nbsp;</td></tr>
+<tr><td>lambda</td><td>&nbsp;</td></tr>
+<tr><td>eta</td><td>&nbsp;</td></tr>
+<tr><td>sigma</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>properties</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BasePointer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.BasePointer"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.BasePointer</h2>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Aug 15 11:57:56 2019.
+</address>
+</body>
+</html>

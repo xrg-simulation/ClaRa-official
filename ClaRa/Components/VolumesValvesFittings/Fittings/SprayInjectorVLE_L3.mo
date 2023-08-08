@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -142,7 +142,7 @@ model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
 protected
   parameter Modelica.SIunits.SpecificEnthalpy h_nom_mix=(h_nom_Main*m_flow_nom_main+h_nom_Spray*m_flow_nom_spray)/(m_flow_nom_main+m_flow_nom_spray) "Nominal mix enthalpy";
   parameter Modelica.SIunits.SpecificEnthalpy h_start_mix=(h_start_Main*m_flow_nom_main+h_start_Spray*m_flow_nom_spray)/(m_flow_nom_main+m_flow_nom_spray) "Nominal mix enthalpy";
-  parameter Modelica.SIunits.Temperature T_wall_start[N_wall]= ones(N_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(medium, p_start-Delta_p_nom, h_start_mix) "Start values of wall temperature"
+  parameter Modelica.SIunits.Temperature T_wall_start[N_wall]= ones(N_wall)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(medium, p_start-Delta_p_nom, h_start_mix) "Start values of wall temperature"
                                        annotation(Dialog(group="Initialisation"));
 
 //Pressure loss models

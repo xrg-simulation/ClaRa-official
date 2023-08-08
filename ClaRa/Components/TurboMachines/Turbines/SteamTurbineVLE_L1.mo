@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Turbines;
 model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -17,7 +17,7 @@ model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
 
    extends ClaRa.Components.TurboMachines.Turbines.SteamTurbine_base(inlet(
                                                                      m_flow(      start=m_flow_nom)));
-//  import TILMedia.VLEFluidObjectFunctions.specificEnthalpy_psxi;
+//  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEnthalpy_psxi;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
     powerOut_elMech=-P_t,
@@ -119,13 +119,13 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,0})));
-  TILMedia.VLEFluid_ph fluidOut(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=outlet.p,
     h=outlet.h_outflow)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  TILMedia.VLEFluid_ph fluidIn(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     h=inStream(inlet.h_outflow),
     p=inlet.p, d(start=rho_nom))
@@ -148,7 +148,7 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1] annotation (Placement(transformation(extent={{25,-61},{27,-59}})));
 
 protected
-  TILMedia.VLEFluid ptr_iso(vleFluidType=medium);
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_iso(vleFluidType=medium);
 
 initial equation
 

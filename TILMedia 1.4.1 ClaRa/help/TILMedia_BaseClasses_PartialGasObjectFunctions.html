@@ -1,0 +1,2065 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>TILMedia.BaseClasses.PartialGasObjectFunctions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package for calculation of gas vapor properties with a functional call, referencing existing external objects for highspeed evaluation&quot;">
+<style type="text/css">
+*       { font-size: 100%; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 90%; font-family: Courier, monospace; white-space: pre; } /* For the Modelica code (in exported html). */
+h4      { font-size: 100%; font-weight: bold; color: green; } 
+h3      { font-size: 110%; font-weight: bold; color: green; }
+h2      { font-size: 130%; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { padding: 2px; border: 1px solid #808080; vertical-align: top; }
+th      { padding: 2px; border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+pre, code {font-family: "Courier New", monospace;}
+pre {white-space: pre; overflow-x : hidden;}
+.ModelicaDescription {font-weight: bold;} /* For the description string of the class. */
+.ModelicaBaseClass {} /* For the list of base-classes at the of the description. */
+.ModelicaKeyword { color: blue; font-weight: normal; font-style: normal; } /* Keywords in Modelica. */
+.ModelicaComment { color: #006400;  font-weight: normal; font-style: normal;} /* All three variants of comments in Modelica.  */
+.ModelicaString { color: #006400;  font-weight: normal; font-style: normal;} /* String constants. */
+.ModelicaClass { color: red; font-weight: normal; font-style: normal;} /* Formatting the names of referenced classes (for base-class and components). */
+.ModelicaFunction { color: red; font-weight: normal; font-style: normal;} /* Formatting for called functions. */
+.ModelicaTablePackageContent { } /* The table of contents for each package. */
+.ModelicaTableCrossReference { } /* The optional cross-reference table. */
+.ModelicaTableInputs {} /* The table of inputs for a function. */
+.ModelicaTableOutputs {} /* The table of outputs for a function. */
+.ModelicaTableParameters {} /* The table of parameters for a model/block. */
+.ModelicaTableConnectors {} /* The table of connectors for a model/block. */
+.ModelicaTableContents {} /* The table of contents for a connector. */
+.ModelicaStartAttribute { font-weight: bold; } /* The formatting used for start-attribute in the table of parameters, to separate them from parameter values. */
+.ModelicaParameterTab { background-color: #c0c0c0; font-weight: bold; } /* The tab-heading in the table of parameters */
+.ModelicaParameterGroup { background-color: #e0e0e0; } /* The group-heading in the table of parameters */
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialGasObjectFunctions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.BaseClasses.PartialGasObjectFunctions"></a><a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses"
+>TILMedia.BaseClasses</a>.PartialGasObjectFunctions</h2>
+<p>
+<span class="ModelicaDescription">Package for calculation of gas vapor properties with a functional call, referencing existing external objects for highspeed evaluation</span><br>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.ModelPackage"
+>TILMedia.Internals.ClassTypes.ModelPackage</a>.</span></p>
+<h3>Package Content</h3>
+<table summary="Package Content" class="ModelicaTablePackageContent">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.density_phxi"
+>density_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_phxi"
+>specificEntropy_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_phxi"
+>temperature_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_phxi"
+>specificIsobaricHeatCapacity_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_phxi"
+>specificIsochoricHeatCapacity_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_phxi"
+>isobaricThermalExpansionCoefficient_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_phxi"
+>isothermalCompressibility_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_phxi"
+>speedOfSound_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_phxi"
+>densityDerivativeWRTspecificEnthalpy_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_phxi"
+>densityDerivativeWRTpressure_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_phxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_phxin"
+>densityDerivativeWRTmassFraction_phxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_phxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_phxin"
+>partialPressure_phxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_phxi"
+>gaseousMassFraction_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_phxi"
+>relativeHumidity_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_phxi"
+>saturationMassFraction_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_phxi"
+>saturationHumidityRatio_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_phxi"
+>specificEnthalpy1px_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_phxi"
+>prandtlNumber_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_phxi"
+>thermalConductivity_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_phxi"
+>dynamicViscosity_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.density_psxi"
+>density_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_psxi"
+>specificEnthalpy_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_psxi"
+>temperature_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_psxi"
+>specificIsobaricHeatCapacity_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_psxi"
+>specificIsochoricHeatCapacity_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_psxi"
+>isobaricThermalExpansionCoefficient_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_psxi"
+>isothermalCompressibility_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_psxi"
+>speedOfSound_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_psxi"
+>densityDerivativeWRTspecificEnthalpy_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_psxi"
+>densityDerivativeWRTpressure_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_psxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_psxin"
+>densityDerivativeWRTmassFraction_psxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_psxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_psxin"
+>partialPressure_psxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_psxi"
+>gaseousMassFraction_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_psxi"
+>relativeHumidity_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_psxi"
+>saturationMassFraction_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_psxi"
+>saturationHumidityRatio_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_psxi"
+>specificEnthalpy1px_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_psxi"
+>prandtlNumber_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_psxi"
+>thermalConductivity_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_psxi"
+>dynamicViscosity_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.density_pTxi"
+>density_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_pTxi"
+>specificEnthalpy_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_pTxi"
+>specificEntropy_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_pTxi"
+>specificIsobaricHeatCapacity_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_pTxi"
+>specificIsochoricHeatCapacity_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_pTxi"
+>isobaricThermalExpansionCoefficient_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_pTxi"
+>isothermalCompressibility_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_pTxi"
+>speedOfSound_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_pTxi"
+>densityDerivativeWRTspecificEnthalpy_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_pTxi"
+>densityDerivativeWRTpressure_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_pTxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_pTxin"
+>densityDerivativeWRTmassFraction_pTxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_pTxin" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_pTxin"
+>partialPressure_pTxin</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_pTxi"
+>gaseousMassFraction_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_pTxi"
+>relativeHumidity_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxi"
+>saturationMassFraction_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_pTxi"
+>saturationHumidityRatio_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_pTxi"
+>specificEnthalpy1px_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_pTxi"
+>prandtlNumber_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_pTxi"
+>thermalConductivity_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_pTxi"
+>dynamicViscosity_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationPartialPressure_T" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationPartialPressure_T"
+>saturationPartialPressure_T</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfVaporisation_T" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfVaporisation_T"
+>specificEnthalpyOfVaporisation_T</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfDesublimation_T" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfDesublimation_T"
+>specificEnthalpyOfDesublimation_T</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfPureGas_Tn" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfPureGas_Tn"
+>specificEnthalpyOfPureGas_Tn</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacityOfPureGas_Tn" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacityOfPureGas_Tn"
+>specificIsobaricHeatCapacityOfPureGas_Tn</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.averageMolarMass_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.averageMolarMass_xi"
+>averageMolarMass_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.humidityRatio_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.humidityRatio_xi"
+>humidityRatio_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.molarMass_n" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.molarMass_n"
+>molarMass_n</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfFormation_n" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfFormation_n"
+>specificEnthalpyOfFormation_n</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.freezingPoint" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.freezingPoint"
+>freezingPoint</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dewTemperature_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.dewTemperature_phxi"
+>dewTemperature_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.BaseClasses.Partb067e9ad46490a9d_phxiS.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxidg" width="20" height="20" align="top">&nbsp;<a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxidg"
+>saturationMassFraction_pTxidg</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.density_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.density_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEntropy_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEntropy_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE temperature_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.temperature_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsobaricHeatCapacity_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsobaricHeatCapacity_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp</td><td>Specific isobaric heat capacity cp [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsochoricHeatCapacity_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsochoricHeatCapacity_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cv</td><td>Specific isochoric heat capacity cv [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isobaricThermalExpansionCoefficient_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isobaricThermalExpansionCoefficient_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>beta</td><td>Isobaric thermal expansion coefficient [1/K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isothermalCompressibility_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isothermalCompressibility_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE speedOfSound_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.speedOfSound_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>w</td><td>Speed of sound [m/s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTspecificEnthalpy_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTspecificEnthalpy_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodh_pxi</td><td>Derivative of density wrt specific enthalpy at constant pressure and mass fraction [kg.s2/m5]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTpressure_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTpressure_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodp_hxi</td><td>Derivative of density wrt pressure at specific enthalpy and mass fraction [s2/m2]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTmassFraction_phxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_phxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_phxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTmassFraction_phxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodxi_ph</td><td>Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE partialPressure_phxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_phxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_phxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.partialPressure_phxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p_i</td><td>Partial pressure [Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE gaseousMassFraction_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.gaseousMassFraction_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_gas</td><td>Mass fraction of gasoues condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE relativeHumidity_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.relativeHumidity_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phi</td><td>Relative humidity [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationMassFraction_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationMassFraction_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_s</td><td>Saturation mass fraction of condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationHumidityRatio_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationHumidityRatio_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>humRatio_s</td><td>Saturation content of condensing component aka saturation humidity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy1px_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpy1px_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h1px</td><td>Specific enthalpy h related to the mass of components that cannot condense [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE prandtlNumber_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.prandtlNumber_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr</td><td>Prandtl number [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE thermalConductivity_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.thermalConductivity_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>lambda</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE dynamicViscosity_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.dynamicViscosity_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>eta</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.density_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.density_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpy_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE temperature_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.temperature_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsobaricHeatCapacity_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsobaricHeatCapacity_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp</td><td>Specific isobaric heat capacity cp [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsochoricHeatCapacity_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsochoricHeatCapacity_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cv</td><td>Specific isochoric heat capacity cv [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isobaricThermalExpansionCoefficient_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isobaricThermalExpansionCoefficient_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>beta</td><td>Isobaric thermal expansion coefficient [1/K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isothermalCompressibility_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isothermalCompressibility_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE speedOfSound_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.speedOfSound_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>w</td><td>Speed of sound [m/s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTspecificEnthalpy_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTspecificEnthalpy_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodh_pxi</td><td>Derivative of density wrt specific enthalpy at constant pressure and mass fraction [kg.s2/m5]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTpressure_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTpressure_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodp_hxi</td><td>Derivative of density wrt pressure at specific enthalpy and mass fraction [s2/m2]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTmassFraction_psxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_psxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_psxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTmassFraction_psxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodxi_ph</td><td>Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE partialPressure_psxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_psxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_psxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.partialPressure_psxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p_i</td><td>Partial pressure [Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE gaseousMassFraction_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.gaseousMassFraction_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_gas</td><td>Mass fraction of gasoues condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE relativeHumidity_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.relativeHumidity_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phi</td><td>Relative humidity [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationMassFraction_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationMassFraction_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_s</td><td>Saturation mass fraction of condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationHumidityRatio_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationHumidityRatio_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>humRatio_s</td><td>Saturation content of condensing component aka saturation humidity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy1px_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpy1px_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h1px</td><td>Specific enthalpy h related to the mass of components that cannot condense [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE prandtlNumber_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.prandtlNumber_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr</td><td>Prandtl number [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE thermalConductivity_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.thermalConductivity_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>lambda</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE dynamicViscosity_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_psxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.dynamicViscosity_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>eta</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.density_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.density_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.density_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpy_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEntropy_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEntropy_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsobaricHeatCapacity_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsobaricHeatCapacity_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp</td><td>Specific isobaric heat capacity cp [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsochoricHeatCapacity_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsochoricHeatCapacity_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsochoricHeatCapacity_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cv</td><td>Specific isochoric heat capacity cv [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isobaricThermalExpansionCoefficient_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isobaricThermalExpansionCoefficient_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isobaricThermalExpansionCoefficient_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>beta</td><td>Isobaric thermal expansion coefficient [1/K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE isothermalCompressibility_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.isothermalCompressibility_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.isothermalCompressibility_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE speedOfSound_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.speedOfSound_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.speedOfSound_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>w</td><td>Speed of sound [m/s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTspecificEnthalpy_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTspecificEnthalpy_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTspecificEnthalpy_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodh_pxi</td><td>Derivative of density wrt specific enthalpy at constant pressure and mass fraction [kg.s2/m5]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTpressure_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTpressure_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTpressure_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodp_hxi</td><td>Derivative of density wrt pressure at specific enthalpy and mass fraction [s2/m2]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE densityDerivativeWRTmassFraction_pTxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_pTxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.densityDerivativeWRTmassFraction_pTxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.densityDerivativeWRTmassFraction_pTxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>drhodxi_ph</td><td>Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE partialPressure_pTxin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_pTxin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.partialPressure_pTxin"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.partialPressure_pTxin</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p_i</td><td>Partial pressure [Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE gaseousMassFraction_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.gaseousMassFraction_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.gaseousMassFraction_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_gas</td><td>Mass fraction of gasoues condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE relativeHumidity_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.relativeHumidity_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phi</td><td>Relative humidity [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationMassFraction_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationMassFraction_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_s</td><td>Saturation mass fraction of condensing component [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationHumidityRatio_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationHumidityRatio_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationHumidityRatio_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>humRatio_s</td><td>Saturation content of condensing component aka saturation humidity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy1px_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy1px_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpy1px_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h1px</td><td>Specific enthalpy h related to the mass of components that cannot condense [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE prandtlNumber_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.prandtlNumber_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr</td><td>Prandtl number [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE thermalConductivity_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.thermalConductivity_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>lambda</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE dynamicViscosity_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_pTxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.dynamicViscosity_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>eta</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationPartialPressure_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationPartialPressure_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationPartialPressure_T"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationPartialPressure_T</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p_s</td><td>Saturation partial pressure of condensing component [Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpyOfVaporisation_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfVaporisation_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfVaporisation_T"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpyOfVaporisation_T</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>delta_hv</td><td>Specific enthalpy of vaporisation of condensing component [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpyOfDesublimation_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfDesublimation_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfDesublimation_T"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpyOfDesublimation_T</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>delta_hd</td><td>Specific enthalpy of desublimation of condensing component [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpyOfPureGas_Tn<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfPureGas_Tn" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfPureGas_Tn"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpyOfPureGas_Tn</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h_i</td><td>Specific enthalpy of theoretical pure component [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificIsobaricHeatCapacityOfPureGas_Tn<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacityOfPureGas_Tn" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacityOfPureGas_Tn"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificIsobaricHeatCapacityOfPureGas_Tn</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp_i</td><td>Specific isobaric heat capacity of theoretical pure component [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE averageMolarMass_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.averageMolarMass_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.averageMolarMass_xi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.averageMolarMass_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>M</td><td>Average molar mass [kg/mol]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE humidityRatio_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.humidityRatio_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.humidityRatio_xi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.humidityRatio_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>humRatio</td><td>Content of condensing component aka humidity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE molarMass_n<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.molarMass_n" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.molarMass_n"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.molarMass_n</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>M_i</td><td>Molar mass of component i [kg/mol]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpyOfFormation_n<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfFormation_n" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfFormation_n"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.specificEnthalpyOfFormation_n</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>compNo</td><td>Component ID</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>hF_i</td><td>Specific enthalpy of formation [J/kg]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE freezingPoint<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.freezingPoint" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.freezingPoint"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.freezingPoint</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T_freeze</td><td>Freezing point of condensing component [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE dewTemperature_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.dewTemperature_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.dewTemperature_phxi"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.dewTemperature_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Temperature [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T_dew</td><td>Dewpoint Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationMassFraction_pTxidg<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.BaseClasses.Part33ab37dc78832953_phxiI.png" alt="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxidg" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxidg"></a><a href="TILMedia_BaseClasses_PartialGasObjectFunctions.html#TILMedia.BaseClasses.PartialGasObjectFunctions"
+>TILMedia.BaseClasses.PartialGasObjectFunctions</a>.saturationMassFraction_pTxidg</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialGasObjectFunction"
+>PartialGasObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi_dryGas[:]</td><td>Mass fraction of dry gas [1]</td></tr>
+<tr><td>gasPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi_s</td><td>Saturation vapour mass fraction [1]</td></tr>
+</table>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Aug 15 11:57:54 2019.
+</address>
+</body>
+</html>

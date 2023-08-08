@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Valve_dp_nom2 "Valve || par.: dp_nom || green | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -29,12 +29,12 @@ model Valve_dp_nom2 "Valve || par.: dp_nom || green | green"
      m_flow=m_flow,
      h=h_in,
      p=p_in,
-     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
+     rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
      p=p_out,
-     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
+     rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
   outer parameter Real P_target_ "Target power in p.u.";
   outer ClaRa.SimCenter simCenter;

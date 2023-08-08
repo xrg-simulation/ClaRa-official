@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_Txim_flow "A boundary defining temperature, composition and mass flow"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -64,7 +64,7 @@ public
     annotation (Placement(transformation(extent={{94,-86},{106,-74}})));
 
 protected
-   TILMedia.VLEFluid_pT fluidOut(
+   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluidOut(
     vleFluidType=medium,
     p=steam_a.p,
     T=T_in,

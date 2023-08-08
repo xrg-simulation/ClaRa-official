@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinGas_L2_flex "Adiabatic junction volume"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -77,13 +77,13 @@ protected
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   /****************** Nominal values *******************/
 public
-  parameter Modelica.SIunits.MassFlowRate m_flow_in_nom[N_ports_in]= fill(10,N_ports_in) "Nominal mass flow rates at inlet"
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_in_nom[N_ports_in]= fill(10,N_ports_in) "Nominal mass flow rates at inlet"
                                         annotation(Dialog(tab="General", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.Temperature T_nom=293.15 "Nominal specific enthalpy"              annotation(Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
+  parameter ClaRa.Basics.Units.Temperature T_nom=293.15 "Nominal specific enthalpy"              annotation(Dialog(group="Nominal Values"));
   parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]=medium.xi_default annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.SIunits.Density rho_nom= TILMedia.GasFunctions.density_pTxi(medium, p_nom, T_nom, xi_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom= TILMedia.GasFunctions.density_pTxi(medium, p_nom, T_nom, xi_nom) "Nominal density";
   /****************** Initial values *******************/
 public
     parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"

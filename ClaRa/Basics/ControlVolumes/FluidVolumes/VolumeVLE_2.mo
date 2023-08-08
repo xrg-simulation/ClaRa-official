@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_2 "A lumped control volume for vapour/liquid equilibrium"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -84,7 +84,7 @@ end Summary;
                                                                                    choice=2 "Inner heat transfer surface"));
 
 protected
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -126,13 +126,13 @@ public
       Q_flow_tot=heat.Q_flow))
     annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 public
-  TILMedia.VLEFluid_ph  fluidIn(vleFluidType =    medium, final p=inlet.p, final  h=h_in,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, final p=inlet.p, final  h=h_in,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
     computeVLEAdditionalProperties=true,
     xi=xi_in)                                                                                   annotation (Placement(transformation(extent={{-90,-10},
             {-70,10}},                                                                                                    rotation=0)));
-  TILMedia.VLEFluid_ph  fluidOut(vleFluidType =    medium, p=outlet.p, h=h_out,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut(vleFluidType =    medium, p=outlet.p, h=h_out,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
     computeVLEAdditionalProperties=true,
@@ -140,7 +140,7 @@ public
             {90,10}},                                                                                                    rotation=0)));
 
 protected
-  inner TILMedia.VLEFluid_ph  bulk(vleFluidType =    medium, p=p, h=h,
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  bulk(vleFluidType =    medium, p=p, h=h,
     computeVLEAdditionalProperties=true,
     computeVLETransportProperties=true,
     computeTransportProperties=true,

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
 model ArithmeticMean "Use arithmetic mean, i.e. (In1 + In2)/2"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -16,7 +16,7 @@ model ArithmeticMean "Use arithmetic mean, i.e. (In1 + In2)/2"
 //___________________________________________________________________________//
 
   extends GeneralMean;
-  import vle_cp = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import vle_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
   import gas_cp = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_phxi;
   SI.HeatCapacityMassSpecific cp_i_in[3];
   SI.HeatCapacityMassSpecific cp_i_out[3];

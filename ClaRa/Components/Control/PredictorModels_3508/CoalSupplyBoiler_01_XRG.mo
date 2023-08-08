@@ -1,7 +1,7 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using characteristic lines and transfer functions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -24,12 +24,12 @@ model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using chara
                        choice=simCenter.fluid2 "Second fluid defined in global simCenter",
                        choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
-  parameter Modelica.SIunits.Pressure p_LS_nom= 300e5 "Nominal life steam pressure"
+  parameter ClaRa.Basics.Units.Pressure p_LS_nom= 300e5 "Nominal life steam pressure"
                                                                                   annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nom = 40e5 "Nominal life steam pressure loss"       annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_LS_nom = 3279e3 "Nominal life steam specific enthalpy"
+  parameter ClaRa.Basics.Units.Pressure Delta_p_nom = 40e5 "Nominal life steam pressure loss"       annotation(Dialog(group="Nominal values"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_nom = 3279e3 "Nominal life steam specific enthalpy"
                                                                                             annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_LS_nom = 419 "Nominal life steam flow rate" annotation(Dialog(group="Nominal values"));
+  parameter ClaRa.Basics.Units.MassFlowRate m_flow_LS_nom = 419 "Nominal life steam flow rate" annotation(Dialog(group="Nominal values"));
 
   parameter Real CL_mflowLS_QF_[:,:]=[0, 0.32; 0.34, 0.32; 1, 1] "Characteristic line life steam flow as function of thermal output"
                                                                         annotation(Dialog(group="Part Load Definition"));
@@ -42,19 +42,19 @@ model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using chara
   parameter Real CL_hEvap_pD_[:,:] = [0.34, 2806e3; 0.55, 2708e3; 0.75, 2559e3; 1, 2200e3] "Characteristic line evap outlet enthalpy over pressure"
                                                              annotation(Dialog(group="Part Load Definition"));
 
-  parameter Modelica.SIunits.Time tau_u = 120 "equivalent dead time of steam generation" annotation(Dialog(group="Time Response Definition"));
-  parameter Modelica.SIunits.Time Tau_g = 200 "balancing time of steam generation" annotation(Dialog(group="Time Response Definition"));
-  parameter Modelica.SIunits.Time Tau_s = 200 "Integration time of steam storage"  annotation(Dialog(group="Time Response Definition"));
-  parameter Modelica.SIunits.Time Tau_evap=5 "Time constant for energy storage in evaporator"
+  parameter ClaRa.Basics.Units.Time tau_u = 120 "equivalent dead time of steam generation" annotation(Dialog(group="Time Response Definition"));
+  parameter ClaRa.Basics.Units.Time Tau_g = 200 "balancing time of steam generation" annotation(Dialog(group="Time Response Definition"));
+  parameter ClaRa.Basics.Units.Time Tau_s = 200 "Integration time of steam storage"  annotation(Dialog(group="Time Response Definition"));
+  parameter ClaRa.Basics.Units.Time Tau_evap=5 "Time constant for energy storage in evaporator"
                                                     annotation(Dialog(group="Time Response Definition"));
 
   parameter Real y_T_const = 1 "Constant turbine valve aperture" annotation(Dialog(group="Control Definition"));
-  input Modelica.SIunits.Temperature T_LS = 823.15 "Value of life steam temperature" annotation(Dialog(group="Control Definition"));
-  Modelica.SIunits.Pressure p_LS "Life steam pressure";
+  input ClaRa.Basics.Units.Temperature T_LS = 823.15 "Value of life steam temperature" annotation(Dialog(group="Control Definition"));
+  ClaRa.Basics.Units.Pressure p_LS "Life steam pressure";
   parameter Real p_LS_0=1 "Initial value of life steam pressure in p.u." annotation(Dialog(group="Initialisation"));
 
 protected
-  Modelica.Blocks.Sources.RealExpression h(y=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(medium, p_LS, T_LS)/h_LS_nom) "Life Steam specific enthalpy"
+  Modelica.Blocks.Sources.RealExpression h(y=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(medium, p_LS, T_LS)/h_LS_nom) "Life Steam specific enthalpy"
                                    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
 public

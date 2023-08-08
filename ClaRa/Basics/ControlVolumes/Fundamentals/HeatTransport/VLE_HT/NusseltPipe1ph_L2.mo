@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltPipe1ph_L2 "Pipe Geo || L2 || HTC || Nusselt || 1ph"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -22,17 +22,17 @@ model NusseltPipe1ph_L2 "Pipe Geo || L2 || HTC || Nusselt || 1ph"
 
   import sm = ClaRa.Basics.Functions.Stepsmoother;
   // TILMedia VLEFluidFunctions
-   import fluidFunction_cp = TILMedia.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
-   import fluidFunction_lambda = TILMedia.VLEFluidFunctions.thermalConductivity_phxi;
-   import fluidFunction_eta = TILMedia.VLEFluidFunctions.dynamicViscosity_phxi;
-   import fluidFunction_rho = TILMedia.VLEFluidFunctions.density_phxi;
+   import fluidFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
+   import fluidFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.thermalConductivity_phxi;
+   import fluidFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dynamicViscosity_phxi;
+   import fluidFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi;
 
 
   // TILMedia VLEFluidObjectFunctions
-  import fluidObjectFunction_cp = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidObjectFunction_lambda = TILMedia.VLEFluidObjectFunctions.thermalConductivity_phxi;
-  import fluidObjectFunction_eta = TILMedia.VLEFluidObjectFunctions.dynamicViscosity_phxi;
-  import fluidObjectFunction_rho = TILMedia.VLEFluidObjectFunctions.density_phxi;
+  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.thermalConductivity_phxi;
+  import fluidObjectFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dynamicViscosity_phxi;
+  import fluidObjectFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
 
   outer ClaRa.SimCenter simCenter;
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry geo;

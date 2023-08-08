@@ -1,7 +1,7 @@
 within ClaRa.Components.Control;
 package FeedForward "Feed forward control elements including target limiting"
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.4.0                              //
+// Package of the ClaRa library, version: 1.4.1                              //
 // Models of the ClaRa library are tested under DYMOLA v2019.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //

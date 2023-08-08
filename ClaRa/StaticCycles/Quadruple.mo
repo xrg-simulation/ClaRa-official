@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles;
 model Quadruple "Visualise static cycle results"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -44,7 +44,7 @@ initial equation
   m_flow = steamSignal.m_flow;
   p=steamSignal.p;
   h=steamSignal.h;
-  T = TILMedia.VLEFluidFunctions.temperature_phxi(medium, p, h);
+  T = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(medium, p, h);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,0}},

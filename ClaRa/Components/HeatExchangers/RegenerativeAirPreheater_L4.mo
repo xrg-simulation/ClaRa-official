@@ -1,7 +1,7 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -85,9 +85,9 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
       choice=203 "Steady temperature"));
 
   parameter ClaRa.Basics.Units.Temperature T_start_freshAir[:]={293.15,293.15} "Start value of fresh air system Temperature" annotation (Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_start_freshAir[:]={1.013e5,1.013e5} "Start value of fresh air system pressure"
+  parameter ClaRa.Basics.Units.Pressure p_start_freshAir[:]={1.013e5,1.013e5} "Start value of fresh air system pressure"
     annotation (Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.MassFraction xi_start_freshAir[medium.nc - 1]=
+  parameter ClaRa.Basics.Units.MassFraction xi_start_freshAir[medium.nc - 1]=
       medium.xi_default "Start value of fresh air system mass fraction"
     annotation (Dialog(tab="Initialisation"));
 
@@ -267,44 +267,50 @@ public
         rotation=-90,
         origin={1,-22})));
 
-  VolumesValvesFittings.Fittings.FlueGasJunction_L2
-                                                 flueGasSplit_L2_1(T_start=if size(T_start_flueGas,1)==2 then T_start_flueGas[2]*(1-leakage) else T_start_flueGas[1]*(1-leakage),p_start=if size(p_start_flueGas,1)==2 then p_start_flueGas[2] else p_start_flueGas[1],xi_start=(1*xi_start_flueGas + leakage*xi_start_freshAir)/(1+leakage),volume=1)
-    annotation (Placement(transformation(
+  VolumesValvesFittings.Fittings.FlueGasJunction_L2 freshAirLeakage_join(
+    T_start=if size(T_start_flueGas, 1) == 2 then T_start_flueGas[2]*(1 - leakage) else T_start_flueGas[1]*(1 - leakage),
+    p_start=if size(p_start_flueGas, 1) == 2 then p_start_flueGas[2] else p_start_flueGas[1],
+    xi_start=(1*xi_start_flueGas + leakage*xi_start_freshAir)/(1 + leakage),
+    volume=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={46,40})));
 
   Summary summary(
-    flueGasInlet(mediumModel=medium,
+    flueGasInlet(
+      mediumModel=medium,
       m_flow=flueGasCell.inlet.m_flow,
       T=inStream(flueGasCell.inlet.T_outflow),
       p=flueGasCell.inlet.p,
       h=flueGasCell.fluidInlet.h,
-      xi = inStream(flueGasCell.inlet.xi_outflow),
+      xi=inStream(flueGasCell.inlet.xi_outflow),
       H_flow=flueGasCell.inlet.m_flow*flueGasCell.fluidInlet.h),
-    freshAirInlet(mediumModel=medium,
+    freshAirInlet(
+      mediumModel=medium,
       m_flow=freshAirCell.inlet.m_flow,
       T=inStream(freshAirCell.inlet.T_outflow),
       p=freshAirCell.inlet.p,
       h=freshAirCell.fluidInlet.h,
-      xi = inStream(freshAirCell.inlet.xi_outflow),
+      xi=inStream(freshAirCell.inlet.xi_outflow),
       H_flow=freshAirCell.inlet.m_flow*freshAirCell.fluidInlet.h),
-    flueGasOutlet(mediumModel=medium,
-      m_flow=-flueGasCell.outlet.m_flow,
+    flueGasOutlet(
+      mediumModel=medium,
+      m_flow=-freshAirLeakage_join.portA.m_flow,
       T=flueGasCell.outlet.T_outflow,
       p=flueGasCell.outlet.p,
       h=flueGasCell.fluidOutlet.h,
-      xi = flueGasCell.outlet.xi_outflow,
-      H_flow=-flueGasCell.outlet.m_flow*flueGasCell.fluidOutlet.h),
-    freshAirOutlet(mediumModel=medium,
+      xi=flueGasCell.outlet.xi_outflow,
+      H_flow=-freshAirLeakage_join.portA.m_flow*freshAirLeakage_join.flueGasIn.h),
+    freshAirOutlet(
+      mediumModel=medium,
       m_flow=-freshAirCell.outlet.m_flow,
       T=freshAirCell.outlet.T_outflow,
       p=freshAirCell.outlet.p,
       h=freshAirCell.fluidOutlet.h,
-      xi = freshAirCell.outlet.xi_outflow,
+      xi=freshAirCell.outlet.xi_outflow,
       H_flow=-freshAirCell.outlet.m_flow*freshAirCell.fluidOutlet.h));
 
-  VolumesValvesFittings.Valves.ThreeWayValveGas_L1_simple split_controllable(splitRatio_fixed=leakage) annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.ThreeWayValveGas_L1_simple freshAirLeakage_split(splitRatio_fixed=leakage) annotation (Placement(transformation(
         extent={{-10,-9},{10,9}},
         rotation=0,
         origin={-32,39})));
@@ -338,10 +344,10 @@ public
 equation
   eye_int_flueGas[1].p = summary.flueGasOutlet.p/1e5;
   eye_int_flueGas[1].h = summary.flueGasOutlet.h/1e3;
-  eye_int_flueGas[1].m_flow = summary.flueGasOutlet.m_flow;
+  eye_int_flueGas[1].m_flow =-freshAirLeakage_join.portA.m_flow;
   eye_int_flueGas[1].T = summary.flueGasOutlet.T - 273.15;
-  eye_int_flueGas[1].s =flueGasSplit_L2_1.flueGasIn.s/1e3;
-  eye_int_flueGas[1].xi =flueGasSplit_L2_1.flueGasIn.xi;
+  eye_int_flueGas[1].s =freshAirLeakage_join.flueGasIn.s/1e3;
+  eye_int_flueGas[1].xi =freshAirLeakage_join.flueGasIn.xi;
 
   eye_int_freshAir[1].p = summary.freshAirOutlet.p/1e5;
   eye_int_freshAir[1].h = summary.freshAirOutlet.h/1e3;
@@ -350,7 +356,7 @@ equation
   eye_int_freshAir[1].s = freshAirCell.fluidOutlet.s/1e3;
   eye_int_freshAir[1].xi = freshAirCell.fluidOutlet.xi;
 
-  connect(freshAirInlet, split_controllable.inlet) annotation (Line(
+  connect(freshAirInlet, freshAirLeakage_split.inlet) annotation (Line(
       points={{-46,100},{-46,40},{-42,40}},
       color={118,106,98},
       thickness=0.5,
@@ -360,12 +366,12 @@ equation
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(flueGasSplit_L2_1.portA, flueGasOutlet) annotation (Line(
+  connect(freshAirLeakage_join.portA, flueGasOutlet) annotation (Line(
       points={{46,50},{46,100}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(flueGasSplit_L2_1.portB, flueGasCell.outlet) annotation (Line(
+  connect(freshAirLeakage_join.portB, flueGasCell.outlet) annotation (Line(
       points={{46,30},{46,-8}},
       color={118,106,98},
       thickness=0.5,
@@ -384,12 +390,12 @@ equation
         smooth=Smooth.None));
         end for;
 
-  connect(split_controllable.outlet2, freshAirCell.inlet) annotation (Line(
+  connect(freshAirLeakage_split.outlet2, freshAirCell.inlet) annotation (Line(
       points={{-32,30},{-46,30},{-46,-8}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(split_controllable.outlet, flueGasSplit_L2_1.portC) annotation (Line(
+  connect(freshAirLeakage_split.outlet, freshAirLeakage_join.portC) annotation (Line(
       points={{-22,40},{36,40}},
       color={118,106,98},
       thickness=0.5,

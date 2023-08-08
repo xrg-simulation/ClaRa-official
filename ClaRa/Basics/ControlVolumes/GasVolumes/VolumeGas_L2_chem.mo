@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -50,11 +50,11 @@ parameter Boolean allow_reverseFlow = true annotation(Evaluate=true, Dialog(tab=
 parameter Boolean use_dynamicMassbalance = true annotation(Evaluate=true, Dialog(tab="Advanced"));
 parameter Integer heatSurfaceAlloc=1 "Heat transfer area to be considered"          annotation(Dialog(group="Geometry"),choices(choice=1 "Lateral surface",
                                                                                    choice=2 "Inner heat transfer surface"));
-inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet"
+inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet"
                                         annotation(Dialog(tab="General", group="Nominal Values"));
 
-  inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
-  inner parameter Modelica.SIunits.SpecificEnthalpy h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy"      annotation(Dialog(group="Nominal Values"));
   parameter Units.MassFraction xi_nom[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Nominal gas composition" annotation (Dialog(group="Nominal Values"));
 
 inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog(tab="Initialisation"), choices(
@@ -65,25 +65,25 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
       choice=208 "Steady pressure and enthalpy",
       choice=210 "Steady density"));
 
-  parameter Modelica.SIunits.Temperature T_start= 273.15 + 100.0 "Start value of system temperature"
+  parameter ClaRa.Basics.Units.Temperature T_start= 273.15 + 100.0 "Start value of system temperature"
                                         annotation(Dialog(tab="Initialisation"));
-  final parameter Modelica.SIunits.SpecificEnthalpy h_start=
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=
           TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start) "Start value of system specific enthalpy";
 //          TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start[1:end-1]/sum(xi_start))
 //    "Start value of system specific enthalpy";
-  parameter Modelica.SIunits.Pressure p_start= 1.013e5 "Start value of sytsem pressure"
+  parameter ClaRa.Basics.Units.Pressure p_start= 1.013e5 "Start value of sytsem pressure"
                                      annotation(Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.MassFraction xi_start[medium.nc-1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start value of system mass fraction"
+  parameter ClaRa.Basics.Units.MassFraction xi_start[medium.nc-1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start value of system mass fraction"
                                           annotation(Dialog(tab="Initialisation"));
 
 protected
-   Modelica.SIunits.SpecificEnthalpy h_out "Outlet specific enthalpy";
-   Modelica.SIunits.SpecificEnthalpy h_in "Inlet specific enthalpy";
-   inner Modelica.SIunits.SpecificEnthalpy h(start=h_start) "Bulk specific enthalpy";
+   ClaRa.Basics.Units.EnthalpyMassSpecific h_out "Outlet specific enthalpy";
+   ClaRa.Basics.Units.EnthalpyMassSpecific h_in "Inlet specific enthalpy";
+   inner ClaRa.Basics.Units.EnthalpyMassSpecific h(start=h_start) "Bulk specific enthalpy";
    Real drhodt "Density derivative";
-   Modelica.SIunits.Mass mass "Mass inside volume";
-   Modelica.SIunits.Pressure p(start=p_start) "Pressure inside volume";
-  Modelica.SIunits.MassFraction xi[medium.nc-1]( start=xi_start) "Mass fractions inside volume";
+   ClaRa.Basics.Units.Mass mass "Mass inside volume";
+   ClaRa.Basics.Units.Pressure p(start=p_start) "Pressure inside volume";
+  ClaRa.Basics.Units.MassFraction xi[medium.nc-1]( start=xi_start) "Mass fractions inside volume";
 public
   HeatTransfer heattransfer(heatSurfaceAlloc=heatSurfaceAlloc)
     annotation (Placement(transformation(extent={{-28,58},{-8,78}})));

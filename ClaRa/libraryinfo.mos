@@ -9,6 +9,7 @@ LibraryInfoMenuCommand(
  version="1.3.1",
  isModel=true,
  description="Simulation of Clausius-Rankine Cycles",
+ iconName="Resources/Images/ClaRa-Logo.png",
  ModelicaVersion="3.2.1",
  pos=001)
 

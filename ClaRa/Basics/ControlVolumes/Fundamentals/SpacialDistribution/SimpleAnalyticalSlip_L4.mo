@@ -1,12 +1,12 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
     extends ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.MechanicalEquilibrium_L4;
-  import TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi;
-  import TILMedia.VLEFluidObjectFunctions.vapourDensity_phxi;
-  import TILMedia.VLEFluidObjectFunctions.liquidDensity_phxi;
-  import TILMedia.VLEFluidObjectFunctions.density_phxi;
-  import TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
-  import TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.vapourDensity_phxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.liquidDensity_phxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
 
   Units.DensityMassSpecific rho[geo.N_cv] "Mixed cup density";
   Units.DensityMassSpecific rho_mix[geo.N_cv] "In-situ density";
@@ -14,7 +14,7 @@ model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
   Real S[geo.N_cv] "Slip between phases";
   Units.EnthalpyMassSpecific h[geo.N_cv](start=h_start) "Slip model enthalpy";
 
-//     TILMedia.VLEFluidObjectFunctions.VLEFluidPointer ptr_slip[iCom.N_cv]={TILMedia.VLEFluidObjectFunctions.VLEFluidPointer(
+//     TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.VLEFluidPointer ptr_slip[iCom.N_cv]={TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.VLEFluidPointer(
 //       iCom.mediumModel.concatVLEFluidName,
 //       7,
 //       iCom.mediumModel.mixingRatio_propertyCalculation[1:end - 1]/sum(iCom.mediumModel.mixingRatio_propertyCalculation),
@@ -30,7 +30,7 @@ model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
   Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
 
 protected
-  TILMedia.VLEFluid ptr_slip[iCom.N_cv](each vleFluidType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_slip[iCom.N_cv](each vleFluidType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 equation
     /////// Calculate Media Required Data  ///////////////////
   for i in 1:iCom.N_cv loop

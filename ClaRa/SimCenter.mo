@@ -1,7 +1,7 @@
 within ClaRa;
 model SimCenter
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.2.2                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -80,9 +80,9 @@ model SimCenter
   ClaRa.Basics.Units.EntropyMassSpecific s_amb_fluid3 "Ambient entropy of VLE fluid 3";
 
 protected
-  TILMedia.VLEFluid vleFluid_amb1(vleFluidType=fluid1) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
-  TILMedia.VLEFluid vleFluid_amb2(vleFluidType=fluid2) annotation (Placement(transformation(extent={{-60,-12},{-40,8}})));
-  TILMedia.VLEFluid vleFluid_amb3(vleFluidType=fluid3) annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb1(vleFluidType=fluid1) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb2(vleFluidType=fluid2) annotation (Placement(transformation(extent={{-60,-12},{-40,8}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb3(vleFluidType=fluid3) annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
 
 public
 record summary_clara

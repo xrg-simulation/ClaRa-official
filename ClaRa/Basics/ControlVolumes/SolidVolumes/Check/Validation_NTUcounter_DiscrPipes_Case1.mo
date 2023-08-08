@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -38,11 +38,11 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   parameter Integer N_cv=100;
   //400 "Number of Cells";
 
-  parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_i,
       T_i_in);
-  parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_o,
       T_o_in);

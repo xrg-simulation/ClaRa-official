@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Machines;
 model Pump1_real "Real Pump || par.: efficiency || green | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -52,14 +52,14 @@ model Pump1_real "Real Pump || par.: efficiency || green | blue"
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false, start=1) "Mass flow rate";
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false);
 //   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in=
-//       TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_in);
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + (TILMedia.VLEFluidFunctions.specificEnthalpy_psxi(
+//       TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_in);
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + (TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_psxi(
       medium,
       p_out,
-      TILMedia.VLEFluidFunctions.specificEntropy_phxi(
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEntropy_phxi(
         medium,
         p_in,
         h_in)) - h_in)/efficiency "Outlet spec. enthalpy";

@@ -1,7 +1,7 @@
 within ClaRa.UsersGuide;
 package GettingStarted "An introduction to the library"
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.4.0                              //
+// Package of the ClaRa library, version: 1.4.1                              //
 // Models of the ClaRa library are tested under DYMOLA v2019.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //

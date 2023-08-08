@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model GasCompositionByVolFractions "set (flue) gas composition graphically by volume fractions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -37,7 +37,7 @@ extends ClaRa.Basics.Icons.VolumeComposition;
 protected
   outer ClaRa.SimCenter simCenter;
 public
-  Modelica.SIunits.MassFraction xi_in[medium.nc - 1];
+  ClaRa.Basics.Units.MassFraction xi_in[medium.nc - 1];
   TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel;
 
 equation

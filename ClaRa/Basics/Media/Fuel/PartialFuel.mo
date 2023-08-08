@@ -2,7 +2,7 @@ within ClaRa.Basics.Media.Fuel;
 record PartialFuel "Base class for solid type media definition"
   extends ClaRa.Basics.Media.FuelTypes.EmptyFuel;
 constant Integer nc(min=1);
-parameter Modelica.SIunits.SpecificHeatCapacity cp;
+parameter ClaRa.Basics.Units.HeatCapacityMassSpecific cp;
 constant Real[nc-1]  defaultComposition "Elemental Compostion of coal, e.g. {C,H,O,N,S,Ash,H2O}";
  annotation (Icon(graphics={
         Line(

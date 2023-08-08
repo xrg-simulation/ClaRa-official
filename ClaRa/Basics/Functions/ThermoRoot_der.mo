@@ -1,7 +1,7 @@
 within ClaRa.Basics.Functions;
 function ThermoRoot_der "Derivative of square root function with linear interpolation near 0"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //

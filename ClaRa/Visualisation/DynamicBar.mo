@@ -8,10 +8,10 @@ model DynamicBar
   parameter Boolean provideInputConnectors= false "If true connectors for the inputs are provided"  annotation(Dialog(group="Parameters"));
   parameter Boolean provideLimitsConnectors= false "If true connectors for the limits and set values are provided"  annotation(Dialog(group="Parameters"));
   parameter Boolean provideOutputConnector= false "If true an output connector y is provided"  annotation(Dialog(group="Parameters"));
-  input Real u=0 "Variable to be visualised" annotation(Dialog(group= "Inputs", enable = not provideInputConnector));
-  input Real u_set = 0.5 "Set Value of filling level"  annotation(Dialog(group= "Inputs", enable = not provideInputConnector));
-  input Real u_high = 0.6 "High input threshold"  annotation(Dialog(group= "Inputs", enable = not provideInputConnector));
-  input Real u_low = 0.4 "Low input threshold"  annotation(Dialog(group= "Inputs", enable = not provideInputConnector));
+  input Real u=0 "Variable to be visualised" annotation(Dialog(group= "Inputs", enable = not provideInputConnectors));
+  input Real u_set = 0.5 "Set Value of filling level"  annotation(Dialog(group= "Inputs", enable = not provideLimitsConnectors));
+  input Real u_high = 0.6 "High input threshold"  annotation(Dialog(group= "Inputs", enable = not provideLimitsConnectors));
+  input Real u_low = 0.4 "Low input threshold"  annotation(Dialog(group= "Inputs", enable = not provideLimitsConnectors));
 
 
 

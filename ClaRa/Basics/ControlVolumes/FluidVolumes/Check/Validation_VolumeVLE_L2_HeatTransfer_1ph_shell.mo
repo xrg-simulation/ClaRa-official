@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -21,7 +21,7 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
   Modelica.Blocks.Sources.Constant FluidTemperature(k=20 + 273.15)
     annotation (Placement(transformation(extent={{100,20},{80,40}})));
   Modelica.Blocks.Sources.Constant FluidPressure(k=
-        TILMedia.VLEFluidFunctions.dewPressure_Txi(
+        TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewPressure_Txi(
         TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(), 373.15))
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 Volume(

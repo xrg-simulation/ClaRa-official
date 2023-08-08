@@ -1,7 +1,7 @@
 within ClaRa.Components.MechanicalSeparation;
 partial model FeedWaterTank_base "Base class for feedwater tanks"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -36,7 +36,7 @@ partial model FeedWaterTank_base "Base class for feedwater tanks"
 
   parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"     annotation(Dialog(tab="Initialisation"));
   parameter Real level_rel_start "Initial filling level" annotation(Dialog(tab="Initialisation"));
-  final parameter ClaRa.Basics.Units.MassFraction steamQuality_start=(1 - level_rel_start)*TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_start)/((1 - level_rel_start)*TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_start) + level_rel_start*TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_start)) "Initial steam quality";
+  final parameter ClaRa.Basics.Units.MassFraction steamQuality_start=(1 - level_rel_start)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_start)/((1 - level_rel_start)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_start) + level_rel_start*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_start)) "Initial steam quality";
 
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "True, if expert summary should be applied" annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean showData=true "True, if a data port containing p,T,h,s,m_flow shall be shown"

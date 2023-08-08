@@ -1,8 +1,8 @@
 within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_affinity "A gas compressor or fan based on affinity laws"
-  import ClaRa;
+
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -68,6 +68,8 @@ protected
         rotation=-90,
         origin={0,20})));
 
+  ClaRa.Basics.Units.DensityMassSpecific rho_nom_char = TILMedia.GasObjectFunctions.density_pTxi(p_nom_char,T_nom_char,xi_nom_char,InletNom.gasPointer) "Nominal density related to Delta_p_zeroflow_const";
+
 public
   TILMedia.Gas_pT flueGas_inlet( p = inlet.p, T = inStream(inlet.T_outflow), xi = inStream(inlet.xi_outflow), gasType = medium)
     annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
@@ -76,19 +78,27 @@ public
     annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
   //__________________________/ Parameters \_____________________________
+  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
+  parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation(Dialog(group="Fundamental Definitions"));
+  parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
+
+  parameter Boolean useDensityAffinity=false "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic field"));
+  parameter Boolean useHead=false "True, if a compressor head (height) | False, if compressor head (pressure) should be used" annotation(Dialog(group="Characteristic field"));
   parameter ClaRa.Basics.Units.RPM rpm_nom "|Characteristic field|Nomial rotational speed";
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_max "|Characteristic field|Maximum volume flow rate at nominal speed";
-  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_min=0 "|Characteristic field|V_flow(Delta_p_max, rpm_nom)";
-  parameter ClaRa.Basics.Units.Pressure Delta_p_max "|Characteristic field|Maximum pressure difference at nominal speed";
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_min=0 "|Characteristic field|V_flow(Delta_p_zeroflow_const, rpm_nom)";
+  parameter ClaRa.Basics.Units.Pressure Delta_p_max_const "Constatnt maximum pressure difference at rpm_nom, T_nom_char, p_nom_char, xi_nom_char" annotation(Dialog(group="Characteristic field", enable=not useHead));
+  parameter ClaRa.Basics.Units.Length Head_max_const = 10 "Constant maximum head at flow = 0 for rpm_nom" annotation(Dialog(group="Characteristic field", enable=useHead));
+  parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0} "Nominal gas composition related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
   parameter Real exp_hyd= 0.5 "|Characteristic field|Exponent for affinity law";
 
   parameter Real eta = 0.85 "isentropic efficiency";
   parameter Real eta_mech = 0.99 "mechanical efficiency";
   parameter ClaRa.Basics.Units.Pressure Delta_p_eps=100 "Small pressure difference for linearisation around zero mass flow"  annotation(Dialog(tab="Expert Settings", group="Numerical Robustness"));
-  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
-    parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation(Dialog(group="Fundamental Definitions"));
-  parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
-  parameter ClaRa.Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
+
   parameter ClaRa.Basics.Units.Time Tau_aux=0.1 "Time constant of auxilliary kappa states" annotation (Dialog(tab="Expert Settings", group="Numerical Robustness"));
   parameter Real kappa_initial = 1.3 "Initial value for kappas" annotation(Dialog(tab="Expert Settings", group="Numerical Robustness"));
 
@@ -98,6 +108,7 @@ public
   ClaRa.Basics.Units.VolumeFlowRate V_flow;
   ClaRa.Basics.Units.VolumeFlowRate V_flow_max_aff;
   ClaRa.Basics.Units.Pressure Delta_p_max_aff;
+  ClaRa.Basics.Units.Pressure Delta_p_max "Pressure difference at flow= 0 for rpm_nom";
   Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
   ClaRa.Basics.Units.Power P_shaft "Mechanical power at shaft";
   ClaRa.Basics.Units.RPM rpm "Rotational speed";
@@ -111,6 +122,8 @@ protected
   ClaRa.Basics.Units.EnthalpyMassSpecific h_out;
   Real kappaB_aux;
   Real kappaA_aux;
+
+  TILMedia.Gas InletNom(gasType=medium);
 
 public
   ClaRa.Basics.Interfaces.EyeOutGas
@@ -149,6 +162,16 @@ initial equation
   kappaA = kappa_initial;
 
 equation
+//_______________Pressure head _______________
+   if useDensityAffinity then
+     if useHead then Delta_p_max = Head_max_const*flueGas_inlet.d*Modelica.Constants.g_n;
+     else Delta_p_max = Delta_p_max_const*(flueGas_inlet.d/rho_nom_char);
+     end if;
+   else
+     if useHead then Delta_p_max = Head_max_const*rho_nom_char*Modelica.Constants.g_n;
+     else Delta_p_max=Delta_p_max_const;
+     end if;
+   end if;
 
 //____________________ Mechanics ___________________________
   if useMechanicalPort then

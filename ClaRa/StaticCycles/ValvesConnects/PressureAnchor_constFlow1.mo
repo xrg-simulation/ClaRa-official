@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -32,12 +32,12 @@ model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
      m_flow=m_flow,
      h=h_in,
      p=p,
-     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p, h_in, vleMedium.xi_default)),
+     rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_in, vleMedium.xi_default)),
   outlet(
      m_flow=m_flow,
      h=h_out,
      p=p,
-     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p, h_out, vleMedium.xi_default)));
+     rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_out, vleMedium.xi_default)));
   //---------Summary Definition---------
   parameter Real CharLine_p_P_target_[:,:]=[0,1;1,1] "Characteristic line of pressure drop as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 

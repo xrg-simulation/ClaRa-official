@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations. Can choose between Modelica and ClaRa Delay implementation."
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -113,12 +113,12 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "|Initialisation|Model Settings|True, if homotopy method is used during initialisation";
 
   parameter Modelica.SIunits.SpecificEnthalpy h_start=
-      TILMedia.VLEFluidFunctions.liquidSpecificEnthalpy_pTxi(
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.liquidSpecificEnthalpy_pTxi(
       medium,
       p_start,
       simCenter.T_amb_start) "|Initialisation|Initial Medium Properties|Initial averaged fluid specific enthalpy";
 
-  //   final parameter Modelica.SIunits.Temperature T_start= TILMedia.VLEFluidFunctions.temperature_phxi
+  //   final parameter Modelica.SIunits.Temperature T_start= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi
   //   (medium,
   //       p_start,
   //       h_start)
@@ -128,7 +128,7 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   parameter Modelica.SIunits.Pressure p_in_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial inlet pressure";
   parameter Modelica.SIunits.Pressure p_out_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial outlet pressure";
   final parameter Modelica.SIunits.Density rho_start=
-      TILMedia.VLEFluidFunctions.density_phxi(
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_start,
       h_start) "Initial fluid density";
@@ -258,14 +258,14 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   ClaRa.Basics.Interfaces.HeatPort_a heat[N_wall] annotation (Placement(
         transformation(extent={{-10,40},{10,60}}),iconTransformation(extent={{-10,
             30},{10,50}})));
-  TILMedia.VLEFluid_pT fluidOutlet(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluidOutlet(
     vleFluidType=medium,
     p=outlet.p,
     T=T_L,
     computeTransportProperties=false,
     computeVLEAdditionalProperties=true) annotation (Placement(transformation(
           extent={{60,20},{80,40}}, rotation=0)));
-  TILMedia.VLEFluid_ph fluidInlet(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     vleFluidType=medium,
     p=inlet.p,
     h=actualStream(inlet.h_outflow),

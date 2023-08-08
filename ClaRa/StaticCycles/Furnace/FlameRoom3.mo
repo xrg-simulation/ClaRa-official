@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Furnace;
 model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -111,11 +111,11 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
   final parameter ClaRa.Basics.Units.HeatFlowRate Q_flow_bundle=m_flow_vle_bundle*(h_vle_bundle_out - h_vle_bundle_in) "Actual heat flow rate to tube bundle";
   final parameter ClaRa.Basics.Units.HeatFlowRate Q_flow_wall=m_flow_vle_wall_in*(h_vle_wall_out - h_vle_wall_in) "Actual heat flow rate to evaporator";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_bundle=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Bubble enthalpy at vle outlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_bundle=TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Dew enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_bundle=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Bubble enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_bundle=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Dew enthalpy at vle outlet";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_wall=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_wall=TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_wall=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_wall=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_vle_bundle(fixed=false) "Mass flow rate vle medium";
   final parameter ClaRa.Basics.Units.Pressure Delta_p_vle_bundle(fixed=false) "Pressure losses vle medium";
@@ -179,21 +179,21 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
       frictionAtOutlet_wall) "Rprt: Discretisised pressure at tube bundle";
 
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(vleMedium.nc - 1) "VLE composition in component, pure fluids supported only!";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_wall=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_wall=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       vleMedium,
       p_vle_wall_out,
       h_vle_wall_out,
       xi)*Modelica.Constants.g_n*(z_wall_out - z_wall_in) "Geostatic pressure difference";
 
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_bundle=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_bundle=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       vleMedium,
       p_vle_bundle_out,
       h_vle_bundle_out,
-      xi)*Modelica.Constants.g_n*(z_bundle_out - z_bundle_in) "Geostatic pressure difference";
+      xi)*Modelica.Constants.g_n*(z_bundle_in - z_bundle_out) "Geostatic pressure difference";
 
   // _________VLE Inlet _________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_bundle_in(fixed=false) "VLE medium's inlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_in=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_vle_bundle_in) "Rprt: VLE medium's inlet temperature";
@@ -202,7 +202,7 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
 
 // _________VLE Outlet ________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_bundle_out(fixed=false) "Outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_out=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_bundle_out,
       h_vle_bundle_out) "VLE  medium's outlet temperature";
@@ -210,7 +210,7 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
 
   // _________VLE Evaporator Inlet _________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_wall_in(fixed=false) "VLE medium's inlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_wall_in,
       h_vle_wall_in) "Rprt: VLE medium's inlet temperature";
@@ -219,7 +219,7 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
 
 // _________VLE Evaporator Outlet ________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_wall_out(fixed=false) "Outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_wall_out,
       h_vle_wall_out) "VLE  medium's outlet temperature";

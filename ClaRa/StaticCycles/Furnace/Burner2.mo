@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Furnace;
 model Burner2
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -129,16 +129,16 @@ model Burner2
       frictionAtInlet_wall,
       frictionAtOutlet_wall) "Rprt: Discretisised pressure at tube bundle";
 
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_wall_in,
       h_vle_wall_in) "Rprt: VLE medium's inlet temperature";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       vleMedium,
       p_vle_wall_out,
       h_vle_wall_out) "VLE  medium's outlet temperature";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out) "Rprt: Bubble enthalpy at vle outlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew=TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out) "Rprt: Dew enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out) "Rprt: Bubble enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out) "Rprt: Dew enthalpy at vle outlet";
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_wall_in(fixed=false) "Inlet specific enthalpy heated fluid";
 
@@ -205,7 +205,7 @@ model Burner2
       xi_pa_in) "Inlet specific enthalpy primary air";
 
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(vleMedium.nc - 1) "VLE composition in component, pure fluids supported only!";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       vleMedium,
       p_vle_wall_out,
       h_vle_wall_out,

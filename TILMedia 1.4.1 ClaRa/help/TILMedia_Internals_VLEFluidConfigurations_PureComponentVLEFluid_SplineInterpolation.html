@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Bicubic Spline Interpolation&quot;">
+<style type="text/css">
+*       { font-size: 100%; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 90%; font-family: Courier, monospace; white-space: pre; } /* For the Modelica code (in exported html). */
+h4      { font-size: 100%; font-weight: bold; color: green; } 
+h3      { font-size: 110%; font-weight: bold; color: green; }
+h2      { font-size: 130%; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { padding: 2px; border: 1px solid #808080; vertical-align: top; }
+th      { padding: 2px; border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+pre, code {font-family: "Courier New", monospace;}
+pre {white-space: pre; overflow-x : hidden;}
+.ModelicaDescription {font-weight: bold;} /* For the description string of the class. */
+.ModelicaBaseClass {} /* For the list of base-classes at the of the description. */
+.ModelicaKeyword { color: blue; font-weight: normal; font-style: normal; } /* Keywords in Modelica. */
+.ModelicaComment { color: #006400;  font-weight: normal; font-style: normal;} /* All three variants of comments in Modelica.  */
+.ModelicaString { color: #006400;  font-weight: normal; font-style: normal;} /* String constants. */
+.ModelicaClass { color: red; font-weight: normal; font-style: normal;} /* Formatting the names of referenced classes (for base-class and components). */
+.ModelicaFunction { color: red; font-weight: normal; font-style: normal;} /* Formatting for called functions. */
+.ModelicaTablePackageContent { } /* The table of contents for each package. */
+.ModelicaTableCrossReference { } /* The optional cross-reference table. */
+.ModelicaTableInputs {} /* The table of inputs for a function. */
+.ModelicaTableOutputs {} /* The table of outputs for a function. */
+.ModelicaTableParameters {} /* The table of parameters for a model/block. */
+.ModelicaTableConnectors {} /* The table of connectors for a model/block. */
+.ModelicaTableContents {} /* The table of contents for a connector. */
+.ModelicaStartAttribute { font-weight: bold; } /* The formatting used for start-attribute in the table of parameters, to separate them from parameter values. */
+.ModelicaParameterTab { background-color: #c0c0c0; font-weight: bold; } /* The tab-heading in the table of parameters */
+.ModelicaParameterGroup { background-color: #e0e0e0; } /* The group-heading in the table of parameters */
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SplineInterpolation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation"></a><a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid"
+>TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid</a>.SplineInterpolation</h2>
+<p>
+<span class="ModelicaDescription">Bicubic Spline Interpolation</span><br>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.ModelPackage"
+>TILMedia.Internals.ClassTypes.ModelPackage</a>.</span></p>
+<h3>Package Content</h3>
+<table summary="Package Content" class="ModelicaTablePackageContent">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlu739c1be2f7d4872did_phS.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ph" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ph"
+>VLEFluid_ph</a>
+</td>
+<td>Compressible fluid model with p, h and xi as independent variables</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlu739c1bedf7d48736id_psS.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ps" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ps"
+>VLEFluid_ps</a>
+</td>
+<td>Compressible fluid model with p, s and xi as independent variables</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlu739c1bcef7d48711id_pTS.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_pT" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_pT"
+>VLEFluid_pT</a>
+</td>
+<td>Compressible fluid model with p, T and xi as independent variables</td>
+</tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEFluid_ph<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlu739c1be2f7d4872did_phI.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ph" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ph"></a><a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation"
+>TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation</a>.VLEFluid_ph</h2>
+<p>
+<span class="ModelicaDescription">Compressible fluid model with p, h and xi as independent variables</span>
+</p>
+<h3>Information</h3>
+
+                   <p>
+                   The VLE-fluid model VLEFluid_ph calculates the thermopyhsical property data with given inputs: pressure (p), enthalpy (h), mass fraction (xi) and the parameter vleFluidType.<br>
+                   The interface and the way of using, is demonstrated in the Testers -> <a href="TILMedia_Testers.html#TILMedia.Testers.TestVLEFluid"
+>TestVLEFluid</a>.
+                   </p>
+                   <hr>
+                   
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluid_ph"
+>BaseClasses.PartialVLEFluid_ph</a> (Compressible fluid model with p, h and xi as independent variables).</span></p>
+<h3>Parameters</h3>
+<table summary="Parameters" class="ModelicaTableParameters">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>vleFluidType</td><td>type record of the VLE fluid or VLE fluid mixture</td></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+<tr><td>computeTransportProperties</td><td>=true, if transport properties are calculated</td></tr>
+<tr><td>computeVLEAdditionalProperties</td><td>Compute detailed vapor liquid equilibrium properties</td></tr>
+<tr><td>computeVLETransportProperties</td><td>Compute detailed vapor liquid equilibrium transport properties</td></tr>
+<tr><td>deactivateTwoPhaseRegion</td><td>Deactivate calculation of two phase region</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[vleFluidType.nc - 1]</td><td>Mass Fraction of Component i [1]</td></tr>
+<tr class="ModelicaParameterTab"><td colspan="2">Advanced</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+<tr><td>stateSelectPreferForInputs</td><td>=true, StateSelect.prefer is set for input variables</td></tr>
+<tr><td>interpolateTransportProperties</td><td>Interpolate transport properties in vapor dome</td></tr>
+<tr><td>computeSurfaceTension</td><td>&nbsp;</td></tr>
+<tr><td>deactivateDensityDerivatives</td><td>Deactivate calculation of partial derivatives of density</td></tr>
+</table>
+<h3>Connectors</h3>
+<table summary="Connectors" class="ModelicaTableConnectors">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEFluid_ps<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlu739c1bedf7d48736id_psI.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ps" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_ps"></a><a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation"
+>TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation</a>.VLEFluid_ps</h2>
+<p>
+<span class="ModelicaDescription">Compressible fluid model with p, s and xi as independent variables</span>
+</p>
+<h3>Information</h3>
+
+                   <p>
+                   The VLE-fluid model VLEFluid_ps calculates the thermopyhsical property data with given inputs: pressure (p), entropy (s), mass fraction (xi) and the parameter vleFluidType.<br>
+                   The interface and the way of using, is demonstrated in the Testers -> <a href="TILMedia_Testers.html#TILMedia.Testers.TestVLEFluid"
+>TestVLEFluid</a>.
+                   </p>
+                   <hr>
+                   
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluid_ps"
+>BaseClasses.PartialVLEFluid_ps</a> (Compressible fluid model with p, s and xi as independent variables).</span></p>
+<h3>Parameters</h3>
+<table summary="Parameters" class="ModelicaTableParameters">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>vleFluidType</td><td>type record of the VLE fluid or VLE fluid mixture</td></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+<tr><td>computeTransportProperties</td><td>=true, if transport properties are calculated</td></tr>
+<tr><td>computeVLEAdditionalProperties</td><td>Compute detailed vapor liquid equilibrium properties</td></tr>
+<tr><td>computeVLETransportProperties</td><td>Compute detailed vapor liquid equilibrium transport properties</td></tr>
+<tr><td>deactivateTwoPhaseRegion</td><td>Deactivate calculation of two phase region</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[vleFluidType.nc - 1]</td><td>Mass Fraction of Component i [1]</td></tr>
+<tr class="ModelicaParameterTab"><td colspan="2">Advanced</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+<tr><td>stateSelectPreferForInputs</td><td>=true, StateSelect.prefer is set for input variables</td></tr>
+<tr><td>interpolateTransportProperties</td><td>Interpolate transport properties in vapor dome</td></tr>
+<tr><td>computeSurfaceTension</td><td>&nbsp;</td></tr>
+<tr><td>deactivateDensityDerivatives</td><td>Deactivate calculation of partial derivatives of density</td></tr>
+</table>
+<h3>Connectors</h3>
+<table summary="Connectors" class="ModelicaTableConnectors">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEFluid_pT<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlu739c1bcef7d48711id_pTI.png" alt="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_pT" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation.VLEFluid_pT"></a><a href="TILMedia_Internals_VLEFluidConfigurations_PureComponentVLEFluid_SplineInterpolation.html#TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation"
+>TILMedia.Internals.VLEFluidConfigurations.PureComponentVLEFluid.SplineInterpolation</a>.VLEFluid_pT</h2>
+<p>
+<span class="ModelicaDescription">Compressible fluid model with p, T and xi as independent variables</span>
+</p>
+<h3>Information</h3>
+
+                   <p>
+                   The VLE-fluid model VLEFluid_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter vleFluidType.<br>
+                   The interface and the way of using, is demonstrated in the Testers -> <a href="TILMedia_Testers.html#TILMedia.Testers.TestVLEFluid"
+>TestVLEFluid</a>.
+                   </p>
+                   <hr>
+                   
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluid_pT"
+>BaseClasses.PartialVLEFluid_pT</a> (Compressible fluid model with p, T and xi as independent variables).</span></p>
+<h3>Parameters</h3>
+<table summary="Parameters" class="ModelicaTableParameters">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>vleFluidType</td><td>type record of the VLE fluid or VLE fluid mixture</td></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+<tr><td>computeTransportProperties</td><td>=true, if transport properties are calculated</td></tr>
+<tr><td>computeVLEAdditionalProperties</td><td>Compute detailed vapor liquid equilibrium properties</td></tr>
+<tr><td>computeVLETransportProperties</td><td>Compute detailed vapor liquid equilibrium transport properties</td></tr>
+<tr><td>deactivateTwoPhaseRegion</td><td>Deactivate calculation of two phase region</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[vleFluidType.nc - 1]</td><td>Mass Fraction of Component i [1]</td></tr>
+<tr class="ModelicaParameterTab"><td colspan="2">Advanced</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+<tr><td>stateSelectPreferForInputs</td><td>=true, StateSelect.prefer is set for input variables</td></tr>
+<tr><td>interpolateTransportProperties</td><td>Interpolate transport properties in vapor dome</td></tr>
+<tr><td>computeSurfaceTension</td><td>&nbsp;</td></tr>
+<tr><td>deactivateDensityDerivatives</td><td>Deactivate calculation of partial derivatives of density</td></tr>
+</table>
+<h3>Connectors</h3>
+<table summary="Connectors" class="ModelicaTableConnectors">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>replaceable class PointerType</td><td>&nbsp;</td></tr>
+</table>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Aug 15 11:57:57 2019.
+</address>
+</body>
+</html>

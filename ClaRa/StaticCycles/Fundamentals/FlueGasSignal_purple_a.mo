@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Fundamentals;
 connector FlueGasSignal_purple_a "Signal-based flue gas connector"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.1.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //

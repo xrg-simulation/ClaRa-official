@@ -1,7 +1,7 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L2 "Feedwater tank : mixed volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -22,7 +22,7 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2 "Pressure loss model"
                           annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  parameter Modelica.SIunits.SpecificEnthalpy h_start=steamQuality_start*(TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) - TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start)) + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
+  parameter Modelica.SIunits.SpecificEnthalpy h_start=steamQuality_start*(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) - TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start)) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
                                                                                               annotation (Dialog(tab="Initialisation"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "|Phase Separation|Numerical Robustness|Smoothness of table interpolation for calculation of filling level";
 
@@ -54,23 +54,23 @@ public
       m_flow=heatingSteam.m_flow,
       p=heatingSteam.p,
       h=actualStream(heatingSteam.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
       H_flow=heatingSteam.m_flow*actualStream(heatingSteam.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
@@ -80,23 +80,23 @@ public
       m_flow=condensate.m_flow,
       p=condensate.p,
       h=actualStream(condensate.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
       H_flow=condensate.m_flow*actualStream(condensate.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
@@ -106,23 +106,23 @@ public
       m_flow=-feedwater.m_flow,
       p=feedwater.p,
       h=actualStream(feedwater.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           feedwater.p,
           actualStream(feedwater.h_outflow),
           actualStream(feedwater.xi_outflow),
           volume.fluidOut.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           feedwater.p,
           actualStream(feedwater.h_outflow),
           actualStream(feedwater.xi_outflow),
           volume.fluidOut.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           feedwater.p,
           actualStream(feedwater.h_outflow),
           actualStream(feedwater.xi_outflow),
           volume.fluidOut.vleFluidPointer),
       H_flow=-feedwater.m_flow*actualStream(feedwater.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           feedwater.p,
           actualStream(feedwater.h_outflow),
           actualStream(feedwater.xi_outflow),

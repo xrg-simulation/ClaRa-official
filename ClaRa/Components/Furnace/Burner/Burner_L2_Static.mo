@@ -1,7 +1,7 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Static "Model for a burner section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -99,6 +99,7 @@ protected
 
   ClaRa.Basics.Units.MassFraction xi_flueGasMix[flueGas.nc - 1] "Flue gas mixture composition";
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGasMix "Specific enthalpy of flue gas mixture";
+  ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
 
 //_____________________/ Connectors \______________________________
 public
@@ -227,10 +228,13 @@ public
 
 initial equation
   unburntFraction = 0;
+  h_flueGas_out_del = h_start;
 
 equation
 
-  if (t_dwell_flueGas < burning_time.t) then
+  der(h_flueGas_out_del) = 1/Tau*(h_flueGas_out-h_flueGas_out_del);
+
+  if noEvent(t_dwell_flueGas < burning_time.t) then
     der(unburntFraction) = 1/Tau * ((1.0 - t_dwell_flueGas/burning_time.t) - unburntFraction);
   else
     der(unburntFraction) = 1/Tau * (0-unburntFraction);

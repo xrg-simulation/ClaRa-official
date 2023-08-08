@@ -1,6 +1,6 @@
 within ClaRa.Basics.Media.Slag;
 record PartialSlag "Base class for solid type media definition"
-constant Modelica.SIunits.SpecificHeatCapacity cp;
+constant ClaRa.Basics.Units.HeatCapacityMassSpecific cp;
   annotation (Icon(graphics={
         Line(
           points={{-72,34},{-38,6},{-4,48},{38,6},{66,36}},

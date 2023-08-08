@@ -25,7 +25,7 @@ Real alpha;
     h_start=3500e3,
     thickness_sensor=4e-3,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_StainlessSteel,
-    T_sensor_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
         temperatureSensorVLE_L3.FluidMedium,
         temperatureSensorVLE_L3.p_start,
         temperatureSensorVLE_L3.h_start,
@@ -42,7 +42,7 @@ Real alpha;
     thickness_sensor=4e-3,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_StainlessSteel,
     considerHeatConduction=true,
-    T_sensor_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
         temperatureSensorVLE_L3_considerHeatConduction.FluidMedium,
         temperatureSensorVLE_L3_considerHeatConduction.p_start,
         temperatureSensorVLE_L3_considerHeatConduction.h_start,

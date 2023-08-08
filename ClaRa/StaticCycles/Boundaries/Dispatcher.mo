@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles.Boundaries;
 model Dispatcher "Ideal fuel dispatcher"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.1.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright © 2013-2016, DYNCAP/DYNSTART research team.                     //
@@ -70,13 +70,21 @@ initial equation
   P_el= P_el_nom*table1.y[1];
   eta_el= eta_el_nom*table2.y[1];
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-300,-100},{100,100}}),
                    graphics={
         Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,131,169},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Line(points={{-80,60},{80,60},{-80,-60},{80,-60}}, color={0,131,169})}),
+          fillPattern=FillPattern.Solid), Line(points={{-80,60},{80,60},{-80,-60},{80,-60}}, color={0,131,169}),
+        Text(
+          extent={{-300,100},{-128,0}},
+          lineColor={28,108,200},
+          textString=DynamicSelect("",String(m_flow_fuel,format="1.2f") +" kg/s")),
+        Text(
+          extent={{-300,0},{-100,-100}},
+          lineColor={28,108,200},
+          textString=DynamicSelect("",String(LHV/1e6,format="1.2f") +" MJ/kg"))}),
                          Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}), graphics));
 end Dispatcher;

@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -122,7 +122,7 @@ public
       rho=fluidOut.d))
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
 protected
-  TILMedia.VLEFluid_ph fluidOut(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     p=outlet.p,
     vleFluidType=medium,
     h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
@@ -131,7 +131,7 @@ protected
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 protected
-  TILMedia.VLEFluid_ph fluidIn(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     p=inlet.p,
     h=if (checkValve == true and opening_leak_ <= 0) or opening_ <
@@ -161,17 +161,17 @@ protected
         10,
         pressureLoss.Delta_p)*fluidOut.d),
         gamma_in(start=2)=(SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cp+
-                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer))/
+                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer))/
                           (SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cv+
-                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer)),
+                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer)),
     gamma_out(start=2)=(SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cp+
-                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer))/
+                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer))/
                           (SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cv+
-                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer)),
+                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer)),
     opening_=opening_,
     h_in=fluidIn.h,
     p_crit=fluidIn.crit.p,
-    p_vap_in=TILMedia.VLEFluidObjectFunctions.bubblePressure_Txi(max(fluidIn.T,fluidOut.T),fluidIn.xi, fluidIn.vleFluidPointer)) "mind that: gamma is kept constant at dew line value for h<h_dew, also for supercritical region"
+    p_vap_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi(max(fluidIn.T,fluidOut.T),fluidIn.xi, fluidIn.vleFluidPointer)) "mind that: gamma is kept constant at dew line value for h<h_dew, also for supercritical region"
     annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
 
 public

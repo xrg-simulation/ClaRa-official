@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.Sensors;
 model SensorVLE_L1_T "Ideal one port temperature sensor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -32,7 +32,7 @@ public
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
 protected
-  TILMedia.VLEFluid_ph fluid(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluid(
     h=inStream(port.h_outflow),
     p=port.p,
     xi=inStream(port.xi_outflow),

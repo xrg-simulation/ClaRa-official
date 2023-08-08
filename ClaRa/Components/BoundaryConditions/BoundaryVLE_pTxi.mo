@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_pTxi "A boundary defining pressure, temperature and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -35,7 +35,7 @@ extends ClaRa.Basics.Icons.FlowSink;
   parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
 
   parameter Basics.Units.Pressure p_const=0 "Constant pressure" annotation (Dialog(group="Constant Boundaries", enable=not variable_p));
-  parameter Basics.Units.Temperature T_const=293.15 "Constant specific temperature of source" annotation (Dialog(group="Constant Boundaries", enable=not hInputIsActive));
+  parameter Basics.Units.Temperature T_const=293.15 "Constant specific temperature of source" annotation (Dialog(group="Constant Boundaries", enable=not variable_T));
   parameter Basics.Units.MassFraction xi_const[medium.nc - 1]=zeros(medium.nc - 1) "Constant composition" annotation (Dialog(group="Constant Boundaries", enable=not variable_xi));
   parameter Basics.Units.Pressure Delta_p=0 "Flange pressure drop at nominal mass flow (zero refers to ideal boundary)" annotation (Dialog(group="Nominal Values"));
   parameter Basics.Units.MassFlowRate m_flow_nom=1 "Nominal flange mass flow " annotation (Dialog(group="Nominal Values"));
@@ -63,7 +63,7 @@ protected
     annotation (Placement(transformation(extent={{55,-81},{57,-79}}),
         iconTransformation(extent={{55,-55},{57,-53}})));
 
-   TILMedia.VLEFluid_pT fluidOut(
+   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluidOut(
     vleFluidType=medium,
     p=p_in,
     T=T_in,

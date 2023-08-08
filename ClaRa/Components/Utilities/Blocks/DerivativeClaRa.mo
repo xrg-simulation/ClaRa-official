@@ -1,7 +1,7 @@
 within ClaRa.Components.Utilities.Blocks;
 block DerivativeClaRa "Derivative block ( can be adjusted to behave as ideal or approximated)"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -16,7 +16,7 @@ block DerivativeClaRa "Derivative block ( can be adjusted to behave as ideal or 
 //___________________________________________________________________________//
   import Modelica.Blocks.Types.Init;
   parameter Real k(unit="1")=1 "Gain";
-  parameter Modelica.SIunits.Time Tau(min=Modelica.Constants.small)=0.01 "Time constant (Tau>0 for approxomated derivative; Tau=0 is ideal derivative block)";
+  parameter ClaRa.Basics.Units.Time Tau(min=Modelica.Constants.small)=0.01 "Time constant (Tau>0 for approxomated derivative; Tau=0 is ideal derivative block)";
   parameter Integer initOption = 501 "Initialisation option" annotation(choicesAllMatching,Dialog( group="Initialisation"), choices(choice = 501 "No init (y_start and x_start as guess values)",
                                                                                                     choice=502 "Steady state",
                                                                                                     choice=504 "Force y_start at output"));

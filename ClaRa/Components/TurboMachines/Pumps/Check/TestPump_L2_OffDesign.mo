@@ -1,14 +1,14 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L2_OffDesign "Running the  L2 pump in off design, including reverse flow and zero mass flow through valve"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.0.0                        //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
-// Licensed by the DYNCAP research team under Modelica License 2.            //
-// Copyright  2013-2015, DYNCAP research team.                                   //
+// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
+// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
-// DYNCAP is a research project supported by the German Federal Ministry of  //
-// Economics and Technology (FKZ 03ET2009).                                  //
-// The DYNCAP research team consists of the following project partners:      //
+// DYNCAP and DYNSTART are research projects supported by the German Federal //
+// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
+// The research team consists of the following project partners:             //
 // Institute of Energy Systems (Hamburg University of Technology),           //
 // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
@@ -32,11 +32,22 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
     annotation (Placement(transformation(extent={{104,-124},{84,-104}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity pump_3(
     steadyStateTorque=false,
-    V_flow_max=2600/3600,
     rpm_nom=4600,
     J=1,
     rpm_fixed=4600,
-    Delta_p_max=2e5,
+    useDensityAffinity=false,
+    V_flow_zerohead=2600/3600,
+    Delta_p_zeroflow_const=2e5,
+    V_flow_eps=pump_3.V_flow_zerohead/50,
+    redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
+        eta_hyd_nom=(0.82),
+        V_flow_opt_=(0.6),
+        exp_rpm=(0.15),
+        exp_flow=(2.8),
+        V_flow_leak=(0.00002),
+        Delta_p_eps=(200),
+        stabiliseDelta_p=false,
+        Tau_stab=0.1),
     m_flow_nom=1,
     volume_fluid=0.02,
     useMechanicalPort=true,
@@ -47,16 +58,8 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
         exp_hyd=(0.5),
         drp_exp=(0),
         Delta_p_eps=(200)),
-    redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (
-        eta_hyd_nom=(0.82),
-        exp_rpm=(0.15),
-        V_flow_opt_=(0.6),
-        exp_flow=(2.8),
-        Delta_p_eps=(200),
-        V_flow_leak=(0.00002),
-        stabiliseDelta_p=(false),
-        Tau_stab=(0.1)),
     initOption=1) annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG4(p_const(displayUnit="bar") = 1200000)
                                                                                           annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG5(

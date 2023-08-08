@@ -1,0 +1,26 @@
+//Convert Package from ClaRa 1.4.0
+convertClear();
+
+// Pump conversions
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "Losses", "Energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "losses", "energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "Delta_p_max", "Delta_p_zeroflow_const");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "V_flow_max", "V_flow_zerohead");
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "Losses", "Energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "losses", "energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "Delta_p_max", "Delta_p_zeroflow_const");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "V_flow_max", "V_flow_zerohead");
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "Losses", "Energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "losses", "energetics");
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "Delta_p_max", "Delta_p_zeroflow_const");
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "V_flow_max", "V_flow_zerohead");
+
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency", "ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics");
+convertClass("ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.BaseEfficiency", "ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.BaseEnergetics");
+
+
+// Compressor conversions
+convertElement("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity", "Delta_p_max", "Delta_p_max_const");

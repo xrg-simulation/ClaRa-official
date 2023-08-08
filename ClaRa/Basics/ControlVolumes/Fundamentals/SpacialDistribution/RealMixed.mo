@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model RealMixed "Mixing | Real | outlet states depending volume fractions | All geometries"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -59,29 +59,29 @@ equation
      iCom.m_flow_out[i],
      1e-4) for i in 1:geo.N_outlet};
   //_________________________Calculattion of additional media data_________________
-  steamQuality_in = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_in = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
     iCom.p_in[i],
     iCom.h_in[i],
     iCom.xi_in[i, :],
     iCom.fluidPointer_in[i]) for i in 1:iCom.N_inlet};
-  steamQuality_out = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_out = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
     iCom.p_out[i],
     iCom.h_out[i],
     iCom.xi_out[i, :],
     iCom.fluidPointer_out[i]) for i in 1:iCom.N_outlet};
-  h_bubin = {TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi(
+  h_bubin = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi(
     iCom.p_in[i],
     iCom.xi_in[i, :],
     iCom.fluidPointer_in[i]) for i in 1:iCom.N_inlet};
-  h_dewin = {TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi(
+  h_dewin = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi(
     iCom.p_in[i],
     iCom.xi_in[i, :],
     iCom.fluidPointer_in[i]) for i in 1:iCom.N_inlet};
-  h_bubout = {TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi(
+  h_bubout = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi(
     iCom.p_out[i],
     iCom.xi_out[i, :],
     iCom.fluidPointer_out[i]) for i in 1:iCom.N_outlet};
-  h_dewout = {TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi(
+  h_dewout = {TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi(
     iCom.p_out[i],
     iCom.xi_out[i, :],
     iCom.fluidPointer_out[i]) for i in 1:iCom.N_outlet};

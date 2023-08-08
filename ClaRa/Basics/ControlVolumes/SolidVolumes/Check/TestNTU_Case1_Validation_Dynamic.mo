@@ -2,7 +2,7 @@ within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.TestNTU_Case2"
 
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -19,11 +19,11 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
   import SI = ClaRa.Basics.Units;
   parameter Units.Temperature T_i_in=100 + 273.15;
   parameter Units.Temperature T_o_in=300 + 273.15;
-//   parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+//   parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
 //       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
 //       p_i,
 //       T_i_in);
-//   parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+//   parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
 //       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
 //       p_o,
 //       T_o_in);

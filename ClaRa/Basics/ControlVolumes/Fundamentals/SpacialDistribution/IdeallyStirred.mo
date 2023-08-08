@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model IdeallyStirred "Volume is ideally stirred"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -33,7 +33,7 @@ equation
       iCom.xi_bulk,
       iCom.fluidPointer_bulk);
   else
-    rho = TILMedia.VLEFluidObjectFunctions.density_phxi(
+    rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,
@@ -41,14 +41,14 @@ equation
   end if;
 
   if position_Delta_p_geo == "mid" then
-    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])/2*Modelica.Constants.g_n*TILMedia.VLEFluidObjectFunctions.density_phxi(
+    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])/2*Modelica.Constants.g_n*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,
       iCom.fluidPointer_bulk);
     Delta_p_geo_out = -Delta_p_geo_in;
   elseif position_Delta_p_geo == "inlet" then
-    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])*Modelica.Constants.g_n*TILMedia.VLEFluidObjectFunctions.density_phxi(
+    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])*Modelica.Constants.g_n*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,

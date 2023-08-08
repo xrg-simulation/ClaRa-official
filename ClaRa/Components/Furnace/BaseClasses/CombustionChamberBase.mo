@@ -49,7 +49,7 @@ partial model CombustionChamberBase
 
   //__________________________/ Pressure Loss \______________________________________________
   replaceable model PressureLoss =
-    ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
+    Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2(Delta_p_nom = 50)
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L2 "Pressure loss model"
     annotation(Dialog(group="Pressure loss"),choicesAllMatching=true);
 //________________________/Chemistry \________________________________________________________
@@ -62,15 +62,14 @@ partial model CombustionChamberBase
 
   //__________________/ Parameter \_______________________________________________
 
-  inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(group="Nominal Values"));
 
   //_______________________/ Start values \_____________________________________________________________
   parameter ClaRa.Basics.Units.Pressure p_start_flueGas_out=1e5 "Start pressure at outlet" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.Temperature T_start_flueGas_out=700 "Start temperature at outlet" annotation (Dialog(tab="Initialisation"));
-  inner parameter Modelica.SIunits.Temperature T_top_initial= T_start_flueGas_out "Initial temperature of top volume" annotation(Dialog(tab="Initialisation"));
+  inner parameter ClaRa.Basics.Units.Temperature T_top_initial= T_start_flueGas_out "Initial temperature of top volume" annotation(Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas_out[flueGas.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start composition of flue gas" annotation (Dialog(tab="Initialisation"));
-  //   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in_start=1 annotation(Dialog(tab="Initialisation"));
-  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
                                                                                             annotation(Dialog(tab="Initialisation"));
 
   constant Real T_0=298.15 "Reference temperature";
@@ -80,7 +79,6 @@ partial model CombustionChamberBase
 
 protected
   inner ClaRa.Basics.Units.MassFraction xi_fuel "amount of fuel per flue gas mass";
-  ClaRa.Basics.Units.Pressure Delta_p_aux "auxillary state for pressure drop";
 //________________/ FlueGas Composition \_____________________
 public
   ClaRa.Basics.Units.MassFraction xi_flueGas[flueGas.nc - 1] "Flue gas composition ";
@@ -92,16 +90,13 @@ public
   inner ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in "Inlet volume flow";
   inner ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out "Outlet volume flow";
 
-  Modelica.SIunits.Mass mass "Gas mass";
+  ClaRa.Basics.Units.Mass mass "Gas mass";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_top "Heat flow from top section";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_bottom "Heat flow from bottom section";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_wall "Heat flow from walls";
 
   ClaRa.Basics.Units.MassFraction elementaryComposition_fuel_in[fuelModel.N_e - 1] "Fuel inlet composition";
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out "Gas outlet specific enthalpy";
-  ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
-
-  //ClaRa.Basics.Units.MassFraction xi_flueGas_del[flueGas.nc - 1] "Flue gas outlet composition - dalayed";
 
 //___________________/ Molar flow rates of educts and products \_____________
 //_________/Educts\__________________
@@ -123,7 +118,6 @@ protected
 
 public
   ClaRa.Basics.Units.EnthalpyMassSpecific LHV;//(33907*FuelType.defaultComposition[1] + 142324*(FuelType.defaultComposition[2] - FuelType.defaultComposition[3]/8.) + 10465*FuelType.defaultComposition[5] - 2512*((1 - sum(FuelType.defaultComposition)) + 9*FuelType.defaultComposition[2]))*1000);
-  //Modelica.SIunits.SpecificHeatCapacity cp;
   ClaRa.Basics.Units.Time t_dwell_flueGas=geo.height/particleMigration.w "Flow time in z-direction";
   Real unburntFraction "Quantatity describes how much unburned fuel leaves control volume together with the fluegas to neighbor cell";
   ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_req(min=1e-15) "Required O2 flow rate for stochiometric combustion";
@@ -133,7 +127,7 @@ public
   ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_burned "Oxygen used for combustion";
 
   Real lambdaComb "Excess air";
-
+  ClaRa.Basics.Units.Pressure p "Pressure inside volume";
     //________________________/ Connectors \_______________________________________________________
   ClaRa.Basics.Interfaces.FuelSlagFlueGas_inlet inlet(
     flueGas(final Medium=flueGas),
@@ -223,24 +217,19 @@ public
 
 initial equation
 
-  h_flueGas_out_del = h_start;
-  //xi_flueGas_del = xi_start_flueGas_out;
 
 equation
 
-  der(h_flueGas_out_del) = 1/Tau*(h_flueGas_out-h_flueGas_out_del);
-  //der(xi_flueGas_del) = 1/Tau*(xi_flueGas - xi_flueGas_del);
-  //xi_flueGas_del = xi_flueGas;
   //____________/ Xi_outflow of Fuel and FlueGas \__________________
   //dummy values for inlets since flow reversal is not allowed
   outlet.fuel.xi_outflow = xi_fuel_out;
   inlet.fuel.xi_outflow = xi_fuel_out;
 
   //_____________/ Pressure \______________________________________________
-  der(Delta_p_aux) = 1/Tau * (pressureLoss.Delta_p - Delta_p_aux);
-  inlet.flueGas.p = outlet.flueGas.p + Delta_p_aux;
-  inlet.fuel.p = outlet.fuel.p + Delta_p_aux;
-  inlet.slag.p = outlet.slag.p + Delta_p_aux;
+  inlet.flueGas.p = p + pressureLoss.Delta_p;
+  inlet.fuel.p = outlet.fuel.p + pressureLoss.Delta_p;
+  inlet.slag.p = outlet.slag.p + pressureLoss.Delta_p;
+  p = outlet.flueGas.p;
 
   //____________/ Heat port temperatures and Q_flows \____________________________
    Q_flow_wall = heat_wall.Q_flow;
@@ -269,7 +258,8 @@ equation
       points={{-260,90},{-294,90}},
       color={190,190,190},
       smooth=Smooth.None));
- annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-300,-100},
+                                     annotation(Dialog(tab="Initialisation"),
+             Icon(coordinateSystem(preserveAspectRatio=false,extent={{-300,-100},
             {300,100}}),
                    graphics),               Diagram(coordinateSystem(
           preserveAspectRatio=false,extent={{-300,-100},{300,100}}),

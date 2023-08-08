@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_phxi "A boundary defining pressure, enthalpy and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -45,7 +45,7 @@ protected
   Basics.Units.MassFraction xi_in[medium.nc - 1];
 
 protected
-   TILMedia.VLEFluid_ph fluidOut(
+   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=steam_a.p,
     h=noEvent(actualStream(steam_a.h_outflow)), xi = xi_in)

@@ -1,7 +1,7 @@
 within ClaRa.Examples;
 model SteamCycle_01 "A closed steam cycle with a simple boiler model including single reheat, feedwater tank, LP and HP preheaters"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -22,7 +22,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_HP.p_in,
     m_flow_nom=NOM.Turbine_HP.m_flow,
     Pi=NOM.Turbine_HP.p_out/NOM.Turbine_HP.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_HP.p_in,
         NOM.Turbine_HP.h_in),
@@ -68,7 +68,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_IP1.p_in,
     m_flow_nom=NOM.Turbine_IP1.m_flow,
     Pi=NOM.Turbine_IP1.p_out/NOM.Turbine_IP1.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP1.p_in,
         NOM.Turbine_IP1.h_in),
@@ -88,7 +88,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_LP4.p_in,
     m_flow_nom=NOM.Turbine_LP4.m_flow,
     Pi=NOM.Turbine_LP4.p_out/NOM.Turbine_LP4.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP4.p_in,
         NOM.Turbine_LP4.h_in),
@@ -188,7 +188,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_LP1.p_in,
     m_flow_nom=NOM.Turbine_LP1.m_flow,
     Pi=NOM.Turbine_LP1.p_out/NOM.Turbine_LP1.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP1.p_in,
         NOM.Turbine_LP1.h_in),
@@ -485,7 +485,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_IP3.p_in,
     m_flow_nom=NOM.Turbine_IP3.m_flow,
     Pi=NOM.Turbine_IP3.p_out/NOM.Turbine_IP3.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP3.p_in,
         NOM.Turbine_IP3.h_in),
@@ -501,7 +501,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_IP2.p_in,
     m_flow_nom=NOM.Turbine_IP2.m_flow,
     Pi=NOM.Turbine_IP2.p_out/NOM.Turbine_IP2.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP2.p_in,
         NOM.Turbine_IP2.h_in),
@@ -543,7 +543,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_LP3.p_in,
     m_flow_nom=NOM.Turbine_LP3.m_flow,
     Pi=NOM.Turbine_LP3.p_out/NOM.Turbine_LP3.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP3.p_in,
         NOM.Turbine_LP3.h_in),
@@ -559,7 +559,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_nom=NOM.Turbine_LP2.p_in,
     m_flow_nom=NOM.Turbine_LP2.m_flow,
     Pi=NOM.Turbine_LP2.p_out/NOM.Turbine_LP2.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP2.p_in,
         NOM.Turbine_LP2.h_in),

@@ -37,11 +37,11 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   parameter SI.Length length=5 "Length of tubes";
   parameter Integer N_cv = 400 "Number of Cells";
 
-  parameter SI.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter SI.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_i,
       T_i_in);
-  parameter SI.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter SI.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
       p_o,
       T_o_in);

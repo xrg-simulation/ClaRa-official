@@ -24,12 +24,12 @@ model SensorVLE_L3_T
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of fluid's specific enthalpy" annotation (Dialog(group="Initialisation"));
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of fluid's pressure" annotation (Dialog(group="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start[FluidMedium.nc - 1]=fluidVolume.medium.xi_default "Start value for mass fraction" annotation (Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       FluidMedium,
       p_start,
       h_start,
       xi_start) "Start temperature of sensor wall" annotation (Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.VLEFluidFunctions.temperature_phxi(
+  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
       FluidMedium,
       p_start,
       h_start,

@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryFuel_Txim_flow "A source defining mass flow, temperature and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -39,9 +39,9 @@ model BoundaryFuel_Txim_flow "A source defining mass flow, temperature and compo
 
   outer ClaRa.SimCenter simCenter;
 protected
-  Modelica.SIunits.MassFlowRate m_flow_in;
-  Modelica.SIunits.Temperature T_in;
-  Modelica.SIunits.MassFraction xi_in[fuelModel.N_c-1];
+  Basics.Units.MassFlowRate m_flow_in;
+  Basics.Units.Temperature T_in;
+  Basics.Units.MassFraction xi_in[fuelModel.N_c-1];
   Basics.Units.EnthalpyMassSpecific h_coal;
   Basics.Media.FuelObject fuelObject(
     p=fuel_a.p,

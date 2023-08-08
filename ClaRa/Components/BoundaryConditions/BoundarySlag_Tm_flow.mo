@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_Tm_flow "A source defining mass flow and temperature"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -35,8 +35,8 @@ model BoundarySlag_Tm_flow "A source defining mass flow and temperature"
 
   outer ClaRa.SimCenter simCenter;
 protected
-  Modelica.SIunits.MassFlowRate m_flow_in;
-  Modelica.SIunits.Temperature T_in;
+  Basics.Units.MassFlowRate m_flow_in;
+  Basics.Units.Temperature T_in;
   Basics.Units.EnthalpyMassSpecific h_slag;
 
 public

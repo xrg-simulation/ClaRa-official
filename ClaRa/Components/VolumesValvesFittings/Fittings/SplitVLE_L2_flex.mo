@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_flex "A voluminous split for an arbitrary number of inputs NOT CAPABLE FOR PHASE-CHANGE"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -61,7 +61,7 @@ end Summary;
                                                                                 annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 protected
-  parameter Modelica.SIunits.Density rho_nom= TILMedia.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
+  parameter Modelica.SIunits.Density rho_nom= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(medium, p_nom, h_nom) "Nominal density";
   Modelica.SIunits.Power Hdrhodt =  if preciseTwoPhase then h*volume*drhodt else 0 "h*V*drhodt";
   Real Xidrhodt[medium.nc-1]= if preciseTwoPhase then xi*volume*drhodt else zeros(medium.nc-1) "h*volume*drhodt";
 public
@@ -86,9 +86,9 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet[N_ports_out](each Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.VLEFluid_ph bulk(vleFluidType =    medium,    p = p, h=h) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
-TILMedia.VLEFluid_ph fluidIn(vleFluidType =    medium,    p = inlet.p, h=noEvent(actualStream(inlet.h_outflow))) annotation (Placement(transformation(extent={{20,-32},{40,-12}},rotation=0)));
-TILMedia.VLEFluid_ph fluidOut[N_ports_out](each vleFluidType =    medium,    p = outlet.p, h=noEvent(actualStream(outlet.h_outflow))) annotation (Placement(transformation(extent={{30,6},{50,26}},   rotation=0)));
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType =    medium,    p = p, h=h) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(vleFluidType =    medium,    p = inlet.p, h=noEvent(actualStream(inlet.h_outflow))) annotation (Placement(transformation(extent={{20,-32},{40,-12}},rotation=0)));
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut[N_ports_out](each vleFluidType =    medium,    p = outlet.p, h=noEvent(actualStream(outlet.h_outflow))) annotation (Placement(transformation(extent={{30,6},{50,26}},   rotation=0)));
 equation
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Asserts ~~~~~~~~~~~~~~~~~~~

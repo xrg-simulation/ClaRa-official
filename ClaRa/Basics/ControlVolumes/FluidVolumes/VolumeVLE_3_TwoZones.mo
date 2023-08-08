@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -95,12 +95,12 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
     annotation (Dialog(group="Nominal Values"));
 
   final parameter Modelica.SIunits.Density rho_liq_nom=
-      TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
   final parameter Modelica.SIunits.Density rho_vap_nom=
-      TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"
                                      annotation (Dialog(tab="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling level"
@@ -161,14 +161,14 @@ public
         rotation=90,
         origin={0,100})));
 
-  TILMedia.VLEFluid_ph fluidIn(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     final p=inlet.p,
     final h=if useHomotopy then homotopy(actualStream(inlet.h_outflow),
         inStream(inlet.h_outflow)) else actualStream(inlet.h_outflow))
                   annotation (Placement(transformation(extent={{-90,-10},{-70,
             10}}, rotation=0)));
-  TILMedia.VLEFluid_ph fluidOut(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     final p=outlet.p,
     final h=if useHomotopy then homotopy(actualStream(outlet.h_outflow),
@@ -177,7 +177,7 @@ public
           rotation=0)));
 
 protected
-  inner TILMedia.VLEFluid_ph liq(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liq(
     vleFluidType=medium,
     h=h_liq,
     computeTransportProperties=true,
@@ -196,7 +196,7 @@ public
     annotation (Placement(transformation(extent={{12,60},{32,80}})));
 
 protected
-  inner TILMedia.VLEFluid_ph vap(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph vap(
     vleFluidType=medium,
     p=p_vap,
     h=h_vap,

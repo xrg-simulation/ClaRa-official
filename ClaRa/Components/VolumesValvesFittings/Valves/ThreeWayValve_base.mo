@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 partial model ThreeWayValve_base
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -25,18 +25,18 @@ partial model ThreeWayValve_base
   parameter Real splitRatio_fixed = 0.5 annotation(Dialog(enable=not splitRatio_input));
   Real splitRatio;
 protected
-TILMedia.VLEFluid_ph fluidIn(
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     each vleFluidType=medium,
     h=actualStream(inlet.h_outflow),
     p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
             {-70,8}},                                                                                                   rotation=0)));
-TILMedia.VLEFluid_ph fluidOut2(
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
     each vleFluidType=medium,
     h=actualStream(outlet2.h_outflow),
     p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
             {10,-50}},                                                                                                  rotation=0)));
 protected
-TILMedia.VLEFluid_ph fluidOut1(
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
     each vleFluidType=medium,
     h=actualStream(outlet1.h_outflow),
     p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},

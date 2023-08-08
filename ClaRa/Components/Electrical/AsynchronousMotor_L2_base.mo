@@ -1,7 +1,7 @@
 within ClaRa.Components.Electrical;
 model AsynchronousMotor_L2_base "Base class of simple asynchronous e-motor"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -138,7 +138,7 @@ equation
   slip_bd = R_rotor/L_rotor/2/pi/max(1e-3,f);
   if useCharLine then
     table.u[1] = rpm/rpm_sync;
-    tau_rotor = table.y[1]*tau_nom*tau_bd/tau_bd_nom;
+    tau_rotor = table.y[1]*tau_nom*U/U_term_nom;//tau_bd/tau_bd_nom;
   else
     table.u[1] = 1;
     tau_rotor/(tau_bd) = 2/(slip/slip_bd + slip_bd/slip) "Formula of Kloss";

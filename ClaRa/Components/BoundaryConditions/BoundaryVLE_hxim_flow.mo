@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_hxim_flow "A boundary defining mass flow composition and enthalpy"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -62,7 +62,7 @@ public
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 protected
-   TILMedia.VLEFluid_ph fluidOut(
+   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=steam_a.p,
     h=actualStream(steam_a.h_outflow), xi = xi_in)

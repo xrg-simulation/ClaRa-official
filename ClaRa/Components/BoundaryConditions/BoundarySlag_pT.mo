@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_pT "A source defining pressure and temperature"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -29,19 +29,14 @@ model BoundarySlag_pT "A source defining pressure and temperature"
 
   parameter Boolean variable_p=false "True, if mass flow defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_T=false "True, if Temperature defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
-/*  parameter Boolean XInputIsActive=false 
-    "True, if composition defined by variable input"                                      annotation(Dialog(group="Define Variable Boundaries"));
-*/
+
   parameter Basics.Units.Pressure p_const=1e5 "Constant mass flow rate" annotation (Dialog(group="Constant Boundaries", enable=not mInputIsActive));
   parameter Basics.Units.Temperature T_const=simCenter.T_amb_start "Constant specific enthalpy of source" annotation (Dialog(group="Constant Boundaries", enable=not hInputIsActive));
- /* parameter Modelica.SIunits.MassFraction X_const[coal.nc-1]=zeros(coal.nc-1) 
-    "Constant composition" annotation(Dialog(group="Constant Boundaries", enable= not XInputIsActive));
-*/
+
   outer ClaRa.SimCenter simCenter;
 protected
-  Modelica.SIunits.Pressure p_in;
-  Modelica.SIunits.Temperature T_in;
- // Modelica.SIunits.MassFraction X_in[coal.nc-1];
+  Basics.Units.Pressure p_in;
+  Basics.Units.Temperature T_in;
   Basics.Units.EnthalpyMassSpecific h_slag;
 
 public
@@ -53,11 +48,7 @@ public
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealInput T(value=T_in) if (variable_T) "Variable specific enthalpy"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  /*
-  Modelica.Blocks.Interfaces.RealInput X[medium.nc-1](value=X_in) if 
-       (XInputIsActive) "Variable composition"
-    annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-*/
+
 equation
   h_slag = slag_inlet.m_flow*slagType.cp*(actualStream(slag_inlet.T_outflow) - 298.15);
 

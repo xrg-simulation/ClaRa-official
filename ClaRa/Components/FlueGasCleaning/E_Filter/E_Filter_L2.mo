@@ -1,7 +1,7 @@
 within ClaRa.Components.FlueGasCleaning.E_Filter;
 model E_Filter_L2 "Model for an e-filter with different separation models"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -34,4 +34,24 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
   parameter Basics.Units.Length width=1 "Width of the component";
   parameter Basics.Units.Length length=1 "Length of the component";
 
+  Basics.Interfaces.EyeOutGas
+                           eyeOut(each medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
+                                  iconTransformation(extent={{94,-86},{106,-74}})));
+protected
+  Basics.Interfaces.EyeInGas
+                          eye_int[1](each medium=medium) annotation (Placement(transformation(extent={{76,-76},{74,-74}}),
+                                  iconTransformation(extent={{90,-84},{84,-78}})));
+equation
+  //______________Eye port variable definition________________________
+  eye_int[1].m_flow = -outlet.m_flow;
+  eye_int[1].T = flueGasOutlet.T-273.15;
+  eye_int[1].s = flueGasOutlet.T/1e3;
+  eye_int[1].p = flueGasOutlet.p/1e5;
+  eye_int[1].h = flueGasOutlet.h/1e3;
+  eye_int[1].xi= flueGasOutlet.xi;
+
+  connect(eye_int[1],eyeOut)  annotation (Line(
+      points={{75,-75},{103,-75}},
+      color={190,190,190},
+      smooth=Smooth.None));
 end E_Filter_L2;

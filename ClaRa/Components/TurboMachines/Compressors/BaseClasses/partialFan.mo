@@ -28,7 +28,7 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
 /****************** Start Values ********************/
 
- parameter Modelica.SIunits.MassFlowRate m_flow_start = 1e-3 "Mass flow rate at start"
+ parameter ClaRa.Basics.Units.MassFlowRate m_flow_start = 1e-3 "Mass flow rate at start"
                               annotation(Dialog(tab="Start Values"));
 /****************** Additional variables **************/
 public

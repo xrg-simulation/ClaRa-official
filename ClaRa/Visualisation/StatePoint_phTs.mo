@@ -1,7 +1,7 @@
 ﻿within ClaRa.Visualisation;
 model StatePoint_phTs "Complete state definition for visualisation in ph, TS, hs-diagrams"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.2.2                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -30,7 +30,7 @@ model StatePoint_phTs "Complete state definition for visualisation in ph, TS, hs
   ClaRa.Basics.Interfaces.FluidPortIn port(Medium=medium)
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
 protected
-  TILMedia.VLEFluid_ph state(p=p,h=h,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph state(p=p,h=h,
     vleFluidType =    medium)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 

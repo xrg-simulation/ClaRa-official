@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles.Machines;
 model Pump3 "Ideal Pump || par.: efficiency, m_flow || yellow | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.1.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright © 2013-2016, DYNCAP/DYNSTART research team.                     //
@@ -53,7 +53,7 @@ model Pump3 "Ideal Pump || par.: efficiency, m_flow || yellow | blue"
   parameter Real  efficiency= 1 "Pump efficiency" annotation(Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=1 "Mass flow rate" annotation (Dialog(group="Fundamental Definitions"));
   outer parameter Real P_target_;
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow=m_flow_nom*P_target_;
   final parameter ClaRa.Basics.Units.Power P_pump=(p_out - p_in)*m_flow/rho_in/efficiency "Pump power";
 //protected

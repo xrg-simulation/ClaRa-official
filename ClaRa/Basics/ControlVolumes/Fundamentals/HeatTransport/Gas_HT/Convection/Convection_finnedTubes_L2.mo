@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_finnedTubes_L2 "Shell Geo || L2 || Convection Finned Tube Bank VDI WA"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -92,7 +92,7 @@ equation
   w_0 = (x1*iCom.V_flow_in/geo.A_front + x2*iCom.V_flow_out/geo.A_front)/max((x1)+(x2),1);
   w = w_0*geo.A_front/A_narrowed;
 
-  Re = properties.d*w*geo.diameter_t/properties.transp.eta;
+  Re = max(eps,properties.d*w*geo.diameter_t/properties.transp.eta);
 
   if geo.N_rows >= 4 then
     f_al = 1.0;

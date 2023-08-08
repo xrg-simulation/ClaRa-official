@@ -20,18 +20,19 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
                               "modelica://ClaRa/Resources/TableBase/Power_mflow_5100.mif"};
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
+    useDensityAffinity=false,
+    Delta_p_zeroflow_const=380e5,
     useMechanicalPort=true,
     showExpertSummary=true,
     rpm_nom=5000,
-    V_flow_max=1,
-    Delta_p_max=380e5,
+    V_flow_zerohead=1,
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.40),
         drp_exp=(-0.04/(5000 - 3000)),
         Delta_p_eps=(100)),
     J=10,
     steadyStateTorque=false,
-    redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (
+    redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
         eta_hyd_nom=(0.85),
         exp_rpm=(-0.01),
         V_flow_opt_=(0.5),
@@ -39,8 +40,7 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
         Delta_p_eps=(100),
         V_flow_leak=(0.00002),
         Tau_stab=(1),
-        stabiliseDelta_p=false))
-          annotation (Placement(transformation(extent={{-24,-80},{-4,-60}})));
+        stabiliseDelta_p=false)) annotation (Placement(transformation(extent={{-24,-80},{-4,-60}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi inletBoundary(p_const=30e5, h_const=808.322e3) annotation (Placement(transformation(extent={{-62,-80},{-42,-60}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi outletBoundary(
     variable_p=true,
@@ -166,6 +166,14 @@ Taking the driving machine of a pump is of interest if effects like starting and
 _________________________
 NOTE:
 ClaRa's rotating machines like the pump and motor can be coupled to the Modelica Standard Library's components from the package Mechanics.Rotational")}),
-    experiment(StopTime=500, Tolerance=1e-005),
-    __Dymola_experimentSetupOutput);
+    experiment(
+      StopTime=500,
+      Tolerance=1e-07,
+      __Dymola_Algorithm="Dassl"),
+    __Dymola_experimentSetupOutput,
+    __Dymola_experimentFlags(
+      Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),
+      Evaluate=false,
+      OutputCPUtime=true,
+      OutputFlatModelica=false));
 end TestPump_L1_WithEMotor;

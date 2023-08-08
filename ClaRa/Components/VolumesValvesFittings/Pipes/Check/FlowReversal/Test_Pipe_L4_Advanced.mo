@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.FlowReversal;
 model Test_Pipe_L4_Advanced
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -65,10 +65,6 @@ model Test_Pipe_L4_Advanced
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-48,-43})));
-  Modelica.Blocks.Sources.Step outlet_pressure(
-    startTime=100,
-    height=2e5,
-    offset=15e5) annotation (Placement(transformation(extent={{-92,-59},{-72,-39}})));
   Modelica.Blocks.Sources.Ramp mass_flow_1(
     duration=1,
     offset=0,
@@ -117,13 +113,15 @@ model Test_Pipe_L4_Advanced
     initOption=0) annotation (Placement(transformation(extent={{-14,-30},{14,-20}})));
 
   BoundaryConditions.PrescribedHeatFlow prescribedHeatFlow(length=tube.length, N_axial=tube.N_cv) annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Modelica.Blocks.Sources.CombiTimeTable
+                               outlet_pressure(
+    table=[0.0,2e5; 1500,2e5],
+    startTime=100,
+    offset={15e5})
+                 annotation (Placement(transformation(extent={{-92,-59},{-72,-39}})));
 equation
   connect(multiSum.y, massFlowSource.m_flow) annotation (Line(
       points={{69.98,-38},{60,-38},{60,-37}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(massFlowSink.p, outlet_pressure.y) annotation (Line(
-      points={{-58,-49},{-71,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tube.inlet, massFlowSource.steam_a) annotation (Line(
@@ -151,6 +149,7 @@ equation
       color={167,25,48},
       thickness=0.5));
   connect(Q_flow.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-59,10},{-40,10}}, color={0,0,127}));
+  connect(outlet_pressure.y[1], massFlowSink.p) annotation (Line(points={{-71,-49},{-64.5,-49},{-64.5,-49},{-58,-49}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},{100,120}}),
                     graphics={Text(

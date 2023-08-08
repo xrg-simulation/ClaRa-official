@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltShell1ph_L2 "Shell Geo || L2 || HTC || Nusselt || 1ph"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -16,29 +16,29 @@ model NusseltShell1ph_L2 "Shell Geo || L2 || HTC || Nusselt || 1ph"
   //___________________________________________________________________________//
 
   // TILMedia VLEFluidFunctions
-  import fluidFunction_cp = TILMedia.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidFunction_lambda = TILMedia.VLEFluidFunctions.thermalConductivity_phxi;
-  import fluidFunction_eta = TILMedia.VLEFluidFunctions.dynamicViscosity_phxi;
-  import fluidFunction_rho = TILMedia.VLEFluidFunctions.density_phxi;
-  import fluidFunction_rho_bubble = TILMedia.VLEFluidFunctions.bubbleDensity_pxi;
-  import fluidFunction_h_bubble = TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi;
-  import fluidFunction_rho_dew = TILMedia.VLEFluidFunctions.dewDensity_pxi;
-  import fluidFunction_h_dew = TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi;
-  import fluidFunction_T_dew = TILMedia.VLEFluidFunctions.dewTemperature_pxi;
-  import fluidFunction_x = TILMedia.VLEFluidFunctions.steamMassFraction_phxi;
+  import fluidFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.thermalConductivity_phxi;
+  import fluidFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dynamicViscosity_phxi;
+  import fluidFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi;
+  import fluidFunction_rho_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi;
+  import fluidFunction_h_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi;
+  import fluidFunction_rho_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi;
+  import fluidFunction_h_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi;
+  import fluidFunction_T_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewTemperature_pxi;
+  import fluidFunction_x = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.steamMassFraction_phxi;
 
   // TILMedia VLEFluidObjectFunctions
-  import fluidObjectFunction_cp = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidObjectFunction_lambda = TILMedia.VLEFluidObjectFunctions.thermalConductivity_phxi;
-  import fluidObjectFunction_eta = TILMedia.VLEFluidObjectFunctions.dynamicViscosity_phxi;
-  import fluidObjectFunction_x = TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi;
-  import fluidObjectFunction_h_bubble = TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
-  import fluidObjectFunction_cp_bubble = TILMedia.VLEFluidObjectFunctions.bubbleSpecificIsobaricHeatCapacity_pxi;
-  import fluidObjectFunction_rho_bubble = TILMedia.VLEFluidObjectFunctions.bubbleDensity_pxi;
-  import fluidObjectFunction_h_dew = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
-  import fluidObjectFunction_rho_dew = TILMedia.VLEFluidObjectFunctions.dewDensity_pxi;
-  import fluidObjectFunction_T_dew = TILMedia.VLEFluidObjectFunctions.dewTemperature_pxi;
-  import fluidObjectFunction_rho = TILMedia.VLEFluidObjectFunctions.density_phxi;
+  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.thermalConductivity_phxi;
+  import fluidObjectFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dynamicViscosity_phxi;
+  import fluidObjectFunction_x = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi;
+  import fluidObjectFunction_h_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
+  import fluidObjectFunction_cp_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificIsobaricHeatCapacity_pxi;
+  import fluidObjectFunction_rho_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleDensity_pxi;
+  import fluidObjectFunction_h_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
+  import fluidObjectFunction_rho_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewDensity_pxi;
+  import fluidObjectFunction_T_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewTemperature_pxi;
+  import fluidObjectFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
 
   import SM = ClaRa.Basics.Functions.Stepsmoother;
 
@@ -107,7 +107,7 @@ protected
         iCom.fluidPointer_out);
   ClaRa.Basics.Units.HeatCapacityMassSpecific cp_w=fluid_wall.cp;
 
-  TILMedia.VLEFluid_pT fluid_wall(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluid_wall(
     T=heat.T,
     p=iCom.p_bulk,
     vleFluidType=iCom.mediumModel,

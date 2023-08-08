@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 partial model HeatTransfer_L4 "Medium independent || HT Base Class"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -23,9 +23,9 @@ partial model HeatTransfer_L4 "Medium independent || HT Base Class"
 
   outer parameter Boolean useHomotopy;
 
-  parameter Modelica.SIunits.Area[iCom.N_cv] A_heat=ones(iCom.N_cv) "Area of heat transfer" annotation (Dialog(enable=false, tab = "Internals"));
-  Modelica.SIunits.MassFlowRate m_flow[iCom.N_cv + 1] "Mass flow rate";
-  Modelica.SIunits.Temperature T_mean[iCom.N_cv];
+  parameter ClaRa.Basics.Units.Area[iCom.N_cv] A_heat=ones(iCom.N_cv) "Area of heat transfer" annotation (Dialog(enable=false, tab = "Internals"));
+  ClaRa.Basics.Units.MassFlowRate m_flow[iCom.N_cv + 1] "Mass flow rate";
+  ClaRa.Basics.Units.Temperature T_mean[iCom.N_cv];
   ClaRa.Basics.Interfaces.HeatPort_a heat[iCom.N_cv] annotation (Placement(transformation(extent={{80,80},{100,100}}), iconTransformation(extent={{80,80},{100,100}})));
   annotation (Icon(graphics));
 end HeatTransfer_L4;

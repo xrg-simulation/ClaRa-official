@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model InitSteamPowerPlant_01
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.2.2                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2017, DYNCAP/DYNSTART research team.                     //
@@ -15,7 +15,7 @@ model InitSteamPowerPlant_01
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
   extends ClaRa.Basics.Icons.Init;
-  import TILMedia.VLEFluidFunctions.*;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.*;
   import SI = ClaRa.Basics.Units;
   outer ClaRa.SimCenter simCenter;
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
@@ -458,7 +458,7 @@ model InitSteamPowerPlant_01
     xi_pa_in={0,0,0.0005,0,0.7681,0.2314,0,0,0},
     eta_el_nom=0.45,
     xi_c={0.84,0.07},
-    lambda=1.2)                                                                                                                                                                                            annotation (Placement(transformation(extent={{-652,-242},{-632,-222}})));
+    lambda=1.2)                                                                                                                                                                                            annotation (Placement(transformation(extent={{-666,-240},{-626,-220}})));
 equation
   connect(pump_preheater_LP1.inlet, preheater_LP1.tap_out) annotation (Line(
       points={{108.5,-82},{120,-82},{120,-70.5}},
@@ -816,9 +816,9 @@ equation
   connect(triple2.steamSignal, Turbine_IP1.inlet) annotation (Line(points={{-52.375,77.9286},{-52.375,74},{-34,74},{-34,54},{-26.5,54}}, color={0,131,169}));
   connect(split1_2.inlet, preheater_HP.cond_out) annotation (Line(points={{-150.5,-277},{-124,-277},{-124,-22},{-76,-22},{-76,-23.5}}, color={0,131,169}));
   connect(rh1_riser.inlet, valve_cut.outlet) annotation (Line(points={{-232.5,-116},{-176,-116},{-176,11},{-69.55,11}}, color={0,131,169}));
-  connect(dispatcher.fuelSignal_black[1], brnr1.inletFuel) annotation (Line(points={{-631.6,-232.75},{-628,-232.75},{-628,-314},{-538.4,-314}}, color={27,36,42}));
-  connect(dispatcher.fuelSignal_black[2], brnr2.inletFuel) annotation (Line(points={{-631.6,-232.25},{-620,-232.25},{-620,-278},{-538.4,-278}}, color={27,36,42}));
-  connect(dispatcher.fuelSignal_black[3], brnr3.inletFuel) annotation (Line(points={{-631.6,-231.75},{-614,-231.75},{-614,-228},{-538.4,-228}}, color={27,36,42}));
-  connect(dispatcher.fuelSignal_black[4], brnr4.inletFuel) annotation (Line(points={{-631.6,-231.25},{-626,-231.25},{-626,-182},{-538.4,-182}}, color={27,36,42}));
+  connect(dispatcher.fuelSignal_black[1], brnr1.inletFuel) annotation (Line(points={{-625.6,-230.75},{-626,-230.75},{-626,-314},{-538.4,-314}}, color={27,36,42}));
+  connect(dispatcher.fuelSignal_black[2], brnr2.inletFuel) annotation (Line(points={{-625.6,-230.25},{-620,-230.25},{-620,-278},{-538.4,-278}}, color={27,36,42}));
+  connect(dispatcher.fuelSignal_black[3], brnr3.inletFuel) annotation (Line(points={{-625.6,-229.75},{-614,-229.75},{-614,-228},{-538.4,-228}}, color={27,36,42}));
+  connect(dispatcher.fuelSignal_black[4], brnr4.inletFuel) annotation (Line(points={{-625.6,-229.25},{-626,-229.25},{-626,-182},{-538.4,-182}}, color={27,36,42}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-660,-380},{380,280}})), Icon(coordinateSystem(initialScale=0.1)));
 end InitSteamPowerPlant_01;

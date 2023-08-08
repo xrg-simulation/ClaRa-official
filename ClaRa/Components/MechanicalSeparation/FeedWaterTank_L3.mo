@@ -1,7 +1,7 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L3 "Feedwater tank : separated volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -43,8 +43,8 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
   parameter Boolean equalPressures=true "True if pressure in liquid and vapour phase is equal" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation for calculation of filling level" annotation(Dialog(tab="Phase Separation", group="Numerical Robustness"));
 
-  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.SIunits.Temperature T_wall_start[wall.N_rad]=ones(wall.N_rad)*293.15 "Start values of wall temperature inner --> outer" annotation(Dialog(tab="Initialisation", group="Wall"));
   parameter Integer initOptionWall=1 "Initialisation option for wall" annotation(Dialog(tab="Initialisation", group="Wall"),choices(
       choice=0 "Use guess values",
@@ -108,23 +108,23 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       m_flow=heatingSteam.m_flow,
       p=heatingSteam.p,
       h=noEvent(actualStream(heatingSteam.h_outflow)),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           heatingSteam.p,
           noEvent(actualStream(heatingSteam.h_outflow)),
           noEvent(actualStream(heatingSteam.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           heatingSteam.p,
           noEvent(actualStream(heatingSteam.h_outflow)),
           noEvent(actualStream(heatingSteam.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           heatingSteam.p,
           noEvent(actualStream(heatingSteam.h_outflow)),
           noEvent(actualStream(heatingSteam.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
       H_flow=heatingSteam.m_flow*noEvent(actualStream(heatingSteam.h_outflow)),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           heatingSteam.p,
           noEvent(actualStream(heatingSteam.h_outflow)),
           noEvent(actualStream(heatingSteam.xi_outflow)),
@@ -134,23 +134,23 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       m_flow=condensate.m_flow,
       p=condensate.p,
       h=noEvent(actualStream(condensate.h_outflow)),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           condensate.p,
           noEvent(actualStream(condensate.h_outflow)),
           noEvent(actualStream(condensate.xi_outflow)),
           volume.fluidIn[2].vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           condensate.p,
           noEvent(actualStream(condensate.h_outflow)),
           noEvent(actualStream(condensate.xi_outflow)),
           volume.fluidIn[2].vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           condensate.p,
           noEvent(actualStream(condensate.h_outflow)),
           noEvent(actualStream(condensate.xi_outflow)),
           volume.fluidIn[2].vleFluidPointer),
       H_flow=condensate.m_flow*noEvent(actualStream(condensate.h_outflow)),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           condensate.p,
           noEvent(actualStream(condensate.h_outflow)),
           noEvent(actualStream(condensate.xi_outflow)),
@@ -160,23 +160,23 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       m_flow=aux.m_flow,
       p=aux.p,
       h=noEvent(actualStream(aux.h_outflow)),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           aux.p,
           noEvent(actualStream(aux.h_outflow)),
           noEvent(actualStream(aux.xi_outflow)),
           volume.fluidIn[3].vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           aux.p,
           noEvent(actualStream(aux.h_outflow)),
           noEvent(actualStream(aux.xi_outflow)),
           volume.fluidIn[3].vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           aux.p,
           noEvent(actualStream(aux.h_outflow)),
           noEvent(actualStream(aux.xi_outflow)),
           volume.fluidIn[3].vleFluidPointer),
       H_flow=aux.m_flow*noEvent(actualStream(aux.h_outflow)),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           aux.p,
           noEvent(actualStream(aux.h_outflow)),
           noEvent(actualStream(aux.xi_outflow)),
@@ -186,23 +186,23 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       m_flow=-feedwater.m_flow,
       p=feedwater.p,
       h=noEvent(actualStream(feedwater.h_outflow)),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi(
           feedwater.p,
           noEvent(actualStream(feedwater.h_outflow)),
           noEvent(actualStream(feedwater.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi(
           feedwater.p,
           noEvent(actualStream(feedwater.h_outflow)),
           noEvent(actualStream(feedwater.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
           feedwater.p,
           noEvent(actualStream(feedwater.h_outflow)),
           noEvent(actualStream(feedwater.xi_outflow)),
           volume.fluidIn[1].vleFluidPointer),
       H_flow=-feedwater.m_flow*noEvent(actualStream(feedwater.h_outflow)),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
           feedwater.p,
           noEvent(actualStream(feedwater.h_outflow)),
           noEvent(actualStream(feedwater.xi_outflow)),

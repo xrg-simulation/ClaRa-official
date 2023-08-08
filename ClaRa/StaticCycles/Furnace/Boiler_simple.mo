@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.Furnace;
 model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -53,11 +53,11 @@ public
 
    final parameter Real Q_flow_RS_ = 1 - Q_flow_LS_ "Rprt: Heat release in reheated steam at current load";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_out=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       medium,
       p_LS_out,
       T_LS_nom) "Outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_out=TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
       medium,
       p_RS_out,
       T_RS_nom) "Outlet specific enthalpy";

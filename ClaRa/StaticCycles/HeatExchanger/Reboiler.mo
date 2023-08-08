@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.HeatExchanger;
 model Reboiler "Reboiler || par.: p_reb, m_flow_reb || red | green"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -43,7 +43,7 @@ model Reboiler "Reboiler || par.: p_reb, m_flow_reb || red | green"
   parameter ClaRa.Basics.Units.Pressure p_reb=3.5e5 "|Fundamental Definitions|Reboiler pressure";
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_reb=150 "|Fundamental Definitions|Reboiler mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Spec. enthalpy at reboiler steam inlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_reb) "Spec. enthalpy at reboiler condensed steam";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_reb) "Spec. enthalpy at reboiler condensed steam";
   Fundamentals.SteamSignal_red_a inlet(p=p_reb, m_flow=m_flow_reb, Medium=medium) annotation (Placement(transformation(extent={{-114,-10},{-94,10}}), iconTransformation(extent={{-108,-10},{-100,10}})));
   Fundamentals.SteamSignal_green_b outlet(
     p=p_reb,

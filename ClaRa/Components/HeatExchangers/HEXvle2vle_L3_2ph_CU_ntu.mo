@@ -1,7 +1,7 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | U-type | NTU ansatz"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -101,11 +101,11 @@ model HEXvle2vle_L3_2ph_CU_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinde
   //________________________________ Shell initialisation  _______________________________________//
 
     parameter SI.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell,
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell,
       p_start_shell) "Start value of liquid specific enthalpy"
                                                               annotation (Dialog(tab="Shell Side", group="Initialisation"));
   parameter SI.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start value of vapour specific enthalpy"
+      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start value of vapour specific enthalpy"
                                                                                               annotation (Dialog(tab="Shell Side", group="Initialisation"));
 
   parameter Basics.Units.Pressure p_start_shell=1e5 "Start value of shell fluid pressure"

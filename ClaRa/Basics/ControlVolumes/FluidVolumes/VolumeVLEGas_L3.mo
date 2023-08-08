@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -90,10 +90,10 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
   inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
   final parameter ClaRa.Basics.Units.DensityMassSpecific rho_gas_nom=1.2 "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.Temperature T_gas_start=293.15 "Start value of sgas zone's temperature" annotation (Dialog(tab="Initialisation"));
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_gas_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
@@ -166,12 +166,12 @@ public
         rotation=90,
         origin={0,98})));
 
-  TILMedia.VLEFluid_ph fluidIn[geo.N_inlet](
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn[geo.N_inlet](
     each vleFluidType=medium,
     final p=inlet.p,
     final h=h_in) annotation (Placement(transformation(extent={{-90,-10},{-70,
             10}}, rotation=0)));
-  TILMedia.VLEFluid_ph fluidOut[geo.N_outlet](
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut[geo.N_outlet](
     each vleFluidType=medium,
     final p=outlet.p,
     final h=h_out) annotation (Placement(transformation(extent={{70,-10},{90,10}},
@@ -249,7 +249,7 @@ protected
     computeTransportProperties=true,
     xi=xi_gas)                          annotation (Placement(transformation(
           extent={{-10,8},{10,28}}, rotation=0)));
-  inner TILMedia.VLEFluid_ph liq(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liq(
     vleFluidType=medium,
     h=h_liq,
     computeTransportProperties=true,

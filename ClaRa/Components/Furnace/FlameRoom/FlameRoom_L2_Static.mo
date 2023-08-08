@@ -1,7 +1,7 @@
 within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Static "Model for a flame room section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -79,6 +79,8 @@ extends ClaRa.Basics.Icons.FlameRoom;
 //## P A R A M E T E R S #######################################################################################
 inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
+ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
+
 
 inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas,
       gasType=flueGas, h=h_flueGas_out_del)
@@ -172,10 +174,13 @@ protected
 
 initial equation
   unburntFraction = 0;
+  h_flueGas_out_del = h_start;
 
 equation
 
-   if (t_dwell_flueGas < burning_time.t) then
+  der(h_flueGas_out_del) = 1/Tau*(h_flueGas_out-h_flueGas_out_del);
+
+   if noEvent(t_dwell_flueGas < burning_time.t) then
     der(unburntFraction) = 1/Tau * ((1.0 - t_dwell_flueGas/burning_time.t) - unburntFraction);
   else
     der(unburntFraction) = 1/Tau * (0-unburntFraction);

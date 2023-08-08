@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -61,7 +61,7 @@ model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
   Units.Temperature Delta_T_U "Upper temperature difference";
   Units.Temperature Delta_T_L "Lower temperature difference";
 
-  Modelica.SIunits.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
+  ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha "Heat transfer coefficient used for heat transfer calculation";
   ClaRa.Basics.Units.ThermalResistance HR "Convective heat resistance";
 
 protected

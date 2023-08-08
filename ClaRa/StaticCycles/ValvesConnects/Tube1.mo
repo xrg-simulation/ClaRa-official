@@ -1,7 +1,7 @@
 within ClaRa.StaticCycles.ValvesConnects;
 model Tube1 " Tube || blue | blue"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -57,7 +57,7 @@ model Tube1 " Tube || blue | blue"
   final parameter ClaRa.Basics.Units.Pressure p_in=p_out + Delta_p_fric + Delta_p_geo "Pressure at tube inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Spec. enthalpy at tube inlet";
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(medium.nc - 1) "VLE composition in component, pure fluids supported only!";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_out,
       h_in,

@@ -1,7 +1,7 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic "Model for a burner section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -103,13 +103,9 @@ protected
   Real drhodt "Density derivative";
 
   ClaRa.Basics.Units.MassFraction xi_flueGasMix[flueGas.nc - 1] "Flue gas mixture composition";
-  ClaRa.Basics.Units.MassFraction xi_flueGasMix_del[flueGas.nc - 1] "Pseudo state for flue gas mixture composition";
 
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGasMix "Specific enthalpy of flue gas mixture";
-  ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGasMix_del "Pseudo state for specific enthalpy of flue gas mixture";
 
-  ClaRa.Basics.Units.MassFlowRate m_flow_in_del "Pseudo state for inlet mass flow";
-  ClaRa.Basics.Units.MassFlowRate m_flow_out_del "Pseudo state for outlet mass flow";
 
 //_____________________/ Connectors \______________________________
 public
@@ -125,7 +121,7 @@ protected
         gasType=flueGas)
         annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
-  TILMedia.Gas_ph inlet_GasMix(p=inlet.flueGas.p,xi=xi_flueGasMix_del,gasType=flueGas,h(start = 1.0E4)=h_flueGasMix_del)
+  TILMedia.Gas_ph inlet_GasMix(p=inlet.flueGas.p,xi=xi_flueGasMix,gasType=flueGas,h(start = 1.0E4)=h_flueGasMix)
      annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
   Basics.Media.FuelObject fuelBurnerInlet(
@@ -139,9 +135,8 @@ public
     p(start=p_start_flueGas_out) = outlet.flueGas.p,
     xi=xi_flueGas,
     gasType=flueGas,
-    h=h_flueGas_out_del)
+    h=h_flueGas_out)
       annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
-                  //xi_flueGas_del,
 
 //___________________/ iCom record \\__________________
 protected
@@ -155,12 +150,12 @@ protected
     mediumModel=flueGas,
     p_in=inlet.flueGas.p,
     T_in=inlet_GasMix.T,
-    m_flow_in=m_flow_in_del,
+    m_flow_in=inlet.flueGas.m_flow + fuelFlueGas_inlet.fuel.m_flow,
     V_flow_in=V_flow_flueGas_in,
-    xi_in=xi_flueGasMix_del,
+    xi_in=xi_flueGasMix,
     p_out=outlet.flueGas.p,
     T_out=bulk.T,
-    m_flow_out=m_flow_out_del,
+    m_flow_out=outlet.flueGas.m_flow,
     V_flow_out=V_flow_flueGas_out,
     xi_out=xi_flueGas,
     xi_nom=flueGas.xi_default,
@@ -252,7 +247,7 @@ initial equation
   xi_flueGas = xi_start_flueGas_out;
 
 equation
-  if (t_dwell_flueGas < burning_time.t) then
+  if noEvent(t_dwell_flueGas < burning_time.t) then
     unburntFraction = (1.0 - t_dwell_flueGas/burning_time.t);
   else
     unburntFraction = 0;
@@ -269,11 +264,10 @@ equation
 
   //__________________________/ Resulting Xi for flue gas mix \____________________________
   inlet.flueGas.m_flow * flueGasInlet.xi +  fuelFlueGas_inlet.flueGas.m_flow * primaryAir_inlet.xi - (inlet.flueGas.m_flow+fuelFlueGas_inlet.flueGas.m_flow)*xi_flueGasMix = zeros(flueGas.nc-1);
-  xi_flueGasMix_del = xi_flueGasMix;
 
   //________________/ Mass balance - flue gas \______________________________________
   drhodt*geo.volume =m_flow_fuel_burned*(1 - elementaryComposition_fuel_in[6]*reactionZone.xi_slag) + inlet.flueGas.m_flow + fuelFlueGas_inlet.flueGas.m_flow + outlet.flueGas.m_flow;
-  drhodt = bulk.drhodh_pxi * der(bulk.h) + sum({bulk.drhodxi_ph[i] * der(bulk.xi[i]) for i in 1:flueGas.nc-1});
+  drhodt = bulk.drhodh_pxi * der(bulk.h) + sum({bulk.drhodxi_ph[i] * der(bulk.xi[i]) for i in 1:flueGas.nc-1}) + bulk.drhodp_hxi * der(p);
 
   //______________ / Mass balance - Slag \____________________________________________________________________________
   0 =inlet.slag.m_flow + m_flow_fuel_burned*elementaryComposition_fuel_in[6]*reactionZone.xi_slag + outlet.slag.m_flow;
@@ -347,7 +341,15 @@ equation
   Delta_h_f - LHV =m_flow_flueGas_id*((ideal_combustion.h_i)*cat(1,xi_flueGas_id,{1 - sum(xi_flueGas_id)})) + elementaryComposition_fuel_in[6]*reactionZone.xi_slag*outlet.slagType.cp*T_0;//formation enthalpy of used fuel
 
   //_______________/ Energy Balance flueGasCombustion \__________________________
-  der(h_flueGas_out) =(Q_flow_wall + Q_flow_top + Q_flow_bottom + inlet.flueGas.m_flow*(flueGasInlet.h - h_flueGas_out) + fuelFlueGas_inlet.flueGas.m_flow*(primaryAir_inlet.h - h_flueGas_out) + inlet.fuel.m_flow*((fuelInlet.cp*(inStream(inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + fuelFlueGas_inlet.fuel.m_flow*((fuelBurnerInlet.cp*(inStream(fuelFlueGas_inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out) + outlet.fuel.m_flow*((fuelOutlet.cp*(outlet.fuel.T_outflow - T_0) + Delta_h_f) - h_flueGas_out) + outlet.slag.m_flow*(outlet.slagType.cp*(actualStream(outlet.slag.T_outflow) - T_0) - h_flueGas_out) + inlet.slag.m_flow*(inlet.slagType.cp*(actualStream(inlet.slag.T_outflow) - T_0) - h_flueGas_out) + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out))/mass;
+  der(h_flueGas_out) =(Q_flow_wall + Q_flow_top + Q_flow_bottom
+                      + inlet.flueGas.m_flow*(flueGasInlet.h - h_flueGas_out)
+                      + fuelFlueGas_inlet.flueGas.m_flow*(primaryAir_inlet.h - h_flueGas_out)
+                      + inlet.fuel.m_flow*((fuelInlet.cp*(inStream(inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out)
+                      + fuelFlueGas_inlet.fuel.m_flow*((fuelBurnerInlet.cp*(inStream(fuelFlueGas_inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out)
+                      + outlet.fuel.m_flow*((fuelOutlet.cp*(outlet.fuel.T_outflow - T_0) + Delta_h_f) - h_flueGas_out)
+                      + outlet.slag.m_flow*(outlet.slagType.cp*(actualStream(outlet.slag.T_outflow) - T_0) - h_flueGas_out)
+                      + inlet.slag.m_flow*(inlet.slagType.cp*(actualStream(inlet.slag.T_outflow) - T_0) - h_flueGas_out)
+                      + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out))/mass;
 
   sum_xi = sum(flueGasOutlet.xi);
 
@@ -357,10 +359,6 @@ equation
   V_flow_flueGas_in = (inlet.flueGas.m_flow + fuelFlueGas_inlet.flueGas.m_flow)/inlet_GasMix.d;
 
   h_flueGasMix = (fuelFlueGas_inlet.flueGas.m_flow * primaryAir_inlet.h + inlet.flueGas.m_flow * flueGasInlet.h)/(inlet.flueGas.m_flow+fuelFlueGas_inlet.flueGas.m_flow);
-  h_flueGasMix_del =h_flueGasMix;
-
-  m_flow_in_del = inlet.flueGas.m_flow + fuelFlueGas_inlet.fuel.m_flow;
-  m_flow_out_del = outlet.flueGas.m_flow;
 
   (inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow)*xi_fuel_out = inlet.fuel.m_flow* inStream(inlet.fuel.xi_outflow) + fuelFlueGas_inlet.fuel.m_flow*inStream(fuelFlueGas_inlet.fuel.xi_outflow);
 
@@ -372,7 +370,6 @@ equation
   fuelFlueGas_inlet.fuel.T_outflow = bulk.T;
   fuelFlueGas_inlet.flueGas.T_outflow = bulk.T;
   inlet.fuel.T_outflow = bulk.T;
-  //outlet.slag.T_outflow = inStream(outlet.slag.T_outflow); //outlet.slag is inflowing slag
   inlet.flueGas.T_outflow  = bulk.T;
   heat_bottom.T = bulk.T;
 
@@ -397,14 +394,14 @@ equation
 
 
   //_____________/ Pressures \______________________________________________
-  fuelFlueGas_inlet.fuel.p = outlet.flueGas.p + Delta_p_aux;
-  fuelFlueGas_inlet.flueGas.p = outlet.flueGas.p + Delta_p_aux;
+  fuelFlueGas_inlet.fuel.p = outlet.flueGas.p + pressureLoss.Delta_p;
+  fuelFlueGas_inlet.flueGas.p = outlet.flueGas.p + pressureLoss.Delta_p;
 
  //____________/ values for inlet_outflows \_____________
   fuelFlueGas_inlet.fuel.xi_outflow = xi_fuel_out;
-  fuelFlueGas_inlet.flueGas.xi_outflow =  xi_flueGas;//xi_flueGas_del;
-  inlet.flueGas.xi_outflow = xi_flueGas;//xi_flueGas_del;
-  outlet.flueGas.xi_outflow = xi_flueGas;//xi_flueGas_del;
+  fuelFlueGas_inlet.flueGas.xi_outflow =  xi_flueGas;
+  inlet.flueGas.xi_outflow = xi_flueGas;
+  outlet.flueGas.xi_outflow = xi_flueGas;
 
   //______________Eye port variable definition________________________
   eye_int[1].m_flow = -outlet.flueGas.m_flow;

@@ -1,7 +1,7 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L3 "A steam generation and reaheater model using lumped balance equations for mass and energy and two spray attemperators"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -38,8 +38,8 @@ model SteamGenerator_L3 "A steam generation and reaheater model using lumped bal
   parameter Modelica.SIunits.HeatFlowRate Q_flow_F_nom = 1340e6 "Nominal firing power"
                                                                                 annotation(Dialog(group="Nominal values"));
 protected
-  parameter Modelica.SIunits.Density rho_nom_HP= TILMedia.VLEFluidFunctions.density_phxi(medium, p_LS_nom, h_LS_nom) "Nominal density";
-  parameter Modelica.SIunits.Density rho_nom_IP= TILMedia.VLEFluidFunctions.density_phxi(medium, p_RH_nom, h_RH_nom) "Nominal density";
+  parameter Modelica.SIunits.Density rho_nom_HP= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(medium, p_LS_nom, h_LS_nom) "Nominal density";
+  parameter Modelica.SIunits.Density rho_nom_IP= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(medium, p_RH_nom, h_RH_nom) "Nominal density";
 public
   parameter Real CL_Delta_pHP_mLS_[:,:]=[0,0;0.1, 0.01; 0.2, 0.04; 0.3, 0.09; 0.4, 0.16; 0.5, 0.25; 0.6, 0.36; 0.7, 0.49; 0.8, 0.64; 0.9, 0.81; 1, 1] "Characteristic line of pressure drop as function of mass flow rate"
                                                                          annotation(Dialog(group="Part Load Definition"));
@@ -110,10 +110,10 @@ public
       table=CL_Delta_pHP_mLS_,
     u(start=1*ones(size(convert2PressureDrop_HP.columns, 1))))
     annotation (Placement(transformation(extent={{-6,108},{14,128}})));
-  TILMedia.VLEFluid_ph liveSteam(vleFluidType =    medium,       p=p_HP,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liveSteam(vleFluidType =    medium,       p=p_HP,
     h=(h_HP*(-m_flow_heatedHP) + HPInjection.m_flow*h_sprayHP)/(-livesteam.m_flow))
     annotation (Placement(transformation(extent={{-10,144},{10,164}})));
-  TILMedia.VLEFluid_ph reheatedSteam(vleFluidType =    medium,   p=p_IP,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph reheatedSteam(vleFluidType =    medium,   p=p_IP,
     h=(h_IP*(-m_flow_heatedIP) + IPInjection.m_flow*h_sprayIP)/(-reheat_out.m_flow))
     annotation (Placement(transformation(extent={{50,144},{70,164}})));
 

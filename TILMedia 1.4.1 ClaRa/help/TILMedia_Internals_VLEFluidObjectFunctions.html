@@ -1,0 +1,1352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>TILMedia.Internals.VLEFluidObjectFunctions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+*       { font-size: 100%; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 90%; font-family: Courier, monospace; white-space: pre; } /* For the Modelica code (in exported html). */
+h4      { font-size: 100%; font-weight: bold; color: green; } 
+h3      { font-size: 110%; font-weight: bold; color: green; }
+h2      { font-size: 130%; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { padding: 2px; border: 1px solid #808080; vertical-align: top; }
+th      { padding: 2px; border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+pre, code {font-family: "Courier New", monospace;}
+pre {white-space: pre; overflow-x : hidden;}
+.ModelicaDescription {font-weight: bold;} /* For the description string of the class. */
+.ModelicaBaseClass {} /* For the list of base-classes at the of the description. */
+.ModelicaKeyword { color: blue; font-weight: normal; font-style: normal; } /* Keywords in Modelica. */
+.ModelicaComment { color: #006400;  font-weight: normal; font-style: normal;} /* All three variants of comments in Modelica.  */
+.ModelicaString { color: #006400;  font-weight: normal; font-style: normal;} /* String constants. */
+.ModelicaClass { color: red; font-weight: normal; font-style: normal;} /* Formatting the names of referenced classes (for base-class and components). */
+.ModelicaFunction { color: red; font-weight: normal; font-style: normal;} /* Formatting for called functions. */
+.ModelicaTablePackageContent { } /* The table of contents for each package. */
+.ModelicaTableCrossReference { } /* The optional cross-reference table. */
+.ModelicaTableInputs {} /* The table of inputs for a function. */
+.ModelicaTableOutputs {} /* The table of outputs for a function. */
+.ModelicaTableParameters {} /* The table of parameters for a model/block. */
+.ModelicaTableConnectors {} /* The table of connectors for a model/block. */
+.ModelicaTableContents {} /* The table of contents for a connector. */
+.ModelicaStartAttribute { font-weight: bold; } /* The formatting used for start-attribute in the table of parameters, to separate them from parameter values. */
+.ModelicaParameterTab { background-color: #c0c0c0; font-weight: bold; } /* The tab-heading in the table of parameters */
+.ModelicaParameterGroup { background-color: #e0e0e0; } /* The group-heading in the table of parameters */
+</style>
+</head>
+<body>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEFluidObjectFunctions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="TILMedia.Internals.VLEFluidObjectFunctions"></a><a href="TILMedia_Internals.html#TILMedia.Internals"
+>TILMedia.Internals</a>.VLEFluidObjectFunctions</h2>
+<p>
+</p>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_Internals_ClassTypes.html#TILMedia.Internals.ClassTypes.ModelPackage"
+>TILMedia.Internals.ClassTypes.ModelPackage</a>.</span></p>
+<h3>Package Content</h3>
+<table summary="Package Content" class="ModelicaTablePackageContent">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.density_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.density_phxi"
+>density_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.der_density_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.der_density_phxi"
+>der_density_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi"
+>additionalProperties_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi"
+>additionalProperties_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_psxi"
+>additionalProperties_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_pTxi"
+>additionalProperties_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.criticalDataRecord_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.criticalDataRecord_xi"
+>criticalDataRecord_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.molarMass_xi"
+>molarMass_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_dTxi"
+>properties_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_phxi"
+>properties_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_psxi"
+>properties_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_pTxi"
+>properties_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi"
+>transportPropertyRecord_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi"
+>transportPropertyRecord_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_psxi"
+>transportPropertyRecord_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_pTxi"
+>transportPropertyRecord_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi"
+>VLETransportPropertyRecord_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi"
+>VLETransportPropertyRecord_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_psxi"
+>VLETransportPropertyRecord_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_pTxi"
+>VLETransportPropertyRecord_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.fluidIsValid" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.fluidIsValid"
+>fluidIsValid</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.phase_dTxi"
+>phase_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi2" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi2"
+>phase_phxi2</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi"
+>phase_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi"
+>VLEAdditionalProperties_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi"
+>VLEAdditionalProperties_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_psxi"
+>VLEAdditionalProperties_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_pTxi"
+>VLEAdditionalProperties_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi"
+>VLEProperties_dTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi"
+>VLEProperties_phxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_psxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_psxi"
+>VLEProperties_psxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_pTxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_pTxi"
+>VLEProperties_pTxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc"
+>molarMass_nc</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.triplePressure_n" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.triplePressure_n"
+>triplePressure_n</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.tripleTemperature_n" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.tripleTemperature_n"
+>tripleTemperature_n</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi"
+>cricondenbar_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi"
+>cricondentherm_xi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_pdxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_pdxi"
+>properties_pdxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.meanDensity_phAhB" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.meanDensity_phAhB"
+>meanDensity_phAhB</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_Thxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_Thxi"
+>properties_Thxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_Tsxi" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions.properties_Tsxi"
+>properties_Tsxi</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="TILMedia.Internals.VLEFlu3dab83f98ceb845ativesS.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives" width="20" height="20" align="top">&nbsp;<a href="TILMedia_Internals_VLEFluidObjectFunctions_PureComponentDerivatives.html#TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives"
+>PureComponentDerivatives</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.density_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.density_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.density_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific Enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE der_density_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.der_density_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.der_density_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.der_density_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific Enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+<tr><td>der_p</td><td>Derivative of Pressure</td></tr>
+<tr><td>der_h</td><td>Derivative of Specific Enthalpy</td></tr>
+<tr><td>der_xi[:]</td><td>Derivative of Mass fractions of the first nc-1 components</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>der_d</td><td>Derivative of Density</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE additionalProperties_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.additionalProperties_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>x</td><td>Steam mass fraction [1]</td></tr>
+<tr><td>cp</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>cv</td><td>Specific heat capacity cv [J/(kg.K)]</td></tr>
+<tr><td>beta</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>drhodp</td><td>Derivative of density wrt pressure [kg/(N.m)]</td></tr>
+<tr><td>drhodh</td><td>Derivative of density wrt specific enthalpy [kg2/(m3.J)]</td></tr>
+<tr><td>drhodxi[size(xi, 1)]</td><td>Derivative of density wrt mass fraction</td></tr>
+<tr><td>a</td><td>Speed of sound [m/s]</td></tr>
+<tr><td>gamma</td><td>Heat capacity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE additionalProperties_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.additionalProperties_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>x</td><td>Steam mass fraction [1]</td></tr>
+<tr><td>cp</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>cv</td><td>Specific heat capacity cv [J/(kg.K)]</td></tr>
+<tr><td>beta</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>drhodp</td><td>Derivative of density wrt pressure [kg/(N.m)]</td></tr>
+<tr><td>drhodh</td><td>Derivative of density wrt specific enthalpy [kg2/(m3.J)]</td></tr>
+<tr><td>drhodxi[size(xi, 1)]</td><td>Derivative of density wrt mass fraction</td></tr>
+<tr><td>a</td><td>Speed of sound [m/s]</td></tr>
+<tr><td>gamma</td><td>Heat capacity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE additionalProperties_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.additionalProperties_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>x</td><td>Steam mass fraction [1]</td></tr>
+<tr><td>cp</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>cv</td><td>Specific heat capacity cv [J/(kg.K)]</td></tr>
+<tr><td>beta</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>drhodp</td><td>Derivative of density wrt pressure [kg/(N.m)]</td></tr>
+<tr><td>drhodh</td><td>Derivative of density wrt specific enthalpy [kg2/(m3.J)]</td></tr>
+<tr><td>drhodxi[size(xi, 1)]</td><td>Derivative of density wrt mass fraction</td></tr>
+<tr><td>a</td><td>Speed of sound [m/s]</td></tr>
+<tr><td>gamma</td><td>Heat capacity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE additionalProperties_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.additionalProperties_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>x</td><td>Steam mass fraction [1]</td></tr>
+<tr><td>cp</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>cv</td><td>Specific heat capacity cv [J/(kg.K)]</td></tr>
+<tr><td>beta</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>drhodp</td><td>Derivative of density wrt pressure [kg/(N.m)]</td></tr>
+<tr><td>drhodh</td><td>Derivative of density wrt specific enthalpy [kg2/(m3.J)]</td></tr>
+<tr><td>drhodxi[size(xi, 1)]</td><td>Derivative of density wrt mass fraction</td></tr>
+<tr><td>a</td><td>Speed of sound [m/s]</td></tr>
+<tr><td>gamma</td><td>Heat capacity ratio</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE criticalDataRecord_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.criticalDataRecord_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.criticalDataRecord_xi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.criticalDataRecord_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>&nbsp;</td></tr>
+<tr><td>h</td><td>&nbsp;</td></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>s</td><td>&nbsp;</td></tr>
+<tr><td>T</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE molarMass_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_xi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.molarMass_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>mm</td><td>Molar mass [kg/mol]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE transportPropertyRecord_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.transportPropertyRecord_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>transp</td><td>Transport property record</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE transportPropertyRecord_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.transportPropertyRecord_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>transp</td><td>Transport property record</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE transportPropertyRecord_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.transportPropertyRecord_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>transp</td><td>Transport property record</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE transportPropertyRecord_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.transportPropertyRecord_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>transp</td><td>Transport property record</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLETransportPropertyRecord_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLETransportPropertyRecord_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr_l</td><td>Prandtl number [1]</td></tr>
+<tr><td>Pr_v</td><td>Prandtl number [1]</td></tr>
+<tr><td>lambda_l</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>lambda_v</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>eta_l</td><td>Dynamic viscosity [Pa.s]</td></tr>
+<tr><td>eta_v</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLETransportPropertyRecord_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLETransportPropertyRecord_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr_l</td><td>Prandtl number [1]</td></tr>
+<tr><td>Pr_v</td><td>Prandtl number [1]</td></tr>
+<tr><td>lambda_l</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>lambda_v</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>eta_l</td><td>Dynamic viscosity [Pa.s]</td></tr>
+<tr><td>eta_v</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLETransportPropertyRecord_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLETransportPropertyRecord_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr_l</td><td>Prandtl number [1]</td></tr>
+<tr><td>Pr_v</td><td>Prandtl number [1]</td></tr>
+<tr><td>lambda_l</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>lambda_v</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>eta_l</td><td>Dynamic viscosity [Pa.s]</td></tr>
+<tr><td>eta_v</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLETransportPropertyRecord_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLETransportPropertyRecord_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>Pr_l</td><td>Prandtl number [1]</td></tr>
+<tr><td>Pr_v</td><td>Prandtl number [1]</td></tr>
+<tr><td>lambda_l</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>lambda_v</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td>eta_l</td><td>Dynamic viscosity [Pa.s]</td></tr>
+<tr><td>eta_v</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE fluidIsValid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.fluidIsValid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.fluidIsValid"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.fluidIsValid</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>mediumName</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>isValid</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE phase_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.phase_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.phase_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phase</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE phase_phxi2<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi2" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi2"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.phase_phxi2</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phase</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE phase_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.phase_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>phase</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEAdditionalProperties_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEAdditionalProperties_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp_l</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_l</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_l</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>cp_v</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_v</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_v</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEAdditionalProperties_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEAdditionalProperties_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp_l</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_l</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_l</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>cp_v</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_v</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_v</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEAdditionalProperties_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEAdditionalProperties_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp_l</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_l</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_l</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>cp_v</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_v</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_v</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEAdditionalProperties_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEAdditionalProperties_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>cp_l</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_l</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_l</td><td>Isothermal compressibility [1/Pa]</td></tr>
+<tr><td>cp_v</td><td>Specific heat capacity cp [J/(kg.K)]</td></tr>
+<tr><td>beta_v</td><td>Isobaric expansion coefficient [1/K]</td></tr>
+<tr><td>kappa_v</td><td>Isothermal compressibility [1/Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEProperties_dTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEProperties_dTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d_l</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_l</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_l</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_l</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_l</td><td>Temperature [K]</td></tr>
+<tr><td>xi_l[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+<tr><td>d_v</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_v</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_v</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_v</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_v</td><td>Temperature [K]</td></tr>
+<tr><td>xi_v[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEProperties_phxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEProperties_phxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d_l</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_l</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_l</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_l</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_l</td><td>Temperature [K]</td></tr>
+<tr><td>xi_l[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+<tr><td>d_v</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_v</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_v</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_v</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_v</td><td>Temperature [K]</td></tr>
+<tr><td>xi_v[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEProperties_psxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_psxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_psxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEProperties_psxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d_l</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_l</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_l</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_l</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_l</td><td>Temperature [K]</td></tr>
+<tr><td>xi_l[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+<tr><td>d_v</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_v</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_v</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_v</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_v</td><td>Temperature [K]</td></tr>
+<tr><td>xi_v[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VLEProperties_pTxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_pTxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_pTxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.VLEProperties_pTxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d_l</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_l</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_l</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_l</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_l</td><td>Temperature [K]</td></tr>
+<tr><td>xi_l[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+<tr><td>d_v</td><td>Density [kg/m3]</td></tr>
+<tr><td>h_v</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p_v</td><td>Pressure [Pa]</td></tr>
+<tr><td>s_v</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T_v</td><td>Temperature [K]</td></tr>
+<tr><td>xi_v[size(xi, 1)]</td><td>Mass fractions [1]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE molarMass_nc<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.molarMass_nc</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>nc</td><td>Number of components</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>mm_i[nc]</td><td>Molar mass [kg/mol]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE triplePressure_n<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.triplePressure_n" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.triplePressure_n"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.triplePressure_n</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>compNo</td><td>&nbsp;</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p_triple</td><td>Triple pressure [Pa]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE tripleTemperature_n<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.tripleTemperature_n" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.tripleTemperature_n"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.tripleTemperature_n</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>compNo</td><td>&nbsp;</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T_triple</td><td>Triple temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE cricondenbar_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.cricondenbar_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>&nbsp;</td></tr>
+<tr><td>h</td><td>&nbsp;</td></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>s</td><td>&nbsp;</td></tr>
+<tr><td>T</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE cricondentherm_xi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.cricondentherm_xi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>&nbsp;</td></tr>
+<tr><td>h</td><td>&nbsp;</td></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>s</td><td>&nbsp;</td></tr>
+<tr><td>T</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_pdxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_pdxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_pdxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_pdxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE meanDensity_phAhB<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.meanDensity_phAhB" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.meanDensity_phAhB"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.meanDensity_phAhB</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>p</td><td>&nbsp;</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>h_A</td><td>&nbsp;</td></tr>
+<tr><td>h_B</td><td>&nbsp;</td></tr>
+<tr><td>cache_A</td><td>Pointer to external medium mem||y</td></tr>
+<tr><td>cache_B</td><td>Pointer to external medium mem||y</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>rhobar</td><td>&nbsp;</td></tr>
+<tr><td>drhobar_dp</td><td>&nbsp;</td></tr>
+<tr><td>drhobar_dh1</td><td>&nbsp;</td></tr>
+<tr><td>drhobar_dh2</td><td>&nbsp;</td></tr>
+<tr><td>onePhase</td><td>&nbsp;</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_Thxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_Thxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_Thxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_Thxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE properties_Tsxi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="TILMedia.Internals.VLEFlub3751f06db3c113e_phxiI.png" alt="TILMedia.Internals.VLEFluidObjectFunctions.properties_Tsxi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="TILMedia.Internals.VLEFluidObjectFunctions.properties_Tsxi"></a><a href="TILMedia_Internals_VLEFluidObjectFunctions.html#TILMedia.Internals.VLEFluidObjectFunctions"
+>TILMedia.Internals.VLEFluidObjectFunctions</a>.properties_Tsxi</h2>
+<h3>Information</h3>
+<p><span class="ModelicaBaseClass">Extends from <a href="TILMedia_BaseClasses.html#TILMedia.BaseClasses.PartialVLEFluidObjectFunction"
+>TILMedia.BaseClasses.PartialVLEFluidObjectFunction</a>.</span></p>
+<h3>Inputs</h3>
+<table summary="Inputs" class="ModelicaTableInputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+<tr><td>xi[:]</td><td>Mass fractions of the first nc-1 components [1]</td></tr>
+<tr><td>vleFluidPointer</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table summary="Outputs" class="ModelicaTableOutputs">
+<tr><th>Name</th><th>Description</th></tr>
+<tr><td>d</td><td>Density [kg/m3]</td></tr>
+<tr><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td>p</td><td>Pressure [Pa]</td></tr>
+</table>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Aug 15 11:57:56 2019.
+</address>
+</body>
+</html>

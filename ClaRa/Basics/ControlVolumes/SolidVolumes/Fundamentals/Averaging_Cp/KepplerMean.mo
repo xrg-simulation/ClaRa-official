@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
 model KepplerMean "Apply Keppler's (or Simpson's) rule"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -18,5 +18,5 @@ model KepplerMean "Apply Keppler's (or Simpson's) rule"
   extends GeneralMean;
 
 algorithm
-  Out := -100;//(B_o_in.T - A_o_in.T)/6*(A_o_in.cp+4*TILMedia.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),(p_o,(A_o_in.T+B_o_in.T)/2)+B_o_in.cp);
+  Out := -100;//(B_o_in.T - A_o_in.T)/6*(A_o_in.cp+4*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),(p_o,(A_o_in.T+B_o_in.T)/2)+B_o_in.cp);
 end KepplerMean;

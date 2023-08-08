@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -23,7 +23,7 @@ model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
   import SI = ClaRa.Basics.Units;
 public
   parameter Integer N_ax=3 "Number of axial elements" annotation (Dialog(group="Discretisation"));
-  parameter Modelica.SIunits.Length Delta_x[N_ax]=ClaRa.Basics.Functions.GenerateGrid(
+  parameter ClaRa.Basics.Units.Length Delta_x[N_ax]=ClaRa.Basics.Functions.GenerateGrid(
       {0},
       length,
       N_ax) "Discretisation scheme" annotation (Dialog(group="Discretisation"));

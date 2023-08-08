@@ -1,7 +1,7 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryGas_pTxi "A gas source defining pressure, Temperature and composition"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -43,6 +43,7 @@ protected
   Basics.Units.Temperature T_in;
   Basics.Units.MassFraction xi_in[medium.nc - 1];
   Basics.Units.EnthalpyMassSpecific h_port;
+  Basics.Units.EntropyMassSpecific s_port;
 
 public
   Modelica.Blocks.Interfaces.RealInput p(value=p_in) if (variable_p) "Variable mass flow rate"
@@ -56,12 +57,23 @@ public
   ClaRa.Basics.Interfaces.GasPortIn gas_a(Medium=medium)
      annotation (Placement(transformation(extent={{-10,80},{10,100}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-
+  Basics.Interfaces.EyeOutGas
+                           eyeOut(each medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
+                                  iconTransformation(extent={{94,-86},{106,-74}})));
 protected
   TILMedia.Gas GasObject(gasType=medium);
+
+  Basics.Interfaces.EyeInGas
+                          eye_int[1](each medium=medium) annotation (Placement(transformation(extent={{76,-76},{74,-74}}),
+                                  iconTransformation(extent={{90,-84},{84,-78}})));
 equation
 
     h_port =GasObject.h_pTxi(
+    gas_a.p,
+    noEvent(actualStream(gas_a.T_outflow)),
+    noEvent(actualStream(gas_a.xi_outflow)));
+
+    s_port =GasObject.s_pTxi(
     gas_a.p,
     noEvent(actualStream(gas_a.T_outflow)),
     noEvent(actualStream(gas_a.xi_outflow)));
@@ -79,6 +91,19 @@ equation
   gas_a.T_outflow=T_in;
   gas_a.p=p_in;
   gas_a.xi_outflow=xi_in;
+
+    //______________Eye port variable definition________________________
+  eye_int[1].m_flow = -gas_a.m_flow;
+  eye_int[1].T = noEvent(actualStream(gas_a.T_outflow))-273.15;
+  eye_int[1].s = s_port/1e3;
+  eye_int[1].p = gas_a.p/1e5;
+  eye_int[1].h = h_port/1e3;
+  eye_int[1].xi=noEvent(actualStream(gas_a.xi_outflow));
+
+  connect(eye_int[1],eyeOut)  annotation (Line(
+      points={{75,-75},{103,-75}},
+      color={190,190,190},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={
@@ -89,6 +114,5 @@ equation
           fillPattern=FillPattern.Solid,
           textString="T
 xi")}),                       Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,100}}),
-                                      graphics));
+            false, extent={{-100,-100},{100,100}})));
 end BoundaryGas_pTxi;

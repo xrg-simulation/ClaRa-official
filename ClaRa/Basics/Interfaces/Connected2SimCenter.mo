@@ -1,9 +1,9 @@
 within ClaRa.Basics.Interfaces;
 model Connected2SimCenter
-  input Modelica.SIunits.Power powerIn=1e-3;
-  input Modelica.SIunits.Power powerOut_elMech=0;
-  input Modelica.SIunits.Power powerOut_th=0;
-  input Modelica.SIunits.Power powerAux=0;
+  input ClaRa.Basics.Units.Power powerIn=1e-3;
+  input ClaRa.Basics.Units.Power powerOut_elMech=0;
+  input ClaRa.Basics.Units.Power powerOut_th=0;
+  input ClaRa.Basics.Units.Power powerAux=0;
   outer SimCenter simCenter;
 
    ClaRa.Basics.Interfaces.CycleSumModel cycleSumModel;

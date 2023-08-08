@@ -1,7 +1,7 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L1
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -42,19 +42,19 @@ model SteamSeparatorVLE_L1
                                                                              annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium) "Inlet port" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet2(Medium=medium) "Steam outlet"  annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  TILMedia.VLEFluid_ph fluidIn(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     h=inStream(inlet.h_outflow),
     p=inlet.p,
     xi=inStream(inlet.xi_outflow)) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  TILMedia.VLEFluid_ph fluidOut1(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
     vleFluidType=medium,
     h=actualStream(outlet1.h_outflow),
     p=outlet1.p,
     xi=actualStream(outlet1.xi_outflow)) annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
-  TILMedia.VLEFluid_ph fluidOut2(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
     vleFluidType=medium,
     h=actualStream(outlet2.h_outflow),
     p=outlet2.p,

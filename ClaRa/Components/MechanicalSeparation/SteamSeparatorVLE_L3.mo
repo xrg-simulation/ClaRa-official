@@ -1,7 +1,7 @@
 within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L3
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -78,8 +78,8 @@ model SteamSeparatorVLE_L3
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
 
   parameter ClaRa.Basics.Units.MassFraction xi_liq_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of liquid phase";
   parameter ClaRa.Basics.Units.MassFraction xi_vap_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of vapour phase";
@@ -130,10 +130,10 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int2[1]
     annotation (Placement(transformation(extent={{39,77},{41,75}})));
 
-  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={140,-110})));
+public
+  Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then volume.summary.outline.level_abs else volume.summary.outline.level_rel) if levelOutput
+  annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+                    iconTransformation(extent={{100,-90},{120,-70}})));
 equation
   eye_int2[1].m_flow=-outlet2.m_flow;
   eye_int2[1].T=volume.summary.outlet[2].T-273.15;

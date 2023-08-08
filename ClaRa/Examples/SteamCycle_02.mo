@@ -1,7 +1,7 @@
 within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -22,7 +22,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_HP.p_in,
     m_flow_nom=NOM.Turbine_HP.m_flow,
     Pi=NOM.Turbine_HP.p_out/NOM.Turbine_HP.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_HP.p_in,
         NOM.Turbine_HP.h_in),
@@ -68,7 +68,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_IP1.p_in,
     m_flow_nom=NOM.Turbine_IP1.m_flow,
     Pi=NOM.Turbine_IP1.p_out/NOM.Turbine_IP1.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP1.p_in,
         NOM.Turbine_IP1.h_in),
@@ -88,7 +88,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_LP4.p_in,
     m_flow_nom=NOM.Turbine_LP4.m_flow,
     Pi=NOM.Turbine_LP4.p_out/NOM.Turbine_LP4.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP4.p_in,
         NOM.Turbine_LP4.h_in),
@@ -169,9 +169,9 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     contributeToCycleSummary=false,
     J=1,
     rpm_nom=3000,
-    redeclare model Losses = ClaRa.Components.TurboMachines.Fundamentals.PumpEfficiency.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
-    V_flow_max=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
-    Delta_p_max=-NOM.Pump_cond.Delta_p*2,
+    redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
+    V_flow_zerohead=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
+    Delta_p_zeroflow_const=-NOM.Pump_cond.Delta_p*2,
     useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{520,-118},{500,-138}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{50,-160},{110,-140}})));
@@ -185,7 +185,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_LP1.p_in,
     m_flow_nom=NOM.Turbine_LP1.m_flow,
     Pi=NOM.Turbine_LP1.p_out/NOM.Turbine_LP1.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP1.p_in,
         NOM.Turbine_LP1.h_in),
@@ -481,7 +481,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_IP3.p_in,
     m_flow_nom=NOM.Turbine_IP3.m_flow,
     Pi=NOM.Turbine_IP3.p_out/NOM.Turbine_IP3.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP3.p_in,
         NOM.Turbine_IP3.h_in),
@@ -497,7 +497,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_IP2.p_in,
     m_flow_nom=NOM.Turbine_IP2.m_flow,
     Pi=NOM.Turbine_IP2.p_out/NOM.Turbine_IP2.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP2.p_in,
         NOM.Turbine_IP2.h_in),
@@ -539,7 +539,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_LP3.p_in,
     m_flow_nom=NOM.Turbine_LP3.m_flow,
     Pi=NOM.Turbine_LP3.p_out/NOM.Turbine_LP3.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP3.p_in,
         NOM.Turbine_LP3.h_in),
@@ -555,7 +555,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_LP2.p_in,
     m_flow_nom=NOM.Turbine_LP2.m_flow,
     Pi=NOM.Turbine_LP2.p_out/NOM.Turbine_LP2.p_in,
-    rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP2.p_in,
         NOM.Turbine_LP2.h_in),

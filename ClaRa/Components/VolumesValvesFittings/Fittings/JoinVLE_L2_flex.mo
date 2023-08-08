@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_flex "A join for an arbitrary number of inputs"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -55,7 +55,7 @@ end Summary;
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 
 protected
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluidFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -85,7 +85,7 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.VLEFluid_ph bulk(each vleFluidType =    medium, p = p,h=h) annotation (Placement(transformation(extent={{-8,-12},
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(each vleFluidType =    medium, p = p,h=h) annotation (Placement(transformation(extent={{-8,-12},
             {12,8}},                                                                                                    rotation=0)));
 
 public
@@ -95,13 +95,13 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1]
     annotation (Placement(transformation(extent={{45,-81},{47,-79}})));
 protected
-TILMedia.VLEFluid_ph fluidIn[N_ports_in](
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn[N_ports_in](
     each vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
     p=inlet.p)                                                           annotation (Placement(transformation(extent={{-86,-10},
             {-66,10}},                                                                                                  rotation=0)));
 protected
-TILMedia.VLEFluid_ph fluidOut(
+TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
     each vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
     p=outlet.p)                                                          annotation (Placement(transformation(extent={{70,-10},

@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Desulfurization_L2 "Gas || L2 || Desulfurization"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -26,7 +26,7 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   final parameter Modelica.SIunits.MolarMass M_CO2 = 0.0440098 "Molar mass of carbon dioxide";
 
   parameter Real SOx_separationRate = 0.95 "Efficiency of SOx separation" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter Modelica.SIunits.Temperature T_in_H2O = 313.15 "Inlet Temperature of water" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter ClaRa.Basics.Units.Temperature T_in_H2O = 313.15 "Inlet Temperature of water" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Real specificPowerConsumption(unit="J/m3") = 9000 "Specific power consumption per standard m^3" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   Units.EnthalpyMassSpecific delta_h_evap;
@@ -64,7 +64,7 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   Units.EnthalpyMassSpecific h_in;
 
   Units.MassFraction xi_out[iCom.mediumModel.nc - 1];
-  Modelica.SIunits.MassFlowRate m_flow_out;
+  ClaRa.Basics.Units.MassFlowRate m_flow_out;
   Units.EnthalpyMassSpecific h_out;
 
 

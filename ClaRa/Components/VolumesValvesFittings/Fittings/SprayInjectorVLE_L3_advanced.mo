@@ -1,7 +1,7 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SprayInjectorVLE_L3_advanced "A spray injector for i.e. temperature control"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -87,7 +87,7 @@ model SprayInjectorVLE_L3_advanced "A spray injector for i.e. temperature contro
   inner parameter Integer initOptionFluid = 211 "Type of initialisation of fluid"
     annotation (Dialog(tab= "Initialisation", group="Fluid"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
 
-   parameter Modelica.SIunits.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(medium, p_start, h_start_main) "|Initialisation|Wall|Start values of wall temperature";
+   parameter Modelica.SIunits.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(medium, p_start, h_start_main) "|Initialisation|Wall|Start values of wall temperature";
   inner parameter Integer initOptionWall=0 "|Initialisation|Wall|Initialisation option of wall" annotation (Dialog(group="Initialisation"), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",

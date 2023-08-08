@@ -1,7 +1,7 @@
 within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model Pump_Base "Base class for pumps"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.0                            //
+// Component of the ClaRa library, version: 1.4.1                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -15,7 +15,7 @@ partial model Pump_Base "Base class for pumps"
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
   import SI = ClaRa.Basics.Units;
-  import TILMedia.VLEFluidObjectFunctions.bubblePressure_Txi;
+  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi;
   extends ClaRa.Basics.Icons.Pump;
   //extends Modelica.Icons.UnderConstruction;
 
@@ -43,10 +43,10 @@ public
                                      outlet(Medium=medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  TILMedia.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p,
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p,
     h=homotopy(noEvent(actualStream(inlet.h_outflow)), inStream(inlet.h_outflow)))
     annotation (Placement(transformation(extent={{-88,-12},{-68,8}})));
-  TILMedia.VLEFluid_ph  fluidOut(
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut(
                                 vleFluidType =    medium,
     p=outlet.p,
     h=homotopy(noEvent(actualStream(outlet.h_outflow)), outlet.h_outflow))

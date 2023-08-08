@@ -1,7 +1,7 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4 "An array of flue gas cells."
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.0                            //
+  // Component of the ClaRa library, version: 1.4.1                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
   // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
@@ -143,7 +143,7 @@ protected
 
   Real drhodt[geo.N_cv] "Density derivative"; //(unit="kg/(m3s)")
 
-  Modelica.SIunits.MassFraction xi[geo.N_cv, medium.nc - 1];
+  ClaRa.Basics.Units.MassFraction xi[geo.N_cv, medium.nc - 1];
   Real Xi_flow[geo.N_cv + 1, medium.nc - 1];
 
   //____Flows and Velocities______________________________________________________________________________________
@@ -155,8 +155,8 @@ protected
   Units.Velocity w_outlet "flow velocity at outlet";
   Units.Temperature T_inlet "Inlet temperature of component";
   Units.Temperature T_outlet "Outlet temperature of component";
-  Modelica.SIunits.MassFraction xi_inlet[medium.nc - 1] "Inlet gas composition of component";
-  Modelica.SIunits.MassFraction xi_outlet[medium.nc - 1] "Outlet gas composition of component";
+  ClaRa.Basics.Units.MassFraction xi_inlet[medium.nc - 1] "Inlet gas composition of component";
+  ClaRa.Basics.Units.MassFraction xi_outlet[medium.nc - 1] "Outlet gas composition of component";
 
   //____Connectors________________________________________________________________________________________________
 public

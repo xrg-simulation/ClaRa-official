@@ -8,3 +8,5 @@ FuelSlagFlueGas_join
 FuelSlagFlueGas_split
 FuelFlueGas_join
 FuelFlueGas_split
+FuelAerosolDistributor
+AerosolFuelConcentrator

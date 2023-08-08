@@ -5,9 +5,9 @@ connector Slag_inlet
 
   //constant String mediumName= Medium.materialName annotation(Dialog(enable=false));
 
-  flow Modelica.SIunits.MassFlowRate m_flow "Mass flow rate from the connection point into the component";
-   Modelica.SIunits.AbsolutePressure p "Thermodynamic pressure in the connection point";
-  stream Modelica.SIunits.Temperature T_outflow "Specific thermodynamic enthalpy close to the connection point if m_flow < 0";
+  flow ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate from the connection point into the component";
+   ClaRa.Basics.Units.AbsolutePressure p "Thermodynamic pressure in the connection point";
+  stream ClaRa.Basics.Units.Temperature T_outflow "Specific thermodynamic enthalpy close to the connection point if m_flow < 0";
 
   annotation (Icon(graphics={Ellipse(
           extent={{-100,100},{100,-100}},
