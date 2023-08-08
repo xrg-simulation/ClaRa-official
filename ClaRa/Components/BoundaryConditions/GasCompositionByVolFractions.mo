@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model GasCompositionByVolFractions "set (flue) gas composition graphically by volume fractions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -60,12 +60,5 @@ algorithm
     sumXi :=sumXi + xi_in[i];
   end for;
 
-annotation (Documentation(info="<html>
-<p>
-<a href=\"modelica://ClaRa/Resources/Images/GasCompositionByMassFractions.html\" title=\"modelica://ClaRa/Resources/Images/GasCompositionByMassFractions.html\">
-GasCompositionByMassFractions Model</a><br>
-</html>"),                                                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                                       graphics),
-                                   Diagram(graphics),
-              Icon(graphics));
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),Diagram(graphics),Icon(graphics));
 end GasCompositionByVolFractions;

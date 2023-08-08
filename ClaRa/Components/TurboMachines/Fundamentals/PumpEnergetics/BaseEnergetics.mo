@@ -1,5 +1,5 @@
 within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
-model BaseEnergetics
+partial model BaseEnergetics
   extends ClaRa.Basics.Icons.Efficiency;
 
   outer ClaRa.Components.TurboMachines.Fundamentals.IComPump_L1 iCom;

@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L2_OffDesign "Running the  L2 pump in off design, including reverse flow and zero mass flow through valve"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -35,10 +35,9 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
     rpm_nom=4600,
     J=1,
     rpm_fixed=4600,
-    useDensityAffinity=false,
-    V_flow_zerohead=2600/3600,
-    Delta_p_zeroflow_const=2e5,
-    V_flow_eps=pump_3.V_flow_zerohead/50,
+    V_flow_max=2600/3600,
+    Delta_p_max=2e5,
+    V_flow_eps=pump_3.V_flow_max/50,
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
         eta_hyd_nom=(0.82),
         V_flow_opt_=(0.6),

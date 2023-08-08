@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   //
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -35,8 +35,6 @@ partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   parameter Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
   parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
 
-  replaceable model Hydraulics =   ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 constrainedby ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.BaseHydraulics "Hydraulic characteristic" annotation(choicesAllMatching, Dialog(group= "Characteristic Field", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharacteristicsDialogue.png"));
-  replaceable model Energetics =  ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1  constrainedby ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.BaseEnergetics "Model for losses"         annotation(choicesAllMatching, Dialog(group= "Characteristic Field"));
 
 protected
  model Outline
@@ -57,12 +55,6 @@ public
 
 
 public
-  Hydraulics hydraulics annotation(Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-30,-30})));
-  Energetics energetics annotation(Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={10,-30})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft if  useMechanicalPort
     annotation (Placement(transformation(extent={{-10,62},{10,82}}),
         iconTransformation(extent={{-10,89},{10,109}})));
@@ -93,14 +85,6 @@ equation
    else
      a = (2*pi/60)*der(rpm);
    end if;
-
-//____________________ Calculate Power _____________________
-  //P_iso = Delta_p*V_flow; // Approximate rel. error is approx. 3% due to the assumption of constant density.
-  P_iso = energetics.P_iso;
-  P_shaft = getInputsRotary.rotatoryFlange.tau*2*pi*rpm/60;
-  P_fluid = tau_fluid*2*pi*rpm/60;//P_iso + energetics.tau_loss*2*pi*rpm/60;
-  V_flow = hydraulics.V_flow;
-  tau_fluid = energetics.tau_fluid;
 
 
 

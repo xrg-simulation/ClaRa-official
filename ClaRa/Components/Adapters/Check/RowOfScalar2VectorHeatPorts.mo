@@ -1,10 +1,10 @@
 within ClaRa.Components.Adapters.Check;
 model RowOfScalar2VectorHeatPorts
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -60,7 +60,7 @@ model RowOfScalar2VectorHeatPorts
     Delta_x=pipe1.Delta_x,
     stateLocation=2,
     T_start=ones(thinWall_1.N_ax)*(528 + 273.15),
-    initOption=0) annotation (Placement(transformation(extent={{-28,-32},{-8,-24}})));
+    initOption=213) annotation (Placement(transformation(extent={{-28,-32},{-8,-24}})));
   Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 thinWall_2(
     N_ax=pipe2.N_cv,
     diameter_o=pipe2.diameter_i + 0.004,
@@ -71,7 +71,7 @@ model RowOfScalar2VectorHeatPorts
     Delta_x=pipe2.Delta_x,
     stateLocation=2,
     T_start=ones(thinWall_2.N_ax)*(528 + 273.15),
-    initOption=0) annotation (Placement(transformation(extent={{16,-34},{36,-26}})));
+    initOption=213) annotation (Placement(transformation(extent={{16,-34},{36,-26}})));
   Scalar2VectorHeatPort scalar2VectorHeatPort(
     length=pipe1.length,
     N=pipe1.N_cv,

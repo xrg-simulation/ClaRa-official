@@ -1,10 +1,10 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -496,10 +496,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     N_tubes=evap_1.N_tubes,
     suppressChattering="False",
     Delta_x={abs(burner1.geo.z_out[1] - burner1.geo.z_in[1]),abs(burner2.geo.z_out[1] - burner2.geo.z_in[1]),abs(burner3.geo.z_out[1] - burner3.geo.z_in[1]),abs(burner4.geo.z_out[1] - burner4.geo.z_in[1]),abs(flameRoom_evap_1.geo.z_out[1] - flameRoom_evap_1.geo.z_in[1])},
-    initOption=0,
     T_start={INIT.brnr1.T_vle_wall_out,INIT.brnr2.T_vle_wall_out,INIT.brnr3.T_vle_wall_out,INIT.brnr4.T_vle_wall_out,INIT.evap_rad.T_vle_wall_out},
-    stateLocation=2)
-                  annotation (Placement(transformation(
+    stateLocation=2,
+    initOption=213) annotation (Placement(transformation(
         extent={{-13.9999,-4.99995},{13.9998,4.99995}},
         rotation=90,
         origin={107,-120})));
@@ -541,13 +540,12 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     N_tubes=evap_2.N_tubes,
     diameter_o=0.0424,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         (INIT.brnr4.T_vle_wall_out + INIT.evap_rad.T_vle_wall_out)/2,
         INIT.evap_rad.T_vle_wall_out,
         evap_2.N_cv),
-    stateLocation=2)
-                  annotation (Placement(transformation(
+    stateLocation=2,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99996},{14,4.99998}},
         rotation=90,
         origin={105,-24})));
@@ -610,10 +608,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_o=0.0318,
     suppressChattering="False",
     Delta_x={flameRoom_sh_1.geo.height,flameRoom_sh_2.geo.height,flameRoom_sh_4.geo.height,flameRoom_rh_2.geo.height},
-    initOption=0,
     T_start={INIT.sh1.T_vle_wall_out,INIT.sh2.T_vle_wall_out,INIT.sh4.T_vle_wall_out,INIT.rh2.T_vle_wall_out},
-    stateLocation=2)
-                  annotation (Placement(transformation(
+    stateLocation=2,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={107,40})));
@@ -651,15 +648,14 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=evap_4.diameter_i,
     N_tubes=evap_4.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start={INIT.sh3.T_vle_wall_out,INIT.rh1.T_vle_wall_out,INIT.eco.T_vle_wall_out},
     stateLocation=2,
     length=evap_4.length*evap_4.N_passes,
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         evap_4_wall.length,
-        evap_4.N_cv))
-                  annotation (Placement(transformation(
+        evap_4.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99998},{13.9999,4.99998}},
         rotation=90,
         origin={109,142})));
@@ -699,15 +695,14 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=sh_1.diameter_i,
     N_tubes=sh_1.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.sh1.T_vle_bundle_in,
         INIT.sh1.T_vle_bundle_out,
         sh_1.N_cv),
     stateLocation=2,
     length=sh_1.length*sh_1.N_passes,
-    diameter_o=0.0345)
-                  annotation (Placement(transformation(
+    diameter_o=0.0345,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={349,-82})));
@@ -766,7 +761,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=sh_2.diameter_i,
     N_tubes=sh_2.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.sh2.T_vle_bundle_in,
         INIT.sh2.T_vle_bundle_out,
@@ -777,8 +771,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         sh_2_wall.length,
-        sh_2.N_cv))
-                  annotation (Placement(transformation(
+        sh_2.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={353,20})));
@@ -838,7 +832,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=sh_3.diameter_i,
     N_tubes=sh_3.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.sh3.T_vle_bundle_in,
         INIT.sh3.T_vle_bundle_out,
@@ -849,8 +842,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         sh_3_wall.length,
-        sh_1.N_cv))
-                  annotation (Placement(transformation(
+        sh_1.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={353,104})));
@@ -911,7 +904,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     N_tubes=sh_4.N_tubes,
     diameter_o=0.038,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.sh4.T_vle_bundle_in,
         INIT.sh4.T_vle_bundle_out,
@@ -921,8 +913,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         sh_4_wall.length,
-        sh_4.N_cv))
-                  annotation (Placement(transformation(
+        sh_4.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={346,216})));
@@ -982,7 +974,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     N_tubes=eco.N_tubes,
     diameter_o=0.0424,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.eco.T_vle_bundle_in,
         INIT.eco.T_vle_bundle_out,
@@ -992,8 +983,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         eco_wall.length,
-        eco.N_cv))
-                  annotation (Placement(transformation(
+        eco.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-5.0001},{14,5.0001}},
         rotation=90,
         origin={94.9999,-298})));
@@ -1055,7 +1046,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=rh_1.diameter_i,
     N_tubes=rh_1.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.rh1.T_vle_bundle_in,
         INIT.rh1.T_vle_bundle_out,
@@ -1065,8 +1055,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         rh_1_wall.length,
-        rh_1.N_cv))
-                  annotation (Placement(transformation(
+        rh_1.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-5.00007},{14,5.00007}},
         rotation=90,
         origin={577,-2})));
@@ -1127,7 +1117,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=rh_2.diameter_i,
     N_tubes=rh_2.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.rh2.T_vle_bundle_in,
         INIT.rh2.T_vle_bundle_out,
@@ -1137,8 +1126,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0,0},
         rh_2_wall.length,
-        rh_2.N_cv))
-                  annotation (Placement(transformation(
+        rh_2.N_cv),
+    initOption=213) annotation (Placement(transformation(
         extent={{-13.9999,-4.99997},{13.9999,4.99993}},
         rotation=90,
         origin={575,124})));
@@ -1206,10 +1195,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     length=evap_0.length,
     N_tubes=evap_0.N_tubes,
     suppressChattering="False",
-    initOption=0,
     T_start=ones(evap_0.N_cv)*(INIT.brnr1.T_vle_wall_in),
-    stateLocation=2)
-                  annotation (Placement(transformation(
+    stateLocation=2,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99981},{14,4.99977}},
         rotation=90,
         origin={97.0002,-180})));
@@ -1274,14 +1262,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     N_tubes=ct_1.N_tubes,
     diameter_o=0.0445,
     suppressChattering="False",
-    initOption=0,
     T_start=linspace(
         INIT.ct.T_vle_wall_in,
         INIT.ct.T_vle_wall_out,
         ct_1.N_cv),
     stateLocation=2,
-    length=ct_1.length*ct_1.N_passes)
-                  annotation (Placement(transformation(
+    length=ct_1.length*ct_1.N_passes,
+    initOption=213) annotation (Placement(transformation(
         extent={{14,-4.99999},{-14,5}},
         rotation=90,
         origin={209,78})));
@@ -1348,10 +1335,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=eco_riser.diameter_i,
     length=eco_riser.length,
     N_tubes=eco_riser.N_tubes,
-    initOption=0,
     T_start=ones(eco_riser_wall.N_ax)*(INIT.eco.T_vle_bundle_in),
-    stateLocation=3)
-                  annotation (Placement(transformation(
+    stateLocation=3,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=90,
         origin={103,-336})));
@@ -1400,9 +1386,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=eco_riser.diameter_i,
     length=eco_riser.length,
     N_tubes=eco_riser.N_tubes,
-    initOption=0,
     T_start=ones(eco_riser_wall.N_ax)*(INIT.brnr1.T_vle_wall_in),
-    stateLocation=3)                                              annotation (Placement(transformation(
+    stateLocation=3,
+    initOption=213) annotation (Placement(transformation(
         extent={{-13.9999,-4.99997},{13.9999,4.99997}},
         rotation=90,
         origin={107,-244})));
@@ -1477,9 +1463,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=eco_riser.diameter_i,
     length=eco_riser.length,
     N_tubes=eco_riser.N_tubes,
-    initOption=0,
     T_start=ones(eco_riser_wall.N_ax)*(INIT.rh2.T_vle_bundle_out),
-    stateLocation=3)                                               annotation (Placement(transformation(
+    stateLocation=3,
+    initOption=213) annotation (Placement(transformation(
         extent={{-13,-5},{13,5}},
         rotation=90,
         origin={575,172})));
@@ -1530,9 +1516,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_i=eco_riser.diameter_i,
     length=eco_riser.length,
     N_tubes=eco_riser.N_tubes,
-    initOption=0,
     T_start=ones(eco_riser_wall.N_ax)*(INIT.sh4.T_vle_bundle_out),
-    stateLocation=3)                                               annotation (Placement(transformation(
+    stateLocation=3,
+    initOption=213) annotation (Placement(transformation(
         extent={{-14,-4.99999},{14,5.00002}},
         rotation=90,
         origin={347,262})));
@@ -1691,8 +1677,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     J=1,
     rpm_nom=3000,
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
-    V_flow_zerohead=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
-    Delta_p_zeroflow_const=-NOM.Pump_cond.Delta_p*2,
+    V_flow_max=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
+    Delta_p_max=-NOM.Pump_cond.Delta_p*2,
     useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{1420,-188},{1400,-208}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{952,-230},{1012,-210}})));
@@ -1990,7 +1976,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -2011,7 +1996,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     level_rel_start=0.2,
     redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={320,340,360},
-    N_tubes=1000)     annotation (Placement(transformation(
+    N_tubes=1000,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={1170,-194})));
@@ -2026,7 +2012,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -2049,7 +2034,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     z_out_tubes=0.1,
     redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={300,320,340},
-    z_in_aux1=0.1)    annotation (Placement(transformation(
+    z_in_aux1=0.1,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={1240,-194})));
@@ -2504,13 +2490,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     T_w_start=ones(3)*(273.15 + 200),
     diameter_i=0.02,
     diameter_o=0.028,
     N_tubes=2000,
-    redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000})) annotation (Placement(transformation(
+    redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000}),
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={812,-252})));
@@ -2523,7 +2509,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     Tau_evap=0.03,
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -2547,8 +2532,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3 (alpha_nom={1500,8000}),
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000))
-                      annotation (Placement(transformation(
+    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={1310,-194})));
@@ -2577,7 +2562,6 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP1.p_cond,
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=3,
@@ -2585,7 +2569,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     diameter_o=0.052,
     level_rel_start=0.1,
     T_w_start={350,400,440},
-    N_tubes=1000)     annotation (Placement(transformation(
+    N_tubes=1000,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={1100,-194})));

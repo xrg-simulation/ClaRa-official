@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Tube_FlueGas_L2_Simple
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -57,7 +57,7 @@ model Test_Tube_FlueGas_L2_Simple
     diameter_i=tube.diameter_i,
     N_tubes=tube.N_tubes,
     diameter_o=tube.diameter_i + 0.01,
-    initOption=0) annotation (Placement(transformation(extent={{-10,-53},{10,-46}})));
+    initOption=213) annotation (Placement(transformation(extent={{-10,-53},{10,-46}})));
   Modelica.Blocks.Sources.Ramp T_wall(
     duration=10,
     offset=298.15,

@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills;
-model mill_L4 "Aerosol component | box module to capsule mill components"
+model Mill_L4 "Aerosol component | box module to capsule mill components"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -288,4 +288,4 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
-end mill_L4;
+end Mill_L4;

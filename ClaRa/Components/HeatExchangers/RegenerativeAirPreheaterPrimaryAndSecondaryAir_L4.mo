@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerative air preheater with primary and secondary air"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -86,10 +86,11 @@ model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerativ
       choice=202 "Steady temperature",
       choice=208 "Steady pressure and enthalpy"));
 
-  inner parameter Integer initOptionWall=0 "Init Option of Wall"
+  inner parameter Integer initOptionWall=213 "Init Option of Wall"
     annotation (Dialog(tab="Initialisation"), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
   parameter ClaRa.Basics.Units.Temperature T_start_primaryAir[:]={293.15,293.15} "Start value of primary air system Temperature"

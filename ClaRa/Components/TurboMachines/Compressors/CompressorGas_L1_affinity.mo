@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_affinity "A gas compressor or fan based on affinity laws"
 
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -68,7 +68,7 @@ protected
         rotation=-90,
         origin={0,20})));
 
-  ClaRa.Basics.Units.DensityMassSpecific rho_nom_char = TILMedia.GasObjectFunctions.density_pTxi(p_nom_char,T_nom_char,xi_nom_char,InletNom.gasPointer) "Nominal density related to Delta_p_zeroflow_const";
+//  ClaRa.Basics.Units.DensityMassSpecific rho_nom_char = TILMedia.GasObjectFunctions.density_pTxi(p_nom_char,T_nom_char,xi_nom_char,InletNom.gasPointer) "Nominal density related to Delta_p_max";
 
 public
   TILMedia.Gas_pT flueGas_inlet( p = inlet.p, T = inStream(inlet.T_outflow), xi = inStream(inlet.xi_outflow), gasType = medium)
@@ -83,16 +83,17 @@ public
   parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
 
-  parameter Boolean useDensityAffinity=false "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic field"));
+  final parameter Boolean useDensityAffinity=true "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic field"));
   parameter Boolean useHead=false "True, if a compressor head (height) | False, if compressor head (pressure) should be used" annotation(Dialog(group="Characteristic field"));
   parameter ClaRa.Basics.Units.RPM rpm_nom "|Characteristic field|Nomial rotational speed";
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_max "|Characteristic field|Maximum volume flow rate at nominal speed";
-  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_min=0 "|Characteristic field|V_flow(Delta_p_zeroflow_const, rpm_nom)";
-  parameter ClaRa.Basics.Units.Pressure Delta_p_max_const "Constatnt maximum pressure difference at rpm_nom, T_nom_char, p_nom_char, xi_nom_char" annotation(Dialog(group="Characteristic field", enable=not useHead));
-  parameter ClaRa.Basics.Units.Length Head_max_const = 10 "Constant maximum head at flow = 0 for rpm_nom" annotation(Dialog(group="Characteristic field", enable=useHead));
-  parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0} "Nominal gas composition related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_min=0 "|Characteristic field|V_flow(Delta_p_max, rpm_nom)";
+  parameter ClaRa.Basics.Units.Pressure Delta_p_max=1e5 "Constatnt maximum pressure difference at rpm_nom, T_nom_char, p_nom_char, xi_nom_char" annotation(Dialog(group="Characteristic field", enable=not useHead));
+  parameter ClaRa.Basics.Units.Length Head_max = 10 "Constant maximum head at flow = 0 for rpm_nom" annotation(Dialog(group="Characteristic field", enable=useHead));
+//   parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+//   parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+//   parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0} "Nominal gas composition related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.GasObjectFunctions.density_pTxi(1e5,293.15,{0,0,0,0,0.76,0.23,0,0,0},InletNom.gasPointer) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
   parameter Real exp_hyd= 0.5 "|Characteristic field|Exponent for affinity law";
 
   parameter Real eta = 0.85 "isentropic efficiency";
@@ -108,7 +109,7 @@ public
   ClaRa.Basics.Units.VolumeFlowRate V_flow;
   ClaRa.Basics.Units.VolumeFlowRate V_flow_max_aff;
   ClaRa.Basics.Units.Pressure Delta_p_max_aff;
-  ClaRa.Basics.Units.Pressure Delta_p_max "Pressure difference at flow= 0 for rpm_nom";
+  ClaRa.Basics.Units.Pressure Delta_p_max_var "Pressure difference at flow= 0 for rpm_nom";
   Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
   ClaRa.Basics.Units.Power P_shaft "Mechanical power at shaft";
   ClaRa.Basics.Units.RPM rpm "Rotational speed";
@@ -164,12 +165,12 @@ initial equation
 equation
 //_______________Pressure head _______________
    if useDensityAffinity then
-     if useHead then Delta_p_max = Head_max_const*flueGas_inlet.d*Modelica.Constants.g_n;
-     else Delta_p_max = Delta_p_max_const*(flueGas_inlet.d/rho_nom_char);
+     if useHead then Delta_p_max_var = Head_max*flueGas_inlet.d*Modelica.Constants.g_n;
+     else Delta_p_max_var = Delta_p_max*(flueGas_inlet.d/rho_nom);
      end if;
    else
-     if useHead then Delta_p_max = Head_max_const*rho_nom_char*Modelica.Constants.g_n;
-     else Delta_p_max=Delta_p_max_const;
+     if useHead then Delta_p_max_var = Head_max*rho_nom*Modelica.Constants.g_n;
+     else Delta_p_max_var=Delta_p_max;
      end if;
    end if;
 
@@ -187,18 +188,18 @@ equation
   else
     a = (2*pi/60)^2*der(rpm);
   end if;
-  tau_fluid = if noEvent(2*pi*rpm/60<1e-8) then 0 else P_shaft/(2*pi*rpm/60);
+  tau_fluid = if noEvent(2*pi*rpm/60<1e-8) then 0 else P_hyd/(2*pi*rpm/60);
 
   //______________Affinity laws_______________________
   V_flow_max_aff = V_flow_max*rpm/rpm_nom;
-  Delta_p_max_aff = Delta_p_max*(rpm/rpm_nom)^2;
+  Delta_p_max_aff = Delta_p_max_var*(rpm/rpm_nom)^2;
 
   //______________Compressor_characteristic___________
-  V_flow =  Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower((Delta_p_max_aff - Delta_p)/Delta_p_max, Delta_p_eps/Delta_p_max, exp_hyd)*(V_flow_max-V_flow_min) + V_flow_min;
+  V_flow =  Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower((Delta_p_max_aff - Delta_p)/Delta_p_max_var, Delta_p_eps/Delta_p_max_var, exp_hyd)*(V_flow_max-V_flow_min) + V_flow_min;
 
   P_hyd = Delta_h*inlet.m_flow;
 
-  P_shaft = P_hyd*1/eta*1/eta_mech;
+  P_shaft = P_hyd*1/eta_mech;
 
   Delta_p = outlet.p - inlet.p;
   h_out = flueGas_inlet.h + Delta_h;

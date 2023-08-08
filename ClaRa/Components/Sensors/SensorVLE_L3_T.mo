@@ -40,11 +40,11 @@ model SensorVLE_L3_T
   Basics.ControlVolumes.SolidVolumes.ThinPlateWall_L4 sensorWall(
     thickness_wall=thickness_sensor,
     redeclare model Material = WallMaterial,
-    initOption=203,
     stateLocation=2,
     CF_area=A_sensor/(sensorWall.length*sensorWall.width),
     mass_struc=A_sensor*thickness_sensor*sensorWall.solid[1].d - sensorWall.length*sensorWall.width*thickness_sensor*sensorWall.solid[1].d,
-    T_start=T_sensor_start*ones(sensorWall.N_ax)) annotation (Placement(transformation(extent={{-10,-4},{10,6}})));
+    T_start=T_sensor_start*ones(sensorWall.N_ax),
+    initOption=203) annotation (Placement(transformation(extent={{-10,-4},{10,6}})));
   ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 fluidVolume(
     redeclare final model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     redeclare model PressureLoss = PressureLoss,

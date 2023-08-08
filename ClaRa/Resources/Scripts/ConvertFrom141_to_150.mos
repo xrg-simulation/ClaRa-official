@@ -1,0 +1,88 @@
+﻿//Convert Package from ClaRa 1.4.0
+convertClear();
+
+// Pump conversions
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "Delta_p_zeroflow_const", "Delta_p_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "Head_zeroflow_const", "Head_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", "V_flow_zerohead", "V_flow_max");
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "Delta_p_zeroflow_const", "Delta_p_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "Head_zeroflow_const", "Head_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", "V_flow_zerohead", "V_flow_max");
+
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "Delta_p_zeroflow_const", "Delta_p_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "Head_zeroflow_const", "Head_max");
+convertElement("ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase", "V_flow_zerohead", "V_flow_max");
+
+
+//convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity",{"p_nom_char","T_nom_char","xi_nom_char","medium"},
+//{("rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_pTxi(
+//if(%medium%==0) then simCenter.fluid1 else %medium%,
+//if(%p_nom_char%==0) then 1e5 else %p_nom_char%,
+//if(%T_nom_char%==0) then 293.15 else %T_nom_char%,
+//if(%xi_nom_char%==0) then simCenter.fluid1.xi_default else %xi_nom_char%)"),
+//"medium=%medium%"},
+//true);
+//convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity",{"medium"},{"medium=%medium%"}, true);
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity", {"p_nom_char","T_nom_char","xi_nom_char"}, {"", "", ""});
+
+
+//convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity",{"p_nom_char","T_nom_char","xi_nom_char","medium"},
+//{("rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_pTxi(
+//if(%medium%==0) then simCenter.fluid1 else %medium%,
+//if(%p_nom_char%==0) then 1e5 else %p_nom_char%,
+//if(%T_nom_char%==0) then 293.15 else %T_nom_char%,
+//if(%xi_nom_char%==0) then simCenter.fluid1.xi_default else %xi_nom_char%)"),
+//"medium=%medium%"},
+//true);
+//convertModifiers("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity",{"medium"},{"medium=%medium%"}, true);
+convertElement("ClaRa.Components.TurboMachines.Pumps.PumpVLE_L2_affinity", {"p_nom_char","T_nom_char","xi_nom_char"}, {"", "", ""});
+
+
+// Compressor conversions
+convertElement("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity", "Delta_p_max_const", "Delta_p_max");
+convertElement("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity", "Head_zeroflow_const", "Head_max");
+
+//convertModifiers("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity",{"p_nom_char","T_nom_char","xi_nom_char","medium"},
+//{("rho_nom=TILMedia.GasFunctions.density_pTxi(
+//if(%medium%==0) then simCenter.flueGasModel else %medium%,
+//if(%p_nom_char%==0) then 1e5 else %p_nom_char%,
+//if(%T_nom_char%==0) then 293.15 else %T_nom_char%,
+//if(%xi_nom_char%==0) then simCenter.flueGasModel.xi_default else %xi_nom_char%)"),
+//"medium=%medium%"},
+//true);
+//convertModifiers("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity",{"medium"},{"medium=%medium%"}, true);
+convertElement("ClaRa.Components.TurboMachines.Compressors.CompressorGas_L1_affinity", {"p_nom_char","T_nom_char","xi_nom_char"}, {"", "", ""});
+
+
+// convert Walls
+
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4",{"initOption"},{"initOption=if(%initOption%==0) then 213 else %initOption%"}, true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4",{"initOption"},{"initOption=if(%initOption%==0) then 213 else %initOption%"}, true);
+convertModifiers("ClaRa.Basics.ControlVolumes.SolidVolumes.ThinPlateWall_L4",{"initOption"},{"initOption=if(%initOption%==0) then 213 else %initOption%"}, true);
+
+
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_1ph_BU_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_BU_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_1ph_BU_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.HEXvle2gas_L3_2ph_BU_simple",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+
+
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.HeatExchangers.RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+
+convertModifiers("ClaRa.Components.VolumesValvesFittings.Fittings.SprayInjectorVLE_L3_advanced",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+
+
+convertModifiers("ClaRa.Components.MechanicalSeparation.FeedWaterTank_L3",{"initOptionWall", "initOptionInsulation"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%, initOptionInsulation=if(%initOptionInsulation%==0) then 213 else %initOptionInsulation%"}, true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.BalanceTank_L3",{"initOptionWall"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%"}, true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.Drum_L3",{"initOptionWall", "initOptionInsulation"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%, initOptionInsulation=if(%initOptionInsulation%==0) then 213 else %initOptionInsulation%"}, true);
+convertModifiers("ClaRa.Components.MechanicalSeparation.Bottle_L3",{"initOptionWall", "initOptionInsulation"},{"initOptionWall=if(%initOptionWall%==0) then 213 else %initOptionWall%, initOptionInsulation=if(%initOptionInsulation%==0) then 213 else %initOptionInsulation%"}, true);
+
+
+convertClass("ClaRa.Components.Mills.PhysicalMills.mill_L4", "ClaRa.Components.Mills.PhysicalMills.Mill_L4");
+convertClass("ClaRa.Components.Mills.PhysicalMills.mill_L4_advancedInit", "ClaRa.Components.Mills.PhysicalMills.Mill_L4_advancedInit");
+

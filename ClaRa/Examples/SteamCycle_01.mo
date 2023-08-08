@@ -1,10 +1,10 @@
 within ClaRa.Examples;
 model SteamCycle_01 "A closed steam cycle with a simple boiler model including single reheat, feedwater tank, LP and HP preheaters"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -272,13 +272,13 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     T_w_start=ones(3)*(273.15 + 200),
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000}),
     diameter_i=0.02,
     diameter_o=0.028,
-    N_tubes=2000)     annotation (Placement(transformation(
+    N_tubes=2000,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-88,-182})));
@@ -327,7 +327,6 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP1.p_cond,
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=3,
@@ -335,7 +334,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     diameter_o=0.052,
     level_rel_start=0.1,
     T_w_start={350,400,440},
-    N_tubes=1000)     annotation (Placement(transformation(
+    N_tubes=1000,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={200,-124})));
@@ -592,7 +592,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={270,-30})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple       preheater_LP2(
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple preheater_LP2(
     redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
     N_passes=1,
     Q_flow_nom=2e8,
@@ -605,7 +605,6 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -625,12 +624,12 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     h_start_tubes=INIT.preheater_LP2.h_cond_out,
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP2.p_cond,
     level_rel_start=0.1,
-    T_w_start={320,340,360})
-                      annotation (Placement(transformation(
+    T_w_start={320,340,360},
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={270,-124})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple       preheater_LP3(
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple preheater_LP3(
     redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
@@ -643,7 +642,6 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -664,11 +662,12 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     N_passes=2,
     N_tubes=500,
     z_in_tubes=0.1,
-    z_out_tubes=0.1)  annotation (Placement(transformation(
+    z_out_tubes=0.1,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={340,-124})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple       preheater_LP4(
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple preheater_LP4(
     redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
@@ -681,7 +680,6 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -701,8 +699,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     z_in_tubes=0.1,
     z_out_tubes=0.1,
     N_tubes=600,
-    p_start_shell=INIT.preheater_LP4.p_tap)
-                      annotation (Placement(transformation(
+    p_start_shell=INIT.preheater_LP4.p_tap,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={410,-124})));

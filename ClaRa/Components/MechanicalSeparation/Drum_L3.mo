@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model Drum_L3 "Drum : separated volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -62,13 +62,15 @@ extends ClaRa.Basics.Icons.Drum;
     annotation (Dialog(tab= "Initialisation", group = "Volume"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
 
   parameter Modelica.SIunits.Temperature T_wall_start[wall.N_rad]=ones(wall.N_rad)*293.15 "Start values of wall temperature inner --> outer" annotation(Dialog(tab="Initialisation", group="Wall"));
-  parameter Integer initOptionWall=0 "Initialisation option for wall" annotation(Dialog(tab="Initialisation", group="Wall"),choices(
+  parameter Integer initOptionWall=213 "Initialisation option for wall" annotation(Dialog(tab="Initialisation", group="Wall"),choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
-  parameter Integer initOptionInsulation=0 "Type of initialisation" annotation (Dialog(tab="Initialisation",group="Insulation", enable=includeInsulation), choices(
+  parameter Integer initOptionInsulation=213 "Type of initialisation" annotation (Dialog(tab="Initialisation",group="Insulation", enable=includeInsulation), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
   parameter ClaRa.Basics.Units.Temperature T_startInsulation=293.15 "Start values of wall temperature" annotation (Dialog(
       tab="Initialisation",

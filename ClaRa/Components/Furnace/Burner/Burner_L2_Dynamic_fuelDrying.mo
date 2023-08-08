@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic_fuelDrying "Model for a burner section inside a combustion chamber which is able to regard drying of unburnt fuel which contained water at burner inlet"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -388,12 +388,12 @@ equation
   + outlet.fuel.m_flow*((fuelOutlet.cp*(outlet.fuel.T_outflow - T_0) + Delta_h_f_out) - h_flueGas_out)
   + outlet.slag.m_flow*(outlet.slagType.cp*(actualStream(outlet.slag.T_outflow) - T_0) - h_flueGas_out)
   + inlet.slag.m_flow*(inlet.slagType.cp*(actualStream(inlet.slag.T_outflow) - T_0) - h_flueGas_out)
-  + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out)
-  + m_flow_evap*(h_fuel_water_in - h_flueGas_out) - m_flow_evap*(h_fuel_water_out- h_flueGas_out))/mass;
+  + outlet.flueGas.m_flow*(flueGasOutlet.h - h_flueGas_out))
+   /mass;
 //   + inlet.fuel.m_flow*(Delta_h_f)
 //   + fuelFlueGas_inlet.fuel.m_flow*(Delta_h_f)
 //   + outlet.fuel.m_flow*(Delta_h_f_out)
-
+// + m_flow_evap*(h_fuel_water_in - h_flueGas_out) - m_flow_evap*(h_fuel_water_out- h_flueGas_out)
 
   sum_xi = sum(flueGasOutlet.xi);
 

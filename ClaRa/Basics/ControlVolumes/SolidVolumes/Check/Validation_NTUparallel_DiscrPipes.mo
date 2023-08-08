@@ -38,11 +38,11 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   parameter Integer N_cv = 400 "Number of Cells";
 
   parameter SI.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
-      TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
+      simCenter.fluid1,
       p_i,
       T_i_in);
   parameter SI.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
-      TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),
+      simCenter.fluid1,
       p_o,
       T_o_in);
 
@@ -138,7 +138,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
         T_o_in,
         T_i_in,
         N_cv),
-    initOption=0) annotation (Placement(transformation(extent={{-104,-64},{-76,-54}})));
+    initOption=213) annotation (Placement(transformation(extent={{-104,-64},{-76,-54}})));
   NTU_L2                                                     NTU(
     redeclare model Material = TILMedia.SolidTypes.TILMedia_St35_8,
     redeclare model HeatExchangerType = Fundamentals.HeatExchangerTypes.ParallelFlow,

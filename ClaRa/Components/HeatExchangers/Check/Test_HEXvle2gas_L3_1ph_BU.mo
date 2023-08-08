@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th edition "
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -149,7 +149,7 @@ model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th
     redeclare model PressureLossTubes = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2,
     initOptionTubes=1,
     initOptionShell=0,
-    initOptionWall=0) annotation (Placement(transformation(
+    initOptionWall=213) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={8,-68})));
@@ -196,7 +196,7 @@ model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th
     level_rel_start=0.95,
     initOptionTubes=204,
     initOptionShell=0,
-    initOptionWall=0) annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+    initOptionWall=213) annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi flueGasPressureSink2(                                                        p_const=1e5)
                                                                                             annotation (Placement(transformation(

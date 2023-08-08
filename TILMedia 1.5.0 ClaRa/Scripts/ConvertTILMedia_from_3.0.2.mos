@@ -1,0 +1,12 @@
+
+// clear
+convertClear();
+
+
+//---------------------------------------
+// Start conversion from TILMedia 1.5.0 ClaRa to 3.2.2
+
+convertElement("TILMedia.VLEFluidTypes.BaseVLEFluid","VLEFluidNames","vleFluidNames");
+
+// End conversion from TILMedia 1.5.0 ClaRa to 3.2.2
+//---------------------------------------

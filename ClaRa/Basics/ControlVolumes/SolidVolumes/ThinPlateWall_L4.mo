@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model ThinPlateWall_L4 "A thin wall with discretisation in axial direction"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -37,7 +37,8 @@ public
   inner parameter Integer initOption=213 "Type of initialisation" annotation (Dialog(group="Initialisation"), choices(
       choice=213 "Fixed temperature",
       choice=1 "Steady state",
-      choice=203 "Steady temperature"));
+      choice=203 "Steady temperature",
+      choice=0 "No init, use T_start as guess values"));
 
   parameter Integer stateLocation = 2 "Location of states" annotation(Dialog(group="Numerical Efficiency"), choices(choice=1 "Inner location of states",
                                     choice=2 "Central location of states",  choice=3 "Outer location of states"));
@@ -107,7 +108,7 @@ initial equation
    elseif initOption == 203 then //steady temperature
      der(T)=zeros(N_ax);
    elseif initOption == 0 then //no init
-     T=T_start; // fixed temperature
+     //do nothing
    elseif initOption == 213 then // fixed temperature
      T=T_start;
    else

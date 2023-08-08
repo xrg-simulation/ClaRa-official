@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_1
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -15,7 +15,7 @@ model TestMillBox_1
   // XRG Simulation GmbH (Hamburg, Germany).                                   //
   //___________________________________________________________________________//
 
-  ClaRa.Components.Mills.PhysicalMills.mill_L4 millBox1(
+  ClaRa.Components.Mills.PhysicalMills.Mill_L4 millBox1(
     m_flow_gas_nom=20.83,
     m_flow_fuel_nom=0.97*13.06,
     classification=Volumes.Fundamentals.Records.FuelClassification_example_21classes(),

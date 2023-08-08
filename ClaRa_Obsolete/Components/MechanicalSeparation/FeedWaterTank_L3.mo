@@ -207,9 +207,9 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
     diameter_i=diameter,
     redeclare replaceable model Material = material,
     diameter_o=diameter + 2*thickness_wall,
-    initOption=initOptionWall,
     T_start=T_wall_start,
-    mass_struc=mass_struc + 2*diameter^2/4*Modelica.Constants.pi*thickness_wall*wall.solid[1].d) annotation (Placement(transformation(extent={{-8,6},{12,26}})));
+    mass_struc=mass_struc + 2*diameter^2/4*Modelica.Constants.pi*thickness_wall*wall.solid[1].d,
+    initOption=if ((if ((initOptionWall) == 0) then 213 else (initOptionWall)) == 0) then 213 else (if ((initOptionWall) == 0) then 213 else (initOptionWall))) annotation (Placement(transformation(extent={{-8,6},{12,26}})));
 
   Modelica.Blocks.Interfaces.RealOutput level(value = if outputAbs then summary.outline.level_abs else summary.outline.level_rel) if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
@@ -223,8 +223,8 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
     N_tubes=1,
     N_ax=1,
     stateLocation=2,
-    initOption=initOptionInsulation,
-    T_start=T_startInsulation*ones(1)) if includeInsulation annotation (Placement(transformation(extent={{-8,32},{12,40}})));
+    T_start=T_startInsulation*ones(1),
+    initOption=if ((if ((initOptionInsulation) == 0) then 213 else (initOptionInsulation)) == 0) then 213 else (if ((initOptionInsulation) == 0) then 213 else (initOptionInsulation))) if includeInsulation annotation (Placement(transformation(extent={{-8,32},{12,40}})));
   ClaRa.Components.BoundaryConditions.PrescribedHeatFlow prescribedHeatFlow(
     length=length,
     N_axial=1,

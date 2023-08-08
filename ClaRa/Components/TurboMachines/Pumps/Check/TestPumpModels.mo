@@ -2,10 +2,10 @@ within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPumpModels
   import ClaRa;
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -40,10 +40,10 @@ model TestPumpModels
         rotation=90,
         origin={-36,-97})));
   PumpVLE_L1_affinity pump_3(
-    Delta_p_zeroflow_const=876*9.81*3680,
+    Delta_p_max=876*9.81*3680,
     useMechanicalPort=true,
     steadyStateTorque=false,
-    V_flow_zerohead=2600/3600,
+    V_flow_max=2600/3600,
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (
         eta_hyd_nom=0.82,
         exp_rpm=0.15,

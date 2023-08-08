@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic "Model for a burner section inside a combustion chamber"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -341,7 +341,7 @@ equation
   Delta_h_f - LHV =m_flow_flueGas_id*((ideal_combustion.h_i)*cat(1,xi_flueGas_id,{1 - sum(xi_flueGas_id)})) + elementaryComposition_fuel_in[6]*reactionZone.xi_slag*outlet.slagType.cp*T_0;//formation enthalpy of used fuel
 
   //_______________/ Energy Balance flueGasCombustion \__________________________
-  der(h_flueGas_out) =(Q_flow_wall + Q_flow_top + Q_flow_bottom
+  der(h_flueGas_out) =(geo.volume*der(p) + Q_flow_wall + Q_flow_top + Q_flow_bottom
                       + inlet.flueGas.m_flow*(flueGasInlet.h - h_flueGas_out)
                       + fuelFlueGas_inlet.flueGas.m_flow*(primaryAir_inlet.h - h_flueGas_out)
                       + inlet.fuel.m_flow*((fuelInlet.cp*(inStream(inlet.fuel.T_outflow) - T_0) + Delta_h_f) - h_flueGas_out)

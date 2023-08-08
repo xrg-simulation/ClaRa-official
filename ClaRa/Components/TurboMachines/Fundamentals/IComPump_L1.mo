@@ -9,8 +9,8 @@ record IComPump_L1
   Basics.Units.RPM rpm "Rotational speed" annotation (Dialog(tab="General"));
   Basics.Units.MassFlowRate m_flow "Mass flow" annotation (Dialog(tab="General"));
 
-  Basics.Units.Pressure Delta_p_zeroflow "Max. pressure difference at V_flow = 0 and rpm_nom" annotation (Dialog(tab="Nominal"));
-  parameter Basics.Units.VolumeFlowRate V_flow_zerohead "Max. flow at Delta_p = 0 and rpm_nom" annotation (Dialog(tab="Nominal"));
+  Basics.Units.Pressure Delta_p_max_var "Max. pressure difference at V_flow = 0 and rpm_nom" annotation (Dialog(tab="Nominal"));
+  parameter Basics.Units.VolumeFlowRate V_flow_max "Max. flow at Delta_p = 0 and rpm_nom" annotation (Dialog(tab="Nominal"));
   parameter Basics.Units.RPM rpm_nom "nominal rotational speed" annotation (Dialog(tab="Nominal"));
 
 //____Inlet_____________________________________________________________________________

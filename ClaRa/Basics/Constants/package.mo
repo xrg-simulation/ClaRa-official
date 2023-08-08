@@ -1,13 +1,13 @@
 within ClaRa.Basics;
 package Constants
 //___________________________________________________________________________//
-// Package of the ClaRa library, version: 1.4.1                              //
+// Package of the ClaRa library, version: 1.5.0                              //
 // Models of the ClaRa library are tested under DYMOLA v2019.           //
 // It is planned to support alternative Simulators like SimulationX in the   //
 // future                                                                    //
 //___________________________________________________________________________//
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // This Modelica package is free software and the use is completely at your  //
 // own risk; it can be redistributed and/or modified under the terms of the  //

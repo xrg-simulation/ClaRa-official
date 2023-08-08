@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -78,10 +78,11 @@ model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
       choice=202 "Steady temperature",
       choice=208 "Steady pressure and enthalpy"));
 
-  parameter Integer initOptionWall=0 "Init Option of Wall"
+  parameter Integer initOptionWall=213 "Init Option of Wall"
     annotation (Dialog(tab="Initialisation"), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
   parameter ClaRa.Basics.Units.Temperature T_start_freshAir[:]={293.15,293.15} "Start value of fresh air system Temperature" annotation (Dialog(tab="Initialisation"));

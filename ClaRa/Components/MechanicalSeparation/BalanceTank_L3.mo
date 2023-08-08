@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model BalanceTank_L3 "A balance tank with a vent"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -32,10 +32,11 @@ model BalanceTank_L3 "A balance tank with a vent"
   parameter ClaRa.Basics.Units.Length s_wall=2 "|Geometry|Wall thickness of the tank";
   parameter ClaRa.Basics.Units.Length height=2 "|Geometry|Height of the tank";
   parameter ClaRa.Basics.Units.Temperature T_start[3]=ones(3)*293.15 "|Initialisation|Wall|Start values of wall temperature";
-  parameter Integer initOptionWall=0 "|Initialisation|Wall|Wall init option"
+  parameter Integer initOptionWall=213 "|Initialisation|Wall|Wall init option"
     annotation (choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
   parameter ClaRa.Basics.Units.Length z_in[3]=ones(3)*height "|Geometry|Height of liquid inlet ports";

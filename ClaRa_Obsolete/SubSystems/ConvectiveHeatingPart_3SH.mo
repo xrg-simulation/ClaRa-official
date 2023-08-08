@@ -584,75 +584,75 @@ public
     diameter_i=diameter_i_SH1_in,
     length=length_SH1_in,
     N_tubes=N_tubes_SH1_in,
-    initOption=1,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-210})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 SH1_outWall(
-    initOption=1,
     diameter_o=diameter_o_SH1_out,
     diameter_i=diameter_i_SH1_out,
     length=length_SH1_out,
     N_tubes=N_tubes_SH1_out,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-156})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 SH2_inWall(
-    initOption=1,
     diameter_o=diameter_o_SH2_in,
     diameter_i=diameter_i_SH2_in,
     length=length_SH2_in,
     N_tubes=N_tubes_SH2_in,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-38})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 SH2_outWall(
-    initOption=1,
     diameter_o=diameter_o_SH2_out,
     diameter_i=diameter_i_SH2_out,
     length=length_SH2_out,
     N_tubes=N_tubes_SH2_out,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-32,14})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 SH3_inWall(
-    initOption=1,
     diameter_o=diameter_o_SH3_in,
     diameter_i=diameter_i_SH3_in,
     length=length_SH3_in,
     N_tubes=N_tubes_SH3_in,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,140})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 SH3_outWall(
-    initOption=1,
     diameter_o=diameter_o_SH3_out,
     diameter_i=diameter_i_SH3_out,
     length=length_SH3_out,
     N_tubes=N_tubes_SH3_out,
     N_rad=N_rad,
     sizefunc=+1,
-    redeclare model Material = Material) annotation (Placement(transformation(
+    redeclare model Material = Material,
+    initOption=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,194})));

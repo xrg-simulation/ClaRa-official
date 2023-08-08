@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Pipe_L4_Advanced
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -116,7 +116,7 @@ model Test_Pipe_L4_Advanced
     N_ax=tube.N_cv,
     T_start=320*ones(tube.N_cv),
     stateLocation=2,
-    initOption=0) annotation (Placement(transformation(extent={{-13,-46},{13,-36}})));
+    initOption=213) annotation (Placement(transformation(extent={{-13,-46},{13,-36}})));
 equation
   connect(multiSum.y, massFlowSource.m_flow) annotation (Line(
       points={{65.98,-54},{64,-54},{62,-53}},

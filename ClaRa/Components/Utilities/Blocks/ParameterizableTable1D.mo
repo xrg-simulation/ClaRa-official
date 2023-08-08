@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.Utilities.Blocks;
 model ParameterizableTable1D "Table look-up in one dimension (matrix/file) with n inputs and n outputs "
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright © 2013-2016, DYNCAP/DYNSTART research team.                     //

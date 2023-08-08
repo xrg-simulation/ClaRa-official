@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -44,16 +44,17 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
   parameter Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
   parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
 
-  parameter Basics.Units.RPM rpm_nom "Nomial rotational speed" annotation (Dialog(group="Fundamental Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharField1.png"));
-  parameter Boolean useDensityAffinity=false "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic Field"));
-  parameter Boolean useHead=false "True, if a pump head (height) | False, if pump head (pressure) should be used" annotation(Dialog(group="Characteristic Field"));
-  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_zerohead = 1 "Volume flow where Delta_p/head = 0 for rpm_nom" annotation(Dialog(group="Characteristic Field"));
-  parameter ClaRa.Basics.Units.PressureDifference Delta_p_zeroflow_const = 1e5 "Constant pressure difference at flow = 0 for rpm_nom, T_nom_char, p_nom_char, xi_nom_char" annotation(Dialog(group="Characteristic Field", enable=not useHead));
-  parameter ClaRa.Basics.Units.Length Head_zeroflow_const = 10 "Constant head at flow = 0 for rpm_nom" annotation(Dialog(group="Characteristic Field", enable=useHead));
-  parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc-1] = medium.xi_default "Nominal mass fraction related to Delta_p_zeroflow_const (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_eps = V_flow_zerohead/100 "Minimum volumetric flow rate for which hydraulic characteristic is still scaled with respect to density | For V_flow < abs(V_flow_eps) no density scalling is used." annotation(Dialog(tab="Expert Settings", enable = useDensityAffinity));
+  parameter Basics.Units.RPM rpm_nom "Nomial rotational speed" annotation (Dialog(group="Fundamental Definitions"));
+  final parameter Boolean useDensityAffinity=true "True, if hydraulic characteristic shall be scalled w.r.t. densities according to affinity law" annotation(Dialog(group="Characteristic Field"));
+  parameter Boolean useHead=false "True, if a pump head (height) | False, if pump head (pressure) should be used" annotation (Dialog(group="Characteristic Field", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/PumpCharField1.png"));
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_max = 1 "Volume flow where Delta_p/head = 0 for rpm_nom" annotation(Dialog(group="Characteristic Field"));
+  parameter ClaRa.Basics.Units.PressureDifference Delta_p_max = 1e5 "Constant pressure difference at flow = 0 for rpm_nom, rho_nom" annotation(Dialog(group="Characteristic Field", enable=not useHead));
+  parameter ClaRa.Basics.Units.Length Head_max = 10 "Constant head at flow = 0 for rpm_nom" annotation(Dialog(group="Characteristic Field", enable=useHead));
+//   parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
+//   parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
+//   parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc-1] = medium.xi_default "Nominal mass fraction related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_pTxi(medium,1e5,293.15,medium.xi_default) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic Field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_eps = V_flow_max/100 "Minimum volumetric flow rate for which hydraulic characteristic is still scaled with respect to density | For V_flow < abs(V_flow_eps) no density scalling is used." annotation(Dialog(tab="Expert Settings", enable = useDensityAffinity));
 
 
   //_____/ Inner fluid model \__________________________________________________________
@@ -114,12 +115,10 @@ protected
     contributeToCycleSummary=contributeToCycleSummary,
     useDensityAffinity=useDensityAffinity,
     useHead = useHead,
-    V_flow_zerohead=V_flow_zerohead,
-    Delta_p_zeroflow_const=Delta_p_zeroflow_const,
-    Head_zeroflow_const = Head_zeroflow_const,
-    T_nom_char=T_nom_char,
-    p_nom_char=p_nom_char,
-    xi_nom_char=xi_nom_char,
+    V_flow_max=V_flow_max,
+    Delta_p_max=Delta_p_max,
+    Head_max = Head_max,
+    rho_nom=rho_nom,
     V_flow_eps=V_flow_eps,
     redeclare model Hydraulics = Hydraulics,
     redeclare model Energetics = Energetics) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model QuadraticNominalPoint_L4 "VLE|| Quadratic PL with const. PL coeff"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -34,7 +34,8 @@ protected
 
 equation
   /////// Calcultae Media Data Required //////////////////
-  rho[2:geo.N_cv] = {smooth(1, noEvent(max(1e-6, if m_flow[i] > 0 then density_phxi(
+
+  rho[2:geo.N_cv] = {smooth(1, noEvent(max(1e-6, if Delta_p[i] > 0 then density_phxi(
     iCom.p[i - 1],
     iCom.h[i - 1],
     iCom.xi[i - 1, :],
@@ -43,7 +44,7 @@ equation
     iCom.h[i],
     iCom.xi[i, :],
     iCom.fluidPointer[i])))) for i in 2:iCom.N_cv};
-  rho[1] = smooth(1, noEvent(max(1e-6, if m_flow[1] > 0 then density_phxi(
+  rho[1] = smooth(1, noEvent(max(1e-6, if Delta_p[1] > 0 then density_phxi(
     iCom.p_in[1],
     iCom.h_in[1],
     iCom.xi_in[1, :],
@@ -52,15 +53,16 @@ equation
     iCom.h[1],
     iCom.xi[1, :],
     iCom.fluidPointer[1]))));
-  rho[geo.N_cv + 1] = smooth(1, noEvent(max(1e-6, if m_flow[geo.N_cv + 1] > 0 then density_phxi(
-    iCom.p_in[end],
-    iCom.h_in[end],
-    iCom.xi_in[end, :],
-    iCom.fluidPointer_in[end]) else density_phxi(
+  rho[geo.N_cv + 1] = smooth(1, noEvent(max(1e-6, if Delta_p[geo.N_cv + 1] > 0 then density_phxi(
+    iCom.p[geo.N_cv],
+    iCom.h[geo.N_cv],
+    iCom.xi[geo.N_cv, :],
+    iCom.fluidPointer[geo.N_cv]) else density_phxi(
     iCom.p_out[1],
     iCom.h_out[1],
     iCom.xi_out[1, :],
     iCom.fluidPointer_out[1]))));
+
 
   ////// Calculate Pressure Losses ////////////////////
   // Note that we want distribute zeta linearly over tha pipe length. Hence use zeta[i]=zeta_TOT*geo.Delta_x_FM[i]/(L -geo.Delta_x_FM[1]-geo.Delta_x_FM[N_cv+1] ) <-- notice that the last two terms depend on the flow model

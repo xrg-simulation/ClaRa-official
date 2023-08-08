@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | U-type | simple HT"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -162,10 +162,11 @@ model HEXvle2vle_L3_2ph_CU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cyli
           "Fundamental Definitions"));
   //________________________________ Wall initialisation _______________________________________//
   parameter ClaRa.Basics.Units.Temperature T_w_start[3]=ones(3)*293.15 "Initial temperature at outer phase" annotation (Dialog(tab="Tube Wall", group="Initialisation"));
-  parameter Integer initOptionWall=0 "Init Option of Wall"
+  parameter Integer initOptionWall=213 "Init Option of Wall"
     annotation (Dialog(tab="Tube Wall", group="Initialisation"), choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",
+      choice=213 "Fixed temperature",
       choice=203 "Steady temperature"));
 
   //*********************************** / EXPERT Settings and Visualisation \ ***********************************//

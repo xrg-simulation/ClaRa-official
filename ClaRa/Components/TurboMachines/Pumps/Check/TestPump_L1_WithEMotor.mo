@@ -21,11 +21,11 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
     useDensityAffinity=false,
-    Delta_p_zeroflow_const=380e5,
+    Delta_p_max=380e5,
     useMechanicalPort=true,
     showExpertSummary=true,
     rpm_nom=5000,
-    V_flow_zerohead=1,
+    V_flow_max=1,
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.40),
         drp_exp=(-0.04/(5000 - 3000)),

@@ -98,7 +98,7 @@ public
 equation
 
   connect(ramp1.y, Model_boiler.yT_)         annotation (Line(
-      points={{-79,170},{46,170},{46,148.3},{42.5077,148.3}},
+      points={{-79,170},{46,170},{46,153.4},{41.5385,153.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(SV_Pressure_LS.y, PID.u_s) annotation (Line(
@@ -114,13 +114,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp2.y, Model_boiler.QF_setl_) annotation (Line(
-      points={{-79,130},{6,130},{6,130.62}},
+      points={{-79,130},{2.76923,130},{2.76923,133}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(turbinesAndReheat_01_XRG.inlet, Model_boiler.steamSignal) annotation (
      Line(
-      points={{82.3,120.6},{54,120.6},{54,122.8},{48.3231,122.8}},
+      points={{82.3,107},{54,107},{54,143.2},{48,143.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -150,7 +150,7 @@ equation
       color={0,0,127},
       smooth=Smooth.Bezier));
   connect(Model_boiler.steamSignal, mediumData_b) annotation (Line(
-      points={{48.3231,122.8},{48.3231,186},{-140,186},{-140,-58},{-131,-58}},
+      points={{48,143.2},{48,186},{-140,186},{-140,-58},{-131,-58}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

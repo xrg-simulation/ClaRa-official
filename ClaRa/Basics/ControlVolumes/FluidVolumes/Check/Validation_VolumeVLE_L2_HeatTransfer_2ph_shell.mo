@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_2ph_shell "Validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Ja 13 Example 2"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,8 +19,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   import SI = ClaRa.Basics.Units;
 
-  parameter Units.EnthalpyMassSpecific h_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(), p);
-  parameter Units.EnthalpyMassSpecific h_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(), p);
+  parameter Units.EnthalpyMassSpecific h_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(simCenter.fluid1, p);
+  parameter Units.EnthalpyMassSpecific h_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(simCenter.fluid1, p);
   parameter Units.MassFlowRate m_flow_D=Volume.geo.A_front*w_inf*0.019535;
 
   parameter Units.Velocity w_inf=71.3;
@@ -29,8 +29,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   parameter Units.Length diameter_shell_o=0.092 "Outer diameter of shell";
   parameter Units.Length diameter_tube_o=0.014 "Outer diameter of tube";
 
-  parameter Units.Pressure p=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewPressure_Txi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(), T_s);
-  parameter Units.EnthalpyMassSpecific h=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_Txi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(), T_s);
+  parameter Units.Pressure p=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewPressure_Txi(simCenter.fluid1, T_s);
+  parameter Units.EnthalpyMassSpecific h=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_Txi(simCenter.fluid1, T_s);
 
 //   Real eta_l = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dynamicViscosity_pTxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),p, T_w,{0});
 //   Real cp_l =  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_pTxi(TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater(),p, T_w,{0});

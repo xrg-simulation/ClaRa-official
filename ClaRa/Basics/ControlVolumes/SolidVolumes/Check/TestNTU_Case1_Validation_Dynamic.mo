@@ -2,10 +2,10 @@ within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.TestNTU_Case2"
 
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -237,18 +237,17 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
    ClaRa.Components.Sensors.SensorVLE_L1_T Hot_out_degC annotation (Placement(transformation(extent={{16,22},{36,42}})));
    ClaRa.Components.Sensors.SensorVLE_L1_T Cold_out_degC annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 thinWall(
-     diameter_o=diameter_o,
-     diameter_i=diameter_i,
-     N_tubes=N_tubes,
-     N_ax=N_cv,
-     Delta_x=ones(N_cv)*length/N_cv,
-     T_start=linspace(
-         T_o_in,
-         T_i_in,
-         N_cv),
-     initOption=203,
-    length=length*N_passes)
-                     annotation (Placement(transformation(extent={{-20,2},{0,10}})));
+    diameter_o=diameter_o,
+    diameter_i=diameter_i,
+    N_tubes=N_tubes,
+    N_ax=N_cv,
+    Delta_x=ones(N_cv)*length/N_cv,
+    T_start=linspace(
+        T_o_in,
+        T_i_in,
+        N_cv),
+    length=length*N_passes,
+    initOption=203) annotation (Placement(transformation(extent={{-20,2},{0,10}})));
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-16},{-54,-4}})));
 equation
    for i in 1:pipe_ColdSide.N_cv loop

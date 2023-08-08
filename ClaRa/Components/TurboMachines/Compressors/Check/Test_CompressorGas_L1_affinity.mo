@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_CompressorGas_L1_affinity
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -17,7 +17,7 @@ model Test_CompressorGas_L1_affinity
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   inner SimCenter simCenter                                annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CompressorGas_L1_affinity GasFanAdvanced(
-    Delta_p_max_const=1e5,
+    Delta_p_max=1e5,
     eta=0.85,
     J=0.1,
     rpm_fixed=3000,

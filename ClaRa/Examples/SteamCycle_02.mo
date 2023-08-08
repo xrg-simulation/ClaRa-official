@@ -1,10 +1,10 @@
 within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.4.1                            //
+  // Component of the ClaRa library, version: 1.5.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
   //___________________________________________________________________________//
   // DYNCAP and DYNSTART are research projects supported by the German Federal //
   // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -170,8 +170,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     J=1,
     rpm_nom=3000,
     redeclare model Energetics = ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics.EfficiencyCurves_Q1 (eta_hyd_nom=NOM.Pump_cond.efficiency),
-    V_flow_zerohead=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
-    Delta_p_zeroflow_const=-NOM.Pump_cond.Delta_p*2,
+    V_flow_max=NOM.Pump_cond.m_flow/NOM.Pump_cond.rho_in*2,
+    Delta_p_max=-NOM.Pump_cond.Delta_p*2,
     useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{520,-118},{500,-138}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{50,-160},{110,-140}})));
@@ -589,7 +589,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={270,-30})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple       preheater_LP2(
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple preheater_LP2(
     redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
     N_passes=1,
     Q_flow_nom=2e8,
@@ -601,7 +601,6 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -622,11 +621,12 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     level_rel_start=0.2,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={320,340,360},
-    N_tubes=1000)     annotation (Placement(transformation(
+    N_tubes=1000,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={270,-124})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple       preheater_LP3(
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple preheater_LP3(
     redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
@@ -637,7 +637,6 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
     levelOutput=true,
     length=10,
     diameter=2,
@@ -660,7 +659,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     z_out_tubes=0.1,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={300,320,340},
-    z_in_aux1=0.1)    annotation (Placement(transformation(
+    z_in_aux1=0.1,
+    initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={340,-124})));

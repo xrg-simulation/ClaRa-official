@@ -1,10 +1,10 @@
 within ClaRa.Components.Adapters.Check;
 model TestScalar2VectorHeatPort
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -57,7 +57,7 @@ model TestScalar2VectorHeatPort
     length=1,
     N_ax=5,
     Delta_x={0.5,0.25,0.15,0.05,0.05},
-    initOption=0) annotation (Placement(transformation(
+    initOption=213) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={28,-22})));
@@ -93,7 +93,7 @@ model TestScalar2VectorHeatPort
     length=1,
     N_ax=5,
     Delta_x={0.5,0.25,0.15,0.05,0.05},
-    initOption=0) annotation (Placement(transformation(
+    initOption=213) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={28,-64})));

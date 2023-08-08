@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesignInlet "Running the  L1 pump in off design inlet conditions"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.4.1                            //
+// Component of the ClaRa library, version: 1.5.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2019, DYNCAP/DYNSTART research team.                      //
+// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
 //___________________________________________________________________________//
 // DYNCAP and DYNSTART are research projects supported by the German Federal //
 // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
@@ -19,15 +19,16 @@ model TestPump_L1_OffDesignInlet "Running the  L1 pump in off design inlet condi
   inner ClaRa.SimCenter simCenter(                                                              showExpertSummary=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1)
                                                                                                                             annotation (Placement(transformation(extent={{-160,-200},{-120,-180}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump2(
+    useDensityAffinity=true,
     useHead=true,
-    Head_zeroflow_const=1000,
+    Head_max=1000,
     steadyStateTorque=false,
     showExpertSummary=true,
     J=1,
     rpm_fixed=4600,
     useMechanicalPort=true,
-    V_flow_zerohead=1,
-    Delta_p_zeroflow_const=100e5,
+    V_flow_max=1,
+    Delta_p_max=100e5,
     redeclare model Hydraulics = ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics.MetaStable_Q124 (
         exp_hyd=(0.5),
         drp_exp=(0),
@@ -117,7 +118,7 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="
 ______________________________________
-Purpose: Illustrate the the change of dp vs. V_flow characteristic under non-design inlet conditions, i.e. V_flow and dp is changing due to the change of inlet density, 
+Purpose: Illustrate the change of dp vs. V_flow characteristic under non-design inlet conditions, i.e. V_flow and dp is changing due to the change of inlet density, 
 ______________________________________
 Look at: summary: V_flow, P_shaft, P_hyd, m_flow
 ______________________________________
