@@ -1,5 +1,22 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model TestThreeWayValve
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   ThreeWayValveVLE_L1 threeWayValve_VLE_L1_1(splitRatio_input=true) annotation (Placement(transformation(extent={{-10,-14},{10,4}})));
   inner SimCenter simCenter(showExpertSummary=true) annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));

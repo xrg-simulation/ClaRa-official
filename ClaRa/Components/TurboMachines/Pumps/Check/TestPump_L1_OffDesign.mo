@@ -1,19 +1,22 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesign "Running the  L1 pump in off design, including reverse flow and switch off"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                        //
-//                                                                           //
-// Licensed by the DYNCAP research team under Modelica License 2.            //
-// Copyright  2013-2015, DYNCAP research team.                                   //
-//___________________________________________________________________________//
-// DYNCAP is a research project supported by the German Federal Ministry of  //
-// Economics and Technology (FKZ 03ET2009).                                  //
-// The DYNCAP research team consists of the following project partners:      //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
 
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true) annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));

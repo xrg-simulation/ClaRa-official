@@ -2,6 +2,8 @@ Check
 Fundamentals
 GenericValveVLE_L1
 GenericValveGas_L1
+GenericValveVLEWithDisplay_L1
+GenericValveGasWithDisplay_L1
 ValveFuelFlueGas_L1
 ThreeWayValve_base
 ThreeWayValve_baseGas

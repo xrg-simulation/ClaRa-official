@@ -59,8 +59,7 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
     parameter Integer N_rad=3 "Number of axial cells in radial direction" annotation(Dialog(group="Fundamental Definitions"));
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                              annotation(Dialog(group="Fundamental Definitions"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet"
-                                       annotation(Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(group="Nominal Values"));
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,48 +70,31 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4  annotation(Dialog(tab= "Superheater 1", group="Fundamental Definitions"), choicesAllMatching);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH1_in=0.3 "Inner diameter of the superheater1 inlet header"
-                                                       annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH1_in=0.4 "Outer diameter of the superheater1 inlet header"
-                                                       annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH1_in=2 "Length of the  SH1 outlet header"
-                                       annotation(Dialog(tab= "Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH1_in=0.3 "Inner diameter of the superheater1 inlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH1_in=0.4 "Outer diameter of the superheater1 inlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH1_in=2 "Length of the  SH1 outlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
  parameter Integer N_tubes_SH1_in=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 1", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length length_SH1=10 "Total length of SH1 pipes" annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SH1=0.05 "Inner diameter of the SH1 pipes"
-                                      annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH1=0.06 "Outer diameter of the SH1 pipes"
-                                      annotation(Dialog(tab= "Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH1=10 "Total length of SH1 pipes" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH1=0.05 "Inner diameter of the SH1 pipes" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH1=0.06 "Outer diameter of the SH1 pipes" annotation (Dialog(tab="Superheater 1", group="Geometry"));
   parameter Integer N_tubes_SH1=300 "Number Of parallel pipes in SH1" annotation(Dialog(tab= "Superheater 1", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH1_out=0.3 "Inner Diameter of SH1 outlet header"
-                                          annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH1_out=0.4 "Outer Diameter of SH1 outlet header"
-                                          annotation(Dialog(tab= "Superheater 1", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH1_out=2 "Length of the  SH1 outlet header"
-                                       annotation(Dialog(tab= "Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH1_out=0.3 "Inner Diameter of SH1 outlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH1_out=0.4 "Outer Diameter of SH1 outlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH1_out=2 "Length of the  SH1 outlet header" annotation (Dialog(tab="Superheater 1", group="Geometry"));
  parameter Integer N_tubes_SH1_out=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 1", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Pressure p_nomSH1_in=300e5 "Nominal pressure at inlet of SH1"
-                                      annotation(Dialog(tab= "Superheater 1", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH1_in=2700e3 "Nominal specific enthalpy at inlet of SH1"
-                                                annotation(Dialog(tab= "Superheater 1", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure p_nomSH1_out=300e5 "Nominal pressure at SH1 outlet"
-                                     annotation(Dialog(tab= "Superheater 1", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH1_out=3050e3 "Nominal specific enthalpy at SH1 outlet"
-                                              annotation(Dialog(tab= "Superheater 1", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSH1=2e5 "Nominal pressure drop at SH1"
-                                     annotation(Dialog(tab= "Superheater 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH1_in=300e5 "Nominal pressure at inlet of SH1" annotation (Dialog(tab="Superheater 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH1_in=2700e3 "Nominal specific enthalpy at inlet of SH1" annotation (Dialog(tab="Superheater 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH1_out=300e5 "Nominal pressure at SH1 outlet" annotation (Dialog(tab="Superheater 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH1_out=3050e3 "Nominal specific enthalpy at SH1 outlet" annotation (Dialog(tab="Superheater 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSH1=2e5 "Nominal pressure drop at SH1" annotation (Dialog(tab="Superheater 1", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH1_in=2700e3 "Start value of sytsem specific enthalpy at SH1 inlet"
-                                                           annotation(Dialog(tab= "Superheater 1", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH1_in=1e5 "Start value of sytsem pressure at SH1 inlet"
-                                                  annotation(Dialog(tab= "Superheater 1", group="Initialisation"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH1_out=3050e3 "Start value of specific enthalpy at SH1 outlet"
-                                                     annotation(Dialog(tab= "Superheater 1", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH1_out=300e5 "Start value of pressure at SH1 outlet"
-                                            annotation(Dialog(tab= "Superheater 1", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH1_in=2700e3 "Start value of sytsem specific enthalpy at SH1 inlet" annotation (Dialog(tab="Superheater 1", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH1_in=1e5 "Start value of sytsem pressure at SH1 inlet" annotation (Dialog(tab="Superheater 1", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH1_out=3050e3 "Start value of specific enthalpy at SH1 outlet" annotation (Dialog(tab="Superheater 1", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH1_out=300e5 "Start value of pressure at SH1 outlet" annotation (Dialog(tab="Superheater 1", group="Initialisation"));
   parameter Integer initOptionSH1=0 "Type of initialisation of SH1"
     annotation (Dialog(tab="Superheater 1", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,48 +107,31 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4 annotation(Dialog(tab= "Superheater 2", group="Fundamental Definitions"), choicesAllMatching);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH2_in=0.3 "Inner diameter of the SH2 inlet header"
-                                              annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH2_in=0.4 "Outer diameter of the SH2 inlet header"
-                                              annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH2_in=2 "Length of the  SH2 outlet header"
-                                       annotation(Dialog(tab= "Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH2_in=0.3 "Inner diameter of the SH2 inlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH2_in=0.4 "Outer diameter of the SH2 inlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH2_in=2 "Length of the  SH2 outlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
  parameter Integer N_tubes_SH2_in=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 2", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length length_SH2= 10 "Total length of SH2 pipes" annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SH2= 0.05 "Inner diameter of the SH2 pipes"
-                                      annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH2= 0.06 "Inner diameter of the SH2 pipes"
-                                      annotation(Dialog(tab= "Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH2=10 "Total length of SH2 pipes" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH2=0.05 "Inner diameter of the SH2 pipes" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH2=0.06 "Inner diameter of the SH2 pipes" annotation (Dialog(tab="Superheater 2", group="Geometry"));
   parameter Integer N_tubes_SH2= 300 "Number Of parallel pipes in SH2" annotation(Dialog(tab= "Superheater 2", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH2_out=0.3 "Inner Diameter of SH2 outlet header"
-                                          annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH2_out=0.4 "Outer Diameter of SH2 outlet header"
-                                          annotation(Dialog(tab= "Superheater 2", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH2_out=2 "Length of the  SH2 outlet header"
-                                       annotation(Dialog(tab= "Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH2_out=0.3 "Inner Diameter of SH2 outlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH2_out=0.4 "Outer Diameter of SH2 outlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH2_out=2 "Length of the  SH2 outlet header" annotation (Dialog(tab="Superheater 2", group="Geometry"));
   parameter Integer N_tubes_SH2_out=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 2", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Pressure p_nomSH2_in=300e5 "Nominal pressure at inlet of SH2"
-                                      annotation(Dialog(tab= "Superheater 2", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH2_in=3000e3 "Nominal specific enthalpy at inlet of SH1"
-                                                annotation(Dialog(tab= "Superheater 2", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure p_nomSH2_out=300e5 "Nominal pressure at SH1 outlet"
-                                     annotation(Dialog(tab= "Superheater 2", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH2_out= 3300e3 "Nominal specific enthalpy at SH1 outlet"
-                                              annotation(Dialog(tab= "Superheater 2", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSH2=2.8e5 "Nominal pressure drop at SH2"
-                                     annotation(Dialog(tab= "Superheater 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH2_in=300e5 "Nominal pressure at inlet of SH2" annotation (Dialog(tab="Superheater 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH2_in=3000e3 "Nominal specific enthalpy at inlet of SH1" annotation (Dialog(tab="Superheater 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH2_out=300e5 "Nominal pressure at SH1 outlet" annotation (Dialog(tab="Superheater 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH2_out=3300e3 "Nominal specific enthalpy at SH1 outlet" annotation (Dialog(tab="Superheater 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSH2=2.8e5 "Nominal pressure drop at SH2" annotation (Dialog(tab="Superheater 2", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH2_in=3000e3 "Start value of sytsem specific enthalpy at SH2 inlet"
-                                                           annotation(Dialog(tab= "Superheater 2", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH2_in=1e5 "Start value of sytsem pressure at SH2 inlet"
-                                                  annotation(Dialog(tab= "Superheater 2", group="Initialisation"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH2_out=3300e3 "Start value of specific enthalpy at SH2 outlet"
-                                                     annotation(Dialog(tab= "Superheater 2", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH2_out=300e5 "Start value of pressure at SH2 outlet"
-                                            annotation(Dialog(tab= "Superheater 2", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH2_in=3000e3 "Start value of sytsem specific enthalpy at SH2 inlet" annotation (Dialog(tab="Superheater 2", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH2_in=1e5 "Start value of sytsem pressure at SH2 inlet" annotation (Dialog(tab="Superheater 2", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH2_out=3300e3 "Start value of specific enthalpy at SH2 outlet" annotation (Dialog(tab="Superheater 2", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH2_out=300e5 "Start value of pressure at SH2 outlet" annotation (Dialog(tab="Superheater 2", group="Initialisation"));
   parameter Integer initOptionSH2=0 "Type of initialisation of SH2"
     annotation (Dialog(tab="Superheater 2", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,48 +144,31 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4 annotation(Dialog(tab= "Superheater 3", group="Fundamental Definitions"), choicesAllMatching);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH3_in=0.3 "Inner diameter of the SH3 inlet header"
-                                              annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH3_in=0.4 "Outer diameter of the SH3 inlet header"
-                                              annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH3_in=2 "Length of the  SH3 outlet header"
-                                       annotation(Dialog(tab= "Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH3_in=0.3 "Inner diameter of the SH3 inlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH3_in=0.4 "Outer diameter of the SH3 inlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH3_in=2 "Length of the  SH3 outlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
   parameter Integer N_tubes_SH3_in=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 3", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length length_SH3= 10 "Total length of SH3 pipes" annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SH3= 0.05 "Inner diameter of the SH3 pipes"
-                                      annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH3= 0.06 "Inner diameter of the SH3 pipes"
-                                      annotation(Dialog(tab= "Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH3=10 "Total length of SH3 pipes" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH3=0.05 "Inner diameter of the SH3 pipes" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH3=0.06 "Inner diameter of the SH3 pipes" annotation (Dialog(tab="Superheater 3", group="Geometry"));
   parameter Integer N_tubes_SH3= 300 "Number Of parallel pipes in SH3" annotation(Dialog(tab= "Superheater 3", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH3_out=0.3 "Inner Diameter of SH3 outlet header"
-                                          annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH3_out=0.4 "Outer Diameter of SH3 outlet header"
-                                          annotation(Dialog(tab= "Superheater 3", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH3_out=2 "Length of the  SH3 outlet header"
-                                       annotation(Dialog(tab= "Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH3_out=0.3 "Inner Diameter of SH3 outlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH3_out=0.4 "Outer Diameter of SH3 outlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH3_out=2 "Length of the  SH3 outlet header" annotation (Dialog(tab="Superheater 3", group="Geometry"));
   parameter Integer N_tubes_SH3_out=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 3", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Pressure p_nomSH3_in=300e5 "Nominal pressure at inlet of SH3"
-                                      annotation(Dialog(tab= "Superheater 3", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH3_in=3250e3 "Nominal specific enthalpy at inlet of SH3"
-                                                annotation(Dialog(tab= "Superheater 3", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure p_nomSH3_out=300e5 "Nominal pressure at SH1 outlet"
-                                     annotation(Dialog(tab= "Superheater 3", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH3_out= 3450e3 "Nominal specific enthalpy at SH3 outlet"
-                                              annotation(Dialog(tab= "Superheater 3", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSH3=4.1e5 "Nominal pressure drop at SH3"
-                                     annotation(Dialog(tab= "Superheater 3", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH3_in=300e5 "Nominal pressure at inlet of SH3" annotation (Dialog(tab="Superheater 3", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH3_in=3250e3 "Nominal specific enthalpy at inlet of SH3" annotation (Dialog(tab="Superheater 3", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH3_out=300e5 "Nominal pressure at SH1 outlet" annotation (Dialog(tab="Superheater 3", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH3_out=3450e3 "Nominal specific enthalpy at SH3 outlet" annotation (Dialog(tab="Superheater 3", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSH3=4.1e5 "Nominal pressure drop at SH3" annotation (Dialog(tab="Superheater 3", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH3_in=3250e3 "Start value of sytsem specific enthalpy at SH3 inlet"
-                                                           annotation(Dialog(tab= "Superheater 3", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH3_in=1e5 "Start value of sytsem pressure at SH3 inlet"
-                                                  annotation(Dialog(tab= "Superheater 3", group="Initialisation"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH3_out=3450e3 "Start value of specific enthalpy at SH3 outlet"
-                                                     annotation(Dialog(tab= "Superheater 3", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH3_out=300e5 "Start value of pressure at SH3 outlet"
-                                            annotation(Dialog(tab= "Superheater 3", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH3_in=3250e3 "Start value of sytsem specific enthalpy at SH3 inlet" annotation (Dialog(tab="Superheater 3", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH3_in=1e5 "Start value of sytsem pressure at SH3 inlet" annotation (Dialog(tab="Superheater 3", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH3_out=3450e3 "Start value of specific enthalpy at SH3 outlet" annotation (Dialog(tab="Superheater 3", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH3_out=300e5 "Start value of pressure at SH3 outlet" annotation (Dialog(tab="Superheater 3", group="Initialisation"));
   parameter Integer initOptionSH3=0 "Type of initialisation of SH3"
     annotation (Dialog(tab="Superheater 3", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 
@@ -234,91 +182,60 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4 annotation(Dialog(tab= "Superheater 4", group="Fundamental Definitions"), choicesAllMatching);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH4_in=0.3 "Inner diameter of the SH3 inlet header"
-                                              annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH4_in=0.4 "Outer diameter of the SH3 inlet header"
-                                              annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH4_in=2 "Length of the  SH3 outlet header"
-                                       annotation(Dialog(tab= "Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH4_in=0.3 "Inner diameter of the SH3 inlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH4_in=0.4 "Outer diameter of the SH3 inlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH4_in=2 "Length of the  SH3 outlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
   parameter Integer N_tubes_SH4_in=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 4", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length length_SH4= 10 "Total length of SH4 pipes" annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SH4= 0.05 "Inner diameter of the SH4 pipes"
-                                      annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH4= 0.06 "Inner diameter of the SH4 pipes"
-                                      annotation(Dialog(tab= "Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH4=10 "Total length of SH4 pipes" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH4=0.05 "Inner diameter of the SH4 pipes" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH4=0.06 "Inner diameter of the SH4 pipes" annotation (Dialog(tab="Superheater 4", group="Geometry"));
   parameter Integer N_tubes_SH4= 300 "Number Of parallel pipes in SH4" annotation(Dialog(tab= "Superheater 4", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_i_SH4_out=0.3 "Inner Diameter of SH3 outlet header"
-                                          annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_o_SH4_out=0.4 "Outer Diameter of SH3 outlet header"
-                                          annotation(Dialog(tab= "Superheater 4", group="Geometry"));
-   parameter Modelica.SIunits.Length length_SH4_out=2 "Length of the  SH3 outlet header"
-                                       annotation(Dialog(tab= "Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SH4_out=0.3 "Inner Diameter of SH3 outlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SH4_out=0.4 "Outer Diameter of SH3 outlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SH4_out=2 "Length of the  SH3 outlet header" annotation (Dialog(tab="Superheater 4", group="Geometry"));
   parameter Integer N_tubes_SH4_out=1 "Number of parallel headers" annotation(Dialog(tab= "Superheater 4", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Pressure p_nomSH4_in=300e5 "Nominal pressure at inlet of SH4"
-                                      annotation(Dialog(tab= "Superheater 4", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH4_in=3250e3 "Nominal specific enthalpy at inlet of SH4"
-                                                annotation(Dialog(tab= "Superheater 4", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure p_nomSH4_out=300e5 "Nominal pressure at SH4 outlet"
-                                     annotation(Dialog(tab= "Superheater 4", group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nomSH4_out= 3450e3 "Nominal specific enthalpy at SH4 outlet"
-                                              annotation(Dialog(tab= "Superheater 4", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSH4=4e5 "Nominal pressure drop at SH4"
-                                     annotation(Dialog(tab= "Superheater 4", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH4_in=300e5 "Nominal pressure at inlet of SH4" annotation (Dialog(tab="Superheater 4", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH4_in=3250e3 "Nominal specific enthalpy at inlet of SH4" annotation (Dialog(tab="Superheater 4", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nomSH4_out=300e5 "Nominal pressure at SH4 outlet" annotation (Dialog(tab="Superheater 4", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nomSH4_out=3450e3 "Nominal specific enthalpy at SH4 outlet" annotation (Dialog(tab="Superheater 4", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSH4=4e5 "Nominal pressure drop at SH4" annotation (Dialog(tab="Superheater 4", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH4_in=3250e3 "Start value of sytsem specific enthalpy at SH4 inlet"
-                                                           annotation(Dialog(tab= "Superheater 4", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH4_in=1e5 "Start value of sytsem pressure at SH4 inlet"
-                                                  annotation(Dialog(tab= "Superheater 4", group="Initialisation"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_startSH4_out=3450e3 "Start value of specific enthalpy at SH4 outlet"
-                                                     annotation(Dialog(tab= "Superheater 4", group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_startSH4_out=300e5 "Start value of pressure at SH4 outlet"
-                                            annotation(Dialog(tab= "Superheater 4", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH4_in=3250e3 "Start value of sytsem specific enthalpy at SH4 inlet" annotation (Dialog(tab="Superheater 4", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH4_in=1e5 "Start value of sytsem pressure at SH4 inlet" annotation (Dialog(tab="Superheater 4", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_startSH4_out=3450e3 "Start value of specific enthalpy at SH4 outlet" annotation (Dialog(tab="Superheater 4", group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_startSH4_out=300e5 "Start value of pressure at SH4 outlet" annotation (Dialog(tab="Superheater 4", group="Initialisation"));
   parameter Integer initOptionSH4=0 "Type of initialisation of SH4"
     annotation (Dialog(tab="Superheater 4", group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_o_SI1=0.5 "Outer diameter of spray injector 1"
-                                         annotation(Dialog(tab="Spray Injector 1", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SI1=0.45 "Inner diameter of spray injector 1"
-                                         annotation(Dialog(tab="Spray Injector 1", group="Geometry"));
-  parameter Modelica.SIunits.Length length_SI1=3 "Length of spray injector 1" annotation(Dialog(tab="Spray Injector 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SI1=0.5 "Outer diameter of spray injector 1" annotation (Dialog(tab="Spray Injector 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SI1=0.45 "Inner diameter of spray injector 1" annotation (Dialog(tab="Spray Injector 1", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SI1=3 "Length of spray injector 1" annotation (Dialog(tab="Spray Injector 1", group="Geometry"));
   parameter Integer N_SI1=1 "Number of identical injectors in parallel"  annotation(Dialog(tab="Spray Injector 1", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_nom_Spray1=1000e3 "Nominal specific enthalpy of spray1"
-                                          annotation(Dialog(tab="Spray Injector 1", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nom_SI1=1000 "Nominal pressure loss over spray injector 1"
-                                                   annotation(Dialog(tab="Spray Injector 1", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSpray1=20e5 "Nominal pressure loss over spray valve 1"
-                                               annotation(Dialog(tab="Spray Injector 1", group="Nominal Values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomSpray1=10 "Nominal injection mass flow rate od injector 1"
-                                                     annotation(Dialog(tab="Spray Injector 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nom_Spray1=1000e3 "Nominal specific enthalpy of spray1" annotation (Dialog(tab="Spray Injector 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nom_SI1=1000 "Nominal pressure loss over spray injector 1" annotation (Dialog(tab="Spray Injector 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSpray1=20e5 "Nominal pressure loss over spray valve 1" annotation (Dialog(tab="Spray Injector 1", group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomSpray1=10 "Nominal injection mass flow rate od injector 1" annotation (Dialog(tab="Spray Injector 1", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_start_Spray1=1000e3 "Initial specific enthalpy of spray 1"
-                                           annotation(Dialog(tab="Spray Injector 1", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_Spray1=1000e3 "Initial specific enthalpy of spray 1" annotation (Dialog(tab="Spray Injector 1", group="Initialisation"));
   parameter Integer initOption_Spray1=0 "Type of initialisation" annotation (Dialog(tab="Spray Injector 1", group="Initialisation"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.Length diameter_o_SI2=0.5 "Outer diameter of spray injector 2"
-                                         annotation(Dialog(tab="Spray Injector 2", group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i_SI2=0.45 "Inner diameter of spray injector 2"
-                                         annotation(Dialog(tab="Spray Injector 2", group="Geometry"));
-  parameter Modelica.SIunits.Length length_SI2=3 "Length of spray injector 2" annotation(Dialog(tab="Spray Injector 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o_SI2=0.5 "Outer diameter of spray injector 2" annotation (Dialog(tab="Spray Injector 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i_SI2=0.45 "Inner diameter of spray injector 2" annotation (Dialog(tab="Spray Injector 2", group="Geometry"));
+  parameter Modelica.Units.SI.Length length_SI2=3 "Length of spray injector 2" annotation (Dialog(tab="Spray Injector 2", group="Geometry"));
   parameter Integer N_SI2=1 "Number of identical injectors in parallel" annotation(Dialog(tab="Spray Injector 2", group="Geometry"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_nom_Spray2=1000e3 "Nominal specific enthalpy of spray2"
-                                          annotation(Dialog(tab="Spray Injector 2", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nom_SI2=1000 "Nominal pressure loss over spray injector 2"
-                                                   annotation(Dialog(tab="Spray Injector 2", group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomSpray2=20e5 "Nominal pressure loss over spray valve 2"
-                                               annotation(Dialog(tab="Spray Injector 2", group="Nominal Values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomSpray2=10 "Nominal injection mass flow rate od injector 2"
-                                                     annotation(Dialog(tab="Spray Injector 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nom_Spray2=1000e3 "Nominal specific enthalpy of spray2" annotation (Dialog(tab="Spray Injector 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nom_SI2=1000 "Nominal pressure loss over spray injector 2" annotation (Dialog(tab="Spray Injector 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomSpray2=20e5 "Nominal pressure loss over spray valve 2" annotation (Dialog(tab="Spray Injector 2", group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomSpray2=10 "Nominal injection mass flow rate od injector 2" annotation (Dialog(tab="Spray Injector 2", group="Nominal Values"));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter Modelica.SIunits.SpecificEnthalpy h_start_Spray2=1000e3 "Initial specific enthalpy of spray 2"
-                                           annotation(Dialog(tab="Spray Injector 2", group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_Spray2=1000e3 "Initial specific enthalpy of spray 2" annotation (Dialog(tab="Spray Injector 2", group="Initialisation"));
   parameter Integer initOption_Spray2=0 "Type of initialisation" annotation (Dialog(tab="Spray Injector 2", group="Initialisation"));
 
   ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 SH3_InletHeader(

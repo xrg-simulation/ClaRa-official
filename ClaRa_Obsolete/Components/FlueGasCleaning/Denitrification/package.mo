@@ -25,22 +25,16 @@ package Denitrification
   //## S U M M A R Y   D E F I N I T I O N ###################################################################
     model Outline
       extends ClaRa.Basics.Icons.RecordIcon;
-      input Modelica.SIunits.Volume V "System volume" annotation (Dialog(show));
-      input Modelica.SIunits.Mass mass "System mass" annotation (Dialog(show));
-      input Modelica.SIunits.Enthalpy H "System enthalpy"
-        annotation (Dialog(show));
-      input Modelica.SIunits.Pressure p "System pressure"
-        annotation (Dialog(show));
-      input Modelica.SIunits.Pressure Delta_p "Pressure loss"      annotation (Dialog(show));
-      input Modelica.SIunits.SpecificEnthalpy h "System specific enthalpy"
-        annotation (Dialog(show));
+    input Modelica.Units.SI.Volume V "System volume" annotation (Dialog(show));
+    input Modelica.Units.SI.Mass mass "System mass" annotation (Dialog(show));
+    input Modelica.Units.SI.Enthalpy H "System enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure p "System pressure" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure Delta_p "Pressure loss" annotation (Dialog(show));
+    input Modelica.Units.SI.SpecificEnthalpy h "System specific enthalpy" annotation (Dialog(show));
 
-      input Modelica.SIunits.Temperature T "System temperature"
-        annotation (Dialog(show));
-      input Modelica.SIunits.MassFlowRate mflow_NH3 "Requirered NH3 flow rate"
-        annotation (Dialog(show));
-      input Modelica.SIunits.HeatFlowRate reactionHeat "Reaction heat of deNOx catalysis"
-                                           annotation (Dialog(show));
+    input Modelica.Units.SI.Temperature T "System temperature" annotation (Dialog(show));
+    input Modelica.Units.SI.MassFlowRate mflow_NH3 "Requirered NH3 flow rate" annotation (Dialog(show));
+    input Modelica.Units.SI.HeatFlowRate reactionHeat "Reaction heat of deNOx catalysis" annotation (Dialog(show));
       input Real NOx_separationRate "NOx separation rate"
         annotation (Dialog(show));
     end Outline;
@@ -257,24 +251,17 @@ protected
   //## S U M M A R Y   D E F I N I T I O N ###################################################################
    model Outline
       extends ClaRa.Basics.Icons.RecordIcon;
-      input Modelica.SIunits.Volume volume "System volume"
-        annotation (Dialog(show));
-      input Modelica.SIunits.Mass mass "System mass" annotation (Dialog(show));
-      input Modelica.SIunits.Enthalpy H "System enthalpy"
-        annotation (Dialog(show));
-      input Modelica.SIunits.Pressure p "System pressure"
-        annotation (Dialog(show));
-      input Modelica.SIunits.Pressure Delta_p "Pressure loss"      annotation (Dialog(show));
-      input Modelica.SIunits.SpecificEnthalpy h "System specific enthalpy"        annotation(Dialog(show));
+    input Modelica.Units.SI.Volume volume "System volume" annotation (Dialog(show));
+    input Modelica.Units.SI.Mass mass "System mass" annotation (Dialog(show));
+    input Modelica.Units.SI.Enthalpy H "System enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure p "System pressure" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure Delta_p "Pressure loss" annotation (Dialog(show));
+    input Modelica.Units.SI.SpecificEnthalpy h "System specific enthalpy" annotation (Dialog(show));
 
-      input Modelica.SIunits.Temperature T "System temperature"
-        annotation (Dialog(show));
-      input Modelica.SIunits.MassFlowRate m_flow_NH3 "Requirered NH3 flow rate"
-        annotation (Dialog(show));
-      input Modelica.SIunits.MassFlowRate m_flow_O2 "Requirered O2 flow rate"
-        annotation (Dialog(show));
-      input Modelica.SIunits.HeatFlowRate reactionHeat "Reaction heat of deNOx catalysis"
-                                           annotation (Dialog(show));
+    input Modelica.Units.SI.Temperature T "System temperature" annotation (Dialog(show));
+    input Modelica.Units.SI.MassFlowRate m_flow_NH3 "Requirered NH3 flow rate" annotation (Dialog(show));
+    input Modelica.Units.SI.MassFlowRate m_flow_O2 "Requirered O2 flow rate" annotation (Dialog(show));
+    input Modelica.Units.SI.HeatFlowRate reactionHeat "Reaction heat of deNOx catalysis" annotation (Dialog(show));
       input Real NOx_separationRate "NOx separation rate"
         annotation (Dialog(show));
    end Outline;

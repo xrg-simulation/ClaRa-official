@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   Modelica.Blocks.Sources.Constant FluidMassFlowRate(k=100)
@@ -110,6 +110,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
+ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics), Diagram(graphics),
     Diagram(coordinateSystem(extent={{-140,0},{120,160}}, preserveAspectRatio=
             true), graphics={Text(
           extent={{-140,140},{120,120}},

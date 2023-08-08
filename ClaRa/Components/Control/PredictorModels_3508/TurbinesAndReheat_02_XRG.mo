@@ -1,30 +1,26 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model TurbinesAndReheat_02_XRG "A predictor for the generator power including the HP and IP/LP turbines aswell as the energy storage in the reheater"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="02");
   extends ClaRa.Components.Control.PredictorModels_3508.Icons.TurbineAndReheat;
-  parameter Modelica.SIunits.Pressure p_nom= 240e5 "Nominal pressure at inlet of HP turbine"
-                                                                                    annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_HP= 419 "Nominal mass flow rate at inlet of HP turbine"
-                                                    annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_IP= 370 "Nominal mass flow rate at inlet of IP turbine"
-                                                    annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.Power P_G_nom= 804.89e6 "Nominal generator power of the block"
-                                                                                 annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure p_nom=240e5 "Nominal pressure at inlet of HP turbine" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_HP=419 "Nominal mass flow rate at inlet of HP turbine" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_IP=370 "Nominal mass flow rate at inlet of IP turbine" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Power P_G_nom=804.89e6 "Nominal generator power of the block" annotation (Dialog(group="Nominal values"));
 
  parameter Real CL_Ip_HP[:,2]= {{0.6000e7,    0.0267e7},
                                       {0.8000e7,    0.0419e7},
@@ -61,10 +57,8 @@ parameter Real CL_Deltah_HP[:,2]={{0.6000e7,    0.0822e7},
                                       {2.8073e6,    1.3736e6}} "Characteristic line enthalpy difference over IP inlet pressure "
                                                                        annotation(Dialog(group="Part Load Definition"));
 
-parameter Modelica.SIunits.Time Tau_HP= (0.2+0.5)/2 "Time Constant for Energy Storage in HP turbine"
-                                                                                         annotation(Dialog(group="Time Response Definition"));
-parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "Time Constant for Energy Storage in IP/LP turbine"
-                                                                                            annotation(Dialog(group="Time Response Definition"));
+  parameter Modelica.Units.SI.Time Tau_HP=(0.2 + 0.5)/2 "Time Constant for Energy Storage in HP turbine" annotation (Dialog(group="Time Response Definition"));
+  parameter Modelica.Units.SI.Time Tau_IP=(10 + 25)/2 "Time Constant for Energy Storage in IP/LP turbine" annotation (Dialog(group="Time Response Definition"));
 
   parameter Real m_flow_start_=1 "Initial mass flow rate in p.u." annotation(Dialog(group="Initialisation"));
 
@@ -89,9 +83,7 @@ parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "Time Constant for Energy Stor
         origin={-100,0})));
   Modelica.Blocks.Interfaces.RealOutput P_gen_ "Generator power in p.u."
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2SpecificHPturbinePower(columns={2},
-      table=CL_Deltah_HP)
-    annotation (Placement(transformation(extent={{-24,60},{-4,80}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2SpecificHPturbinePower(columns={2}, table=CL_Deltah_HP) annotation (Placement(transformation(extent={{-24,60},{-4,80}})));
   Modelica.Blocks.Math.Gain gain(k=p_nom)
     annotation (Placement(transformation(extent={{-58,60},{-38,80}})));
   Modelica.Blocks.Math.Gain gain1(k=m_flow_HP)
@@ -104,15 +96,11 @@ parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "Time Constant for Energy Stor
     annotation (Placement(transformation(extent={{12,-42},{32,-22}})));
   Modelica.Blocks.Math.Gain gain3(k=m_flow_IP)
     annotation (Placement(transformation(extent={{-26,-36},{-6,-16}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2IntermediatePressure(columns={2},
-      table=CL_Ip_HP)
-    annotation (Placement(transformation(extent={{-42,-84},{-22,-64}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2IntermediatePressure(columns={2}, table=CL_Ip_HP) annotation (Placement(transformation(extent={{-42,-84},{-22,-64}})));
   Modelica.Blocks.Math.Gain gain4(
                                  k=p_nom)
     annotation (Placement(transformation(extent={{-70,-84},{-50,-64}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2SpecificLPturbinePower(columns={2},
-      table=CL_Deltah_IP)
-    annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2SpecificLPturbinePower(columns={2}, table=CL_Deltah_IP) annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
 equation
 
 assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
@@ -202,25 +190,28 @@ assert(Tau_HP>0 and Tau_IP>0, "Time constants must be greater than zero!");
       points={{33,-32},{34,-32},{34,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                              Diagram(graphics),
-    Documentation(info="<html>
-<p>A model calculating the time response of a HP, IP and LP turbine with reheating</p>
-<p>Be carefully: This model extends the VDI/VDE guideline for Unit Control of Thermal Power Stations in the following:</p>
-<p><ul>
-<li>The generator output is generated by retarding the turbine mass flow according to two parallel first order elements</li>
-<li>this is true only if the mass-specific power outlet is constant during load change which is not the case in general</li>
-<li>to cope with variable specific power output curves a generic characteristic line was introduced</li>
-<li>the default characteristic line refers to an ideal expansion and does not take reduced mass flows due to tapping of the LP and IP turbine into account!</li>
-</ul></p>
-<p><br/>This model extends the VDI/VDE guieline for Unit Control of Thermal Power Stations in the following:</p>
-<p><ul>
-<li>two characteristic lines for the specific power output in dependance of the turbine inlet pressure are used opeing two sparate paths for HP turbine and IP/LP turbine</li>
-<li>in comparisson to the model <a href=\"ClaRa.Components.Control.PredictorModels_3508.TurbinesAndReheat_01_XRG\">TurbinesAndReheat_01_XRG</a> this allows the definition of a non-constant turbine power ratio (P_HP/P_tot)</li>
-</ul></p>
-<p><br/>Contact: Friedrich Gottelt, XRG Simulation</p>
-</html>", revisions="<html>
-<p><ul>
-<li><b>v0.1 </b>2011-07-12: Initial implementation. Friedrich Gottelt, XRG Simulation GmbH</li>
-</ul></p>
+annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+        revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end TurbinesAndReheat_02_XRG;

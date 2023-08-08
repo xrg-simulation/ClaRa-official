@@ -24,7 +24,7 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
   parameter Boolean includeInsulation=false  "True, if insulation is included" annotation(Dialog(group="Fundamental Definitions"));
   replaceable model insulationMaterial=TILMedia.SolidTypes.TILMedia_StainlessSteel constrainedby TILMedia.SolidTypes.BaseSolid "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
-  parameter Modelica.SIunits.Length radius_flange=0.05 "Flange radius" annotation(Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
   parameter ClaRa.Basics.Units.Time Tau_cond=10 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter ClaRa.Basics.Units.Time Tau_evap=Tau_cond*1000 "Time constant of evaporation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
   parameter Real absorbInflow=1 "Absorption of incoming mass flow to the zones 1: perfect in the allocated zone, 0: perfect according to steam quality"                                                                                              annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
@@ -36,10 +36,10 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
   parameter Boolean equalPressures=true "True if pressure in liquid and vapour phase is equal" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
 
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation for calculation of filling level" annotation(Dialog(tab="Phase Separation", group="Numerical Robustness"));
-  parameter Modelica.SIunits.Length z_in=1 "Height of inlet ports" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length z_out=1 "Height of outlet ports"  annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_liq_start= TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial liquid specific enthalpy";
-  parameter Modelica.SIunits.SpecificEnthalpy h_vap_start= TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial vapour specific enthalpy";
+  parameter Modelica.Units.SI.Length z_in=1 "Height of inlet ports" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length z_out=1 "Height of outlet ports" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_liq_start=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial liquid specific enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_vap_start=TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial vapour specific enthalpy";
   replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3 "Pressure loss model"
@@ -49,7 +49,7 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
                                                                                               annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching=true);
   inner parameter Integer initOption = 0 "Type of initialisation"
     annotation (Dialog(tab= "Initialisation"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
-  parameter Modelica.SIunits.Temperature T_wall_start[wall.N_rad]=ones(wall.N_rad)*293.15 "Start values of wall temperature inner --> outer" annotation(Dialog(tab="Initialisation", group="Wall"));
+  parameter Modelica.Units.SI.Temperature T_wall_start[wall.N_rad]=ones(wall.N_rad)*293.15 "Start values of wall temperature inner --> outer" annotation (Dialog(tab="Initialisation", group="Wall"));
   parameter Integer initOptionWall=1 "Initialisation option for wall" annotation(Dialog(tab="Initialisation", group="Wall"),choices(
       choice=0 "Use guess values",
       choice=1 "Steady state",

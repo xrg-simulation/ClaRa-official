@@ -194,8 +194,8 @@ model Burner1
       false) "Outlet composition flue gas";
 
 protected
-  Modelica.Blocks.Tables.CombiTable1D table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
-  Modelica.Blocks.Tables.CombiTable1D table2(table=CharLine_h_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_Delta_p_P_target_, u={P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table2(table=CharLine_h_P_target_, u={P_target_});
 
 public
   ClaRa.StaticCycles.Fundamentals.FlueGasSignal_brown_b outletGas(flueGas=flueGas, xi=xi_fg_out) annotation (Placement(transformation(

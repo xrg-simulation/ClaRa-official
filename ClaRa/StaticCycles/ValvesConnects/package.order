@@ -1,3 +1,4 @@
+Check
 Tube1
 Tube2
 Valve_dp_nom1
@@ -10,3 +11,6 @@ FlowAnchor_constPressure1
 PressureAnchor_constFlow1
 Buffer_setFlow1
 Buffer_cutFlow1
+ValveGas_cutPressure1
+Valve_dp_nom4
+Buffer_cutFlow2

@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.E_FilterBase;
   extends ChemicalReactionsBaseGas(final i=1, final use_signal=true);
@@ -34,12 +34,12 @@ model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
 
   Units.Velocity w_m "Migration speed of dust particles in the E-field";
   Units.Length lambda "Mean free path of particles";
-  Modelica.SIunits.ElectricFieldStrength E_applied "E-Field in Filter estimated as E = U/d with U being the applied potential and d the distance between elektrodes, refer to Riehle 1997";
+  Modelica.Units.SI.ElectricFieldStrength E_applied "E-Field in Filter estimated as E = U/d with U being the applied potential and d the distance between elektrodes, refer to Riehle 1997";
 
   ClaRa.Basics.Units.DynamicViscosity mu_flueGas "Dynamic viscosity of flueGas in E-Filter";
   Real Cu "Cunningham slip correction factor Cu = 1 + 2lambda/d *(A1 +A2exp[-A3*diameter_particle/lambda]])";
 
-  Modelica.SIunits.ElectricCharge Q_sat "Saturation charge of particles";
+  Modelica.Units.SI.ElectricCharge Q_sat "Saturation charge of particles";
 
   Units.Power powerConsumption "Power consumption";
   Units.DensityMassSpecific d_flueGas_in;
@@ -104,5 +104,29 @@ equation
      zeros(iCom.mediumModel.nc-1) =
        (iCom.m_flow_in*(iCom.xi_in - xi) + iCom.m_flow_out*(iCom.xi_out - xi) + m_flow_reaction[1]*(xi_dust-xi));
   end if;
-
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions=
+        "<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"));
 end E_Filter_L2_Detailed;

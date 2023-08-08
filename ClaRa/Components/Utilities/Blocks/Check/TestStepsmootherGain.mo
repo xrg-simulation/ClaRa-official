@@ -4,9 +4,8 @@ model TestStepsmootherGain
 
   Modelica.Blocks.Sources.Sine sine(
     amplitude=1,
-    freqHz=1,
-    offset=0)
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    f=1,
+    offset=0) annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=1,
     duration=1,
@@ -30,8 +29,7 @@ equation
   connect(ramp.y, stepSmootherGain.x) annotation (Line(points={{-39,-30},{10,-30},{10,-2}}, color={0,0,127}));
   connect(ramp1.y, stepSmootherGain.noFunc) annotation (Line(points={{-19,-10},{-19,-12},{3,-12},{3,-2}}, color={0,0,127}));
   connect(ramp2.y, stepSmootherGain.func) annotation (Line(points={{-59,-50},{-10,-50},{16.8,-50},{16.8,-2}}, color={0,0,127}));
-  annotation (Icon(graphics,
-                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
+    annotation (Icon(graphics, coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
                                                                          coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=2));
 end TestStepsmootherGain;

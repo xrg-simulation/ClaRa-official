@@ -45,12 +45,12 @@ model BoundaryFuel_pTxi "A source defining pressure, temperature and composition
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific LHV_predefined=30e6 "LHV value for the coal, only used at back flows"
                              annotation (Dialog(enable=(LHV_calculationType ==
           "predefined"), group="Combustion settings"));
-  parameter Modelica.SIunits.SpecificHeatCapacity cp=fuelType.cp "Specific heat capacity of fuel" annotation (Dialog(group="Combustion settings"));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp=fuelType.cp "Specific heat capacity of fuel" annotation (Dialog(group="Combustion settings"));
   outer ClaRa.SimCenter simCenter;
 protected
-  Modelica.SIunits.Pressure p_in;
-  Modelica.SIunits.Temperature T_in;
-  Modelica.SIunits.MassFraction xi_in[fuelType.nc-1];
+  Modelica.Units.SI.Pressure p_in;
+  Modelica.Units.SI.Temperature T_in;
+  Modelica.Units.SI.MassFraction xi_in[fuelType.nc - 1];
   ClaRa.Basics.Units.EnthalpyMassSpecific h_coal;
   //SI.EnthalpyMassSpecific LHV;
 

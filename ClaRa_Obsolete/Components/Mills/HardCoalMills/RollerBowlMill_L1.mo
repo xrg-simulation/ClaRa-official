@@ -20,8 +20,8 @@ model RollerBowlMill_L1 "A simple pulveriser without classifier based on Dolezal
 
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
 
-  parameter Modelica.SIunits.Time Tau_m=100 "time constant of pulveriser";
-  parameter Modelica.SIunits.MassFlowRate m_flow_dust_0= 10 "Initial coal dust flow" annotation(Dialog(group="Initialisation"));
+  parameter Modelica.Units.SI.Time Tau_m=100 "time constant of pulveriser";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_dust_0=10 "Initial coal dust flow" annotation (Dialog(group="Initialisation"));
   Modelica.Blocks.Continuous.TransferFunction transferFunction(
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=m_flow_dust_0,

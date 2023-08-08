@@ -1,5 +1,22 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticKV "Quadratic|Kv definition | subcritical flow"
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   //extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.GenericPressureLoss;
   extends ClaRa.Basics.Icons.Delta_p;
   extends ClaRa.Basics.Icons.Obsolete;
@@ -13,8 +30,7 @@ model QuadraticKV "Quadratic|Kv definition | subcritical flow"
   Basics.Units.MassFlowRate m_flow;
   Real aperture_ "Effective apperture";
 
-  Modelica.Blocks.Tables.CombiTable1D ValveCharacteristics(table=CL_valve,
-      columns={2});
+  Modelica.Blocks.Tables.CombiTable1Dv ValveCharacteristics(table=CL_valve, columns={2});
   Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 
   import SM = ClaRa.Basics.Functions.Stepsmoother;

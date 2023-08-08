@@ -6,11 +6,11 @@ LibraryInfoMenuCommand(
  category="libraries",
  text = "ClaRa",
  reference= "ClaRa",
- version="1.3.1",
+ version="1.6.0",
  isModel=true,
  description="Simulation of Clausius-Rankine Cycles",
  iconName="Resources/Images/ClaRa-Logo.png",
- ModelicaVersion="3.2.1",
+ ModelicaVersion="4.0.0",
  pos=001)
 
  LibraryInfoMenuSeparator(

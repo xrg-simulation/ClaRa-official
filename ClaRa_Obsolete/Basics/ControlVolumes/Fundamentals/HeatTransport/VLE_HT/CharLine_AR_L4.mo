@@ -21,10 +21,10 @@ model CharLine_AR_L4 "Obsolete HT Model || Heat transfer coefficient defined by 
   outer TILMedia.VLEFluid_ph fluid[iCom.N_cv];
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L4;
   extends Icons.Obsolete_v1_1;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
   parameter Real PL_kc[:, 2]={{0,0.2},{0.5,0.6},{0.7,0.72},{1,1}} "Correction factor for heat transfer in part load" annotation (Dialog(group="Heat Transfer"));
 
-  Modelica.SIunits.CoefficientOfHeatTransfer alpha[iCom.N_cv] annotation (HideResult=false);
+  Modelica.Units.SI.CoefficientOfHeatTransfer alpha[iCom.N_cv] annotation (HideResult=false);
 
   ClaRa.Basics.Units.TemperatureDifference Delta_T_wi[iCom.N_cv] "Temperature difference between wall and fluid inlet temperature";
   ClaRa.Basics.Units.TemperatureDifference Delta_T_wo[iCom.N_cv] "Temperature difference between wall and fluid outlet temperature";

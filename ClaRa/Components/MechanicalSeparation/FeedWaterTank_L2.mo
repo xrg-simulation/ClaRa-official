@@ -1,19 +1,19 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L2 "Feedwater tank : mixed volume approach | level-dependent phase separation"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
 extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
 
@@ -22,12 +22,11 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2 "Pressure loss model"
                           annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  parameter Modelica.SIunits.SpecificEnthalpy h_start=steamQuality_start*(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) - TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start)) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
-                                                                                              annotation (Dialog(tab="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start=steamQuality_start*(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) - TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start)) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "|Phase Separation|Numerical Robustness|Smoothness of table interpolation for calculation of filling level";
 
-  parameter Modelica.SIunits.Length z_in=1 "Height of inlet ports" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length z_out=1 "Height of outlet ports"  annotation(Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length z_in=1 "Height of inlet ports" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length z_out=1 "Height of outlet ports" annotation (Dialog(group="Geometry"));
 
   parameter Integer initOption = 0 "Type of initialisation"
                              annotation(Dialog(tab="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed rel.level",  choice=205 "Fixed rel.level and steady pressure"));
@@ -176,7 +175,31 @@ equation
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-300,
+    annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+  revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),
+   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-300,
             -100},{300,100}}),
                    graphics={
                      Rectangle(extent={{220,-8},{260,-92}}, lineColor={27,36,42},

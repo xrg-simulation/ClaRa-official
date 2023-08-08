@@ -24,35 +24,35 @@ model Denitrification_NH3port_controlVolume
     Placement(transformation(extent={{80,80},{100,100}})));
 
 // standard formation enthalpy (T = 298.15K /p = 1.0 bar) for  components involved in deNOx catalysis
-final parameter Modelica.SIunits.MolarInternalEnergy Delta_f_H_NO = 91.271e3 "Standrad formation enthalpy nitric oxide";
-final parameter Modelica.SIunits.MolarInternalEnergy Delta_f_H_NH3 = -45.940e3 "Standrad formation  enthalpy ammonia";
-final parameter Modelica.SIunits.MolarInternalEnergy Delta_f_H_H2O = -241.826e3 "Standrad formation  enthalpy water";
+  final parameter Modelica.Units.SI.MolarInternalEnergy Delta_f_H_NO=91.271e3 "Standrad formation enthalpy nitric oxide";
+  final parameter Modelica.Units.SI.MolarInternalEnergy Delta_f_H_NH3=-45.940e3 "Standrad formation  enthalpy ammonia";
+  final parameter Modelica.Units.SI.MolarInternalEnergy Delta_f_H_H2O=-241.826e3 "Standrad formation  enthalpy water";
 
 //## V A R I A B L E   P A R T##################################################################################
 
-Modelica.SIunits.MassFlowRate idealMixture_m_flow "Idealized mass flow";
+  Modelica.Units.SI.MassFlowRate idealMixture_m_flow "Idealized mass flow";
 
 //Actual Molar flowrates at input ports
-Modelica.SIunits.MolarFlowRate n_flow_NH3_in "Molar flow rate of ammonia at inlet";
-Modelica.SIunits.MolarFlowRate n_flow_O2_in "Molar flow rate of oxygen at inlet";
-Modelica.SIunits.MolarFlowRate n_flow_NOx_in "Molar flow rate of nitric oxides at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_NH3_in "Molar flow rate of ammonia at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_O2_in "Molar flow rate of oxygen at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_NOx_in "Molar flow rate of nitric oxides at inlet";
 
 // Molar flowrates related to the catalysis
-Modelica.SIunits.MolarFlowRate n_flow_NH3_Cat_in "Catalysis inlet ammonia mass flow";
-Modelica.SIunits.MolarFlowRate n_flow_O2_Cat_in "Catalysis inlet oxygen mass flow";
-Modelica.SIunits.MolarFlowRate n_flow_NOx_Cat_in "Catalysis inlet nitric oxide mass flow";
-Modelica.SIunits.MolarFlowRate n_flow_N2_Cat_out "Catalysis outlet nitrogen mass flow";
-Modelica.SIunits.MolarFlowRate n_flow_H2O_Cat_out "Catalysis outlet water mass flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_NH3_Cat_in "Catalysis inlet ammonia mass flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_O2_Cat_in "Catalysis inlet oxygen mass flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_NOx_Cat_in "Catalysis inlet nitric oxide mass flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_N2_Cat_out "Catalysis outlet nitrogen mass flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_Cat_out "Catalysis outlet water mass flow";
 
 //excess of NH3, NOx, O2
-Modelica.SIunits.MolarFlowRate n_flow_NH3_exc "Molar flow of excess ammonia";
-Modelica.SIunits.MolarFlowRate n_flow_O2_Cat_exc "Molar flow of excess oxygen";
-Modelica.SIunits.MolarFlowRate n_flow_NOx_Cat_exc "Molar flow of excess nitric oxide";
+  Modelica.Units.SI.MolarFlowRate n_flow_NH3_exc "Molar flow of excess ammonia";
+  Modelica.Units.SI.MolarFlowRate n_flow_O2_Cat_exc "Molar flow of excess oxygen";
+  Modelica.Units.SI.MolarFlowRate n_flow_NOx_Cat_exc "Molar flow of excess nitric oxide";
 
 // standard reaction enthalpy
-Modelica.SIunits.MolarInternalEnergy Delta_R_H "Standard reaction enthalpy";
-Modelica.SIunits.HeatFlowRate Qdot "Heat flow to environment (equals reaction heat)";
-Modelica.SIunits.HeatFlowRate reactionHeat "Reaction heat";
+  Modelica.Units.SI.MolarInternalEnergy Delta_R_H "Standard reaction enthalpy";
+  Modelica.Units.SI.HeatFlowRate Qdot "Heat flow to environment (equals reaction heat)";
+  Modelica.Units.SI.HeatFlowRate reactionHeat "Reaction heat";
 
 Real NOx_separationRate "Efficiency of NOx separation";
 

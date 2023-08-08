@@ -1,19 +1,19 @@
 within ClaRa.Components.TurboMachines.Turbines;
 model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
    extends ClaRa.Components.TurboMachines.Turbines.SteamTurbine_base(inlet(
                                                                      m_flow(      start=m_flow_nom)));
@@ -32,7 +32,10 @@ model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
       tab="Mechanical and Efficiency Settings",
       group="Mechanics",
       enable=not useMechanicalPort));
-  parameter Modelica.SIunits.Inertia J=10 "Moment of Inertia" annotation(Dialog(tab="Mechanical and Efficiency Settings",group="Mechanics", enable= not steadyStateTorque and useMechanicalPort));
+  parameter Modelica.Units.SI.Inertia J=10 "Moment of Inertia" annotation (Dialog(
+      tab="Mechanical and Efficiency Settings",
+      group="Mechanics",
+      enable=not steadyStateTorque and useMechanicalPort));
 
 //_______________________ Visualisation ________________________________________
   parameter Boolean showExpertSummary = simCenter.showExpertSummary "True, if expert summary should be applied"  annotation(Dialog(tab="Summary and Visualisation"));
@@ -40,17 +43,17 @@ model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation" annotation(Dialog(tab="Summary and Visualisation"));
 
 //_______________________ Nominal values ___________________________________
-  parameter Modelica.SIunits.Pressure p_nom= 300e5 "Nominal inlet perssure" annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nom=419 "Nominal mass flow rate"                                                annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure p_nom=300e5 "Nominal inlet perssure" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nom=419 "Nominal mass flow rate" annotation (Dialog(group="Nominal values"));
   parameter Real Pi=5000/300e5 "Nominal pressure ratio" annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.Density rho_nom=10 "Nominal inlet density" annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Density rho_nom=10 "Nominal inlet density" annotation (Dialog(group="Nominal values"));
 
 //_______________________ Initialisation ___________________________________
 
   inner parameter Integer  initOption=0 "Type of initialisation" annotation(Dialog(tab="Initialisation"), choices(choice = 0 "No Init", choice=802 "Fixed Phi",choice = 804 "Fixed RPM and Phi"));
   parameter ClaRa.Basics.Units.RPM rpm_start=10000 "Start value for RPM (use without electric boundary)" annotation(Dialog(tab="Initialisation",enable=initOption==804));
-  parameter Modelica.SIunits.Pressure p_in_start=p_nom "Start value for inlet pressure" annotation(Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_out_start=p_nom*Pi "Start value for outlet pressure"   annotation(Dialog(tab="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_in_start=p_nom "Start value for inlet pressure" annotation (Dialog(tab="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_out_start=p_nom*Pi "Start value for outlet pressure" annotation (Dialog(tab="Initialisation"));
   parameter Boolean allowFlowReversal = simCenter.steamCycleAllowFlowReversal "True to allow flow reversal during initialisation"
                                                         annotation(Evaluate=true, Dialog(tab="Initialisation"));
 
@@ -70,13 +73,13 @@ public
   final parameter Real Kt = (m_flow_nom*sqrt(p_nom))/(sqrt(p_nom^2-p_nom^2*Pi^2)*sqrt(rho_nom)) "Kt coefficient of Stodola's law";
 
 //______________________ Variables _____________________________________
-  Modelica.SIunits.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
-  Modelica.SIunits.Power P_t "Turbine hydraulic power";
-  Modelica.SIunits.Pressure p_in(start=p_in_start);
-  Modelica.SIunits.Pressure p_out(start=p_out_start);
+  Modelica.Units.SI.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
+  Modelica.Units.SI.Power P_t "Turbine hydraulic power";
+  Modelica.Units.SI.Pressure p_in(start=p_in_start);
+  Modelica.Units.SI.Pressure p_out(start=p_out_start);
   Real eta_is "Isentropic efficiency";
-  Modelica.SIunits.EntropyFlowRate S_irr "Entropy production rate";
-  Modelica.SIunits.Pressure p_l "Laval pressure";
+  Modelica.Units.SI.EntropyFlowRate S_irr "Entropy production rate";
+  Modelica.Units.SI.Pressure p_l "Laval pressure";
   ClaRa.Basics.Units.RPM rpm;
 
   inner Fundamentals.IComTurbine iCom(
@@ -226,7 +229,30 @@ equation
       smooth=Smooth.None));
   connect(getInputsRotary.shaft_a, shaft_a) annotation (Line(points={{-20,0},{-20,0},{-52,0},{-100,0}},       color={0,0,0}));
   connect(getInputsRotary.shaft_b, shaft_b) annotation (Line(points={{0,0},{10,0},{10,0},{0,0},{80,0},{80,0}},       color={0,0,0}));
-  annotation (Diagram(graphics,
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),Diagram(graphics,
                       coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{40,100}})),
                                          Icon(coordinateSystem(extent={{-60,-100},{40,100}},
                              preserveAspectRatio=false), graphics={Rectangle(

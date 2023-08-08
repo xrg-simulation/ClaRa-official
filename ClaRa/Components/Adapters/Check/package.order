@@ -1,3 +1,4 @@
 TestScalar2VectorHeatPort
 TestFluidConverters
 RowOfScalar2VectorHeatPorts
+TestGasSensorAdapter

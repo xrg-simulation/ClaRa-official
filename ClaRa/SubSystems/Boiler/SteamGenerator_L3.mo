@@ -1,19 +1,19 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L3 "A steam generation and reaheater model using lumped balance equations for mass and energy and two spray attemperators"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.SubSystems.Boiler.CoalSupplyBoiler_base;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
@@ -23,23 +23,23 @@ model SteamGenerator_L3 "A steam generation and reaheater model using lumped bal
     powerAux=0) if                                                                                                     contributeToCycleSummary;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
-   parameter Modelica.SIunits.Pressure p_LS_nom= 300e5 "Nominal life steam pressure"
-                                                                                   annotation(Dialog(group="Nominal values"));
-   parameter Modelica.SIunits.Pressure p_RH_nom= 40e5 "Nominal reheat pressure"
-                                                                               annotation(Dialog(group="Nominal values"));
-   parameter Modelica.SIunits.SpecificEnthalpy h_LS_nom= 3000e3 "Nominal life steam specific enthlapy"
-                                                                                            annotation(Dialog(group="Nominal values"));
-   parameter Modelica.SIunits.SpecificEnthalpy h_RH_nom= 3500e3 "Nominal reheat specific enthlapy"
-                                                                                        annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomHP = 40e5 "Nominal main pressure loss"  annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.Pressure Delta_p_nomIP = 4e5 "Nominal reheat pressure loss"  annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomLS = 419 "Nominal life steam flow rate"
-                                                                                        annotation(Dialog(group="Nominal values"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_F_nom = 1340e6 "Nominal firing power"
-                                                                                annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure p_LS_nom=300e5 "Nominal life steam pressure" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure p_RH_nom=40e5 "Nominal reheat pressure" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_LS_nom=3000e3 "Nominal life steam specific enthlapy" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_RH_nom=3500e3 "Nominal reheat specific enthlapy" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomHP=40e5 "Nominal main pressure loss" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Pressure Delta_p_nomIP=4e5 "Nominal reheat pressure loss" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomLS=419 "Nominal life steam flow rate" annotation (Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_F_nom=1340e6 "Nominal firing power" annotation (Dialog(group="Nominal values"));
 protected
-  parameter Modelica.SIunits.Density rho_nom_HP= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(medium, p_LS_nom, h_LS_nom) "Nominal density";
-  parameter Modelica.SIunits.Density rho_nom_IP= TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(medium, p_RH_nom, h_RH_nom) "Nominal density";
+  parameter Modelica.Units.SI.Density rho_nom_HP=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+      medium,
+      p_LS_nom,
+      h_LS_nom) "Nominal density";
+  parameter Modelica.Units.SI.Density rho_nom_IP=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+      medium,
+      p_RH_nom,
+      h_RH_nom) "Nominal density";
 public
   parameter Real CL_Delta_pHP_mLS_[:,:]=[0,0;0.1, 0.01; 0.2, 0.04; 0.3, 0.09; 0.4, 0.16; 0.5, 0.25; 0.6, 0.36; 0.7, 0.49; 0.8, 0.64; 0.9, 0.81; 1, 1] "Characteristic line of pressure drop as function of mass flow rate"
                                                                          annotation(Dialog(group="Part Load Definition"));
@@ -51,27 +51,24 @@ public
   parameter Real CL_etaF_QF_[:,:] = [0,0.93;1,0.94] "Characteristic line of furnace efficiency as function of rel. firing power"
                                                                                  annotation(Dialog(group="Part Load Definition"));
 
-  parameter Modelica.SIunits.Time Tau_dead = 120 "Equivalent dead time of steam generation"
-                                                                                      annotation(Dialog(group="Time Response Definition"));
-  parameter Modelica.SIunits.Time Tau_bal = 200 "Balancing time of steam generation"
-                                                                                annotation(Dialog(group="Time Response Definition"));
+  parameter Modelica.Units.SI.Time Tau_dead=120 "Equivalent dead time of steam generation" annotation (Dialog(group="Time Response Definition"));
+  parameter Modelica.Units.SI.Time Tau_bal=200 "Balancing time of steam generation" annotation (Dialog(group="Time Response Definition"));
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation", group="General"));
-  parameter Modelica.SIunits.Pressure p_LS_start=300e5 "Initial value of life steam pressure"    annotation(Dialog(tab="Initialisation", group="High pressure part"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_LS_start=3000e3 "Initial value of life steam specific enthalpy" annotation(Dialog(tab="Initialisation", group="High pressure part"));
+  parameter Modelica.Units.SI.Pressure p_LS_start=300e5 "Initial value of life steam pressure" annotation (Dialog(tab="Initialisation", group="High pressure part"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_LS_start=3000e3 "Initial value of life steam specific enthalpy" annotation (Dialog(tab="Initialisation", group="High pressure part"));
 
 //  parameter Real dotm_init_=1 "Initial mass flow rate in p.u." annotation(Dialog(group="Initialisation"));
   parameter Integer initOption_HP=0 "Type of initialisation of HP steam generation"
                                                   annotation(Dialog(tab="Initialisation", group="High pressure part"), choices(choice = 0 "Use guess values", choice = 208 "Steady pressure and enthalpy", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 
-  parameter Modelica.SIunits.Pressure p_RH_start=40e5 "Initial value of hot reheat pressure"  annotation(Dialog(tab="Initialisation", group="Reheat part"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_RH_start=3500e3 "Initial value of hot reheat specifc enthalpy"
-                                                                                              annotation(Dialog(tab="Initialisation", group="Reheat part"));
+  parameter Modelica.Units.SI.Pressure p_RH_start=40e5 "Initial value of hot reheat pressure" annotation (Dialog(tab="Initialisation", group="Reheat part"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_RH_start=3500e3 "Initial value of hot reheat specifc enthalpy" annotation (Dialog(tab="Initialisation", group="Reheat part"));
   parameter Integer initOption_IP=0 "Type of initialisation of reheater"
                                          annotation(Dialog(tab="Initialisation", group="Reheat part"), choices(choice = 0 "Use guess values", choice = 208 "Steady pressure and enthalpy", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
 
-  parameter Modelica.SIunits.Volume volume_tot_HP=1000 "Total volume of the live steam generator"  annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Volume volume_tot_IP=1000 "Total volume of the reheater" annotation(Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Volume volume_tot_HP=1000 "Total volume of the live steam generator" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Volume volume_tot_IP=1000 "Total volume of the reheater" annotation (Dialog(group="Geometry"));
 
 //___________Summary and Visualisation_____________________________________________//
   parameter Boolean showExpertSummary=false "|Summary and Visualisation||True, if expert summary should be applied";
@@ -82,25 +79,25 @@ public
   outer ClaRa.SimCenter simCenter;
 
 //___________Variables____________________________________________________________//
-  Modelica.SIunits.SpecificEnthalpy h_IP(start=h_RH_start) "Specific enthalpy before IP injector";
-  Modelica.SIunits.Pressure p_IP(start=p_RH_start) "Pressure at hot reheat outlet";
-  Modelica.SIunits.Mass mass_IP "Mass in the reheater";
+  Modelica.Units.SI.SpecificEnthalpy h_IP(start=h_RH_start) "Specific enthalpy before IP injector";
+  Modelica.Units.SI.Pressure p_IP(start=p_RH_start) "Pressure at hot reheat outlet";
+  Modelica.Units.SI.Mass mass_IP "Mass in the reheater";
   Real drhodt_IP "Time derivative of reheater mean density";
-  Modelica.SIunits.SpecificEnthalpy h_HP(start=h_LS_start) "Specific enthalpy before HP injector";
-  Modelica.SIunits.Pressure p_HP(start=p_LS_start) "Live steam pressure";
-  Modelica.SIunits.Mass mass_HP "Mass in the HP steam generator";
+  Modelica.Units.SI.SpecificEnthalpy h_HP(start=h_LS_start) "Specific enthalpy before HP injector";
+  Modelica.Units.SI.Pressure p_HP(start=p_LS_start) "Live steam pressure";
+  Modelica.Units.SI.Mass mass_HP "Mass in the HP steam generator";
   Real drhodt_HP "Time dericative of the HP mean density";
-  Modelica.SIunits.HeatFlowRate Q_flow_HP "Heat flow rate for HP steam generation";
-  Modelica.SIunits.HeatFlowRate Q_flow_IP "Heat flow rate of the reheater";
+  Modelica.Units.SI.HeatFlowRate Q_flow_HP "Heat flow rate for HP steam generation";
+  Modelica.Units.SI.HeatFlowRate Q_flow_IP "Heat flow rate of the reheater";
 protected
-  Modelica.SIunits.SpecificEnthalpy h_inHP "Actual spec. enthalpy of the feedwater";
-  Modelica.SIunits.SpecificEnthalpy h_outHP "Actual spec. enthalpy of the livesteam";
-  Modelica.SIunits.SpecificEnthalpy h_sprayHP "Actual spec. enthalpy of the HP injection";
-  Modelica.SIunits.SpecificEnthalpy h_inIP "Actual spec. enthalpy of the cold reheat";
-  Modelica.SIunits.SpecificEnthalpy h_outIP "Actual spec. enthalpy of the hot reheat";
-  Modelica.SIunits.SpecificEnthalpy h_sprayIP "Actual spec. enthalpy of the IP injection";
-  Modelica.SIunits.MassFlowRate   m_flow_heatedHP "heated HP mass flow rate i.e. for energy and mass balance";
-  Modelica.SIunits.MassFlowRate   m_flow_heatedIP "heated IP mass flow rate i.e. for energy and mass balance";
+  Modelica.Units.SI.SpecificEnthalpy h_inHP "Actual spec. enthalpy of the feedwater";
+  Modelica.Units.SI.SpecificEnthalpy h_outHP "Actual spec. enthalpy of the livesteam";
+  Modelica.Units.SI.SpecificEnthalpy h_sprayHP "Actual spec. enthalpy of the HP injection";
+  Modelica.Units.SI.SpecificEnthalpy h_inIP "Actual spec. enthalpy of the cold reheat";
+  Modelica.Units.SI.SpecificEnthalpy h_outIP "Actual spec. enthalpy of the hot reheat";
+  Modelica.Units.SI.SpecificEnthalpy h_sprayIP "Actual spec. enthalpy of the IP injection";
+  Modelica.Units.SI.MassFlowRate m_flow_heatedHP "heated HP mass flow rate i.e. for energy and mass balance";
+  Modelica.Units.SI.MassFlowRate m_flow_heatedIP "heated IP mass flow rate i.e. for energy and mass balance";
 
 public
   Modelica.Blocks.Continuous.TransferFunction heatRelease(a={Tau_bal*Tau_dead,(Tau_bal + Tau_dead),1},
@@ -304,5 +301,28 @@ This steam generator is based on lumped balance equations for mass and energy (f
 <li>The pressure loss between hot reheated steam and IPInjector is 50 % of the IP pressure loss (p_cRH - p_hRH)</li>
 </ul>
 </p>
+</html><html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+  revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end SteamGenerator_L3;

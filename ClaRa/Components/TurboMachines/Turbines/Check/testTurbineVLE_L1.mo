@@ -1,6 +1,22 @@
 within ClaRa.Components.TurboMachines.Turbines.Check;
 model testTurbineVLE_L1
 
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 turbineControlValve(
@@ -50,16 +66,15 @@ model testTurbineVLE_L1
     w(start=40*2*3.1415))
               annotation (Placement(transformation(extent={{66,-26},{86,-6}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(useSupport=false) annotation (Placement(transformation(extent={{146,-26},{126,-6}})));
-  Modelica.Blocks.Continuous.LimPID        PI_speed(
+  Modelica.Blocks.Continuous.LimPID PI_speed(
     y_start=1,
     yMax=1,
-    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
     k=0.1,
     Td=3.411,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=1,
-    yMin=0.01)
-    annotation (Placement(transformation(extent={{-79,21},{-93,35}})));
+    yMin=0.01) annotation (Placement(transformation(extent={{-79,21},{-93,35}})));
   ClaRa.Components.Utilities.Blocks.VariableGradientLimiter
     variableGradientLimiter1(
     constantLimits=true,

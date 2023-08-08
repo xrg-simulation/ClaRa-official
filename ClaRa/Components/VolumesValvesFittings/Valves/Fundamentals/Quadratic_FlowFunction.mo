@@ -1,5 +1,22 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model Quadratic_FlowFunction "Quadratic | Area and Kd/zeta definition | choked flow | compressible"
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.GenericPressureLoss;
   import SI = ClaRa.Basics.Units;
   import SM = ClaRa.Basics.Functions.Stepsmoother;
@@ -20,8 +37,7 @@ model Quadratic_FlowFunction "Quadratic | Area and Kd/zeta definition | choked f
   parameter Basics.Units.Pressure Delta_p_eps=100 "|Expert Settings||Small pressure difference for linearisation around zero flow";
   Real aperture_ "Effective apperture";
   Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
-  Modelica.Blocks.Tables.CombiTable1D ValveCharacteristics(table=CL_valve,
-      columns={2});
+  Modelica.Blocks.Tables.CombiTable1Dv ValveCharacteristics(table=CL_valve, columns={2});
   Basics.Units.PressureDifference Delta_p_choke=max(iCom.p_in, iCom.p_out) - max(iCom.p_in, iCom.p_out)*(2/(gamma + 1))^(gamma/(max(1e-3, gamma) - 1)) "Critical pressure difference, always positive i.e. independent of flow direction";
 
 protected
@@ -49,5 +65,29 @@ equation
      SM(Delta_p_eps/10,0, Delta_p)*sign(iCom.p_in-iCom.p_out)*aperture_*Psi *ClaRa.Basics.Functions.ThermoRoot(2*iCom.rho_in*p_in/zeta_, 2*iCom.rho_in/zeta_* Delta_p_eps) else if useHomotopy then homotopy(sign(iCom.p_in-iCom.p_out)*aperture_*Psi *ClaRa.Basics.Functions.ThermoRoot(2*iCom.rho_in*p_in/zeta_, 2*iCom.rho_in/zeta_* Delta_p_eps), aperture_*Psi*m_flow_nom)
  else
      sign(iCom.p_in-iCom.p_out)*aperture_*Psi *ClaRa.Basics.Functions.ThermoRoot(2*iCom.rho_in*p_in/zeta_, 2*iCom.rho_in/zeta_* Delta_p_eps);
-
+    annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions=
+        "<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"));
 end Quadratic_FlowFunction;

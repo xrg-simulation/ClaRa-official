@@ -26,15 +26,15 @@ model E_Filter_L2_simple_old "Simple model for an electrical dust filter"
  model Outline
     extends ClaRa.Basics.Icons.RecordIcon;
   //  parameter Boolean showExpertSummary annotation(Dialog(hide));
-    input Modelica.SIunits.Volume volume "System volume"      annotation (Dialog(show));
-    input Modelica.SIunits.Mass m "System mass" annotation (Dialog(show));
-    input Modelica.SIunits.Enthalpy H "System enthalpy"      annotation (Dialog(show));
-    input Modelica.SIunits.SpecificEnthalpy h "System specific enthalpy"        annotation(Dialog(show));
-    input Modelica.SIunits.Pressure p "System pressure"      annotation (Dialog(show));
-    input Modelica.SIunits.Pressure Delta_p "Pressure loss"      annotation (Dialog(show));
+    input Modelica.Units.SI.Volume volume "System volume" annotation (Dialog(show));
+    input Modelica.Units.SI.Mass m "System mass" annotation (Dialog(show));
+    input Modelica.Units.SI.Enthalpy H "System enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.SpecificEnthalpy h "System specific enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure p "System pressure" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure Delta_p "Pressure loss" annotation (Dialog(show));
     input Real separationRate "Separation rate of E-Filter";
-    input Modelica.SIunits.MassFlowRate m_flow_dust_out "Mass flow of filtered dust";
-    input Modelica.SIunits.Power powerConsumption "Auxiliary power";
+    input Modelica.Units.SI.MassFlowRate m_flow_dust_out "Mass flow of filtered dust";
+    input Modelica.Units.SI.Power powerConsumption "Auxiliary power";
  end Outline;
 
 model Summary
@@ -81,11 +81,11 @@ protected
    ClaRa.Basics.Units.EnthalpyMassSpecific h_dust "Specific enthalpy of separated dust";
    inner ClaRa.Basics.Units.EnthalpyMassSpecific h(start=TILMedia.GasFunctions.specificEnthalpy_pTxi(simCenter.flueGasModel, p_start, T_start, xi_start)) "Specific enthalpy of gas";
    Real drhodt "Density derivative";
-   Modelica.SIunits.Mass mass "Mass in component";
-   Modelica.SIunits.Pressure p(start=p_start) "Pressure in component";
-   Modelica.SIunits.MassFraction xi[medium.nc-1]( start=xi_start) "Mass fraction";
-   Modelica.SIunits.MassFlowRate m_flow_dust_out "Mass flow of separated dust";
-   Modelica.SIunits.Power powerConsumption "Power consumption";
+  Modelica.Units.SI.Mass mass "Mass in component";
+  Modelica.Units.SI.Pressure p(start=p_start) "Pressure in component";
+  Modelica.Units.SI.MassFraction xi[medium.nc - 1](start=xi_start) "Mass fraction";
+  Modelica.Units.SI.MassFlowRate m_flow_dust_out "Mass flow of separated dust";
+  Modelica.Units.SI.Power powerConsumption "Power consumption";
 
 //____Connectors________________________________________________________________________________________________
 public

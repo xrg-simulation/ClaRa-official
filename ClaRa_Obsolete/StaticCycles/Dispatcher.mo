@@ -56,8 +56,8 @@ protected
   final parameter Real n_flow_H_primary= xi_fuel[2].*m_flow_fuel/M_H;
   final parameter Real n_flow_O_primary= xi_fuel[3].*m_flow_fuel/M_O;
   final parameter Real n_flow_S_primary= xi_fuel[5].*m_flow_fuel/M_S;
-  Modelica.Blocks.Tables.CombiTable1D table1(table=CharLine_P_el_, u = {P_target_});
-  Modelica.Blocks.Tables.CombiTable1D table2(table=CharLine_eta_el_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_P_el_, u={P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table2(table=CharLine_eta_el_, u={P_target_});
 
 initial equation
   P_el= P_el_nom*table1.y[1];

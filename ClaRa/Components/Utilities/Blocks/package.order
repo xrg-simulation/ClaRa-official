@@ -17,3 +17,4 @@ RealInputMultiplyer
 TableGain
 ReadMatrixFromFile
 ParameterizableTable1D
+RecalculateComposition

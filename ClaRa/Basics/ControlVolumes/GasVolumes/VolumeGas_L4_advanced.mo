@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4_advanced "An array of  gas cells with dynamic momentum balance."
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2018, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.Volume_L4;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L4");
@@ -52,6 +52,8 @@ public
   inner parameter TILMedia.GasTypes.BaseGas medium=simCenter.flueGasModel "Medium to be used" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   //____Physical Effects_____________________________________________________________________________________
+  parameter Boolean use2HeatPorts=false "True, if a second heat port should be used" annotation(Dialog(group="Fundamental Definitions"));
+
   inner parameter Boolean frictionAtInlet=false "True if pressure loss between first cell and inlet shall be considered"
                                                                                             annotation (choices(checkBox=true),Dialog(group="Fundamental Definitions"));
   inner parameter Boolean frictionAtOutlet=false "True if pressure loss between last cell and outlet shall be considered"
@@ -60,7 +62,11 @@ public
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4            constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L4 "Pressure loss model at the tubes side"
                                                                                             annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
 
-  replaceable model HeatTransfer =
+  replaceable model HeatTransferOuter =
+      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4  constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_L4 "Heat transfer mode at the tubes side"
+                                                                                            annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
+
+  replaceable model HeatTransferInner =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4  constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_L4 "Heat transfer mode at the tubes side"
                                                                                             annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
 
@@ -73,7 +79,7 @@ public
   //____Nominal Values_________________________________________________________________________________
   parameter SI.Pressure p_nom[geo.N_cv]=1e5*ones(geo.N_cv) "Nominal pressure" annotation (Dialog(group="Nominal Values"));
   parameter SI.Temperature T_nom[geo.N_cv]=293.15*ones(geo.N_cv) "Nominal temperature for single tube" annotation (Dialog(group="Nominal Values"));
-  parameter SI.MassFraction xi_nom[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Nominal gas composition" annotation (Dialog(group="Nominal Values"));
+  parameter SI.MassFraction xi_nom[medium.nc - 1]=medium.xi_default "Nominal gas composition" annotation (Dialog(group="Nominal Values"));
 
   inner parameter SI.MassFlowRate m_flow_nom=100 "Nominal mass flow w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
 
@@ -98,7 +104,7 @@ public
   parameter SI.Temperature T_start[:]=293.15*ones(geo.N_cv) "Initial temperature for single tube" annotation (Dialog(tab="Initialisation"));
   parameter SI.Pressure p_start[:]=1e5*ones(geo.N_cv) "Initial pressure" annotation (Dialog(tab="Initialisation"));
   parameter SI.MassFlowRate m_flow_start[geo.N_cv + 1]=ones(geo.N_cv + 1)*100 "Initial mass flow rate" annotation (Dialog(tab="Initialisation"));
-  parameter SI.MassFraction xi_start[medium.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Initial gas composition" annotation (Dialog(tab="Initialisation"));
+  parameter SI.MassFraction xi_start[medium.nc - 1]=medium.xi_default "Initial gas composition" annotation (Dialog(tab="Initialisation"));
 protected
   parameter SI.Pressure p_start_internal[geo.N_cv]=if size(p_start, 1) == 2 then linspace(
       p_start[1],
@@ -145,7 +151,7 @@ protected
 
   Real drhodt[geo.N_cv] "Density derivative"; //(unit="kg/(m3s)")
 
-  Modelica.SIunits.MassFraction xi[geo.N_cv, medium.nc - 1];
+  Modelica.Units.SI.MassFraction xi[geo.N_cv,medium.nc - 1];
   Real Xi_flow[geo.N_cv + 1, medium.nc - 1];
 
   //____Flows and Velocities______________________________________________________________________________________
@@ -157,8 +163,11 @@ protected
   SI.Velocity w_outlet "flow velocity at outlet";
   SI.Temperature T_inlet "Inlet temperature of component";
   SI.Temperature T_outlet "Outlet temperature of component";
-  Modelica.SIunits.MassFraction xi_inlet[medium.nc - 1] "Inlet gas composition of component";
-  Modelica.SIunits.MassFraction xi_outlet[medium.nc - 1] "Outlet gas composition of component";
+  Modelica.Units.SI.MassFraction xi_inlet[medium.nc - 1] "Inlet gas composition of component";
+  Modelica.Units.SI.MassFraction xi_outlet[medium.nc - 1] "Outlet gas composition of component";
+
+  //____Heat flow rates______________________________________________________________________________________
+  Modelica.Units.SI.HeatFlowRate Q_flows[geo.N_cv] "Heat flow rates through ports";
 
   //____Connectors________________________________________________________________________________________________
 public
@@ -167,10 +176,16 @@ public
 
   parameter Boolean showData=false "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
 
-  ClaRa.Basics.Interfaces.HeatPort_a heat[geo.N_cv] annotation (Placement(transformation(extent={{-10,34},{10,54}}), iconTransformation(
+  ClaRa.Basics.Interfaces.HeatPort_a heatOuter[geo.N_cv] annotation (Placement(transformation(extent={{-10,34},{10,54}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,40})));
+
+  ClaRa.Basics.Interfaces.HeatPort_b heatInner[geo.N_cv] if use2HeatPorts annotation (Placement(transformation(extent={{-90,34},{-70,54}}),iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,40})));
+
   //___Instantiation of Replaceable Models___________________________________________________________________________
 
 protected
@@ -182,7 +197,8 @@ protected
     each computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,-30},{10,-10}}, rotation=0)));
 public
   PressureLoss pressureLoss "Pressure loss model" annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  HeatTransfer heatTransfer(A_heat=geo.A_heat_CF[:, 1])   "heat transfer model" annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
+  HeatTransferOuter heatTransferOuter(A_heat=geo.A_heat_CF[:, 1])   "heat transfer model" annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
+  HeatTransferInner heatTransferInner(A_heat=if use2HeatPorts then geo.A_heat_CF[:, 2] else fill(-1, geo.N_cv))  "Inner heat transfer model" annotation (Placement(transformation(extent={{-98,0},{-78,20}})));
 public
   inner TILMedia.Gas_pT fluidInlet(
     p=inlet.p,
@@ -206,7 +222,7 @@ public
       Delta_p= inlet.p - outlet.p,
       mass_tot=sum(mass),
       H_tot=sum(h .* mass),
-      Q_flow_tot=sum(heat.Q_flow),
+      Q_flow_tot=sum(heatTransferOuter.heat.Q_flow)+sum(heatTransferInner.heat.Q_flow),
       mass=mass,
       m_flow=m_flow),
     inlet(mediumModel=medium,
@@ -315,7 +331,8 @@ equation
 
   //-------------------------------------------
   //data exchange with heat transfer model
-  heatTransfer.m_flow = m_flow;
+     heatTransferOuter.m_flow = m_flow;
+     heatTransferInner.m_flow = m_flow;
 
   //-------------------------------------------
   //pressure drop due to friction
@@ -430,6 +447,9 @@ equation
      (fluidOutlet.xi[:]));
 
   //-------------------------------------------
+  //Heat flows through heat ports
+  Q_flows = if use2HeatPorts then heatTransferOuter.heat.Q_flow + heatTransferInner.heat.Q_flow else heatTransferOuter.heat.Q_flow;
+  //-------------------------------------------
   //Fluid mass in cells
   mass = if useHomotopy then homotopy(geo.volume .* fluid.d, geo.volume .* d_start) else geo.volume .* fluid.d;
 
@@ -440,7 +460,7 @@ equation
 
     der(xi[i, :]) = 1/mass[i]*((Xi_flow[i, :] -  m_flow[i]*xi[i, :]) - (Xi_flow[i + 1, :] - m_flow[i+1]*xi[i, :])) "Component mass balance";
     fluid[i].drhodp_hxi*der(p[i]) = (drhodt[i] - der(h[i])*fluid[i].drhodh_pxi - sum({fluid[i].drhodxi_ph[j]*der(xi[i, j]) for j in 1:medium.nc - 1})) "Calculate pressure from enthalpy and density derivative";
-    der(h[i]) = (H_flow[i] - H_flow[i + 1] + heat[i].Q_flow + der(p[i])*geo.volume[i] - h[i]*geo.volume[i]*drhodt[i])/mass[i];
+    der(h[i]) = (H_flow[i] - H_flow[i + 1] + Q_flows[i] + der(p[i])*geo.volume[i] - h[i]*geo.volume[i]*drhodt[i])/mass[i];
 
     T[i] = fluid[i].T;
   end for;
@@ -494,42 +514,39 @@ equation
   inlet.xi_outflow[:] = xi[1, :];
   outlet.xi_outflow[:] = xi[geo.N_cv, :];
 
-  connect(heatTransfer.heat, heat) annotation (Line(
+  connect(heatTransferOuter.heat, heatOuter) annotation (Line(
       points={{-45,19},{-45,44},{0,44}},
       color={167,25,48},
       thickness=0.5));
+   connect(heatTransferInner.heat, heatInner) annotation (Line(
+       points={{-79,19},{-79,44},{-80,44}},
+       color={167,25,48},
+       thickness=0.5));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-50},{140,50}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-50},{140,50}})),
-    Documentation(info="<html>
-<p><b>Model description: </b>A non-adiabatic 1D-tube model using a single pipe cell for the formulation</p>
-<p><b>Contact:</b> Johannes Brunnemann, XRG Simulation GmbH</p>
-<p>
-<b>FEATURES</b>
-<ul>
-<li>This model uses TILMedia</li>
-<li>Flow reversal is supported</li>
-
-<li>distributed pressure loss, i.e. pressure loss occurs in first and second half cell, whereas the state is located in the cell center</li>
-</ul></p>
-<b>TODO</b>
-<ul>
-
-</ul>
-
-
-<h4>Staggered Grid Approach</h4>
-
-
-<p>
-
-</p>
-
-<h4>State Definitions</h4>
-<p>
-
-</p>
-
-
+Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end VolumeGas_L4_advanced;

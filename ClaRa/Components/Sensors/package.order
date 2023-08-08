@@ -15,3 +15,14 @@ SensorFuel_L1_m_flow
 SensorFuel_L1_T
 SensorFuel_L1_xi
 SensorFuel_L1_LHV
+TinySensorVLE_L1_p
+TinySensorVLE_L1_T
+TinySensorVLE_L1_m_flow
+TinySensorVLE_L1_Ex_flow
+TinySensorGas_L1_p
+TinySensorGas_L1_T
+TinySensorGas_L1_m_flow
+TinySensorGas_L1_V_flow
+TinySensorGas_L1_Ex_flow
+TinySensorGas_L1_O2dry
+TinySensorElectric_L1_P

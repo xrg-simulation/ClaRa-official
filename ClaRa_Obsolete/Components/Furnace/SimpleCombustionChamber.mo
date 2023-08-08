@@ -99,29 +99,29 @@ ClaRa.Basics.Units.MassFraction xi_gas_in[medium.nc-1];
 //Stoichometric coefficents
 //_________/Educts\__________________
 protected
-Modelica.SIunits.MolarFlowRate n_flow_C;
-Modelica.SIunits.MolarFlowRate n_flow_H;
-Modelica.SIunits.MolarFlowRate n_flow_O;
-Modelica.SIunits.MolarFlowRate n_flow_N;
-Modelica.SIunits.MolarFlowRate n_flow_S;
-Modelica.SIunits.MolarFlowRate n_flow_Ash;
-Modelica.SIunits.MolarFlowRate n_flow_H2O;
+  Modelica.Units.SI.MolarFlowRate n_flow_C;
+  Modelica.Units.SI.MolarFlowRate n_flow_H;
+  Modelica.Units.SI.MolarFlowRate n_flow_O;
+  Modelica.Units.SI.MolarFlowRate n_flow_N;
+  Modelica.Units.SI.MolarFlowRate n_flow_S;
+  Modelica.Units.SI.MolarFlowRate n_flow_Ash;
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O;
 
 //_________/Products\__________________
-Modelica.SIunits.MolarFlowRate n_flow_CO2;
-Modelica.SIunits.MolarFlowRate n_flow_H2O_prod;
-Modelica.SIunits.MolarFlowRate n_flow_SO2;
-Modelica.SIunits.MolarFlowRate n_flow_N2;
-Modelica.SIunits.MolarFlowRate n_flow_NO;
+  Modelica.Units.SI.MolarFlowRate n_flow_CO2;
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_prod;
+  Modelica.Units.SI.MolarFlowRate n_flow_SO2;
+  Modelica.Units.SI.MolarFlowRate n_flow_N2;
+  Modelica.Units.SI.MolarFlowRate n_flow_NO;
 
-Modelica.SIunits.MolarMass M_CO2;
-Modelica.SIunits.MolarMass M_H2O;
-Modelica.SIunits.MolarMass M_SO2;
-Modelica.SIunits.MolarMass M_N2;
-Modelica.SIunits.MolarMass M_NO;
+  Modelica.Units.SI.MolarMass M_CO2;
+  Modelica.Units.SI.MolarMass M_H2O;
+  Modelica.Units.SI.MolarMass M_SO2;
+  Modelica.Units.SI.MolarMass M_N2;
+  Modelica.Units.SI.MolarMass M_NO;
 
 //Molar mass of coal
-Modelica.SIunits.MolarMass M_coal;
+  Modelica.Units.SI.MolarMass M_coal;
 
 public
 ClaRa.Basics.Units.MassFlowRate

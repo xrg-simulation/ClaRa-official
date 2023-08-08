@@ -1,29 +1,29 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Desulfurization_L2 "Gas || L2 || Desulfurization"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.DesulfurizationBase;
   extends ChemicalReactionsBaseGas(final i=7, final use_signal=false);
 
-  final parameter Modelica.SIunits.MolarMass M_CaSO4_H2O=0.172141 "Molar mass of gypsum";
-  final parameter Modelica.SIunits.MolarMass M_CaCO3=0.10009 "Molar mass of calcium carbonate";
-  final parameter Modelica.SIunits.MolarMass M_SO2 = 0.0640638  "Molar mass of sulfur dioxide";
-  final parameter Modelica.SIunits.MolarMass M_O2 = 0.0319988 "Molar mass of oxygen";
-  final parameter Modelica.SIunits.MolarMass M_H2O = 0.0180153 "Molar mass of water";
-  final parameter Modelica.SIunits.MolarMass M_CO2 = 0.0440098 "Molar mass of carbon dioxide";
+  final parameter Modelica.Units.SI.MolarMass M_CaSO4_H2O=0.172141 "Molar mass of gypsum";
+  final parameter Modelica.Units.SI.MolarMass M_CaCO3=0.10009 "Molar mass of calcium carbonate";
+  final parameter Modelica.Units.SI.MolarMass M_SO2=0.0640638 "Molar mass of sulfur dioxide";
+  final parameter Modelica.Units.SI.MolarMass M_O2=0.0319988 "Molar mass of oxygen";
+  final parameter Modelica.Units.SI.MolarMass M_H2O=0.0180153 "Molar mass of water";
+  final parameter Modelica.Units.SI.MolarMass M_CO2=0.0440098 "Molar mass of carbon dioxide";
 
   parameter Real SOx_separationRate = 0.95 "Efficiency of SOx separation" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Temperature T_in_H2O = 313.15 "Inlet Temperature of water" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -33,29 +33,29 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   Units.MassFraction xi_H2O_sat_out "outlet mass fraction of H2O at saturation";
 
   //required molar flow rates of reaction educts
-  Modelica.SIunits.MolarFlowRate n_flow_CaCO3_req "Required molar flow of calcium carbonate";
-  Modelica.SIunits.MolarFlowRate n_flow_O2_req "Additional required molar flow of oxygen";
-  Modelica.SIunits.MolarFlowRate n_flow_H2O_req "Required molar flow of water";
+  Modelica.Units.SI.MolarFlowRate n_flow_CaCO3_req "Required molar flow of calcium carbonate";
+  Modelica.Units.SI.MolarFlowRate n_flow_O2_req "Additional required molar flow of oxygen";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_req "Required molar flow of water";
 
   //molar flow rates of reaction educts inside flue gas
-  Modelica.SIunits.MolarFlowRate n_flow_SO2_in "Molar flow rate of sulfur dioxide at inlet";
-  Modelica.SIunits.MolarFlowRate n_flow_O2_in "Molar flow rate of oxygen at inlet";
-  Modelica.SIunits.MolarFlowRate n_flow_H2O_in "Molar flow rate of water at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_SO2_in "Molar flow rate of sulfur dioxide at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_O2_in "Molar flow rate of oxygen at inlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_in "Molar flow rate of water at inlet";
 
   //molar flow rates of products
-  Modelica.SIunits.MolarFlowRate n_flow_CaSO4_H2O_out "Molar flow rate of gypsum outlet (no connector)";
-  Modelica.SIunits.MolarFlowRate n_flow_CO2_out "Molar flow rate of carbon dioxide at outlet";
-  Modelica.SIunits.MolarFlowRate n_flow_H2O_out(start=1) "Molar flow rate of water at outlet";
-  Modelica.SIunits.MolarFlowRate n_flow_H2O_sep "Molar flow rate of separated water (no connector)";
+  Modelica.Units.SI.MolarFlowRate n_flow_CaSO4_H2O_out "Molar flow rate of gypsum outlet (no connector)";
+  Modelica.Units.SI.MolarFlowRate n_flow_CO2_out "Molar flow rate of carbon dioxide at outlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_out(start=1) "Molar flow rate of water at outlet";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O_sep "Molar flow rate of separated water (no connector)";
 
-  Modelica.SIunits.MassFlowRate m_flow_SOx_sep "Mass flow of separated sulfur dioxide";
-  Modelica.SIunits.MassFlowRate m_flow_CaSO4_H2O_out "Mass flow of gypsum (no connector)";
-  Modelica.SIunits.MassFlowRate m_flow_H2O_req "Mass flow of required water";
-  Modelica.SIunits.MassFlowRate m_flow_O2_req "Mass flow of required oxygen";
-  Modelica.SIunits.MassFlowRate m_flow_CaCO3_req "Mass flow of required calcium carbonate";
-  Modelica.SIunits.MassFlowRate m_flow_O2_sep "Mass flow of separated oxygen";
-  Modelica.SIunits.MassFlowRate m_flow_H2O_sep "Mass flow of separated water";
-  Modelica.SIunits.MassFlowRate m_flow_CO2_prod "Mass flow of produced carbon dioxide";
+  Modelica.Units.SI.MassFlowRate m_flow_SOx_sep "Mass flow of separated sulfur dioxide";
+  Modelica.Units.SI.MassFlowRate m_flow_CaSO4_H2O_out "Mass flow of gypsum (no connector)";
+  Modelica.Units.SI.MassFlowRate m_flow_H2O_req "Mass flow of required water";
+  Modelica.Units.SI.MassFlowRate m_flow_O2_req "Mass flow of required oxygen";
+  Modelica.Units.SI.MassFlowRate m_flow_CaCO3_req "Mass flow of required calcium carbonate";
+  Modelica.Units.SI.MassFlowRate m_flow_O2_sep "Mass flow of separated oxygen";
+  Modelica.Units.SI.MassFlowRate m_flow_H2O_sep "Mass flow of separated water";
+  Modelica.Units.SI.MassFlowRate m_flow_CO2_prod "Mass flow of produced carbon dioxide";
 
   ClaRa.Basics.Units.Power P_el "Electric power consumption";
   ClaRa.Basics.Units.VolumeFlowRate V_flow_std "Standardized volume flow rate";
@@ -160,5 +160,29 @@ equation
 
   V_flow_std = iCom.m_flow_in / TILMedia.GasObjectFunctions.density_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
   P_el = specificPowerConsumption * V_flow_std;
-
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions=
+        "<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"));
 end Desulfurization_L2;

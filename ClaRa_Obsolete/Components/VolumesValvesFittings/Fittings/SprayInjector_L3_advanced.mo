@@ -36,31 +36,33 @@ model SprayInjector_L3_advanced "A spray injector for i.e. temperature control"
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticParallelZones_L3
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3 "Pressure loss model of injector mixing Zone"      annotation(Dialog(group="Fundamental Definitions"),choicesAllMatching);
 
-  parameter Modelica.SIunits.Length diameter_o=0.5 "Diameter of the component" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length diameter_i=0.45 "Diameter of the component" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length length=3 "Length of the component"  annotation(Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_o=0.5 "Diameter of the component" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length diameter_i=0.45 "Diameter of the component" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length length=3 "Length of the component" annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure" annotation(Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 //     parameter Modelica.SIunits.SpecificEnthalpy h_nom_Main=3000e3 "Nominal specific enthalpy"
 //                                    annotation(Dialog(group="Nominal Values"));
 //    parameter Modelica.SIunits.SpecificEnthalpy h_nom_Spray=1000e3 "Nominal specific enthalpy"
 //                                   annotation(Dialog(group="Nominal Values"));
-    parameter Modelica.SIunits.MassFlowRate m_flow_nom_main=10 "Nominal mass flow rates at inlet"
-                                          annotation(Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nom_main=10 "Nominal mass flow rates at inlet" annotation (Dialog(group="Nominal Values"));
 //
 //    parameter Modelica.SIunits.MassFlowRate m_flow_nomSpray=10 "Nominal injection mass flow rate"
 //                                          annotation(Dialog(group="Nominal Values"));
 
 ///__________INitialisation____________________________________________________________
-   parameter Modelica.SIunits.SpecificEnthalpy h_start_main=3000e3 "|Initialisation|Fluid|Initial specific enthalpy of main phase";
-   parameter Modelica.SIunits.SpecificEnthalpy h_start_spray=h_start_main-100 "|Initialisation|Fluid|Initial specific enthalpy of spray phase";
-  parameter Modelica.SIunits.Pressure p_start=1e5 "|Initialisation|Fluid|Start value of sytsem pressure";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_main=3000e3 "|Initialisation|Fluid|Initial specific enthalpy of main phase";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_spray=h_start_main - 100 "|Initialisation|Fluid|Initial specific enthalpy of spray phase";
+  parameter Modelica.Units.SI.Pressure p_start=1e5 "|Initialisation|Fluid|Start value of sytsem pressure";
 
   parameter Real y_start=0.05 "|Initialisation|Fluid|Start value for ratio spray volume to total volume";
   inner parameter Integer initOptionFluid = 211 "Type of initialisation of fluid"
     annotation (Dialog(tab= "Initialisation", group="Fluid"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
 
-   parameter Modelica.SIunits.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(medium, p_start, h_start_main) "|Initialisation|Wall|Start values of wall temperature";
+  parameter Modelica.Units.SI.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(
+      medium,
+      p_start,
+      h_start_main) "|Initialisation|Wall|Start values of wall temperature";
   parameter ClaRa.Basics.Choices.Init initWall=ClaRa.Basics.Choices.Init.noInit "|Initialisation|Wall|Initialisation option of wall";
 
   parameter Boolean useHomotopy=simCenter.useHomotopy "|Initialisation||True, if homotopy method is used during initialisation";

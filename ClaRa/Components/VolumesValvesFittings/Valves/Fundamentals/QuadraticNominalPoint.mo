@@ -1,9 +1,26 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticNominalPoint "Quadratic|Nominal operation point | subcritical flow"
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
 //   "A linear pressure loss using a constant pressure loss coefficient"
-  //extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.GenericPressureLoss;
+  extends ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.GenericPressureLoss;
   extends ClaRa.Basics.Icons.Delta_p;
-  extends ClaRa.Basics.Icons.Obsolete;
+//  extends ClaRa.Basics.Icons.Obsolete;
   import SI = ClaRa.Basics.Units;
   parameter Real CL_valve[:, :]=[0, 0; 1, 1] "|Valve Characteristics|Effective apperture as function of valve position in p.u.";
 
@@ -14,8 +31,7 @@ model QuadraticNominalPoint "Quadratic|Nominal operation point | subcritical flo
   Basics.Units.MassFlowRate m_flow;
   Real aperture_ "Effective apperture";
 
-  Modelica.Blocks.Tables.CombiTable1D ValveCharacteristics(table=CL_valve,
-      columns={2});
+  Modelica.Blocks.Tables.CombiTable1Dv ValveCharacteristics(table=CL_valve, columns={2});
   Basics.Units.PressureDifference Delta_p "Pressure difference p_in - p_out";
 
   import SM = ClaRa.Basics.Functions.Stepsmoother;
@@ -27,9 +43,9 @@ model QuadraticNominalPoint "Quadratic|Nominal operation point | subcritical flo
   parameter Basics.Units.Pressure Delta_p_nom=1e5 "|Valve Characteristics|Nominal pressure difference for Kv definition";
   parameter Basics.Units.DensityMassSpecific rho_in_nom=1000 "|Valve Characteristics|Nominal density for Kv definition";
   parameter Basics.Units.MassFlowRate m_flow_nom=1 "|Valve Characteristics|Nominal mass flow rate";
-  Real flowIsChoked=0 "1 if flow is choked, 0 if not";
-  Real PR_choked=-1 "Pressure ratio at which choking occurs";
 equation
+  flowIsChoked=0;//"1 if flow is choked, 0 if not";
+  PR_choked=-1;//"Pressure ratio at which choking occurs";
   ValveCharacteristics.u[1] = noEvent(min(1, max(iCom.opening_, iCom.opening_leak_)));
   aperture_=noEvent(max(0,ValveCharacteristics.y[1]));
   Delta_p = iCom.p_in - iCom.p_out;

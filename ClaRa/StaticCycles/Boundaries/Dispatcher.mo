@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles.Boundaries;
 model Dispatcher "Ideal fuel dispatcher"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
+// Component of the ClaRa library, version: 1.6.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
 // Copyright © 2013-2016, DYNCAP/DYNSTART research team.                     //
@@ -61,8 +61,8 @@ protected
   final parameter Real n_flow_H_primary= massFraction_i_xi(xi_c, 2, fuelModel).*m_flow_fuel/M_H;
   final parameter Real n_flow_O_primary= massFraction_i_xi(xi_c, 3, fuelModel).*m_flow_fuel/M_O;
   final parameter Real n_flow_S_primary= massFraction_i_xi(xi_c, 5, fuelModel).*m_flow_fuel/M_S;
-  Modelica.Blocks.Tables.CombiTable1D table1(table=CharLine_P_el_, u = {P_target_});
-  Modelica.Blocks.Tables.CombiTable1D table2(table=CharLine_eta_el_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_P_el_, u={P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table2(table=CharLine_eta_el_, u={P_target_});
   constant ClaRa.Basics.Units.Pressure p=1e5;
   constant ClaRa.Basics.Units.Temperature T=273.15;
 
@@ -70,7 +70,31 @@ initial equation
   P_el= P_el_nom*table1.y[1];
   eta_el= eta_el_nom*table2.y[1];
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-300,-100},{100,100}}),
+    annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+  revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),
+   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-300,-100},{100,100}}),
                    graphics={
         Ellipse(
           extent={{-100,100},{100,-100}},

@@ -1,19 +1,19 @@
 within ClaRa.Components.Mills.PhysicalMills;
 model Mill_L4 "Aerosol component | box module to capsule mill components"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.Mill;
   outer ClaRa.SimCenter simCenter;
@@ -65,7 +65,7 @@ model Mill_L4 "Aerosol component | box module to capsule mill components"
   parameter ClaRa.Basics.Units.Mass mass_transport_start=24 "total initial fuel mass" annotation(Dialog(tab="Transport",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction classFraction_transport_start[classification.N_class - 1]=(1/classification.N_class)*ones(classification.N_class - 1) "start value for total class fraction in control volume" annotation(Dialog(tab="Transport",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction xi_transport_fuel_start[fuelModel.N_c - 1]=zeros(fuelModel.N_c - 1) "initial fuel composition" annotation(Dialog(tab="Transport",group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_transport_start=simCenter.p_amb_start "initial value of gas sytsem pressure" annotation(Dialog(tab="Transport",group="Initialization"));
+  parameter Modelica.Units.SI.Pressure p_transport_start=simCenter.p_amb_start "initial value of gas sytsem pressure" annotation (Dialog(tab="Transport", group="Initialization"));
   parameter ClaRa.Basics.Units.Temperature T_transport_start = 273.15+100 "initial temperature" annotation(Dialog(tab="Transport",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction xi_transport_gas_start[gas.nc - 1]=zeros(gas.nc - 1) "initial gas composition" annotation(Dialog(tab="Transport",group="Initialization"));
 
@@ -80,7 +80,7 @@ model Mill_L4 "Aerosol component | box module to capsule mill components"
   parameter ClaRa.Basics.Units.Mass mass_classifier_start=24 "total initial fuel mass" annotation(Dialog(tab="Classifier",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction classFraction_classifier_start[classification.N_class - 1]=(1/classification.N_class)*ones(classification.N_class - 1) "intitial value for total class fraction in control volume" annotation(Dialog(tab="Classifier",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction xi_classifier_fuel_start[fuelModel.N_c - 1]=zeros(fuelModel.N_c - 1) "initial fuel composition" annotation(Dialog(tab="Classifier",group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_classifier_start=simCenter.p_amb_start "initial value of gas sytsem pressure" annotation(Dialog(tab="Classifier",group="Initialization"));
+  parameter Modelica.Units.SI.Pressure p_classifier_start=simCenter.p_amb_start "initial value of gas sytsem pressure" annotation (Dialog(tab="Classifier", group="Initialization"));
   parameter ClaRa.Basics.Units.Temperature T_classifier_start = 273.15+100 "initial temperature" annotation(Dialog(tab="Classifier",group="Initialization"));
   parameter ClaRa.Basics.Units.MassFraction xi_classifier_gas_start[gas.nc - 1]=zeros(gas.nc - 1) "initial gas composition" annotation(Dialog(tab="Classifier",group="Initialization"));
 
@@ -287,5 +287,29 @@ equation
       color={73,80,85},
       pattern=LinePattern.Solid,
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+    annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),
+ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
 end Mill_L4;

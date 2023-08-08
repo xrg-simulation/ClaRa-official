@@ -1,20 +1,20 @@
 within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_stageStacked "Advanced compressor or fan for ideal gas mixtures using the stage stacking method according to N. Gasparovic"
   import ClaRa;
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   outer ClaRa.SimCenter simCenter;
 extends ClaRa.Basics.Icons.Compressor;
@@ -88,7 +88,7 @@ public
   parameter Boolean useExternalVIGVangle= false "True, if an external source should be used to set VIGV angle" annotation(Dialog( group = "Nominal Values"));
   parameter ClaRa.Basics.Units.Angle Delta_alpha_fixed=0 "Fixed angle of VIGV (variable inlet guide vanes)" annotation (Dialog(enable=not useExternalVIGVangle));
   parameter Real eta_mech = 0.99 "Mechanical efficiency";
-  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
+  parameter Modelica.Units.SI.Inertia J "Moment of Inertia" annotation (Dialog(group="Fundamental Definitions", enable=not steadyStateTorque));
   parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation(Dialog(group="Fundamental Definitions"));
   parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation(Dialog(group="Fundamental Definitions"));
   parameter Boolean useBoundaryAssert=true "True, if simulation should stop when surge or choke boundary is hit"
@@ -112,10 +112,10 @@ public
   Real Pi(final start=Pi_nom) "pressure ratio";
   ClaRa.Basics.Units.Power P_hyd "Hydraulic power";
   ClaRa.Basics.Units.VolumeFlowRate V_flow "Volume flow rate";
-  Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
+  Modelica.Units.SI.AngularAcceleration a "Angular acceleration of the shaft";
   ClaRa.Basics.Units.Power P_shaft "Mechanical power at shaft";
   ClaRa.Basics.Units.RPM rpm "Rotational speed";
-  Modelica.SIunits.Torque tau_fluid "Fluid torque";
+  Modelica.Units.SI.Torque tau_fluid "Fluid torque";
   //SI.EnthalpyMassSpecific Delta_h;
   Real tau "Overall temperature ratio";
   Real tau_nom "Overall nominal temperature ratio";
@@ -126,8 +126,8 @@ public
   //SI.HeatCapacityMassSpecific cp_m;
   Real Delta_alpha "Angle of VIGV (variable inlet guide vanes)";
   Real Delta_alpha_int[i] "Angle of VIGV (variable inlet guide vanes) for internal calculation";
-  Modelica.SIunits.SpecificEnergy Y_st[i] "Specific delivery work of each stage";
-  Modelica.SIunits.SpecificEnergy Y "Specific delivery work";
+  Modelica.Units.SI.SpecificEnergy Y_st[i] "Specific delivery work of each stage";
+  Modelica.Units.SI.SpecificEnergy Y "Specific delivery work";
 
   //______//Stage variables\\______________________________________________
   Real kappa_st[i] "Stage heat capacity ratio";
@@ -828,7 +828,7 @@ end if;
             -100},{100,100}})),  Icon(graphics),
     Documentation(info="<html>
 <p><b>Model description: </b>A multi stage compressor model based on the stage stacking method of Gasparovic able to calculate off-design behaviour according to nominal values</p>
-<p><b>Contact:</b> Lasse Nielsen, TLK-Thermo GmbH</p>
+
 <p><b>FEATURES</b> </p>
 <p><ul>
 <li>This model uses TILMedia</li>
@@ -838,5 +838,31 @@ end if;
 <li>Calculation of surge and choke margins (assert triggers when crossed)</li>
 </ul></p>
 <p><br/><b>NOTE: </b> If the design point is not known please determine all needed values with simplier compressor models to ensure the model to run.</p>
+</html>
+<html>
+</ul></p>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions=
+        "<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end CompressorGas_L1_stageStacked;

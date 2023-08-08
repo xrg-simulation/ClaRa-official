@@ -30,28 +30,21 @@ model SprayInjector_Kvs_L3_noMixer "A spray injector for i.e. temperature contro
 
 parameter Integer n_wall=3 "Number of radial elements of the wall" annotation(Dialog(group="Fundamental Definitions"));
 
-  parameter Modelica.SIunits.Length d_a=0.5 "Diameter of the component" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length d_i=0.45 "Diameter of the component" annotation(Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length L=3 "Length of the component"  annotation(Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length d_a=0.5 "Diameter of the component" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length d_i=0.45 "Diameter of the component" annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Length L=3 "Length of the component" annotation (Dialog(group="Geometry"));
   parameter Integer N=1 "Number of identical injectors in parallel"  annotation(Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure" annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nom_Main=3000e3 "Nominal specific enthalpy"
-                                 annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_nom_Spray=1000e3 "Nominal specific enthalpy"
-                                 annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomMain=300 "Nominal mass flow rates at inlet"
-                                        annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.Pressure dp_nom=1000 "Nominal pressure loss"  annotation(Dialog(group="Nominal Values"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomSpray=10 "Nominal injection mass flow rate"
-                                        annotation(Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nom_Main=3000e3 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nom_Spray=1000e3 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomMain=300 "Nominal mass flow rates at inlet" annotation (Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.Pressure dp_nom=1000 "Nominal pressure loss" annotation (Dialog(group="Nominal Values"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomSpray=10 "Nominal injection mass flow rate" annotation (Dialog(group="Nominal Values"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_start_Main=3000e3 "Initial specific enthalpy at main inlet"
-                                               annotation(Dialog(group="Initialisation"));
-  parameter Modelica.SIunits.SpecificEnthalpy h_start_Spray=1000e3 "Initial specific enthalpy at main inlet"
-                                               annotation(Dialog(group="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"
-                                     annotation(Dialog(group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_Main=3000e3 "Initial specific enthalpy at main inlet" annotation (Dialog(group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_Spray=1000e3 "Initial specific enthalpy at main inlet" annotation (Dialog(group="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(group="Initialisation"));
 
   parameter Integer initOption=0 "Type of initialisation at tube side"
     annotation (Dialog( group="Initialisation"), choices(choice = 0 "Use guess values", choice = 1 "Steady state", choice=201 "Steady pressure", choice = 202 "Steady enthalpy"));
@@ -64,10 +57,12 @@ parameter Integer n_wall=3 "Number of radial elements of the wall" annotation(Di
                                                                                 annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be calculated precisely";
 protected
-  parameter Modelica.SIunits.SpecificEnthalpy h_nom_mix=(h_nom_Main*m_flow_nomMain+h_nom_Spray*m_flow_nomSpray)/(m_flow_nomMain+m_flow_nomSpray) "Nominal mix enthalpy";
-  parameter Modelica.SIunits.SpecificEnthalpy h_start_mix=(h_start_Main*m_flow_nomMain+h_start_Spray*m_flow_nomSpray)/(m_flow_nomMain+m_flow_nomSpray) "Nominal mix enthalpy";
-  parameter Modelica.SIunits.Temperature T_wall_start[n_wall]= ones(n_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(medium, p_start-dp_nom, h_start_mix) "Start values of wall temperature"
-                                       annotation(Dialog(group="Initialisation"));
+  parameter Modelica.Units.SI.SpecificEnthalpy h_nom_mix=(h_nom_Main*m_flow_nomMain + h_nom_Spray*m_flow_nomSpray)/(m_flow_nomMain + m_flow_nomSpray) "Nominal mix enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start_mix=(h_start_Main*m_flow_nomMain + h_start_Spray*m_flow_nomSpray)/(m_flow_nomMain + m_flow_nomSpray) "Nominal mix enthalpy";
+  parameter Modelica.Units.SI.Temperature T_wall_start[n_wall]=ones(n_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(
+      medium,
+      p_start - dp_nom,
+      h_start_mix) "Start values of wall temperature" annotation (Dialog(group="Initialisation"));
   extends Basics.Icons.Obsolete_v1_1;
 public
   ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 outflowZone(

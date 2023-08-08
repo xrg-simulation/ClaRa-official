@@ -25,10 +25,10 @@ model CharLineHTC_AMTD "Obsolete HT Model || All Geo || HTC || Characteristic Li
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L2;
   outer ClaRa.Basics.Records.IComBase_L2 iCom;
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer kc_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer kc_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
   parameter Real PL_kc[:, 2]={{0,0.2},{0.5,0.6},{0.7,0.72},{1,1}} "Correction factor for heat transfer in part load" annotation (Dialog(group="Heat Transfer"));
 
-  Modelica.SIunits.CoefficientOfHeatTransfer kc;
+  Modelica.Units.SI.CoefficientOfHeatTransfer kc;
 protected
   Modelica.Blocks.Tables.CombiTable1Ds kc_corr(table=PL_kc) annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
 equation

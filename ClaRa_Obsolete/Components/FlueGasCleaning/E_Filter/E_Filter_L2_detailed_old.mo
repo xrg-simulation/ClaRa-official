@@ -25,21 +25,20 @@ model E_Filter_L2_detailed_old "Model for an electrical dust filter based on the
 //## S U M M A R Y   D E F I N I T I O N ###################################################################
  model Outline
   //  parameter Boolean showExpertSummary annotation(Dialog(hide));
-    input Modelica.SIunits.Volume V "System volume"      annotation (Dialog(show));
-    input Modelica.SIunits.Mass m "System mass" annotation (Dialog(show));
-    input Modelica.SIunits.Enthalpy H "System enthalpy"      annotation (Dialog(show));
-    input Modelica.SIunits.SpecificEnthalpy h "System specific enthalpy"        annotation(Dialog(show));
-    input Modelica.SIunits.Pressure p "System pressure"      annotation (Dialog(show));
-    input Modelica.SIunits.Pressure Delta_p "Pressure loss"      annotation (Dialog(show));
-    input Modelica.SIunits.Length lambda "Mean free path of particles";
+    input Modelica.Units.SI.Volume V "System volume" annotation (Dialog(show));
+    input Modelica.Units.SI.Mass m "System mass" annotation (Dialog(show));
+    input Modelica.Units.SI.Enthalpy H "System enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.SpecificEnthalpy h "System specific enthalpy" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure p "System pressure" annotation (Dialog(show));
+    input Modelica.Units.SI.Pressure Delta_p "Pressure loss" annotation (Dialog(show));
+    input Modelica.Units.SI.Length lambda "Mean free path of particles";
     input Real Cu "Cunningham slip correction factor"     annotation (Dialog(show));
-    input Modelica.SIunits.Velocity w_m "Migration speed of dust particles in the E-field"
-                                                                                          annotation (Dialog(show));
-    input Modelica.SIunits.ElectricFieldStrength E_applied "E-Field in Filter" annotation (Dialog(show));
-    input Modelica.SIunits.ElectricCharge Q_sat "Saturation charge of particles" annotation (Dialog(show));
+    input Modelica.Units.SI.Velocity w_m "Migration speed of dust particles in the E-field" annotation (Dialog(show));
+    input Modelica.Units.SI.ElectricFieldStrength E_applied "E-Field in Filter" annotation (Dialog(show));
+    input Modelica.Units.SI.ElectricCharge Q_sat "Saturation charge of particles" annotation (Dialog(show));
     input Real separationRate "Separation rate of E-Filter";
-    input Modelica.SIunits.MassFlowRate m_flow_dust_out "Masss flow of filtered dust";
-    input Modelica.SIunits.Power powerConsumption "Auxiliary power";
+    input Modelica.Units.SI.MassFlowRate m_flow_dust_out "Masss flow of filtered dust";
+    input Modelica.Units.SI.Power powerConsumption "Auxiliary power";
  end Outline;
 
 model Summary
@@ -93,9 +92,10 @@ end Summary;
 //## V A R I A B L E   P A R T##################################################################################
 
 Real separationRate;
-Modelica.SIunits.Velocity w_m "Migration speed of dust particles in the E-field";// Quantities required for the calculation of the particles' migration speed
-Modelica.SIunits.Length lambda "Mean free path of particles";
-Modelica.SIunits.ElectricFieldStrength E_applied "E-Field in Filter estimated as E = U/d with U being the applied potential and d the distance between elektrodes, refer to Riehle 1997";
+  Modelica.Units.SI.Velocity w_m "Migration speed of dust particles in the E-field";
+                                                                                 // Quantities required for the calculation of the particles' migration speed
+  Modelica.Units.SI.Length lambda "Mean free path of particles";
+  Modelica.Units.SI.ElectricFieldStrength E_applied "E-Field in Filter estimated as E = U/d with U being the applied potential and d the distance between elektrodes, refer to Riehle 1997";
      Modelica.Blocks.Interfaces.RealInput U_applied "Applied Voltage lading to E_applied=U_applied/d"
                                                       annotation (Placement(
         transformation(
@@ -109,7 +109,7 @@ Modelica.SIunits.ElectricFieldStrength E_applied "E-Field in Filter estimated as
 ClaRa.Basics.Units.DynamicViscosity mu_flueGas "Dynamic viscosity of flueGas in E-Filter";
 Real Cu "Cunningham slip correction factor Cu = 1 + 2lambda/d *(A1 +A2exp[-A3*diameter_particle/lambda]])";
 
-Modelica.SIunits.ElectricCharge Q_sat "Saturation charge of particles";
+  Modelica.Units.SI.ElectricCharge Q_sat "Saturation charge of particles";
 // Quantaties required for the calculation of the particles' saturation charge
 
 ClaRa.Basics.Units.VolumeFlowRate V_flow "Volumeflow rate of flue Gas entering the E-Filter";
@@ -120,11 +120,11 @@ protected
    ClaRa.Basics.Units.EnthalpyMassSpecific h_dust "Specific enthalpy of separated dust";
    inner ClaRa.Basics.Units.EnthalpyMassSpecific h(start=TILMedia.GasFunctions.specificEnthalpy_pTxi(simCenter.flueGasModel, p_start, T_start, xi_start)) "Specific enthalpy of gas";
    Real drhodt "Density derivative";
-   Modelica.SIunits.Mass mass "Mass in component";
-   Modelica.SIunits.Pressure p(start=p_start) "Pressure in component";
-   Modelica.SIunits.MassFraction xi[medium.nc-1]( start=xi_start) "Mass fraction";
-   Modelica.SIunits.MassFlowRate m_flow_dust_out "Mass flow of separated dust";
-   Modelica.SIunits.Power powerConsumption "Power consumption";
+  Modelica.Units.SI.Mass mass "Mass in component";
+  Modelica.Units.SI.Pressure p(start=p_start) "Pressure in component";
+  Modelica.Units.SI.MassFraction xi[medium.nc - 1](start=xi_start) "Mass fraction";
+  Modelica.Units.SI.MassFlowRate m_flow_dust_out "Mass flow of separated dust";
+  Modelica.Units.SI.Power powerConsumption "Power consumption";
 
 //____Connectors________________________________________________________________________________________________
 public

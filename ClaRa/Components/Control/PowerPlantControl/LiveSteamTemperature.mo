@@ -1,19 +1,19 @@
 within ClaRa.Components.Control.PowerPlantControl;
 model LiveSteamTemperature "A simple controller for the live steam temperature based on Strauss: \"Kraftwerkstechnik\", 5th edition, 2006."
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   Utilities.Blocks.LimPID PID2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -87,13 +87,13 @@ public
         origin={-110,-80})));
   parameter Real T_a2_ref=873.15 "Reference value for controlled variable";
   parameter Real k_PID2=1 "Gain of PID2";
-  parameter Modelica.SIunits.Time Tau_i_PID2=0.5 "Integration time constant of PID2";
+  parameter Modelica.Units.SI.Time Tau_i_PID2=0.5 "Integration time constant of PID2";
   parameter Real T_e2_ref=1 "Reference value injector 2 outlet temperature";
   parameter Real k_P2=1 "Gain value multiplied with input signal";
   parameter Real Delta_T_2_ref=20 "Reference value for Temperature difference over injector 2";
   parameter Real T_e1_ref=1 "Reference value for injector 1 outlet temperature";
   parameter Real k_PID1=1 "Gain of controller";
-  parameter Modelica.SIunits.Time Tau_i_PID1=0.5 "Time constant of Integrator block";
+  parameter Modelica.Units.SI.Time Tau_i_PID1=0.5 "Time constant of Integrator block";
   parameter Real k_P1=1 "Gain of controller";
 equation
   connect(PID2.y, add2.u1) annotation (Line(
@@ -168,7 +168,31 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+    revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),
+    Diagram(graphics), Icon(graphics={
                                 Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={221,222,223},

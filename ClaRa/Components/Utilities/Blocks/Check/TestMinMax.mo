@@ -1,22 +1,22 @@
 within ClaRa.Components.Utilities.Blocks.Check;
 model TestMinMax
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
 
   Modelica.Blocks.Sources.Ramp ramp(
     duration=10,
@@ -25,9 +25,8 @@ model TestMinMax
     annotation (Placement(transformation(extent={{-68,26},{-48,46}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=25,
-    freqHz=0.1,
-    offset=-300)
-    annotation (Placement(transformation(extent={{-62,-24},{-42,-4}})));
+    f=0.1,
+    offset=-300) annotation (Placement(transformation(extent={{-62,-24},{-42,-4}})));
   Modelica.Blocks.Math.Add T
     annotation (Placement(transformation(extent={{-20,6},{0,26}})));
   ClaRa.Components.Utilities.Blocks.TimeExtrema timeExtrema

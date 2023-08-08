@@ -14,7 +14,8 @@ block LimPID_110 "The LimPID as it was up to ClaRa version 1.1.0"
 // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
-  import Modelica.Blocks.Types.InitPID;
+  import InitPID =
+         Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
 
   output Real controlError = u_s - u_m "Control error (set point - measurement)";
@@ -40,15 +41,10 @@ block LimPID_110 "The LimPID as it was up to ClaRa version 1.1.0"
 //Time Resononse of the Controller -------
   parameter Real k = 1 "Gain of Proportional block"
                                                    annotation(Dialog(group="Time Response of the Controller"));
-  parameter Modelica.SIunits.Time Tau_i(min=Modelica.Constants.small)=0.5 "1/Tau_i is gain of integrator block"
-                                      annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Time Response of the Controller"));
- parameter Modelica.SIunits.Time Tau_d(min=0)=0.1 "Gain of derivative block"
-                              annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Time Response of the Controller"));
+  parameter Modelica.Units.SI.Time Tau_i(min=Modelica.Constants.small) = 0.5 "1/Tau_i is gain of integrator block" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Time Response of the Controller"));
+  parameter Modelica.Units.SI.Time Tau_d(min=0) = 0.1 "Gain of derivative block" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Time Response of the Controller"));
 
-  parameter Modelica.SIunits.Time Ni(min=100*Modelica.Constants.eps) = 0.9 "1/Ni is gain of anti-windup compensation"
-                                              annotation (Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or controllerType==Modelica.Blocks.Types.SimpleController.PID, group="Anti-Windup Compensation"));
+  parameter Modelica.Units.SI.Time Ni(min=100*Modelica.Constants.eps) = 0.9 "1/Ni is gain of anti-windup compensation" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Anti-Windup Compensation"));
   parameter Real Nd = 1 "The smaller Nd, the more ideal the derivative block, setting Nd=0 introduces ideal derivative"
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Derivative Filtering"));
@@ -74,9 +70,7 @@ public
 
 //Initialisation--------------------------
 public
-  parameter InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState "Type of initialization"
-                                     annotation (
-      Dialog(tab="Initialization"));
+  parameter InitPID initType=Modelica.Blocks.Types.Init.InitialState "Type of initialization" annotation (Dialog(tab="Initialization"));
   parameter Boolean limitsAtInit = true "= false, if limits are ignored during initializiation"
     annotation(Dialog(tab="Initialization",
                        enable=controllerType==SimpleController.PI or
@@ -90,7 +84,7 @@ public
                          enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, tab=
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput,    tab=
           "Initialization"));
 
 //Expert Settings---------------------------------------------------------------
@@ -127,9 +121,9 @@ public
             109}},rotation=0)));
   Modelica.Blocks.Continuous.Integrator I(
     k=1/Tau_i,
-    initType =    if initType == InitPID.SteadyState    then Modelica.Blocks.Types.Init.SteadyState
-              else if initType == InitPID.InitialOutput then Modelica.Blocks.Types.Init.InitialOutput
-              else if initType == InitPID.InitialState  then Modelica.Blocks.Types.Init.InitialState
+    initType =    if initType ==InitPID.SteadyState     then Modelica.Blocks.Types.Init.SteadyState
+              else if initType ==InitPID.InitialOutput  then Modelica.Blocks.Types.Init.InitialOutput
+              else if initType ==InitPID.InitialState   then Modelica.Blocks.Types.Init.InitialState
               else Modelica.Blocks.Types.Init.NoInit,
     y_start=y_start/y_ref) if  with_I
     annotation (Placement(transformation(extent={{-30,10},{-10,30}},   rotation=
@@ -138,8 +132,8 @@ public
     k=Tau_d,
     x_start=xd_start,
     Tau=Nd,
-    initOption=if ((if initType == InitPID.SteadyState or initType == InitPID.InitialOutput then Modelica.Blocks.Types.Init.SteadyState else if initType == InitPID.InitialState then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.SteadyState) then 502 elseif ((if initType == InitPID.SteadyState or initType == InitPID.InitialOutput then Modelica.Blocks.Types.Init.SteadyState else if initType == InitPID.InitialState then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.InitialState) then 799 elseif ((if initType == InitPID.SteadyState or initType == InitPID.InitialOutput then Modelica.Blocks.Types.Init.SteadyState else if initType == InitPID.InitialState then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.InitialOutput) then 504 elseif ((if initType == InitPID.SteadyState or initType == InitPID.InitialOutput
-         then Modelica.Blocks.Types.Init.SteadyState else if initType == InitPID.InitialState then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.NoInit) then 501 else 0) if with_D annotation (Placement(transformation(extent={{-30,50},{-10,69.5}}, rotation=0)));
+    initOption=if ((if initType ==InitPID.SteadyState  or initType ==InitPID.InitialOutput  then Modelica.Blocks.Types.Init.SteadyState else if initType ==InitPID.InitialState  then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.SteadyState) then 502 elseif ((if initType ==InitPID.SteadyState  or initType ==InitPID.InitialOutput  then Modelica.Blocks.Types.Init.SteadyState else if initType ==InitPID.InitialState  then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.InitialState) then 799 elseif ((if initType ==InitPID.SteadyState  or initType ==InitPID.InitialOutput  then Modelica.Blocks.Types.Init.SteadyState else if initType ==InitPID.InitialState  then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.InitialOutput) then 504 elseif ((if initType ==InitPID.SteadyState  or initType ==InitPID.InitialOutput
+         then Modelica.Blocks.Types.Init.SteadyState else if initType ==InitPID.InitialState  then Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit) == Modelica.Blocks.Types.Init.NoInit) then 501 else 0) if with_D annotation (Placement(transformation(extent={{-30,50},{-10,69.5}}, rotation=0)));
   Modelica.Blocks.Math.Add3 addPID(
     k1=1,
     k2=1,
@@ -151,11 +145,7 @@ public
         origin={-60,-3.5})));
   Modelica.Blocks.Math.Gain gainTrack(k=1/Ni) if   with_I
     annotation (Placement(transformation(extent={{3,-17},{-10,-30}}, rotation=0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(
-    limitsAtInit=limitsAtInit,
-    uMax=if perUnitConversion then y_max/y_ref else y_max,
-    uMin=if perUnitConversion then y_min/y_ref else y_min)
-    annotation (Placement(transformation(extent={{71,59},{84,72}},  rotation=0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=if perUnitConversion then y_max/y_ref else y_max, uMin=if perUnitConversion then y_min/y_ref else y_min) annotation (Placement(transformation(extent={{71,59},{84,72}}, rotation=0)));
 
 public
   Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D
@@ -223,7 +213,7 @@ public
 equation
   assert(y_max >= y_min, "LimPID: Limits must be consistent. However, y_max (=" + String(y_max) +
                        ") < y_min (=" + String(y_min) + ")");
-  if initType == InitPID.InitialOutput and (y_start < y_min or y_start > y_max) then
+  if initType ==InitPID.InitialOutput  and (y_start < y_min or y_start > y_max) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of y_min (=" + String(y_min) +") and y_max (=" + String(y_max) + ")");
   end if;

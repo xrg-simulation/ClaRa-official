@@ -1,5 +1,22 @@
 within ClaRa.Components.Sensors.Check;
 model TestFuelSensors
+
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
+
+
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   BoundaryConditions.BoundaryFuel_Txim_flow                      boundaryVLE_hxim_flow(
@@ -35,7 +52,7 @@ equation
       points={{-32,10},{-40,10}},
       color={27,36,42},
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=6, __Dymola_Algorithm="Sdirk34hw"),
     __Dymola_experimentSetupOutput);
 end TestFuelSensors;

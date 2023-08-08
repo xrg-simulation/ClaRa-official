@@ -31,10 +31,10 @@ public
  ClaRa.Basics.Units.MassFlowRate m_flow_air_req_primary "Required air mass flwo for primary lambda calculation";
 
 protected
-  Modelica.SIunits.MolarFlowRate  n_flow_C_primary "Primary molar flow of C";
-  Modelica.SIunits.MolarFlowRate  n_flow_H_primary "Primary molar flow of H";
-  Modelica.SIunits.MolarFlowRate  n_flow_O_primary "Primary molar flow of O";
-  Modelica.SIunits.MolarFlowRate  n_flow_S_primary "Primary molar flow of S";
+  Modelica.Units.SI.MolarFlowRate n_flow_C_primary "Primary molar flow of C";
+  Modelica.Units.SI.MolarFlowRate n_flow_H_primary "Primary molar flow of H";
+  Modelica.Units.SI.MolarFlowRate n_flow_O_primary "Primary molar flow of O";
+  Modelica.Units.SI.MolarFlowRate n_flow_S_primary "Primary molar flow of S";
 
   Real drhodt "Density derivative";
 
@@ -167,8 +167,8 @@ public
   ClaRa.Basics.Units.EnthalpyMassSpecific h_fuel_water_out;
   ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h_fuel_water_evap;
   ClaRa.Basics.Units.EnthalpyMassSpecific LHV_out;
-  Modelica.SIunits.SpecificHeatCapacity cp_out;
-  Modelica.SIunits.SpecificHeatCapacity cp_dc_in;
+  Modelica.Units.SI.SpecificHeatCapacity cp_out;
+  Modelica.Units.SI.SpecificHeatCapacity cp_dc_in;
   ClaRa.Basics.Units.EnthalpyMassSpecific Delta_h_f_out;
   ClaRa.Basics.Units.MassFlowRate m_flow_flueGas_id_out;
 

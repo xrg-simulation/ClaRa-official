@@ -1,20 +1,20 @@
 within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   //
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   import pow = Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower;
   import SM = ClaRa.Basics.Functions.Stepsmoother;
@@ -33,7 +33,7 @@ partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   parameter Basics.Units.RPM rpm_nom "Nomial rotational speed" annotation (Dialog(group="Fundamental Definitions"));
 
   parameter Basics.Units.RPM rpm_fixed=60 "Constant rotational speed of pump" annotation (Dialog(group="Fundamental Definitions", enable=not useMechanicalPort));
-  parameter Modelica.SIunits.Inertia J "Moment of Inertia" annotation(Dialog(group="Fundamental Definitions", enable= not steadyStateTorque));
+  parameter Modelica.Units.SI.Inertia J "Moment of Inertia" annotation (Dialog(group="Fundamental Definitions", enable=not steadyStateTorque));
 
 
 protected
@@ -46,8 +46,8 @@ protected
 
 
 public
-  Modelica.SIunits.AngularAcceleration a "Angular acceleration of the shaft";
-  Modelica.SIunits.Torque tau_fluid "Fluid torque";
+  Modelica.Units.SI.AngularAcceleration a "Angular acceleration of the shaft";
+  Modelica.Units.SI.Torque tau_fluid "Fluid torque";
   Basics.Units.RPM rpm "Rotational speed";
   Basics.Units.Power P_iso "Power for isentropic pressure increase";
   Basics.Units.Power P_shaft "Shaft power";
@@ -90,7 +90,31 @@ equation
 
   connect(shaft, getInputsRotary.rotatoryFlange)
     annotation (Line(points={{0,72},{0,72},{0,30}}, color={0,0,0}));
-  annotation (Diagram(graphics,
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions=
+        "<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),Diagram(graphics,
                       coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Icon(graphics));
 end PumpVLE_affinityBase;

@@ -87,16 +87,12 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-  inner parameter Modelica.SIunits.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet"
-    annotation (Dialog(tab="General", group="Nominal Values"));
+  inner parameter Modelica.Units.SI.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(tab="General", group="Nominal Values"));
 
-  inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"
-    annotation (Dialog(group="Nominal Values"));
+  inner parameter Modelica.Units.SI.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.SIunits.Density rho_liq_nom=
-      TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
-  final parameter Modelica.SIunits.Density rho_vap_nom=
-      TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_liq_nom=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_vap_nom=TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
 
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
       TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
@@ -104,8 +100,7 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 +
       TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
     annotation (Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"
-                                     annotation (Dialog(tab="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling level"
     annotation (Dialog(tab="Initialisation"));
 

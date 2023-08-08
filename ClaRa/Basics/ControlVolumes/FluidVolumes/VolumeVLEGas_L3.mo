@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
   extends ClaRa.Basics.Icons.Volume2Zones;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
   outer ClaRa.SimCenter simCenter;
@@ -185,48 +185,49 @@ public
   PressureLoss pressureLoss
     annotation (Placement(transformation(extent={{12,60},{32,80}})));
 
-    Summary summary(
-      inlet(
-        showExpertSummary=showExpertSummary,
-        m_flow=inlet[1].m_flow,
-        T=fluidIn[1].T,
-        p=inlet[1].p,
-        h=fluidIn[1].h,
-        s=fluidIn[1].s,
-        steamQuality=fluidIn[1].q,
-        H_flow=fluidIn[1].h*inlet[1].m_flow,
-        rho=fluidIn[1].d),
-      outlet(
-        showExpertSummary=showExpertSummary,
-        m_flow=-outlet[1].m_flow,
-        T=fluidOut[1].T,
-        p=outlet[1].p,
-        h=fluidOut[1].h,
-        s=fluidOut[1].s,
-        steamQuality=fluidOut[1].q,
-        H_flow=-fluidOut[1].h*outlet[1].m_flow,
-        rho=fluidOut[1].d),
-      vent(
-        m_flow=vent.m_flow,
-        T=ventIn.T,
-        p=vent.p,
-        h=ventIn.h,
-        H_flow=ventIn.h*vent.m_flow,
-        xi=ventIn.xi),
-      fluid(
-        showExpertSummary=showExpertSummary,
-        mass={mass_liq,mass_gas},
-        p={p,p},
-        h=iCom.h,
-        h_bub = {liq.VLE.h_l, -1},
-        h_dew = {liq.VLE.h_v, -1},
-        T=iCom.T,
-        T_sat = {liq.VLE.T_l, -1},
-        s={liq.s,gas.s},
-        steamQuality={liq.q,gas.xi_gas/max(gas.xi[gasType.condensingIndex],Modelica.Constants.eps)},
-        H=iCom.h .* {mass_liq,mass_gas},
-        rho={liq.d,gas.d},
-        final N_cv=2),
+  Summary summary(
+    inlet(
+      showExpertSummary=showExpertSummary,
+      m_flow=inlet[1].m_flow,
+      T=fluidIn[1].T,
+      p=inlet[1].p,
+      h=fluidIn[1].h,
+      s=fluidIn[1].s,
+      steamQuality=fluidIn[1].q,
+      H_flow=fluidIn[1].h*inlet[1].m_flow,
+      rho=fluidIn[1].d),
+    outlet(
+      showExpertSummary=showExpertSummary,
+      m_flow=-outlet[1].m_flow,
+      T=fluidOut[1].T,
+      p=outlet[1].p,
+      h=fluidOut[1].h,
+      s=fluidOut[1].s,
+      steamQuality=fluidOut[1].q,
+      H_flow=-fluidOut[1].h*outlet[1].m_flow,
+      rho=fluidOut[1].d),
+    vent(
+      mediumModel=gasType,
+      m_flow=vent.m_flow,
+      T=ventIn.T,
+      p=vent.p,
+      h=ventIn.h,
+      H_flow=ventIn.h*vent.m_flow,
+      xi=ventIn.xi),
+    fluid(
+      showExpertSummary=showExpertSummary,
+      mass={mass_liq,mass_gas},
+      p={p,p},
+      h=iCom.h,
+      h_bub={liq.VLE.h_l,-1},
+      h_dew={liq.VLE.h_v,-1},
+      T=iCom.T,
+      T_sat={liq.VLE.T_l,-1},
+      s={liq.s,gas.s},
+      steamQuality={liq.q,if gasType.condensingIndex == 0 then Modelica.Constants.eps else gas.xi_gas/max(gas.xi[gasType.condensingIndex], Modelica.Constants.eps)},
+      H=iCom.h .* {mass_liq,mass_gas},
+      rho={liq.d,gas.d},
+      final N_cv=2),
     outline(
       showExpertSummary=showExpertSummary,
       volume_tot=geo.volume,
@@ -239,8 +240,7 @@ public
       fluidMass=mass_gas + mass_liq,
       H_tot=h_liq*mass_liq + h_gas*mass_gas,
       Q_flow_tot=heat.Q_flow,
-      Q_flow=heattransfer.heat.Q_flow))
-      annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
+      Q_flow=heattransfer.heat.Q_flow)) annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 
 protected
   inner TILMedia.Gas_ph      gas(gasType=gasType,
@@ -362,7 +362,10 @@ equation
 
 //_________________________Calculation of the Level______________________________
 
-     level_abs=noEvent(min(geo.height_fill, max(level_abs_min, iCom.volume[1]/(geo.A_hor*noEvent(Modelica.Math.tempInterpol1(level_rel, geo.shape, 2))))));
+     level_abs=noEvent(min(geo.height_fill, max(level_abs_min, iCom.volume[1]/(geo.A_hor*noEvent(ObsoleteModelica4.Math.tempInterpol1(
+    level_rel,
+    geo.shape,
+    2))))));
      level_rel = level_abs/geo.height_fill;
 
 //__________________Calculation of the geostatic pressure differences_______________
@@ -416,5 +419,27 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics),
     Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end VolumeVLEGas_L3;

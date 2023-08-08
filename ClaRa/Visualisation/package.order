@@ -13,3 +13,6 @@ StatePointGas_phTs
 DynamicBar
 StatePoint
 XYplot
+XYYplot
+TinyRealDisplay
+TinyBooleanDisplay

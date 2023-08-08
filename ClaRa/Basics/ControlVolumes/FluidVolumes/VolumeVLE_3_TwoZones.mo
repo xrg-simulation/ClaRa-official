@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
   extends ClaRa.Basics.Icons.Volume2Zones;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
   //  extends BaseClasses.Interfaces.DataInterface(p_int=outlet.p/1e5,h_int=outlet.h_outflow/1e3, m_flow_int=-outlet.m_flow, T_int=fluidOut.T-273.15, s_int=fluidOut.s/1e3);
@@ -88,21 +88,16 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-  inner parameter Modelica.SIunits.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet"
-    annotation (Dialog(tab="General", group="Nominal Values"));
+  inner parameter Modelica.Units.SI.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(tab="General", group="Nominal Values"));
 
-  inner parameter Modelica.SIunits.Pressure p_nom=1e5 "Nominal pressure"
-    annotation (Dialog(group="Nominal Values"));
+  inner parameter Modelica.Units.SI.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.SIunits.Density rho_liq_nom=
-      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
-  final parameter Modelica.SIunits.Density rho_vap_nom=
-      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_liq_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_vap_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
 
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter Modelica.SIunits.Pressure p_start=1e5 "Start value of sytsem pressure"
-                                     annotation (Dialog(tab="Initialisation"));
+  parameter Modelica.Units.SI.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling level"
     annotation (Dialog(tab="Initialisation"));
 
@@ -409,12 +404,34 @@ equation
     Diagram(graphics),
     Documentation(info="<html>
 <p><b>Model description: </b>A non-adiabatic control volume without friction losses taking the geostatic pressure difference into account</p>
-<p><b>Contact:</b> Friedrich Gottelt, Johannes Brunnemann, XRG Simulation GmbH</p>
+
 <p><ul>
-<li>This model uses TILMedia</li>
+
 <li>This model is derived from ThermoPower.Water.Header</li>
 <li>Flow reversal is supported</li>
 <li>Homotopy initialisation is supported</li>
-</ul></p>
+</ul></p>    
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end VolumeVLE_3_TwoZones;

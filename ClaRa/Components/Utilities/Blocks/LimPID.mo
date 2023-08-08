@@ -1,6 +1,7 @@
 within ClaRa.Components.Utilities.Blocks;
 block LimPID "P, PI, PD, and PID controller with limited output, anti-windup compensation and delayed, smooth activation"
-  import Modelica.Blocks.Types.InitPID;
+  import InitPID =
+         Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
 
   output Real controlError = u_s - u_m "Control error (set point - measurement)";
@@ -24,15 +25,10 @@ block LimPID "P, PI, PD, and PID controller with limited output, anti-windup com
 //Time Resononse of the Controller -------
   parameter Real k = 1 "Gain of Proportional block"
                                                    annotation(Dialog(group="Time Response of the Controller"));
-  parameter Modelica.SIunits.Time Tau_i(min=Modelica.Constants.small)=0.5 "1/Ti is gain of integrator block"
-                                      annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Time Response of the Controller"));
- parameter Modelica.SIunits.Time Tau_d(min=0)=0.1 "Gain of derivative block"
-                              annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Time Response of the Controller"));
+  parameter Modelica.Units.SI.Time Tau_i(min=Modelica.Constants.small) = 0.5 "1/Ti is gain of integrator block" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Time Response of the Controller"));
+  parameter Modelica.Units.SI.Time Tau_d(min=0) = 0.1 "Gain of derivative block" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Time Response of the Controller"));
 
-  parameter Modelica.SIunits.Time Ni(min=100*Modelica.Constants.eps) = 0.9 "1/Ni is gain of anti-windup compensation"
-                                              annotation (Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or controllerType==Modelica.Blocks.Types.SimpleController.PID, group="Anti-Windup Compensation"));
+  parameter Modelica.Units.SI.Time Ni(min=100*Modelica.Constants.eps) = 0.9 "1/Ni is gain of anti-windup compensation" annotation (Dialog(enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or controllerType == Modelica.Blocks.Types.SimpleController.PID, group="Anti-Windup Compensation"));
   parameter Real Nd = 1 "The smaller Nd, the more ideal the derivative block, setting Nd=0 introduces ideal derivative"
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID,group="Derivative Filtering"));
@@ -143,11 +139,7 @@ public
   Modelica.Blocks.Math.Gain gainTrack(k=1/Ni) if   with_I
     annotation (Placement(transformation(extent={{3,-119},{-10,-132}},
                                                                      rotation=0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(
-    limitsAtInit=limitsAtInit,
-    uMax=if perUnitConversion then y_max/y_ref else y_max,
-    uMin=if perUnitConversion then y_min/y_ref else y_min)
-    annotation (Placement(transformation(extent={{154,-2},{174,18}},rotation=0)));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=if perUnitConversion then y_max/y_ref else y_max, uMin=if perUnitConversion then y_min/y_ref else y_min) annotation (Placement(transformation(extent={{154,-2},{174,18}}, rotation=0)));
 
 public
   Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D
@@ -341,7 +333,30 @@ connect(activate_.y, booleanPassThrough.u) annotation (Line(points={{-173,190},{
 connect(booleanPassThrough.y, switch_OnOff.u2) annotation (Line(points={{-39,190},{86,190},{86,8},{92,8}}, color={255,0,255}));
 connect(booleanPassThrough.y, time_lag_I_activation.u) annotation (Line(points={{-39,190},{-22,190},{-22,142},{6,142}}, color={255,0,255}));
 connect(I_activation.y, switch_OnOff_I.u2) annotation (Line(points={{-152,-77},{-152,-81.5},{-50.1,-81.5}}, color={255,0,255}));
-  annotation (defaultComponentName="PID",
+  annotation (Documentation(info="<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+        revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),defaultComponentName="PID",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -380,15 +395,6 @@ connect(I_activation.y, switch_OnOff_I.u2) annotation (Line(points={{-152,-77},{
           fillColor={221,222,223},
           fillPattern=FillPattern.Solid),
         Line(points={{30,60},{80,60}}, color={167,25,48}, visible = limitsAtInit)}),
-    Documentation(info="<HTML>
-
-</HTML>
-", revisions="<html>
-<ul>
-  <li> 15.04.09 First revision, Boris Michaelsen, XRG Simulation GmbH</li>
-  <li> 25.11.09 Update to independently set the gain and time constants of the PID, added a new parameter \"sign\" for case dependent control error evaluation, Friedrich Gottelt, XRG Simulation GmbH</li>
-</ul>
-</html>"),
     Diagram(graphics,
             coordinateSystem(
         preserveAspectRatio=false,

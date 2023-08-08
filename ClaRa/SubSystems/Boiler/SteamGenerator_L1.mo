@@ -1,19 +1,19 @@
 within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L1 "A steam generation and reaheater model using characteristic lines and transfer functions"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   extends ClaRa.SubSystems.Boiler.CoalSupplyBoiler_base;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
@@ -22,14 +22,13 @@ model SteamGenerator_L1 "A steam generation and reaheater model using characteri
 
 //___________________________________________________________________________________//
 //_____________Nominal Operation Point_______________________________________________//
-  parameter Modelica.SIunits.Pressure p_LS_nom= 300e5 "|Nominal Operation|Nominal values - SI units!|Nominal life steam pressure";
-  parameter Modelica.SIunits.Pressure p_RH_nom= 60e5 "|Nominal Operation|Nominal values - SI units!|Nominal reheat outlet pressure";
-  parameter Modelica.SIunits.Pressure Delta_p_nomHP = 40e5 "|Nominal Operation|Nominal values - SI units!|Nominal main pressure loss";
-  parameter Modelica.SIunits.Pressure Delta_p_nomIP = 4e5 "|Nominal Operation|Nominal values - SI units!|Nominal reheat pressure loss";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nomLS = 419 "|Nominal Operation|Nominal values - SI units!|Nominal life steam flow rate";
-  input Modelica.SIunits.Temperature T_LS = 823.15 "|Nominal Operation|Nominal values - SI units!|Value of life steam temperature"
-                                                                                    annotation(Dialog);
-  parameter Modelica.SIunits.Temperature T_RH_nom = 833 "|Nominal Operation|Nominal values - SI units!|Nominal reheater outlet temperature";
+  parameter Modelica.Units.SI.Pressure p_LS_nom=300e5 "|Nominal Operation|Nominal values - SI units!|Nominal life steam pressure";
+  parameter Modelica.Units.SI.Pressure p_RH_nom=60e5 "|Nominal Operation|Nominal values - SI units!|Nominal reheat outlet pressure";
+  parameter Modelica.Units.SI.Pressure Delta_p_nomHP=40e5 "|Nominal Operation|Nominal values - SI units!|Nominal main pressure loss";
+  parameter Modelica.Units.SI.Pressure Delta_p_nomIP=4e5 "|Nominal Operation|Nominal values - SI units!|Nominal reheat pressure loss";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nomLS=419 "|Nominal Operation|Nominal values - SI units!|Nominal life steam flow rate";
+  input Modelica.Units.SI.Temperature T_LS=823.15 "|Nominal Operation|Nominal values - SI units!|Value of life steam temperature" annotation (Dialog);
+  parameter Modelica.Units.SI.Temperature T_RH_nom=833 "|Nominal Operation|Nominal values - SI units!|Nominal reheater outlet temperature";
 
 //___________________________________________________________________________________//
 //_____________Nominal Operation Point_______________________________________________//
@@ -54,10 +53,10 @@ model SteamGenerator_L1 "A steam generation and reaheater model using characteri
 
 //___________________________________________________________________________________//
 //_____________Nominal Operation Point_______________________________________________//
-  parameter Modelica.SIunits.Time Tau_dead = 120 "|Transients and Control Definition|Time Response Definition|Equivalent dead time of steam generation";
-  parameter Modelica.SIunits.Time Tau_bal = 200 "|Transients and Control Definition|Time Response Definition|Balancing time of steam generation";
-  parameter Modelica.SIunits.Time Tau_stor = 200 "|Transients and Control Definition|Time Response Definition|Integration time of steam storage";
-parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "|Transients and Control Definition|Time Response Definition|Time Constant for Energy Storage in IP/LP turbine";
+  parameter Modelica.Units.SI.Time Tau_dead=120 "|Transients and Control Definition|Time Response Definition|Equivalent dead time of steam generation";
+  parameter Modelica.Units.SI.Time Tau_bal=200 "|Transients and Control Definition|Time Response Definition|Balancing time of steam generation";
+  parameter Modelica.Units.SI.Time Tau_stor=200 "|Transients and Control Definition|Time Response Definition|Integration time of steam storage";
+  parameter Modelica.Units.SI.Time Tau_IP=(10 + 25)/2 "|Transients and Control Definition|Time Response Definition|Time Constant for Energy Storage in IP/LP turbine";
 
   parameter Boolean yTInputIsActive= false "|Transients and Control Definition|Time Response Definition| True, if connector is active, else constant valve opening";
   parameter Real y_T_const_ = 1 "|Transients and Control Definition|Time Response Definition|Constant turbine valve aperture"
@@ -69,7 +68,7 @@ parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "|Transients and Control Defin
 
 //___________Variables____________________________________________________________//
   outer ClaRa.SimCenter simCenter;
-  Modelica.SIunits.Pressure p_LS "Live steam pressure";
+  Modelica.Units.SI.Pressure p_LS "Live steam pressure";
   Modelica.Blocks.Continuous.LimIntegrator
                                         SteamStorage(k=1/Tau_stor,
     outMin=0,
@@ -91,47 +90,31 @@ parameter Modelica.SIunits.Time Tau_IP= (10+25)/2 "|Transients and Control Defin
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,120})));
-  Modelica.Blocks.Tables.CombiTable1D turbineValveCharacteristics(table=
-        CL_Valve_, columns={2})
-    annotation (Placement(transformation(extent={{2,-46},{22,-26}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2LiveSteamFlow(columns={2}, table=
-        CL_mLS_QF_)
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2LiveSteamPressure(columns={2},
-      table=CL_pLS_QF_)
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  Modelica.Blocks.Tables.CombiTable1Dv turbineValveCharacteristics(table=CL_Valve_, columns={2}) annotation (Placement(transformation(extent={{2,-46},{22,-26}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2LiveSteamFlow(columns={2}, table=CL_mLS_QF_) annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2LiveSteamPressure(columns={2}, table=CL_pLS_QF_) annotation (Placement(transformation(extent={{40,80},{60,100}})));
 public
-  Modelica.Blocks.Tables.CombiTable1D convert2PressureDrop_HP(columns={2}, table=
-        CL_Delta_pHP_mLS_)
-    annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2PressureDrop_HP(columns={2}, table=CL_Delta_pHP_mLS_) annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Modelica.Blocks.Continuous.FirstOrder energyStroage_RH_IPLP_turbine(
                T=Tau_IP, initType=Modelica.Blocks.Types.Init.NoInit)
     annotation (Placement(transformation(extent={{102,40},{122,60}})));
   Modelica.Blocks.Math.Gain to_pRH(k=p_RH_nom)
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2IntermediatePressure(columns={2}, table=
-        CL_Ip_Hp_)
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2IntermediatePressure(columns={2}, table=CL_Ip_Hp_) annotation (Placement(transformation(extent={{100,80},{120,100}})));
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       liveSteam(vleFluidType =    medium,   T=T_LS, p=p_LS)
     annotation (Placement(transformation(extent={{10,154},{30,174}})));
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       reheatedSteam(vleFluidType =    medium,   T=convert2reheatTemperature.y[1]*T_RH_nom, p=to_pRH.y)
     annotation (Placement(transformation(extent={{48,154},{68,174}})));
-  Modelica.Blocks.Tables.CombiTable1D convert2reheatTemperature(columns={2}, table=
-        CL_Trh_Q_)
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2reheatTemperature(columns={2}, table=CL_Trh_Q_) annotation (Placement(transformation(extent={{0,120},{20,140}})));
 
-  Modelica.Blocks.Tables.CombiTable1D convert2reheatMassFlow(columns={2}, table=
-       CL_mLS_QF_)
-    annotation (Placement(transformation(extent={{140,40},{160,60}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2reheatMassFlow(columns={2}, table=CL_mLS_QF_) annotation (Placement(transformation(extent={{140,40},{160,60}})));
   Modelica.Blocks.Interfaces.RealOutput h_evap "evaporator outlet specific enthalpy"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={98,-106}), iconTransformation(extent={{100,-10},{120,10}},
           rotation=0)));
-  Modelica.Blocks.Tables.CombiTable1D convert2PressureDrop_IP(columns={2},
-      table=CL_Delta_pIP_mLS_)
-    annotation (Placement(transformation(extent={{140,0},{160,20}})));
+  Modelica.Blocks.Tables.CombiTable1Dv convert2PressureDrop_IP(columns={2}, table=CL_Delta_pIP_mLS_) annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Fundamentals.BoilerSummary        summaryIdeal(
     p_feed=feedwater.p,
     h_feed=actualStream(feedwater.h_outflow),
@@ -353,5 +336,28 @@ This steam generator model is based on transfer functions and characteristic lin
 <li>Be careful with turbine valve throttling the steam storage and mass flow through the valve will not be modelled in a correct way! The turbine valve opeing is included for the sake of completeness (see VDI cuideline 3508). </li>
 </ul>
 </p>
+</html><html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+  revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end SteamGenerator_L1;

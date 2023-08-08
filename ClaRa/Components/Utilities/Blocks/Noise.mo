@@ -1,19 +1,19 @@
 within ClaRa.Components.Utilities.Blocks;
 model Noise "Adds a normally distributed noise to a given mean value"
-//___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.5.1                            //
-//                                                                           //
-// Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-// Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-//___________________________________________________________________________//
-// DYNCAP and DYNSTART are research projects supported by the German Federal //
-// Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-// The research team consists of the following project partners:             //
-// Institute of Energy Systems (Hamburg University of Technology),           //
-// Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-// XRG Simulation GmbH (Hamburg, Germany).                                   //
-//___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   parameter Real Tau_sample = 1 "Sample period" annotation(Dialog(group="Large-Scale Time Definition"));
   parameter Real startTime = 1 "start time moment" annotation(Dialog(group="Large-Scale Time Definition"));
@@ -23,8 +23,7 @@ model Noise "Adds a normally distributed noise to a given mean value"
                                                           annotation(Dialog(group="Noise Definition"));
   parameter Real mean_const= 1 "Constant mean value" annotation(Dialog(group="Noise Definition", enable=not varMeanValue));
   parameter Real stdDev_const= 1 "Constant standard deviation" annotation(Dialog(group="Noise Definition", enable=not varStandardDeviation));
-  parameter Modelica.SIunits.Time Tau_smooth=Tau_sample/5 "Time constant for smoothing of the random values"
-                                                       annotation(Dialog(group="Noise Definition"));
+  parameter Modelica.Units.SI.Time Tau_smooth=Tau_sample/5 "Time constant for smoothing of the random values" annotation (Dialog(group="Noise Definition"));
 
 protected
   Real seed[3];
@@ -68,7 +67,34 @@ equation
 initial equation
   y=m_in;
   y_=m_in;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Documentation(info="<html>
+This random generator combines ideas from:
+<p>
+<b>Peter Fritzson</b>: \"Principles of Object-Oriented Modeling and Simulation with Modelica 2.1\" published by Wiley Interscience, 2004. <br>
+<b>Dorel Aiordachioaie et al.</b>: \"On Noise Modelling and Simulation\" In Proceedings of the Modelica Conference 2006.</p>  
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+        revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
+</html>"),Diagram(graphics), Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={221,222,223},
@@ -78,17 +104,5 @@ initial equation
         Line(
           points={{-78,0},{-60,-20},{-42,30},{-32,-14},{-20,-14},{-4,-64},{4,24},{8,-28},{24,76},{36,-16},{38,-54},{69.9688,33.9141},{72,-12}},
           color={27,36,42},
-          smooth=Smooth.Bezier)}),
-    Documentation(info="<html>
-This random generator combines ideas from:
-<p>
-<b>Peter Fritzson</b>: \"Principles of Object-Oriented Modeling and Simulation with Modelica 2.1\" published by Wiley Interscience, 2004. <br>
-<b>Dorel Aiordachioaie et al.</b>: \"On Noise Modelling and Simulation\" In Proceedings of the Modelica Conference 2006.
-</p>
-</html>", revisions="<html>
-
-<ul>
-<li> version 0.1: <b>Friedrich Gottelt, XRG Simulation GmbH</b> Initial implimentation. 
-</ul>
-</html>"));
+          smooth=Smooth.Bezier)}));
 end Noise;

@@ -88,7 +88,7 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "1st: choose geometry definition | 2nd: edit corresponding record"
                                                                        annotation (Dialog(group="Heat Transfer"), choicesAllMatching=true);
-  inner parameter Modelica.SIunits.Time Tau_rad= 0.1 "Radiation time constant" annotation(Dialog(group="Heat Transfer"));
+  inner parameter Modelica.Units.SI.Time Tau_rad=0.1 "Radiation time constant" annotation (Dialog(group="Heat Transfer"));
 
 //________________________/Chemistry \________________________________________________________
   replaceable model ReactionZone =
@@ -123,18 +123,21 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
 
   //__________________/ Parameter \_______________________________________________
 
-  inner parameter Modelica.SIunits.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(group="Nominal Values"));
+  inner parameter Modelica.Units.SI.MassFlowRate m_flow_nom=10 "Nominal mass flow rates at inlet" annotation (Dialog(group="Nominal Values"));
 
   //_______________________/ Start values \_____________________________________________________________
    parameter ClaRa.Basics.Units.Pressure p_start_flueGas_out=1e5 "Start pressure at outlet" annotation(Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.Temperature T_start_flueGas_out=700 "Start temperature at outlet" annotation(Dialog(tab="Initialisation"));
-  inner parameter Modelica.SIunits.Temperature T_top_initial= T_start_flueGas_out "Initial temperature of top volume" annotation(Dialog(tab="Initialisation"));
+  inner parameter Modelica.Units.SI.Temperature T_top_initial=T_start_flueGas_out "Initial temperature of top volume" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas_out[flueGas.nc - 1]={0.01,0,0.1,0,0.74,0.13,0,0.02,0} "Start composition of flue gas"
                                                                                             annotation(Dialog(tab="Initialisation"));
   //   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in_start=1 annotation(Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out_start=-15 "Start volume flow at outlet" annotation(Dialog(tab="Initialisation"));
-  final parameter Modelica.SIunits.SpecificEnthalpy h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
-                                                                                            annotation(Dialog(tab="Initialisation"));
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+      flueGas,
+      p_start_flueGas_out,
+      T_start_flueGas_out,
+      xi_start_flueGas_out) "Start flue gas enthalpy" annotation (Dialog(tab="Initialisation"));
 
   constant Real T_0=298.15 "Reference temperature";
   inner parameter ClaRa.Basics.Units.Time Tau = 0.001 "Time constant for heat transfer temperature delay" annotation(Dialog(tab="Expert Settings"));
@@ -155,7 +158,7 @@ public
   inner ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in "Inlet volume flow";
   inner ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out "Outlet volume flow";
 
-  Modelica.SIunits.Mass mass "Gas mass";
+  Modelica.Units.SI.Mass mass "Gas mass";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_top "Heat flow from top section";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_bottom "Heat flow from bottom section";
   ClaRa.Basics.Units.HeatFlowRate Q_flow_wall "Heat flow from walls";
@@ -169,13 +172,13 @@ public
 //___________________/ Molar flow rates of educts and products \_____________
 //_________/Educts\__________________
 protected
-  Modelica.SIunits.MolarFlowRate n_flow_C "Carbon molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_H "Hydrogen molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_O "Oxygen molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_N "Nitrogen molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_S "Sulphur molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_Ash "Ash molar flow";
-  Modelica.SIunits.MolarFlowRate n_flow_H2O "Water molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_C "Carbon molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_H "Hydrogen molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_O "Oxygen molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_N "Nitrogen molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_S "Sulphur molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_Ash "Ash molar flow";
+  Modelica.Units.SI.MolarFlowRate n_flow_H2O "Water molar flow";
 
   ClaRa.Basics.Units.MassFraction xi_flueGas_id[flueGas.nc - 1] "Flue gas composition at ideal combustion";
   Real sum_xi "Sum of flue gas outlet's species mass fractions";
@@ -186,7 +189,7 @@ protected
 
 public
   ClaRa.Basics.Units.EnthalpyMassSpecific LHV(start=(33907*fuelType.defaultComposition[1] + 142324*(fuelType.defaultComposition[2] - fuelType.defaultComposition[3]/8.) + 10465*fuelType.defaultComposition[5] - 2512*((1 - sum(fuelType.defaultComposition)) + 9*fuelType.defaultComposition[2]))*1000);
-  Modelica.SIunits.SpecificHeatCapacity cp;
+  Modelica.Units.SI.SpecificHeatCapacity cp;
   ClaRa.Basics.Units.Time t_dwell_flueGas=geo.height/particleMigration.w "Flow time in z-direction";
   Real unburntFraction "Quantatity describes how much unburned fuel leaves control volume together with the fluegas to neighbor cell";
   ClaRa.Basics.Units.MassFlowRate m_flow_oxygen_req(min=1e-15) "Required O2 flow rate for stochiometric combustion";

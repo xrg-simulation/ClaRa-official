@@ -1,19 +1,19 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations. Can choose between Modelica and ClaRa Delay implementation."
-  //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.5.1                            //
-  //                                                                           //
-  // Licensed by the DYNCAP/DYNSTART research team under Modelica License 2.   //
-  // Copyright  2013-2020, DYNCAP/DYNSTART research team.                      //
-  //___________________________________________________________________________//
-  // DYNCAP and DYNSTART are research projects supported by the German Federal //
-  // Ministry of Economic Affairs and Energy (FKZ 03ET2009/FKZ 03ET7060).      //
-  // The research team consists of the following project partners:             //
-  // Institute of Energy Systems (Hamburg University of Technology),           //
-  // Institute of Thermo-Fluid Dynamics (Hamburg University of Technology),    //
-  // TLK-Thermo GmbH (Braunschweig, Germany),                                  //
-  // XRG Simulation GmbH (Hamburg, Germany).                                   //
-  //___________________________________________________________________________//
+//__________________________________________________________________________//
+// Component of the ClaRa library, version: 1.6.0                           //
+//                                                                          //
+// Licensed by the ClaRa development team under Modelica License 2.         //
+// Copyright  2013-2021, ClaRa development team.                            //
+//                                                                          //
+// The ClaRa development team consists of the following partners:           //
+// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+// XRG Simulation GmbH (Hamburg, Germany).                                  //
+//__________________________________________________________________________//
+// Contents published in ClaRa have been contributed by different authors   //
+// and institutions. Please see model documentation for detailed information//
+// on original authorship and copyrights.                                   //
+//__________________________________________________________________________//
 
   ////////////////////////////////////////////////////////////////////
   // simplification of level 1 compared to level 2:
@@ -69,36 +69,34 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   //## P w R w M E T E R S ###################################################################################
 
   //____Geometric data________________________________________________________________________________________
-  parameter Modelica.SIunits.Length length=10 "|Geometry|Length of the pipe";
-  parameter Modelica.SIunits.Length diameter_i=0.5 "|Geometry|Inner diameter of the pipe";
+  parameter Modelica.Units.SI.Length length=10 "|Geometry|Length of the pipe";
+  parameter Modelica.Units.SI.Length diameter_i=0.5 "|Geometry|Inner diameter of the pipe";
   //   parameter Modelica.SIunits.Length d_a= 0.55
   //     "|Geometry|Outer diameter of the pipe"; //include this if cylindric wall shall be included!
-  parameter Modelica.SIunits.Length z_in=0.1 "|Geometry|height of inlet above ground";
-  parameter Modelica.SIunits.Length z_out=0.1 "|Geometry|height of outlet above ground";
+  parameter Modelica.Units.SI.Length z_in=0.1 "|Geometry|height of inlet above ground";
+  parameter Modelica.Units.SI.Length z_out=0.1 "|Geometry|height of outlet above ground";
   parameter Integer N_tubes=1 "|Geometry|Number Of parallel pipes";
 
-  final parameter Modelica.SIunits.Area A_cross=Modelica.Constants.pi/4*diameter_i^2*
-      N_tubes "cross area of volume elements";
+  final parameter Modelica.Units.SI.Area A_cross=Modelica.Constants.pi/4*diameter_i^2*N_tubes "cross area of volume elements";
   final parameter Real S=Modelica.Constants.pi*diameter_i*N_tubes "Shape factor of pipe wall for heat conduction";
   //to include cylindric thick wall, set S=2*Modelica.Constants.pi/log(d_a/diameter_i)
 
   //____Discretisation________________________________________________________________________________________
   parameter Integer N_cv=1 "|Discretisation|number of subdivisions of tube wall";
   final parameter Integer N_wall=N_cv "number of subdivisions for wall temperature";
-  final parameter Modelica.SIunits.Length Delta_x[N_wall]=ones(N_wall)*length/N_wall "Length of heated wall section";
+  final parameter Modelica.Units.SI.Length Delta_x[N_wall]=ones(N_wall)*length/N_wall "Length of heated wall section";
   final parameter Integer N_temp=2*N_wall + 1 "number of tempratures to be computed";
   //____Media Data____________________________________________________________________________________________
   parameter Boolean useConstantMediaData=false "|Media Data|Use of constant media data";
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation(Dialog(enable=useConstantMediaData == false,group="Media Data"));
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_const = 4200 "Constant heat capacity in pipe" annotation(Dialog(enable=useConstantMediaData == true,group="Media Data"));
-  parameter Modelica.SIunits.Density rho_const=985 "Constant fluid density in pipe" annotation(Dialog(enable=useConstantMediaData == true,group="Media Data"));
-  parameter Modelica.SIunits.Velocity a_const=1500 "Constant speed of sound in pipe" annotation(Dialog(enable=useConstantMediaData == true,group="Media Data"));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_const=4200 "Constant heat capacity in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
+  parameter Modelica.Units.SI.Density rho_const=985 "Constant fluid density in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
+  parameter Modelica.Units.SI.Velocity a_const=1500 "Constant speed of sound in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
   //____Nominal Values________________________________________________________________________________________
-  parameter Modelica.SIunits.MassFlowRate m_flow_nom=10 "|Physical Effects|Linear Pressure Loss|Nominal mass flow w.r.t. all parallel tubes";
-  parameter Modelica.SIunits.Pressure Delta_p_nom=1e3 "|Physical Effects|Linear Pressure Loss|Pressure loss over pipe length length at nominal mass flow w.r.t. all parallel tubes";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nom=10 "|Physical Effects|Linear Pressure Loss|Nominal mass flow w.r.t. all parallel tubes";
+  parameter Modelica.Units.SI.Pressure Delta_p_nom=1e3 "|Physical Effects|Linear Pressure Loss|Pressure loss over pipe length length at nominal mass flow w.r.t. all parallel tubes";
 
-  final parameter Modelica.SIunits.Pressure Delta_p_grav_start=rho_start*g_n*(z_out -
-      z_in) "Pressure loss over pipe length length at nominal operation point";
+  final parameter Modelica.Units.SI.Pressure Delta_p_grav_start=rho_start*g_n*(z_out - z_in) "Pressure loss over pipe length length at nominal operation point";
   //____Physical Effects______________________________________________________________________________________
   parameter Boolean adiabaticWall=true "|Physical Effects|Heat Transfer|set true if pipe is adiabatic";
 
@@ -107,13 +105,12 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
       tab="Physical Effects",
       group="Heat Transfer"));
 
-  final parameter Modelica.SIunits.Frequency F=(Delta_p_nom*A_cross)/(m_flow_nom*length) "Friction coefficient";
+  final parameter Modelica.Units.SI.Frequency F=(Delta_p_nom*A_cross)/(m_flow_nom*length) "Friction coefficient";
 
   //____Initialisation________________________________________________________________________________________
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "|Initialisation|Model Settings|True, if homotopy method is used during initialisation";
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_start=
-      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.liquidSpecificEnthalpy_pTxi(
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.liquidSpecificEnthalpy_pTxi(
       medium,
       p_start,
       simCenter.T_amb_start) "|Initialisation|Initial Medium Properties|Initial averaged fluid specific enthalpy";
@@ -124,11 +121,10 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   //       h_start)
   //     "Initial averaged fluid temperature";
 
-  parameter Modelica.SIunits.Pressure p_start= (p_in_start+p_out_start)/2 "|Initialisation|Initial Medium Properties|Initial averaged fluid pressure";
-  parameter Modelica.SIunits.Pressure p_in_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial inlet pressure";
-  parameter Modelica.SIunits.Pressure p_out_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial outlet pressure";
-  final parameter Modelica.SIunits.Density rho_start=
-      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Pressure p_start=(p_in_start + p_out_start)/2 "|Initialisation|Initial Medium Properties|Initial averaged fluid pressure";
+  parameter Modelica.Units.SI.Pressure p_in_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial inlet pressure";
+  parameter Modelica.Units.SI.Pressure p_out_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial outlet pressure";
+  final parameter Modelica.Units.SI.Density rho_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
       medium,
       p_start,
       h_start) "Initial fluid density";
@@ -209,42 +205,42 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   ClaRa.Basics.Units.Temperature T_wall[N_wall] "Outer wall temperatures";
 
   Real dcpdt;
-  Modelica.SIunits.SpecificHeatCapacity cp "Time averaged heat capacity in pipe";
-  Modelica.SIunits.SpecificHeatCapacity cp_ps "Pseudo state for time averaged heat capacity in pipe ";
+  Modelica.Units.SI.SpecificHeatCapacity cp "Time averaged heat capacity in pipe";
+  Modelica.Units.SI.SpecificHeatCapacity cp_ps "Pseudo state for time averaged heat capacity in pipe ";
 
   //____Pressure______________________________________________________________________________________________
-  Modelica.SIunits.Pressure p_in "Pressure at inlet";
-  Modelica.SIunits.Pressure p_out "Pressure at outlet";
+  Modelica.Units.SI.Pressure p_in "Pressure at inlet";
+  Modelica.Units.SI.Pressure p_out "Pressure at outlet";
 
-  Modelica.SIunits.Pressure Delta_p_fric=p_in - p_out "Pressure difference due to friction";
-  Modelica.SIunits.Pressure Delta_p_grav "Pressure drop due to gravity";
+  Modelica.Units.SI.Pressure Delta_p_fric=p_in - p_out "Pressure difference due to friction";
+  Modelica.Units.SI.Pressure Delta_p_grav "Pressure drop due to gravity";
   //rho*g_n*(z_out-z_in)
 
-  Modelica.SIunits.Pressure Delta_p_in(final start=0) "Pressure at inlet:  p_in = p_nom + dp_0";
-  Modelica.SIunits.Pressure Delta_p_out(final start=0) "Pressure at outlet: p_out = p_nom - R*q_nom + dp_L";
+  Modelica.Units.SI.Pressure Delta_p_in(final start=0) "Pressure at inlet:  p_in = p_nom + dp_0";
+  Modelica.Units.SI.Pressure Delta_p_out(final start=0) "Pressure at outlet: p_out = p_nom - R*q_nom + dp_L";
 
-  parameter Modelica.SIunits.Pressure p_L_init(start=p_out_start, fixed=false) "Initial pressure at outlet:  p_out = p_in_init + dp_L";
+  parameter Modelica.Units.SI.Pressure p_L_init(start=p_out_start, fixed=false) "Initial pressure at outlet:  p_out = p_in_init + dp_L";
 
-  parameter Modelica.SIunits.Pressure p_0_init(start=p_in_start, fixed=false) "Initial pressure at inlet:  p_in = p_out_init + dp_0";
+  parameter Modelica.Units.SI.Pressure p_0_init(start=p_in_start, fixed=false) "Initial pressure at inlet:  p_in = p_out_init + dp_0";
 
   //____Mass and Density______________________________________________________________________________________
-  Modelica.SIunits.Density rho "Time averaged fluid density in pipe";
-  Modelica.SIunits.Density rho_ps "Pseudo state for time averaged fluid density in pipe";
+  Modelica.Units.SI.Density rho "Time averaged fluid density in pipe";
+  Modelica.Units.SI.Density rho_ps "Pseudo state for time averaged fluid density in pipe";
 
   Real drhodt;
 
   //____Flows and Velocities__________________________________________________________________________________
-  Modelica.SIunits.VolumeFlowRate V_flow_in "Volume flow at inlet";
-  Modelica.SIunits.VolumeFlowRate V_flow_out "Volume flow at outlet";
+  Modelica.Units.SI.VolumeFlowRate V_flow_in "Volume flow at inlet";
+  Modelica.Units.SI.VolumeFlowRate V_flow_out "Volume flow at outlet";
 
-  Modelica.SIunits.VolumeFlowRate Delta_V_flow_in "Volume flow at inlet:  V_flow_in=q_nom + dq_0";
-  Modelica.SIunits.VolumeFlowRate Delta_V_flow_out(start=0) "Volume flow at outlet: V_flow_out=q_nom + dq_L";
+  Modelica.Units.SI.VolumeFlowRate Delta_V_flow_in "Volume flow at inlet:  V_flow_in=q_nom + dq_0";
+  Modelica.Units.SI.VolumeFlowRate Delta_V_flow_out(start=0) "Volume flow at outlet: V_flow_out=q_nom + dq_L";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_start(start=m_flow_nom/rho_start, fixed=false) "Initial volume flow at inlet";
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_start(start=m_flow_nom/rho_start, fixed=false) "Initial volume flow at inlet";
 
-  Modelica.SIunits.Velocity w "Flow velocity in pipe";
-  Modelica.SIunits.Velocity a "Time averaged speed of sound in pipe";
-  Modelica.SIunits.Velocity a_ps "Pseudo state for time averaged speed of sound in pipe";
+  Modelica.Units.SI.Velocity w "Flow velocity in pipe";
+  Modelica.Units.SI.Velocity a "Time averaged speed of sound in pipe";
+  Modelica.Units.SI.Velocity a_ps "Pseudo state for time averaged speed of sound in pipe";
 
   Real B(unit="1/s");
   //____Connectors____________________________________________________________________________________________
@@ -780,7 +776,7 @@ equation
                                       graphics),
     Documentation(info="<html>
 <p><b>Model description: </b>w  1D-tube model using a transmission line formulation</p>
-<p><b>Contact:</b> Johannes Brunnemann, XRG Simulation GmbH</p>
+
 <p>
 <b>FEATURES</b>
 <ul>
@@ -795,5 +791,29 @@ equation
 <li>implememt replaceable heat transfer models</li>
 </ul>
 
+</html>
+<html>
+<p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
+<p>&nbsp;</p>
+<p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
+<p><b>Author:</b> </p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2020.</p>
+<p><b>References:</b> </p>
+<p> For references please consult the html-documentation shipped with ClaRa. </p>
+<p><b>Remarks:</b> </p>
+<p>This component was developed by ClaRa development team under Modelica License 2.</p>
+<b>Acknowledgements:</b>
+<p>ClaRa originated from the collaborative research projects DYNCAP and DYNSTART. Both research projects were supported by the German Federal Ministry for Economic Affairs and Energy (FKZ 03ET2009 and FKZ 03ET7060).</p>
+<p><b>CLA:</b> </p>
+<p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/CLA/\">https://claralib.com/CLA/</a></p>
+<p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under Modelica License 2.</p>
+<p>The ClaRa development team consists of the following partners:</p>
+<p>TLK-Thermo GmbH (Braunschweig, Germany)</p>
+<p>XRG Simulation GmbH (Hamburg, Germany).</p>
+</html>",
+revisions="<html>
+<body>
+<p>For revisions please consult the html-documentation shipped with ClaRa.</p>
+</body>
 </html>"));
 end PipeFlowVLE_L1_TML;
