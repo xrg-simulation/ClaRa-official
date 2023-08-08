@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_1
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -342,7 +342,8 @@ model TestMillBox_1
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={130,110})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-66},{66,-54}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-66},{66,-54}})));
 equation
   connect(temperature.y,fuelBoundary_m_flowTxi. T) annotation (Line(points={{-239,-126},{-222,-126},{-222,20},{-80,20}},color={0,0,127}));
   connect(composition.y,fuelBoundary_m_flowTxi. xi) annotation (Line(points={{-239,-90},{-200,-90},{-200,14},{-80,14}},  color={0,0,127}));
@@ -429,7 +430,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2023.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

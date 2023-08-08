@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -67,8 +67,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   inner SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
-    showExpertSummary=true)                                             annotation (Placement(transformation(extent={{116,74},{136,94}})));
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{116,74},{136,94}})));
 
   Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(
     length=length,

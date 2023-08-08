@@ -1,10 +1,10 @@
 within ClaRa.Examples;
 model SteamCycle_01 "A closed steam cycle with a simple boiler model including single reheat, feedwater tank, LP and HP preheaters"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -179,7 +179,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{50,-160},{110,-140}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP1(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP1(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                     Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={90,-30})));
@@ -222,7 +223,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_preheater_LP1(eta_mech=0.9, inlet(
                                                                                           m_flow(      start=NOM.pump_preheater_LP1.summary.inlet.m_flow)))
                                                                                         annotation (Placement(transformation(extent={{170,-160},{150,-180}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP2(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP2(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
         m_flow_nom=NOM.valve_IP2.m_flow,
         Delta_p_nom=NOM.valve_IP2.Delta_p,
@@ -293,7 +295,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
         extent={{10,6},{-10,-6}},
         rotation=90,
         origin={-88,-30})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
         m_flow_nom=NOM.valve2_HP.m_flow,
         Delta_p_nom=NOM.valve2_HP.Delta_p*0.01,
@@ -388,7 +391,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     efficiency_Turb_LP4=NOM.efficiency_Turb_LP4,
     valve_HP_Delta_p_nom=NOM.valve_HP_Delta_p_nom)
                                annotation (Placement(transformation(extent={{-312,-198},{-292,-178}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                          Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={160,-122})));
@@ -473,8 +477,10 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     efficiency_Pump_preheater_LP1=0.9,
     efficiency_Pump_preheater_LP3=0.9,
     preheater_HP_p_tap=46e5)  annotation (Placement(transformation(extent={{-312,-236},{-292,-216}})));
-  inner SimCenter simCenter(contributeToCycleSummary=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
-    showExpertSummary=true)                                annotation (Placement(transformation(extent={{-280,-220},{-240,-200}})));
+  inner SimCenter simCenter(
+    contributeToCycleSummary=true,
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{-280,-220},{-240,-200}})));
   Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP3(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
@@ -588,7 +594,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={350,40})));
-  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP1(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow)) annotation (Placement(transformation(
+  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP1(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                               Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={270,-30})));
@@ -710,7 +717,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={320,-170})));
-  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_afterPumpLP3(redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=30, Delta_p_nom=1000)) annotation (Placement(transformation(
+  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_afterPumpLP3(redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                       m_flow_nom=30, Delta_p_nom=1000)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={304,-150})));
@@ -746,11 +754,13 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
         extent={{-10,6},{10,-6}},
         rotation=0,
         origin={450,-170})));
-  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP2(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow)) annotation (Placement(transformation(
+  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP2(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                               Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={340,-30})));
-  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP3(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP3.Delta_p, m_flow_nom=NOM.valve_LP3.m_flow)) annotation (Placement(transformation(
+  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP3(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                               Delta_p_nom=NOM.valve_LP3.Delta_p, m_flow_nom=NOM.valve_LP3.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={410,-30})));
@@ -918,7 +928,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     annotation (Placement(transformation(extent={{-30,-10},{30,10}},
         rotation=0,
         origin={-140,-192})));
-  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP1(redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
+  Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP1(redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
         CL_valve=[0,0; 1,1],
         Delta_p_nom=1000,
         m_flow_nom=25000)) annotation (Placement(transformation(

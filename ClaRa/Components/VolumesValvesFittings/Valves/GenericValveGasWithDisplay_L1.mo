@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveGasWithDisplay_L1 "Same as ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 but with dynamic opening display and opening output"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //

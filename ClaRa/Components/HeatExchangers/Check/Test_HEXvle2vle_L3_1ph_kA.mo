@@ -2,10 +2,10 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_kA
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -92,7 +92,7 @@ model Test_HEXvle2vle_L3_1ph_kA
     startTime=10000,
     height=-200e3)
     annotation (Placement(transformation(extent={{140,-72},{120,-52}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o={hEXvle2vle_L3_1ph_BU_ntu.shell.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T},
     T_i={hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T},

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -24,7 +24,7 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
         TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewPressure_Txi(
         simCenter.fluid1, 373.15))
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 Volume(
+  VolumeVLE_L2 Volume(
     p_nom(displayUnit="Pa") = 1e5,
     p_start(displayUnit="Pa") = 1e5,
     h_nom=2740e3,
@@ -46,8 +46,7 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
         N_tubes=10,
         N_passes=6),
     initOption=1,
-    redeclare model PressureLoss = Fundamentals.PressureLoss.Generic_PL.NoFriction_L2)
-                  "max(0.000001, ((1 - Volume.bulk.q)*Volume.M))/noEvent(max(Volume.bulk.VLE.d_l, Volume.bulk.d))" annotation (Placement(transformation(extent={{20,40},{0,60}})));
+    redeclare model PressureLoss = Fundamentals.PressureLoss.Generic_PL.NoFriction_L2) "max(0.000001, ((1 - Volume.bulk.q)*Volume.M))/noEvent(max(Volume.bulk.VLE.d_l, Volume.bulk.d))" annotation (Placement(transformation(extent={{20,40},{0,60}})));
 
   Components.BoundaryConditions.BoundaryVLE_Txim_flow massFlowSource(
     variable_m_flow=true,
@@ -57,14 +56,15 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
     variable_p=true,
     h_const=2700e3,
     p_const=100000) annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((100) > 0) then (100) else 10, Delta_p_nom=if ((0.1) <> 0) then (0.1) else 1000)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                             m_flow_nom=if ((100) > 0) then (100) else 10, Delta_p_nom=if ((0.1) <> 0) then (0.1) else 1000)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={-30,50})));
   inner SimCenter simCenter(
-    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
+    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid2) annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid2) annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature

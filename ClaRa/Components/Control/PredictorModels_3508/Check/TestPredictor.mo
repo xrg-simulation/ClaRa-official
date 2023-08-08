@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508.Check;
 model TestPredictor
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -45,7 +45,7 @@ model TestPredictor
     rho_nom=74.2585,
     Pi=28e5/240e5,
     p_nom=24000000) annotation (Placement(transformation(extent={{80,-80},{90,-60}})));
-  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{160,180},{200,200}})));
+  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{160,180},{200,200}})));
   ClaRa.Components.Control.PredictorModels_3508.TurbinesAndReheat_01_XRG turbinesAndReheat_01(
     p_nom=2800000,
     P_G_nom=507.7e6,

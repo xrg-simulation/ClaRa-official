@@ -232,8 +232,8 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
         {0},
         length,
         1)) if enableAmbientLosses == true annotation (Placement(transformation(extent={{-56,28},{-36,48}})));
-  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb)) if
-                       enableAmbientLosses==true annotation (Placement(transformation(extent={{-88,28},{-68,48}})));
+  Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter + 2*thickness_wall) + Modelica.Constants.pi*(diameter + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb))
+                    if enableAmbientLosses==true annotation (Placement(transformation(extent={{-88,28},{-68,48}})));
 equation
   eye_int[1].m_flow=-outlet.m_flow;
   eye_int[1].T=volume.summary.outlet.T-273.15;

@@ -2,10 +2,10 @@ within ClaRa.SubSystems.Furnace;
 model ConvectiveSlice_L4 "Convective furnaces slice"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -25,9 +25,11 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
   parameter TILMedia.GasTypes.BaseGas flueGas=simCenter.flueGasModel "Flue gas model" annotation (choicesAllMatching, Dialog(group="Media Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FurnaceSketch.png"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"),Dialog(group="Media Definitions"));
 
-  replaceable model GasHeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_tubeBank_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to TB" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model GasHeatTransfer_TubeBundle =
+      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_tubeBank_L2                                            constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to TB" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   replaceable model GasHeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_flatWall_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to FTW" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  replaceable model GasHeatTransfer_CarrierTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_turbulent_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to top" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model GasHeatTransfer_CarrierTubes =
+      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_turbulent_L2                                              constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to top" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   replaceable model GasHeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to CT" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 

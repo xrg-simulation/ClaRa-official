@@ -2,10 +2,10 @@ within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.TestNTU_Case2"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -59,8 +59,7 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
     steamCycleAllowFlowReversal=true,
     showExpertSummary=true,
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1)
-                                                                      annotation (Placement(transformation(extent={{80,75},{100,95}})));
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{80,75},{100,95}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone NTU(
     N_t=N_tubes,
@@ -119,7 +118,7 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
     variable_p=false) annotation (Placement(transformation(extent={{62,-48},{42,-28}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Cold_out_degC1 annotation (Placement(transformation(extent={{-36,-88},{-16,-68}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Hot_out_degC1 annotation (Placement(transformation(extent={{12,-38},{32,-18}})));
-  FluidVolumes.VolumeVLE_2 outerVol(
+  FluidVolumes.VolumeVLE_L2 outerVol(
     m_flow_nom=m_flow_o,
     p_nom=p_o,
     redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred (position_Delta_p_geo="inlet"),
@@ -134,8 +133,7 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1e4),
     h_start=1330e3,
     initOption=202) annotation (Placement(transformation(extent={{-19,-28},{1,-48}})));
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2
-                           innerVol(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 innerVol(
     m_flow_nom=m_flow_i,
     p_nom=p_i,
     redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L2 (alpha_nom=alpha_i),
@@ -151,7 +149,8 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
     h_start=3080e3) annotation (Placement(transformation(extent={{1,-98},{-19,-78}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Hot_out_degC2 annotation (Placement(transformation(extent={{10,-88},{30,-68}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Cold_out_degC2 annotation (Placement(transformation(extent={{-42,-38},{-22,-18}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-94},{-54,-82}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-94},{-54,-82}})));
    ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple
                                                                 pipe_HotSide(
      length=length,
@@ -248,7 +247,8 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
         N_cv),
     length=length*N_passes,
     initOption=203) annotation (Placement(transformation(extent={{-20,2},{0,10}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-16},{-54,-4}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-16},{-54,-4}})));
 equation
    for i in 1:pipe_ColdSide.N_cv loop
 

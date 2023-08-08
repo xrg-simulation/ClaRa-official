@@ -20,7 +20,7 @@ model BoundaryFuel_Txim_flow "A source defining mass flow, temperature and compo
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=if massFlowIsLoss then 0 else min(0, fuel_a.m_flow*h_coal),
     powerOut=if massFlowIsLoss then 0 else max(0, fuel_a.m_flow*h_coal),
-    powerAux=0) if                                                                                                     contributeToCycleSummary;
+    powerAux=0)                                                                                                     if contributeToCycleSummary;
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean massFlowIsLoss = true "True if mass flow is a loss (not a process product)" annotation(Dialog(tab="Summary and Visualisation"));
@@ -62,8 +62,8 @@ public
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealInput T=T_in if (variable_T) "Variable specific temperature"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Blocks.Interfaces.RealInput xi[fuelType.nc-1]=xi_in if
-       (variable_xi) "Variable composition"
+  Modelica.Blocks.Interfaces.RealInput xi[fuelType.nc-1]=xi_in
+    if (variable_xi) "Variable composition"
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
 equation
 

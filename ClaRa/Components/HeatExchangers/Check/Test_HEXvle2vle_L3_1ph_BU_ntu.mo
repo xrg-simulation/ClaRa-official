@@ -2,10 +2,10 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_BU_ntu
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -96,7 +96,9 @@ model Test_HEXvle2vle_L3_1ph_BU_ntu
     height=-200e3)
     annotation (Placement(transformation(extent={{140,-72},{120,-52}})));
   inner SimCenter simCenter(
-    showExpertSummary=true, useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    showExpertSummary=true,
+    useHomotopy=true,
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o={hex.shell.summary.inlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T},
     T_i={hex.tubes.summary.inlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T},

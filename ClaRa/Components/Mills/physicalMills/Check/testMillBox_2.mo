@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_2
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -199,7 +199,8 @@ model TestMillBox_2
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={130,110})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-46},{66,-34}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-46},{66,-34}})));
   Modelica.Blocks.Continuous.SecondOrder secondOrder(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
@@ -261,7 +262,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2023.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -125,7 +125,7 @@ public
               else if initType ==InitPID.InitialOutput  then Modelica.Blocks.Types.Init.InitialOutput
               else if initType ==InitPID.InitialState   then Modelica.Blocks.Types.Init.InitialState
               else Modelica.Blocks.Types.Init.NoInit,
-    y_start=y_start/y_ref) if  with_I
+    y_start=y_start/y_ref)  if with_I
     annotation (Placement(transformation(extent={{-30,10},{-10,30}},   rotation=
            0)));
   ClaRa.Components.Utilities.Blocks.DerivativeClaRa D_approx(
@@ -143,7 +143,7 @@ public
   Modelica.Blocks.Math.Add addI if with_I annotation (Placement(
         transformation(extent={{-5,-5},{5,5}},       rotation=0,
         origin={-60,-3.5})));
-  Modelica.Blocks.Math.Gain gainTrack(k=1/Ni) if   with_I
+  Modelica.Blocks.Math.Gain gainTrack(k=1/Ni)   if with_I
     annotation (Placement(transformation(extent={{3,-17},{-10,-30}}, rotation=0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax=if perUnitConversion then y_max/y_ref else y_max, uMin=if perUnitConversion then y_min/y_ref else y_min) annotation (Placement(transformation(extent={{71,59},{84,72}}, rotation=0)));
 
@@ -168,11 +168,11 @@ public
           extent={{-5,-5},{5,5}},  rotation=0,
         origin={104,0})));
 
-  Modelica.Blocks.Logical.Switch switch_OnOff_I if  with_I
+  Modelica.Blocks.Logical.Switch switch_OnOff_I  if with_I
     annotation (Placement(transformation(extent={{-49,25.5},{-38,15}})));
 public
-  Modelica.Blocks.Sources.Constant I_off_zero(k=0) if
-                                                  with_I
+  Modelica.Blocks.Sources.Constant I_off_zero(k=0)
+                                               if with_I
     annotation (Placement(transformation(extent={{4.25,-4.5},{-4.25,4.5}},
                                                                      rotation=180,
         origin={-64.75,35})));
@@ -203,8 +203,8 @@ public
     annotation (Placement(transformation(extent={{-50,-78.5},{-30,-58.5}})));
   Modelica.Blocks.Sources.BooleanExpression activate_(y=time >= t_activation)
     annotation (Placement(transformation(extent={{-159,-105},{-139,-85}})));
-  Modelica.Blocks.Logical.And controllerActive if
-                                                 use_activateInput
+  Modelica.Blocks.Logical.And controllerActive
+                                              if use_activateInput
     annotation (Placement(transformation(extent={{-128,-76},{-113,-61}})));
   Modelica.Blocks.Routing.BooleanPassThrough activateIfNoSwitch if not use_activateInput
     annotation (Placement(transformation(extent={{-109,-98.5},{-102,-91.5}})));

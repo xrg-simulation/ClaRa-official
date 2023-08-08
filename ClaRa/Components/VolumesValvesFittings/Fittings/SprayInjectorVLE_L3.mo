@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -168,7 +168,7 @@ public
     constrainedby ClaRa.Components.VolumesValvesFittings.Fittings.Fundamentals.BaseDp "Pressure loss model of mixing zone at outlet"      annotation(Dialog(group="Fundamental Definitions"),choicesAllMatching);
 
 public
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 outflowZone(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 outflowZone(
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry (diameter=diameter_i, length=length/2),
     medium=medium,
     useHomotopy=useHomotopy,
@@ -181,8 +181,7 @@ public
     p_start=p_start,
     showExpertSummary=showExpertSummary,
     initOption=initOption,
-    redeclare model HeatTransfer = HeatTransfer)
-                           annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    redeclare model HeatTransfer = HeatTransfer) annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
   ClaRa.Basics.Interfaces.FluidPortIn inlet1(Medium=medium) "Inlet port" annotation (Placement(transformation(extent={{-110,10},{-90,30}}), iconTransformation(extent={{-110,10},{-90,30}})));
   ClaRa.Basics.Interfaces.FluidPortIn inlet2(Medium=medium) "Inlet port" annotation (Placement(transformation(extent={{-30,-110},{-10,-90}}), iconTransformation(extent={{-30,-110},{-10,-90}})));
@@ -298,7 +297,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2023.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

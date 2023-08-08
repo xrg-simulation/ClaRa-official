@@ -24,8 +24,8 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
     parameter Boolean showExpertSummary;
     input SI.VolumeFlowRate V_flow "Volume flow rate";
     input SI.PressureDifference Delta_p "Pressure difference p_out - p_in";
-    input Real PR if  showExpertSummary "Pressure ration p_out/p_in";
-    input Real PR_crit if   showExpertSummary "Critical pressure ratio";
+    input Real PR  if showExpertSummary "Pressure ration p_out/p_in";
+    input Real PR_crit   if showExpertSummary "Critical pressure ratio";
     input Real opening_ "Valve opening in p.u.";
   end Outline;
 

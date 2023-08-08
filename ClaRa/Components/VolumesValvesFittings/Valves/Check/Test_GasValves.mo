@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_GasValves
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -18,7 +18,8 @@ model Test_GasValves
 
 
 
-  GenericValveGas_L1 valve1(openingInputIsActive=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=2e5, m_flow_nom=10)) annotation (Placement(transformation(extent={{-84,126},{-64,138}})));
+  GenericValveGas_L1 valve1(openingInputIsActive=true, redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                              Delta_p_nom=2e5, m_flow_nom=10)) annotation (Placement(transformation(extent={{-84,126},{-64,138}})));
 
   inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel, showExpertSummary=true)
                                                                                       annotation (Placement(transformation(extent={{162,232},{182,252}})));
@@ -75,7 +76,8 @@ model Test_GasValves
   Adapters.FuelFlueGas_split coalGas_split1 annotation (Placement(transformation(extent={{62,-120},{82,-100}})));
   BoundaryConditions.BoundaryFuel_pTxi coalSink1(p_const=800000) annotation (Placement(transformation(extent={{118,-108},{98,-88}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT4(p_const=800000) annotation (Placement(transformation(extent={{118,-132},{98,-112}})));
-  ValveFuelFlueGas_L1 coalDustValve2(openingInputIsActive=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible (Kvs_in=100, m_flow_nom=10))
+  ValveFuelFlueGas_L1 coalDustValve2(openingInputIsActive=true, redeclare model PressureLoss =
+        Fundamentals.Quadratic_EN60534_compressible (                                                                                       Kvs_in=100, m_flow_nom=10))
                                                                                           annotation (Placement(transformation(extent={{-64,-116},{-44,-104}})));
   BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource2(m_flow_const=5, T_const=293.15) annotation (Placement(transformation(extent={{-146,-60},{-126,-40}})));
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T5(
@@ -167,7 +169,8 @@ model Test_GasValves
   Adapters.FuelFlueGas_split coalGas_split4 annotation (Placement(transformation(extent={{60,-224},{80,-204}})));
   BoundaryConditions.BoundaryFuel_pTxi coalSink4(p_const=800000) annotation (Placement(transformation(extent={{116,-212},{96,-192}})));
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT10(p_const=800000) annotation (Placement(transformation(extent={{116,-236},{96,-216}})));
-  ValveFuelFlueGas_L1 coalDustValve4(openingInputIsActive=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible (
+  ValveFuelFlueGas_L1 coalDustValve4(openingInputIsActive=true, redeclare model PressureLoss =
+        Fundamentals.Quadratic_EN60534_compressible (
         paraOption=3,
         m_flow_nom=10,
         A_cross=0.2,

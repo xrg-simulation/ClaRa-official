@@ -1,10 +1,10 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.1                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2023, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -82,7 +82,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         length=14.576),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
     redeclare model ReactionZone = ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone,
-    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=3),
+    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
     T_top_initial=INIT.brnr2.T_fg_out,
     T_start_flueGas_out=INIT.brnr1.T_fg_out,
@@ -110,7 +110,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         height=burner2.geo.z_out[1] - burner2.geo.z_in[1],
         length=14.576),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
-    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=5),
+    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
     T_start_flueGas_out=INIT.brnr2.T_fg_out,
     T_top_initial=INIT.brnr3.T_fg_out,
@@ -138,7 +138,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         height=burner3.geo.z_out[1] - burner3.geo.z_in[1],
         length=14.576),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
-    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=10),
+    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
     T_start_flueGas_out=INIT.brnr3.T_fg_out,
     T_top_initial=INIT.brnr4.T_fg_out,
@@ -195,7 +195,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     xi_start_flueGas_out=INIT.eco.xi_fg_out,
     m_flow_nom=550,
     redeclare model HeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (CF_fouling=CF_fouling_glob, alpha_nom=alpha_wall),
-    redeclare model HeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
+    redeclare model HeatTransfer_TubeBundle =
+        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
         temperatureDifference="Logarithmic mean - smoothed",
         suspension_calculationType="Calculated",
         CF_fouling=0.9),
@@ -230,7 +231,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         height=burner4.geo.z_out[1] - burner4.geo.z_in[1],
         length=14.576),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
-    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=15),
+    redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
     T_start_flueGas_out=INIT.brnr4.T_fg_out,
     T_top_initial=INIT.evap_rad.T_fg_out,
@@ -271,7 +272,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         rotation=90,
         origin={-108,-244})));
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource_bottom(
-    m_flow_const=1,
+    m_flow_const=0,
     T_const=293.15,
     variable_m_flow=false,
     xi_const={0.84,0.07})
@@ -333,7 +334,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         diameter_t=sh_1_wall.diameter_o,
         N_tubes=sh_1.N_tubes,
         N_passes=sh_1.N_passes),
-    redeclare model HeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
+    redeclare model HeatTransfer_TubeBundle =
+        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
         suspension_calculationType="Calculated",
         temperatureDifference="Logarithmic mean - smoothed",
         CF_fouling=0.55),
@@ -361,7 +363,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         diameter_t=sh_2_wall.diameter_o,
         N_tubes=sh_2.N_tubes,
         N_passes=sh_2.N_passes),
-    redeclare model HeatTransfer_TubeBundle = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (suspension_calculationType="Calculated", CF_fouling=0.55),
+    redeclare model HeatTransfer_TubeBundle =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (                                      suspension_calculationType="Calculated", CF_fouling=0.55),
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=100),
     p_start_flueGas_out(displayUnit="bar") = 100600)                                   annotation (Placement(transformation(extent={{-148,20},{-88,40}})));
 
@@ -386,7 +389,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         diameter_t=sh_4_wall.diameter_o,
         N_tubes=sh_4.N_tubes,
         N_passes=sh_4.N_passes),
-    redeclare model HeatTransfer_TubeBundle = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (suspension_calculationType="Calculated", CF_fouling=0.6),
+    redeclare model HeatTransfer_TubeBundle =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (                                      suspension_calculationType="Calculated", CF_fouling=0.6),
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=100),
     p_start_flueGas_out(displayUnit="bar") = 100500)                                                    annotation (Placement(transformation(extent={{-148,48},{-88,68}})));
 
@@ -411,7 +415,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         diameter_t=sh_3_wall.diameter_o,
         N_tubes=sh_3.N_tubes,
         N_passes=sh_3.N_passes),
-    redeclare model HeatTransfer_TubeBundle = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
+    redeclare model HeatTransfer_TubeBundle =
+        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2 (
         temperatureDifference="Logarithmic mean - smoothed",
         suspension_calculationType="Calculated",
         CF_fouling=0.65),
@@ -479,13 +484,14 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         z_out={burner1.geo.z_in[1]},
         z_in={4.03}),
     T_slag=600 + 273.15,
+    m_flow_nom=1000,
     Tau=0.01,
     T_start_flueGas_out=INIT.brnr4.T_fg_out - 500,
     T_top_initial=INIT.brnr1.T_fg_out,
     xi_start_flueGas_out=INIT.eco.xi_fg_out,
     redeclare model HeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_advanced_L2 (suspension_calculationType="Calculated", CF_fouling=CF_fouling_rad_glob),
-    p_start_flueGas_out(displayUnit="bar") = 101000)
-                         annotation (Placement(transformation(extent={{-148,-190},{-88,-170}})));
+    p_start_flueGas_out(displayUnit="bar") = 100980)
+                         annotation (Placement(transformation(extent={{-150,-188},{-90,-168}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 evap_1_wall(
     redeclare replaceable model Material = TILMedia.SolidTypes.TILMedia_Steel,
@@ -1313,10 +1319,22 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{14,-5},{-14,5}},
         rotation=90,
         origin={229,78})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill4(    initOption=1) annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(    initOption=1) annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill2(    initOption=1) annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
-  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill3(    initOption=1) annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill4(
+    T_out_start=846,
+    mass_pca_start=90,
+    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(
+    T_out_start=846,
+    mass_pca_start=90,
+    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill2(
+    T_out_start=846,
+    mass_pca_start=90,
+    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
+  ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill3(
+    T_out_start=846,
+    mass_pca_start=90,
+    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=10,
     offset=1.50,
@@ -1392,7 +1410,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{-13.9999,-4.99997},{13.9999,4.99997}},
         rotation=90,
         origin={107,-244})));
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 separator(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 separator(
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=0.1e5),
     useHomotopy=true,
     initOption=0,
@@ -1682,7 +1700,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     useMechanicalPort=true)                                                                            annotation (Placement(transformation(extent={{1420,-188},{1400,-208}})));
   ClaRa.Visualisation.Quadruple quadruple6
     annotation (Placement(transformation(extent={{952,-230},{1012,-210}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow), checkValve=true) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                    Delta_p_nom=NOM.valve_IP1.Delta_p, m_flow_nom=NOM.valve_IP1.m_flow), checkValve=true) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={990,-100})));
@@ -1718,7 +1737,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         origin={1170,-30})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_preheater_LP1(eta_mech=0.9, inlet(m_flow(start=NOM.pump_preheater_LP1.summary.inlet.m_flow)))
                                                                                         annotation (Placement(transformation(extent={{1070,-230},{1050,-250}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP3(checkValve=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_IP3(checkValve=true, redeclare model PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
         m_flow_nom=NOM.valve_IP2.m_flow,
         Delta_p_nom=NOM.valve_IP2.Delta_p,
@@ -1750,7 +1770,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{10,6},{-10,-6}},
         rotation=90,
         origin={812,-100})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss = Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model
+      PressureLoss =
+        Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
         m_flow_nom=NOM.valve2_HP.m_flow,
         Delta_p_nom=NOM.valve2_HP.Delta_p*0.01,
@@ -1774,7 +1796,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     y_start=0.1,
     T=1)
     annotation (Placement(transformation(extent={{1484,-344},{1476,-336}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valvePreFeedWaterTank(Tau=1e-3, redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                          Delta_p_nom=NOM.valvePreFeedWaterTank.Delta_p_nom, m_flow_nom=NOM.valvePreFeedWaterTank.m_flow)) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={1060,-192})));
@@ -1960,7 +1983,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={1250,-30})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP2(checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP2(checkValve=true, redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                     Delta_p_nom=NOM.valve_LP1.Delta_p, m_flow_nom=NOM.valve_LP1.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1170,-100})));
@@ -2045,7 +2069,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={1220,-240})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_afterPumpLP3(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=30, Delta_p_nom=1000)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_afterPumpLP3(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                             m_flow_nom=30, Delta_p_nom=1000)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={1204,-220})));
@@ -2083,11 +2108,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{-10,6},{10,-6}},
         rotation=0,
         origin={1350,-240})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP3(checkValve=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP3(checkValve=true, redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                     Delta_p_nom=NOM.valve_LP2.Delta_p, m_flow_nom=NOM.valve_LP2.m_flow)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1240,-100})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP4(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=NOM.valve_LP3.m_flow, Delta_p_nom=NOM.valve_LP3.Delta_p), checkValve=true) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_LP4(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                    m_flow_nom=NOM.valve_LP3.m_flow, Delta_p_nom=NOM.valve_LP3.Delta_p), checkValve=true) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={1310,-100})));
@@ -2318,7 +2345,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     x1=Pump_cond.summary.outline.rpm,
     unit="1/min",
     decimalSpaces=0) annotation (Placement(transformation(extent={{1424,-230},{1464,-218}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_LP1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (
         CL_valve=[0,0; 1,1],
         Delta_p_nom=1000,
         m_flow_nom=25000)) annotation (Placement(transformation(
@@ -2375,7 +2403,8 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={654,-250})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=0.1e5, m_flow_nom=420)) annotation (Placement(transformation(extent={{690,-256},{710,-244}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        Delta_p_nom=0.1e5, m_flow_nom=420)) annotation (Placement(transformation(extent={{690,-256},{710,-244}})));
   ClaRa.Visualisation.Quadruple quadruple26
     annotation (Placement(transformation(extent={{380,-70},{440,-50}})));
   ClaRa.Visualisation.Quadruple quadruple27
@@ -2472,7 +2501,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     y_start=475.6 + 24,
     u_ref=1.2,
     initOption=501) annotation (Placement(transformation(extent={{-514,46},{-494,26}})));
-  Modelica.Blocks.Math.Gain gain(k=42/4) annotation (Placement(transformation(extent={{-400,-152},{-380,-132}})));
+  Modelica.Blocks.Math.Gain gain(k=43/4) annotation (Placement(transformation(extent={{-400,-152},{-380,-132}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     T=1,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
@@ -2788,18 +2817,18 @@ equation
   totalHeat =burner1.Q_flow_wall + burner2.Q_flow_wall + burner3.Q_flow_wall + burner4.Q_flow_wall + flameRoom_evap_1.Q_flow_wall + flameRoom_evap_2.Q_flow_wall + flameRoom_sh_1.Q_flow_wall + flameRoom_sh_2.Q_flow_wall + flameRoom_sh_4.Q_flow_wall + flameRoom_rh_2.Q_flow_wall;
 
   connect(burner1.inlet, hopper.outlet)        annotation (Line(
-      points={{-134,-164},{-134,-170}},
+      points={{-134,-164},{-134,-168},{-136,-168}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
   connect(burner1.heat_bottom, hopper.heat_top)        annotation (Line(
-      points={{-116,-164},{-116,-170}},
+      points={{-116,-164},{-116,-168},{-118,-168}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
   connect(coalSlagFlueGas_join.fuelSlagFlueGas_outlet, hopper.inlet)
     annotation (Line(
-      points={{-134,-196},{-134,-190}},
+      points={{-134,-196},{-134,-188},{-136,-188}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
@@ -2933,7 +2962,7 @@ equation
       smooth=Smooth.None));
 
   connect(hopper.heat_wall, scalar2VectorHeatPort2.heatScalar) annotation (Line(
-      points={{-88,-180},{48,-180}},
+      points={{-90,-178},{-22,-178},{-22,-180},{48,-180}},
       color={167,25,48},
       thickness=0.5,
       smooth=Smooth.None));
@@ -3123,7 +3152,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(hopper.heat_bottom, boilerLosses.port) annotation (Line(
-      points={{-116,-190},{-116,-200},{-100,-200}},
+      points={{-118,-188},{-118,-200},{-100,-200}},
       color={167,25,48},
       thickness=0.5));
   connect(coalFlowSource_bottom.fuel_a, coalSlagFlueGas_join.fuel_inlet) annotation (Line(
