@@ -1,4 +1,8 @@
+<p><img src="ClaRa\Resources\Images\ClaRa-Logo.png" width="100"<\p>
+
 # ClaRa-official
+
+https://www.claralib.com/
 
 Thank you for choosing the ClaRa library for your simulation purposes!
 
