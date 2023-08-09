@@ -27,7 +27,8 @@ Installation:
 
 1. Copy the unzipped library files to your preferred folder
 
-Currently, only DYMOLA provides full suppport of ClaRa. The development team has tested all models carefully using DYMOLA 2023x Refresh 1 which we therefore recommend to use. For other tools' support please contact us via mail at info@powerplantsimulation.com.  
+Currently, only DYMOLA provides full suppport of ClaRa. The development team has tested all models carefully using DYMOLA 2023x Refresh 1 which we therefore recommend to use it. However, we are committed to ensuring its compatibility with the OpenModelica (OM) environment (https://openmodelica.org/) and have made significant progress in this regard thanks to OM development
+team. More than half of the examples can now run in OM, and we will continue our efforts to expand this compatibility. For other tools' support please contact us via mail at info@powerplantsimulation.com.  
 
 
 2. Get Access to the Library from DYMOLA
