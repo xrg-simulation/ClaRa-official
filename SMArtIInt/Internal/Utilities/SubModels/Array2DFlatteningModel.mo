@@ -1,6 +1,6 @@
 within SMArtIInt.Internal.Utilities.SubModels;
 model Array2DFlatteningModel
-  parameter Integer numberOfInputs "Number of Real Inputs";
+  parameter Integer numberOfInputs = 1 "Number of Real Inputs";
   parameter Integer batchSize=1 "Number of parallel batched inqueries";
 
   parameter Boolean useRowMajor = true "use true for row major flattening and false for column major flattening" annotation(Evaluate=true);
@@ -29,5 +29,5 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
                              Bitmap(extent={{-80,-80},{80,80}}, fileName=
-              "modelica://SMArtIInt/Resources/Images/Icon_Flattening.svg")}));
+              "modelica://SMArtIInt/Resources/Images/Icon_Flattening.png")}));
 end Array2DFlatteningModel;

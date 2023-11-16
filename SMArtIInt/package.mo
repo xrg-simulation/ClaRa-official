@@ -1,17 +1,6 @@
 within ;
 package SMArtIInt
-annotation (preferedView="info", version="0.1.1",versionBuild=1,
-  __Dymola_Protection(Library="ClaRaPlusLib",
-        allowDuplicate=false,
-        showDiagram=true,
-        showText=false,
-        nestedAllowDuplicate=true,
-        nestedShowDiagram=true,
-        nestedShowText=true,
-        showVariables=true,
-        showDiagnostics=true,
-        showStatistics=true,
-        showFlat=true),uses(Modelica(version="4.0.0")),
+annotation (uses(Modelica(version="4.0.0")),
   Documentation(info="<html>
 </html>"),
   Icon(graphics={Rectangle(
@@ -19,5 +8,11 @@ annotation (preferedView="info", version="0.1.1",versionBuild=1,
         lineColor={0,0,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid), Bitmap(extent={{-100,-100},{100,100}}, fileName=
-            "modelica://SMArtIInt/Resources/Images/SMArtIInt_Icon.svg")}));
+            "modelica://SMArtIInt/Resources/Images/SMArtIInt_Icon.png")}),
+    version="0.2.2",versionBuild=1,
+    conversion(
+      from(
+        version="0.1.1",
+        to="0.2.0",
+        script="modelica://SMArtIInt/Resources/ConversionScripts/Conversion_0.1.1_to_0.2.0.mos")));
 end SMArtIInt;

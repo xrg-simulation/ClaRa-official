@@ -1,10 +1,10 @@
 within SMArtIInt.Internal.ClaRaDelay;
 function getDelayValuesAtTime
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2022, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
