@@ -242,7 +242,7 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
       p_fg_out,
       T_fg_out,
       xi_fg_out) " FG medium's outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_fg_out(fixed=false) "FG medium's outlet temperature";
+  final parameter ClaRa.Basics.Units.Temperature T_fg_out(fixed=false, start=293.15) "FG medium's outlet temperature";
   final parameter ClaRa.Basics.Units.MassFraction xi_fg_out[outletGas.flueGas.nc - 1]=xi_fg_in "FG medium's outlet composition";
   final parameter ClaRa.Basics.Units.Pressure p_fg_out(fixed=false) "FG medium's outlet pressure";
 

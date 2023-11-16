@@ -30,7 +30,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(splitFuel_L1_flex.outlet[1], boundaryFuel_pTxi1.fuel_a) annotation (Line(
-      points={{8,-0.666667},{18,-0.666667},{18,50},{40,50}},
+      points={{8,-0.333333},{18,-0.333333},{18,50},{40,50}},
       color={27,36,42},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -40,7 +40,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(splitFuel_L1_flex.outlet[3], boundaryFuel_pTxi2.fuel_a) annotation (Line(
-      points={{8,0.666667},{14,0.666667},{14,-2},{18,-2},{18,-82},{52,-82}},
+      points={{8,0.333333},{14,0.333333},{14,-2},{18,-2},{18,-82},{52,-82}},
       color={27,36,42},
       pattern=LinePattern.Solid,
       thickness=0.5));

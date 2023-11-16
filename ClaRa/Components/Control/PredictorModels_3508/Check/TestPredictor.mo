@@ -32,8 +32,9 @@ model TestPredictor
     u_ref=1,
     Tau_i=500,
     k=2.5,
+    Tau_out=1,
     y_start=1,
-    initOption=503) annotation (Placement(transformation(extent={{-54,80},{-34,100}})));
+    initOption=501) annotation (Placement(transformation(extent={{-54,80},{-34,100}})));
   Modelica.Blocks.Sources.RealExpression MV_Pressure_LS(y=homotopy(realPlantPower_.y, turbinesAndReheat_01.P_gen_)) "Measurement value of live steam pressure" annotation (Placement(transformation(extent={{-112,56},{-92,76}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     offset=1,

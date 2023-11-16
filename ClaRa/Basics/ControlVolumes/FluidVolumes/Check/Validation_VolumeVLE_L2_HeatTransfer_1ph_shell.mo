@@ -1,20 +1,20 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
 
+//__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.1                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2023, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   Modelica.Blocks.Sources.Constant FluidMassFlowRate(k=100)
     annotation (Placement(transformation(extent={{100,60},{80,80}})));
@@ -45,7 +45,7 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
         width=2,
         N_tubes=10,
         N_passes=6),
-    initOption=1,
+    initOption=0,
     redeclare model PressureLoss = Fundamentals.PressureLoss.Generic_PL.NoFriction_L2) "max(0.000001, ((1 - Volume.bulk.q)*Volume.M))/noEvent(max(Volume.bulk.VLE.d_l, Volume.bulk.d))" annotation (Placement(transformation(extent={{20,40},{0,60}})));
 
   Components.BoundaryConditions.BoundaryVLE_Txim_flow massFlowSource(

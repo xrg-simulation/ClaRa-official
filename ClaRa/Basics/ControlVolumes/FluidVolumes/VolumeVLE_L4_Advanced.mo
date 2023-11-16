@@ -225,11 +225,11 @@ protected
 
   Units.Pressure p[geo.N_cv](nominal=p_nom, start=p_start_internal) "Cell pressure";
 
-  Units.Pressure Delta_p_adv[geo.N_cv + 1] "Pressure difference due to the momentum of liquid flow";
-  Units.Pressure Delta_p_fric[geo.N_cv + 1](start=ones(geo.N_cv + 1)*100) "Pressure difference due to friction";
-  Units.Pressure Delta_p_grav[geo.N_cv + 1] "pressure drop due to gravity";
-  Units.Pressure Delta_p_inlet "pressure drop due to inlet";
-  Units.Pressure Delta_p_outlet "pressure drop due to outlet";
+  Units.PressureDifference Delta_p_adv[geo.N_cv + 1] "Pressure difference due to the momentum of liquid flow";
+  Units.PressureDifference Delta_p_fric[geo.N_cv + 1](start=ones(geo.N_cv + 1)*100) "Pressure difference due to friction";
+  Units.PressureDifference Delta_p_grav[geo.N_cv + 1] "pressure drop due to gravity";
+  Units.PressureDifference Delta_p_inlet "pressure drop due to inlet";
+  Units.PressureDifference Delta_p_outlet "pressure drop due to outlet";
 
 //____Mass and Density__________________________________________________________________________________________
 public

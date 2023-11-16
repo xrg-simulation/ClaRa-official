@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_2ph_shell "Validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Ja 13 Example 2"
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
+  //__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.1                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2023, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
 
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
@@ -67,7 +67,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
     heatSurfaceAlloc=2,
     redeclare model PressureLoss = Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
     redeclare model PhaseBorder = Fundamentals.SpacialDistribution.IdeallySeparated (level_rel_start=1),
-    initOption=1) "max(0.000001, ((1 - Volume.bulk.q)*Volume.M))/noEvent(max(Volume.bulk.VLE.d_l, Volume.bulk.d))" annotation (Placement(transformation(extent={{52,-80},{32,-60}})));
+    initOption=0) "max(0.000001, ((1 - Volume.bulk.q)*Volume.M))/noEvent(max(Volume.bulk.VLE.d_l, Volume.bulk.d))" annotation (Placement(transformation(extent={{52,-80},{32,-60}})));
 
   Components.BoundaryConditions.BoundaryVLE_hxim_flow MassFlowSource(
     variable_m_flow=true,

@@ -25,7 +25,7 @@ model TestBalanceTank
     T_gas_start=24 + 273.15,
     p_start=1.016e5,
     T_start=ones(3)*(293.15),
-    initFluid="Steady state in p",
+    initFluid="Fixed value for filling level",
     h_liq_start=108e3 - 8e3,
     gasMedium=simCenter.airModel,
     levelOutput=true,
@@ -101,11 +101,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(ramp1.y, multiSum.u[1]) annotation (Line(
-      points={{73,-30},{66,-30},{66,-16.1},{56,-16.1}},
+      points={{73,-30},{66,-30},{66,-12.95},{56,-12.95}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp.y, multiSum.u[2]) annotation (Line(
-      points={{73,2},{66,2},{66,-11.9},{56,-11.9}},
+      points={{73,2},{66,2},{66,-15.05},{56,-15.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiSum.y, massFlowSource_h1.m_flow) annotation (Line(

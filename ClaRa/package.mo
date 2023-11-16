@@ -28,7 +28,7 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
 
   annotation (preferedView="info",version="1.8.1",
                            uses(
-    Modelica(version="4.0.0"), TILMedia(version="1.8.1 ClaRa")),
+    Modelica(version="4.0.0"), TILMedia(version="1.8.1 ClaRa"),SMArtIInt(version="0.2.2")),
                                        Icon(graphics,
                                       coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}})),

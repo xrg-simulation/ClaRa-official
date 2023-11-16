@@ -170,13 +170,13 @@ equation
       smooth=Smooth.None));
   connect(flxibleJoin.inlet[1], valveLinear_1_XRG.inlet)
                                                   annotation (Line(
-      points={{-60,29.5},{-39.95,29.5},{-39.95,30},{-40,30}},
+      points={{-60,29.75},{-39.95,29.75},{-39.95,30},{-40,30}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flxibleJoin.inlet[2], massFlowSource_XRG1.steam_a)
                                                       annotation (Line(
-      points={{-60,30.5},{-42,30.5},{-42,60},{0,60}},
+      points={{-60,30.25},{-42,30.25},{-42,60},{0,60}},
       color={0,131,169},
       thickness=0.5,
       smooth=Smooth.None));

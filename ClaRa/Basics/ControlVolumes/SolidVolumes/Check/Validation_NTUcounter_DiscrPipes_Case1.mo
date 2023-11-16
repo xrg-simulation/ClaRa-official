@@ -23,7 +23,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   parameter Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
   parameter Units.MassFlowRate m_flow_i=10 "Mass flow of cold side";
   parameter Units.MassFlowRate m_flow_o=100 "Mass flow of hot side";
-  parameter Units.Pressure p_i=2e5 "Pressure of cold side";
+  parameter Units.Pressure p_i=2e5
+                                   "Pressure of cold side";
   parameter Units.Pressure p_o=300e5 "Pressure of hot side";
 
   parameter Units.CoefficientOfHeatTransfer alpha_i=730 "Heat transfer coefficient of cold side";
@@ -71,6 +72,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
     showExpertSummary=true) annotation (Placement(transformation(extent={{116,74},{136,94}})));
 
   Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(
+    Delta_p_nom=100,
     length=length,
     N_tubes=N_tubes,
     N_cv=N_cv,
@@ -94,11 +96,12 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
         N_cv),
     m_flow_nom=m_flow_o,
     redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4 (alpha_nom=alpha_o),
-    initOption=208,
+    initOption=0,
     frictionAtOutlet=true,
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4)
                     annotation (Placement(transformation(extent={{-84,-14},{-52,-26}})));
   Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_InnerSide(
+    Delta_p_nom=100,
     length=length,
     N_tubes=N_tubes,
     N_cv=N_cv,
@@ -123,7 +126,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
         419240,
         2895e3,
         N_cv),
-    initOption=208,
+    initOption=0,
     frictionAtOutlet=true,
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4)
                     annotation (Placement(transformation(extent={{-52,-72},{-84,-60}})));
@@ -160,16 +163,16 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
         T_o_in,
         T_i_in,
         N_cv),
-    initOption=203) annotation (Placement(transformation(extent={{-78,-46},{-58,-38}})));
+    initOption=213) annotation (Placement(transformation(extent={{-78,-46},{-58,-38}})));
 
-  Visualisation.Hexdisplay_3 hexdisplay_3_1(
-    Unit="HEX wall",
-    y_min=273,
-    y_max=900,
-    T_o=wall_NTU.summary.T_o,
-    T_i=wall_NTU.summary.T_i,
-    z_i=wall_NTU.summary.eCom.z_i,
-    z_o=wall_NTU.summary.eCom.z_o) annotation (Placement(transformation(extent={{46,-88},{158,16}})));
+//   Visualisation.Hexdisplay_3 hexdisplay_3_1(
+//     Unit="HEX wall",
+//     y_min=273,
+//     y_max=900,
+//     T_o=wall_NTU.summary.T_o,
+//     T_i=wall_NTU.summary.T_i,
+//     z_i=wall_NTU.summary.eCom.z_i,
+//     z_o=wall_NTU.summary.eCom.z_o) annotation (Placement(transformation(extent={{46,-88},{158,16}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone wall_NTU(
     N_t=N_tubes,
@@ -191,8 +194,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
     alpha_i=ones(3)*alpha_i,
     alpha_o=ones(3)*alpha_o,
     yps_start={0.3,0.3},
-    initOption=204,
-    initOption_yps=4)
+    initOption=0,
+    initOption_yps=3)
                     annotation (Placement(transformation(extent={{4,-50},{24,-30}})));
 
 equation

@@ -2,21 +2,19 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_kA
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
-
-
+  // Component of the ClaRa library, version: 1.8.1                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2023, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   HEXvle2vle_L3_1ph_kA hEXvle2vle_L3_1ph_BU_ntu(
@@ -39,8 +37,8 @@ model Test_HEXvle2vle_L3_1ph_kA
     z_in_tubes=7,
     z_out_tubes=0.1,
     tubesLimitHeatFlow=false,
-    initOptionShell=1,
-    initOptionTubes=1,
+    initOptionShell=0,
+    initOptionTubes=0,
     initOptionWall=1) annotation (Placement(transformation(extent={{-2,-76},{18,-56}})));
 
   Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{16,2},{36,22}})));

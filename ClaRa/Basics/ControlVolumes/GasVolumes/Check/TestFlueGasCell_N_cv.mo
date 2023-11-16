@@ -1,19 +1,19 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes.Check;
 model TestFlueGasCell_N_cv
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
+  //__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.1                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2023, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L4 flueGasCell(
     redeclare model Geometry =
@@ -24,7 +24,7 @@ model TestFlueGasCell_N_cv
         ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4,
     T_start=fill(273.15 + 200, 3),
     initOption=0,
-    redeclare model PressureLoss = Fundamentals.PressureLoss.Gas_PL.QuadraticNominalPoint_L4)
+    redeclare model PressureLoss = Fundamentals.PressureLoss.Gas_PL.QuadraticNominalPoint_L4, frictionAtOutlet = true)
     annotation (Placement(transformation(extent={{-6,-6},{24,6}})));
 
   Modelica.Blocks.Sources.Ramp massFlowRate(

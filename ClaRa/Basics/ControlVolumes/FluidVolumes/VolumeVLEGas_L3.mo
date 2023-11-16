@@ -113,12 +113,15 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
   parameter ClaRa.Basics.Units.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
 
+  parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation" annotation(Dialog(group="Shape interpretation"));
+
   parameter Boolean showExpertSummary=simCenter.showExpertSummary "|Summary and Visualisation||True, if expert summary should be applied";
   parameter Integer heatSurfaceAlloc=1 "Heat transfer area to be considered"          annotation(Dialog(group="Geometry"),choices(choice=1 "Lateral surface",
                                                                                    choice=2 "Inner heat transfer surface"));
 
 protected
   constant ClaRa.Basics.Units.Length level_abs_min=1e-6;
+  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
   final parameter ClaRa.Basics.Units.Length Delta_z_max_in[geo.N_inlet]={min(geo.z_in[i] + radius_flange, geo.height_fill) for i in 1:geo.N_inlet};
   final parameter ClaRa.Basics.Units.Length Delta_z_min_in[geo.N_inlet]={max(1e-3, geo.z_in[i] - radius_flange) for i in 1:geo.N_inlet};
   final parameter ClaRa.Basics.Units.Length Delta_z_max_out[geo.N_outlet]={min(geo.z_out[i] + radius_flange, geo.height_fill) for i in 1:geo.N_outlet};
@@ -149,6 +152,7 @@ public
   ClaRa.Basics.Units.MassFraction xi_gas[gasType.nc - 1](start=xi_start) "Gas mass fractions";
   ClaRa.Basics.Units.MassFraction xi_liq[medium.nc - 1] "Liquid mass fractions";
   ClaRa.Basics.Units.Length level_abs;
+  ClaRa.Basics.Units.Area A_hor_act "Actual horizontal surface size";
   Real level_rel(start = level_rel_start);
   parameter Real   level_rel_start=0.5 "Initial value for relative level"
     annotation (Dialog(tab="Initialisation"));
@@ -361,11 +365,10 @@ equation
   vent.xi_outflow = xi_gas;
 
 //_________________________Calculation of the Level______________________________
+     A_hor_act = geo.A_hor*table.y[1];
+     table.u[1] = level_rel;
 
-     level_abs=noEvent(min(geo.height_fill, max(level_abs_min, iCom.volume[1]/(geo.A_hor*noEvent(ObsoleteModelica4.Math.tempInterpol1(
-    level_rel,
-    geo.shape,
-    2))))));
+     level_abs = min(geo.height_fill, max(level_abs_min, iCom.volume[1]/(A_hor_act)));
      level_rel = level_abs/geo.height_fill;
 
 //__________________Calculation of the geostatic pressure differences_______________

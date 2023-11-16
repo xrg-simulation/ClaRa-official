@@ -242,11 +242,11 @@ equation
     eye_int[2].xi=flueGasOut2.xi;
 
   connect(eye_int[1],eye1)  annotation (Line(
-      points={{56,-50.5},{84,-50.5},{84,-50},{110,-50}},
+      points={{56,-50.25},{84,-50.25},{84,-50},{110,-50}},
       color={190,190,190},
       smooth=Smooth.None));
   connect(eye_int[2],eye2)  annotation (Line(
-      points={{56,-49.5},{56,-90},{30,-90},{30,-110}},
+      points={{56,-49.75},{56,-90},{30,-90},{30,-110}},
       color={190,190,190},
       smooth=Smooth.None));
 
