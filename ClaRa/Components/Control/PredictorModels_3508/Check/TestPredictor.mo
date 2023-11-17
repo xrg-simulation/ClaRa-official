@@ -58,7 +58,8 @@ model TestPredictor
     h_LS_start=3400e3,
     p_LS_start=24000000,
     p_RH_start=2800000,
-    initOption_HP=0) annotation (Placement(transformation(extent={{6,-64},{32,-28}})));
+    initOption_HP=0,
+    heatRelease(initType=Modelica.Blocks.Types.Init.InitialState)) annotation (Placement(transformation(extent={{6,-64},{32,-28}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSourceFW(
     m_flow_const=419,
     h_const=500e3,

@@ -1,20 +1,20 @@
 within ClaRa.Examples;
 model SteamCycle_01 "A closed steam cycle with a simple boiler model including single reheat, feedwater tank, LP and HP preheaters"
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
 
+//__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.1                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2023, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_HP1(
@@ -58,7 +58,8 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     CL_Delta_pIP_mLS_=NOM.CharLine_Delta_p_IP_mRS_,
     CL_etaF_QF_=[0,0.9; 1,0.95],
     initOption_IP=0,
-    initOption_HP=0)             annotation (Placement(transformation(extent={{-154,46},{-126,84}})));
+    initOption_HP=0,
+    heatRelease(initType=Modelica.Blocks.Types.Init.SteadyState))             annotation (Placement(transformation(extent={{-154,46},{-126,84}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP1(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
@@ -160,9 +161,7 @@ model SteamCycle_01 "A closed steam cycle with a simple boiler model including s
     T_wall_start=ones(feedWaterTank.wall.N_rad)*(120 + 273.15),
     showLevel=true,
     length=12,
-    z_aux=1,
-    equalPressures=false,
-    absorbInflow=0.6)                               annotation (Placement(transformation(extent={{44,-138},{104,-118}})));
+    z_aux=1, equalPressures = true, absorbInflow = 0.6)                               annotation (Placement(transformation(extent={{44,-138},{104,-118}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_cond(            showExpertSummary=true, eta_mech=0.9,
     m_flow_start=NOM.Pump_cond.summary.inlet.m_flow)                                                   annotation (Placement(transformation(extent={{520,-118},{500,-138}})));
   ClaRa.Components.Utilities.Blocks.LimPID PI_Pump_cond(

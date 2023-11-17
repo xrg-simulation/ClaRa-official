@@ -58,7 +58,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     CL_Delta_pIP_mLS_=NOM.CharLine_Delta_p_IP_mRS_,
     CL_etaF_QF_=[0,0.9; 1,0.95],
     initOption_IP=0,
-    initOption_HP=0)             annotation (Placement(transformation(extent={{-154,46},{-126,84}})));
+    initOption_HP=0,
+    heatRelease(initType=Modelica.Blocks.Types.Init.SteadyState))             annotation (Placement(transformation(extent={{-154,46},{-126,84}})));
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP1(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
@@ -162,9 +163,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     showLevel=true,
     length=12,
     z_aux=1,
-    level_rel_start=0.51,
-    equalPressures=false,
-    absorbInflow=0.75)                              annotation (Placement(transformation(extent={{44,-138},{104,-118}})));
+    level_rel_start=0.51, equalPressures = true, absorbInflow = 0.75)                              annotation (Placement(transformation(extent={{44,-138},{104,-118}})));
   Components.TurboMachines.Pumps.PumpVLE_L1_affinity     Pump_cond(            showExpertSummary=true,
     contributeToCycleSummary=false,
     J=1,
@@ -270,7 +269,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
+    initOptionWall= 0,
     levelOutput=true,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000}),
     diameter_i=0.02,
@@ -325,7 +324,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP1.p_cond,
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
+    initOptionWall= 0,
     levelOutput=true,
     length=10,
     diameter=3,
@@ -682,7 +681,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1,
+    initOptionWall= 0,
     levelOutput=true,
     z_in_shell=preheater_LP4.length,
     m_flow_nom_shell=NOM.preheater_LP4.m_flow_tap,
