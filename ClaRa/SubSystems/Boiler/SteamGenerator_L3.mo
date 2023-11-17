@@ -100,7 +100,7 @@ protected
   Modelica.Units.SI.MassFlowRate m_flow_heatedIP "heated IP mass flow rate i.e. for energy and mass balance";
 
 public
-  Modelica.Blocks.Continuous.TransferFunction heatRelease(a={Tau_bal*Tau_dead,(Tau_bal + Tau_dead),1}, initType=Modelica.Blocks.Types.Init.InitialState)
+  Modelica.Blocks.Continuous.TransferFunction heatRelease(a={Tau_bal*Tau_dead,(Tau_bal + Tau_dead),1}, initType=Modelica.Blocks.Types.Init.NoInit)
                                                   "comprehends the coal supply, the heat release and the steam generation"
     annotation (Placement(transformation(extent={{-66,-56},{-46,-36}})));
   ClaRa.Components.Utilities.Blocks.ParameterizableTable1D convert2PressureDrop_HP(columns={2},
