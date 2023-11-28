@@ -19,7 +19,7 @@ model E_Filter_L2_simple_old "Simple model for an electrical dust filter"
   outer ClaRa.SimCenter simCenter;
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,
-    powerOut=-powerConsumption,
+    powerOut_elMech=-powerConsumption,
     powerAux=0) if contributeToCycleSummary;
 
 //## S U M M A R Y   D E F I N I T I O N ###################################################################
@@ -65,6 +65,7 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
   inner parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom= 10 "Nominal mass flow rates at inlet" annotation(Dialog(tab="General", group="Nominal Values"));
   inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure"                    annotation(Dialog(group="Nominal Values"));
   inner parameter ClaRa.Basics.Units.Temperature T_nom=380 "Nominal Temperature"           annotation(Dialog(group="Nominal Values"));
+  inner parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_nom=1e5 "Nominal specific enthalpy"  annotation(Dialog(group="Nominal Values"));
 
   parameter Boolean use_dynamicMassbalance = true "True if a dynamic mass balance shall be applied" annotation(Evaluate=true, Dialog(tab="Expert Settings"));
 
@@ -191,7 +192,13 @@ protected
     T_out=flueGasOutlet.T,
     m_flow_out=outlet.m_flow,
     V_flow_out=0,
-    xi_out=xi) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    xi_out=xi,
+            p_nom=p_nom,
+    h_nom=h_nom,
+    xi_nom=xi_start,
+    xi_bulk=bulk.xi,
+    h_bulk=bulk.h,
+    mass=mass) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
 public
   ClaRa.Basics.Interfaces.EyeOut eyeOut if showData annotation (Placement(transformation(extent={{80,-78},{120,-42}}), iconTransformation(extent={{90,-50},{110,-30}})));

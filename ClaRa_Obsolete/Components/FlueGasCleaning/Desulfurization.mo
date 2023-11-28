@@ -31,7 +31,7 @@ package Desulfurization
 
     ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
       powerIn=0,
-      powerOut=-P_el,
+      powerOut_elMech=-P_el,
       powerAux=0) if contributeToCycleSummary;
 
     ClaRa.Basics.Interfaces.GasPortIn inlet(Medium=simCenter.flueGasModel) annotation (Placement(transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -178,7 +178,7 @@ package Desulfurization
   protected
     ClaRa.Basics.Interfaces.EyeIn eye_int annotation (Placement(transformation(extent={{32,-68},{48,-52}}), iconTransformation(extent={{90,-84},{84,-78}})));
   public
-    TILMedia.Gas GasPointer annotation (Placement(transformation(extent={{-10,48},{10,68}})));
+    TILMedia.Gas GasPointer(gasType=medium) annotation (Placement(transformation(extent={{-10,48},{10,68}})));
   equation
     V_flow_std = inlet.m_flow / TILMedia.GasObjectFunctions.density_pTxi(1.01325e5,273.15,inStream(inlet.xi_outflow),GasPointer.gasPointer);
     P_el = specificPowerConsumption * V_flow_std;
