@@ -79,7 +79,6 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(
     checkValve=false,
     openingInputIsActive=true,
-    useStabilisedMassFlow=true,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
         m_flow_nom=1000,
