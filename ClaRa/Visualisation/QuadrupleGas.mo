@@ -186,12 +186,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2023.</p>
           points={{0,0},{0,-200}},
           pattern=LinePattern.Solid,
           smooth=Smooth.None,
-          lineColor=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190})),
+          color=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190})),
         Line(
           points={{-200,-100},{200,-100}},
           pattern=LinePattern.Solid,
           smooth=Smooth.None,
-          lineColor=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190}))}),            Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
+          color=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190}))}),            Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
             -200},{200,0}},
         initialScale=0.05),  graphics));
 end QuadrupleGas;

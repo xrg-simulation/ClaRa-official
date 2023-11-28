@@ -20,11 +20,10 @@ model TestFlueGasCell_N_cv
         ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry_N_cv,
     m_flow_nom=10,
     Delta_p_nom=1000,
-    redeclare model HeatTransfer =
-        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4,
+    redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4(alpha_nom = 200),
     T_start=fill(273.15 + 200, 3),
     initOption=0,
-    redeclare model PressureLoss = Fundamentals.PressureLoss.Gas_PL.QuadraticNominalPoint_L4, frictionAtOutlet = true)
+    redeclare model PressureLoss = Fundamentals.PressureLoss.Gas_PL.QuadraticNominalPoint_L4, frictionAtOutlet = true, xi_start = {0.7, 0.1, 0.1, 0.04, 0.01, 0.02, 0.01, 0.01, 0}, p_start = linspace(1.013e5 + 1000, 1.013e5, flueGasCell.geo.N_cv))
     annotation (Placement(transformation(extent={{-6,-6},{24,6}})));
 
   Modelica.Blocks.Sources.Ramp massFlowRate(
@@ -49,7 +48,7 @@ model TestFlueGasCell_N_cv
     offset=0,
     startTime=150,
     duration=10,
-    height=-10000)
+    height=-1000)
                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -72,11 +71,11 @@ model TestFlueGasCell_N_cv
     variable_xi=false,
     variable_T=true,
     variable_m_flow=true,
-    xi_const={0.7,0.1,0.1,0.05,0.01,0.02,0.01,0.01,0})
+    xi_const={0.7,0.1,0.1,0.04,0.01,0.02,0.01,0.01,0})
                       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Components.BoundaryConditions.BoundaryGas_pTxi boundaryGas_pTxi(
     medium=simCenter.flueGasModel,
-    xi_const={0.1,0.05,0.1,0.3,0.4,0.001,0.001,0.001,0},
+    xi_const={0.7,0.1,0.1,0.04,0.01,0.02,0.01,0.01,0},
     variable_p=false) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

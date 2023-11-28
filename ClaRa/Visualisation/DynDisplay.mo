@@ -27,7 +27,7 @@ model DynDisplay "Dynamic Display of one variable"
 
   Modelica.Blocks.Interfaces.RealOutput y=u_aux if provideConnector annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u=u_aux if provideConnector annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),      iconTransformation(extent={{-120,-10},{-100,10}})));
-protected
+//protected
   Real u_aux  annotation(Hide=false);
 equation
 
