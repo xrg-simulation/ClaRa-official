@@ -34,7 +34,7 @@ model TableGain "Table based gain"
 
   parameter Boolean divide = false "True if y = u/table(u)";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table_block(tableOnFile=tableOnFile, table=table, tableName=tableName,
+  Modelica.Blocks.Tables.CombiTable1Dv table_block(tableOnFile=tableOnFile, table=table, tableName=tableName,
     fileName=fileName, columns=columns, smoothness=smoothness);
 equation
   table_block.u = u;

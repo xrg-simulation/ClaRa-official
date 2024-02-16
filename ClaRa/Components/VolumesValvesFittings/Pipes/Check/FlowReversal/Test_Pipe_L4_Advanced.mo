@@ -146,7 +146,7 @@ equation
       thickness=0.5));
   connect(Q_flow.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-59,10},{-40,10}}, color={0,0,127}));
   connect(outlet_pressure.y[1], massFlowSink.p) annotation (Line(points={{-71,-49},{-64.5,-49},{-64.5,-49},{-58,-49}}, color={0,0,127}));
-  connect(thinWall.innerPhase, tube.heat) annotation(
+  connect(thinWall.innerPhase, tube.heat) annotation (
     Line(points = {{0, -30}, {0, -38}}, color={167,25,48}, thickness = 0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},{100,120}}),

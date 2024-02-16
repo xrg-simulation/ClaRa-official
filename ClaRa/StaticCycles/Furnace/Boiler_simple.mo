@@ -38,8 +38,8 @@ model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_in(fixed=false) "Inlet specific enthalpy";
 
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_Delta_p_HP_mLS_, u = {m_flow_feed/m_flow_LS_nom});
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table2(table=CharLine_Delta_p_IP_mRS_, u = {m_flow_cRH/m_flow_RS_nom});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_Delta_p_HP_mLS_, u = {m_flow_feed/m_flow_LS_nom});
+  Modelica.Blocks.Tables.CombiTable1Dv table2(table=CharLine_Delta_p_IP_mRS_, u = {m_flow_cRH/m_flow_RS_nom});
 public
   final parameter Real Delta_p_LS_(fixed = false) "Rprt: current LS pressure loss";
   final parameter Real Delta_p_RS_(fixed = false) "Rprt: current RS pressure loss";

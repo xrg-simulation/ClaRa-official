@@ -23,8 +23,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   parameter Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
   parameter Units.MassFlowRate m_flow_i=10 "Mass flow of cold side";
   parameter Units.MassFlowRate m_flow_o=100 "Mass flow of hot side";
-  parameter Units.Pressure p_i=2e5
-                                   "Pressure of cold side";
+  parameter Units.Pressure p_i=2e5 "Pressure of cold side";
   parameter Units.Pressure p_o=300e5 "Pressure of hot side";
 
   parameter Units.CoefficientOfHeatTransfer alpha_i=730 "Heat transfer coefficient of cold side";
@@ -165,14 +164,14 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
         N_cv),
     initOption=213) annotation (Placement(transformation(extent={{-78,-46},{-58,-38}})));
 
-//   Visualisation.Hexdisplay_3 hexdisplay_3_1(
-//     Unit="HEX wall",
-//     y_min=273,
-//     y_max=900,
-//     T_o=wall_NTU.summary.T_o,
-//     T_i=wall_NTU.summary.T_i,
-//     z_i=wall_NTU.summary.eCom.z_i,
-//     z_o=wall_NTU.summary.eCom.z_o) annotation (Placement(transformation(extent={{46,-88},{158,16}})));
+  Visualisation.Hexdisplay_3 hexdisplay_3_1(
+    Unit="HEX wall",
+    y_min=273,
+    y_max=900,
+    T_o=wall_NTU.summary.T_o,
+    T_i=wall_NTU.summary.T_i,
+    z_i=wall_NTU.summary.eCom.z_i,
+    z_o=wall_NTU.summary.eCom.z_o) annotation (Placement(transformation(extent={{46,-88},{158,16}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone wall_NTU(
     N_t=N_tubes,

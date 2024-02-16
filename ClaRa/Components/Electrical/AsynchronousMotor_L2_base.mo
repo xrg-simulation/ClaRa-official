@@ -72,7 +72,7 @@ protected
   Real slip_bd "Breakdown slip";
   Basics.Units.Voltage U_rotor0 "Induced rotor voltage at zero speed";
 
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=charLine_tau_rpm_, columns={2}, smoothness=smoothness);
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=charLine_tau_rpm_, columns={2}, smoothness=smoothness);
 
 public
 model Summary

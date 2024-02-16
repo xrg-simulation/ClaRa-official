@@ -103,7 +103,7 @@ public
   Modelica.Blocks.Continuous.TransferFunction heatRelease(a={Tau_bal*Tau_dead,(Tau_bal + Tau_dead),1}, initType=Modelica.Blocks.Types.Init.NoInit)
                                                   "comprehends the coal supply, the heat release and the steam generation"
     annotation (Placement(transformation(extent={{-66,-56},{-46,-36}})));
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D convert2PressureDrop_HP(columns={2},
+  Modelica.Blocks.Tables.CombiTable1Dv convert2PressureDrop_HP(columns={2},
       table=CL_Delta_pHP_mLS_,
     u(start=1*ones(size(convert2PressureDrop_HP.columns, 1))))
     annotation (Placement(transformation(extent={{-6,108},{14,128}})));
@@ -122,11 +122,11 @@ public
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,0})));
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D convert2PressureDrop_IP(columns={2},
+  Modelica.Blocks.Tables.CombiTable1Dv convert2PressureDrop_IP(columns={2},
       table=CL_Delta_pIP_mLS_,
     u(start=1/6*ones(size(convert2PressureDrop_IP.columns, 1))))
     annotation (Placement(transformation(extent={{50,108},{70,128}})));
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D convert2HPFiring(columns={2}, table=
+  Modelica.Blocks.Tables.CombiTable1Dv convert2HPFiring(columns={2}, table=
         CL_yF_QF_)
     annotation (Placement(transformation(extent={{-12,-56},{8,-36}})));
    ClaRa.Basics.Interfaces.FluidPortIn IPInjection(Medium=medium) "reheat spray injection"
@@ -135,7 +135,7 @@ public
    ClaRa.Basics.Interfaces.FluidPortIn HPInjection(Medium=medium) "High pressure spray cooler"
      annotation (Placement(transformation(extent={{-110,90},{-90,110}}),
         iconTransformation(extent={{-28,150},{-8,170}})));
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D calculateEfficiency(columns={2}, table=
+  Modelica.Blocks.Tables.CombiTable1Dv calculateEfficiency(columns={2}, table=
         CL_etaF_QF_)
     annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
   Basics.Interfaces.EyeOut eye_LS    if showData

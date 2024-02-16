@@ -53,7 +53,7 @@ model Valve_dp_nom3 "Valve || par.: dp_nom || blue | blue"
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p(fixed=false) "Actual pressur drop";
 
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_blue_a inlet(p=p_in, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));

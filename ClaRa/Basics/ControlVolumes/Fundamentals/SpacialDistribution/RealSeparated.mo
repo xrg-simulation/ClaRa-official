@@ -38,7 +38,7 @@ model RealSeparated "Separation | Real | outlet states depending on filling Leve
 
 protected
   constant Units.Length level_abs_min=1e-6 "Min. absolute level";
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
   Units.EnthalpyMassSpecific h_bubin[geo.N_inlet] "Inlet bubble spec. enthalpy";
   Units.EnthalpyMassSpecific h_bubout[geo.N_outlet] "Outlet bubble spec. enthalpy";
   Units.EnthalpyMassSpecific h_dewin[geo.N_inlet] "Inlet dew spec. enthalpy";

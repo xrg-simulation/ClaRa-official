@@ -33,7 +33,7 @@ model IdeallySeparated "Separation | Ideal | outlet states depending on filling 
   final parameter Units.Length z_max_out=min(geo.z_out[1] + radius_flange, geo.height_fill) "Upper edge of outlet flange";
   final parameter Units.Length z_min_out=max(1e-3, geo.z_out[1] - radius_flange) "Lower edge of outlet flange";
 
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness);
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=geo.shape, columns={2}, smoothness=smoothness);
 
   Units.Volume volume_liq "Liquid volume";
   Units.Area A_hor_act "Actual horizontal surface size";

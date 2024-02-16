@@ -8,8 +8,7 @@ model Test_FlueGasCleaning
     T_start=395.843,
     p_start=101800,
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
-    initOption=0,
-    redeclare model ChemicalReactions = Basics.ControlVolumes.Fundamentals.ChemicalReactions.Desulfurization_L2) annotation (Placement(transformation(extent={{-30,24},{-10,44}})));
+    initOption=0) annotation (Placement(transformation(extent={{-30,24},{-10,44}})));
 
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(
     m_flow_const=551.153,
@@ -29,7 +28,6 @@ model Test_FlueGasCleaning
     length=1,
     height=5,
     width=1,
-    redeclare model ChemicalReactions = Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9),
     redeclare model SeparationModel = ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9))
                                                                                                                                       annotation (Placement(transformation(extent={{14,-96},{34,-76}})));
   BoundaryConditions.BoundaryGas_Txim_flow                  idealGasFlowSource_XRG2(

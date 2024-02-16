@@ -51,7 +51,7 @@ model Valve_dp_nom4 "Valve || par.: dp_nom || yellow | yellow"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p(fixed=false) "Actual pressur drop";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_Delta_p_P_target_, u = {P_target_});
 
 public
   ClaRa.StaticCycles.Fundamentals.SteamSignal_yellow_a inlet(Medium=vleMedium, m_flow= m_flow) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));

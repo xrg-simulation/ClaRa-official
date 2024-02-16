@@ -48,7 +48,7 @@ model FlowAnchor_constPressure1 "Flow Anchour || par.: m_flow_nom || red | blue"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet spec. enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in "Outlet spec. enthalpy";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_m_flow_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_m_flow_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_red_a inlet(p=p_in, m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));

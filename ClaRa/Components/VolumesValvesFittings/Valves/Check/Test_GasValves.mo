@@ -208,7 +208,7 @@ model Test_GasValves
   Basics.ControlVolumes.GasVolumes.VolumeGas_L2 volumeGas_L2_10(T_start=293.15, p_start=10e5) annotation (Placement(transformation(extent={{-172,-226},{-152,-206}})));
   Basics.ControlVolumes.GasVolumes.VolumeGas_L2 volumeGas_L2_11(T_start=293.15, p_start=10e5) annotation (Placement(transformation(extent={{-172,-286},{-152,-266}})));
   Basics.ControlVolumes.GasVolumes.VolumeGas_L2 volumeGas_L2_12(T_start=293.15, p_start=10e5) annotation (Placement(transformation(extent={{-170,-336},{-150,-316}})));
-equation 
+equation
   connect(ramp.y, valve1.opening_in) annotation (Line(
       points={{-89,160},{-70,160},{-70,139}},
       color={0,0,127},

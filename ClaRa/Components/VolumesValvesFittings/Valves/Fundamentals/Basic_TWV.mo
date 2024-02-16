@@ -32,7 +32,7 @@ partial model Basic_TWV "Basic pressure loss model for three way valves"
   Real aperture_ "Effective apperture";
 
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLineValve_, columns={2}, smoothness=smoothness) "External table object";
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=CharLineValve_, columns={2}, smoothness=smoothness) "External table object";
 
 equation
   table.u[1] = iCom.opening_;

@@ -73,7 +73,7 @@ model Tube2 " Tube || green | green"
       frictionAtInlet,
       frictionAtOutlet) "Rprt: Discretisised pressure";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_Delta_p_fric_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=CharLine_Delta_p_fric_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_green_a inlet(Medium=medium) annotation (Placement(transformation(extent={{-100,-10},{-110,10}}), iconTransformation(extent={{-100,-10},{-110,10}})));

@@ -52,7 +52,7 @@ model Split2 "Split || blue | green | yellow"
 
   outer parameter Real P_target_;
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_p_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=CharLine_p_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_blue_a inlet(p=p, Medium=vleMedium) annotation (Placement(transformation(extent={{-50,10},{-60,30}}), iconTransformation(extent={{-50,10},{-60,30}})));

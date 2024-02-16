@@ -121,7 +121,7 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
 protected
   constant ClaRa.Basics.Units.Length level_abs_min=1e-6;
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=geo.shape, columns={2}, smoothness=smoothness) "Shape table for level calculation";
   final parameter ClaRa.Basics.Units.Length Delta_z_max_in[geo.N_inlet]={min(geo.z_in[i] + radius_flange, geo.height_fill) for i in 1:geo.N_inlet};
   final parameter ClaRa.Basics.Units.Length Delta_z_min_in[geo.N_inlet]={max(1e-3, geo.z_in[i] - radius_flange) for i in 1:geo.N_inlet};
   final parameter ClaRa.Basics.Units.Length Delta_z_max_out[geo.N_outlet]={min(geo.z_out[i] + radius_flange, geo.height_fill) for i in 1:geo.N_outlet};

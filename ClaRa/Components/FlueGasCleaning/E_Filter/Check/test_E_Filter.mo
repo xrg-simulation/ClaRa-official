@@ -106,14 +106,11 @@ model test_E_Filter
         rotation=180,
         origin={-68,-166})));
   E_Filter_L2 e_Filter_L2_detailed(redeclare model SeparationModel =
-        Basics.ControlVolumes.Fundamentals.ChemicalReactions.E_Filter_L2_Detailed,                                                              redeclare
-      model                                                                                                                                                     HeatTransfer =
+        Basics.ControlVolumes.Fundamentals.ChemicalReactions.E_Filter_L2_Detailed,                                                              redeclare model HeatTransfer =
         Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2)                                                                                                                                                                        annotation (Placement(transformation(extent={{-32,-238},{-12,-218}})));
-  E_Filter_L2 e_Filter_L2_empirical(redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2, redeclare
-      model                                                                                                                                                SeparationModel =
+  E_Filter_L2 e_Filter_L2_empirical(redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2, redeclare model SeparationModel =
         Basics.ControlVolumes.Fundamentals.ChemicalReactions.E_Filter_L2_Empirical)                                                                                                                                                                      annotation (Placement(transformation(extent={{6,-126},{26,-106}})));
-  E_Filter_L2 e_Filter_L2_simple(redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2, redeclare
-      model                                                                                                                                             SeparationModel =
+  E_Filter_L2 e_Filter_L2_simple(redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2, redeclare model SeparationModel =
         Basics.ControlVolumes.Fundamentals.ChemicalReactions.E_Filter_L2_Simple)                                                                                                                                                                   annotation (Placement(transformation(extent={{6,-28},{26,-8}})));
 equation
 

@@ -5,9 +5,9 @@ model Test_Desulfurization_ideal
     m_flow_nom=530,
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     initOption=0,
-    redeclare model ChemicalReactions = Basics.ControlVolumes.Fundamentals.ChemicalReactions.Desulfurization_L2 (SOx_separationRate=0.95),
     T_start=300,
-    p_start=101800)                                                                                                                        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    p_start=101800,
+    redeclare model SeparationModel = ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.Desulfurization_L2)                       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(
     m_flow_const=551.153,

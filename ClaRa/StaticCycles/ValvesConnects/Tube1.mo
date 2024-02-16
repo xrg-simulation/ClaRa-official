@@ -72,7 +72,7 @@ model Tube1 " Tube || blue | blue"
       frictionAtOutlet) "Rprt: Discretisised pressure";
   final parameter ClaRa.Basics.Units.PressureDifference Delta_p_fric(fixed=false) "Actual friction pressure loss";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_Delta_p_fric_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=CharLine_Delta_p_fric_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_blue_a inlet(p=p_in, Medium=medium) annotation (Placement(transformation(extent={{-100,-10},{-110,10}}), iconTransformation(extent={{-100,-10},{-110,10}})));

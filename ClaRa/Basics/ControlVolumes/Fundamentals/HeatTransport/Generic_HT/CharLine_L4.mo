@@ -36,7 +36,7 @@ model CharLine_L4 "Medium independent || Characteristic Line"
   Units.Temperature Delta_T_l[iCom.N_cv] "Lower temperature difference";
 protected
   Real alpha_corr_u[iCom.N_cv];
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table_block(table=PL_alpha, columns=fill(2,iCom.N_cv));
+  Modelica.Blocks.Tables.CombiTable1Dv table_block(table=PL_alpha, columns=fill(2,iCom.N_cv));
 equation
     if temperatureDifference == "Logarithmic mean" then
       if m_flow[1] > 0 then

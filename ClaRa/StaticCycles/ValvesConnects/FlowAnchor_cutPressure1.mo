@@ -49,7 +49,7 @@ model FlowAnchor_cutPressure1 "Valve || yellow | blue"
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Actual mass flow";
   outer parameter Real P_target_ "Target power in p.u.";
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=CharLine_m_flow_P_target_, u = {P_target_});
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=CharLine_m_flow_P_target_, u = {P_target_});
 
 public
   Fundamentals.SteamSignal_yellow_a inlet(m_flow=m_flow, Medium=vleMedium) annotation (Placement(transformation(extent={{-60,-10},{-50,10}}), iconTransformation(extent={{-60,-10},{-50,10}})));
