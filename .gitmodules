@@ -1,0 +1,3 @@
+[submodule "SMArtIInt"]
+	path = SMArtIInt
+	url = https://github.com/xrg-simulation/SMArtIInt
