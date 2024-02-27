@@ -1,7 +1,0 @@
-NTUExternalObject
-initializeGeometry
-initializeAlphaCorrelations
-initializePressureDropCorrelations
-baseInputsOfNTU
-computeMainOutputs
-getInfo_ProfileArraysAndPinchPoint
