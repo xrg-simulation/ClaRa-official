@@ -1,10 +1,8 @@
 // An DYMOLA script for opening the ClaRa library
-// 26.02.2016, F.Gottelt, XRG Simulation GmbH
-// tested with DYMOLA 2016 FD 01
+// 27.02.2024, A.Vojacek, XRG Simulation GmbH
+// tested with DYMOLA 2022x
 
-openModel("../../TILMedia 1.1.1 ClaRa/package.mo");
-openModel("../FluidDissipation 1.1.8 beta/package.mo");
-openModel("../ClaRa/package.mo");
-openModel("../ClaRa_Obsolete/package.mo");
-
- 
+openModel("../../../TILMediaClaRa/TILMedia/package.mo", false);
+openModel("../../ClaRa/package.mo");
+openModel("../SMArtIInt/SMArtIInt/package.mo",false);
+openModel("../../ClaRa_Obsolete/package.mo",false);
