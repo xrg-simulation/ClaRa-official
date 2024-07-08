@@ -264,7 +264,7 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     vleFluidType=medium,
     p=inlet.p,
-    h=actualStream(inlet.h_outflow),
+    h=inStream(inlet.h_outflow),
     computeTransportProperties=false,
     computeVLEAdditionalProperties=true) annotation (Placement(transformation(
           extent={{-80,20},{-60,40}}, rotation=0)));

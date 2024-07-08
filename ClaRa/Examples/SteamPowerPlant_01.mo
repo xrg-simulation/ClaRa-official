@@ -1322,19 +1322,23 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill4(
     T_out_start=846,
     mass_pca_start=90,
-    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
+    initOption=0,
+    applyGrindingDelay=true)                                                   annotation (Placement(transformation(extent={{-178,-86},{-158,-66}})));
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(
     T_out_start=846,
     mass_pca_start=90,
-    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
+    initOption=0,
+    applyGrindingDelay=true)                                                   annotation (Placement(transformation(extent={{-178,-164},{-158,-144}})));
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill2(
     T_out_start=846,
     mass_pca_start=90,
-    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
+    initOption=0,
+    applyGrindingDelay=true)                                                   annotation (Placement(transformation(extent={{-178,-138},{-158,-118}})));
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill3(
     T_out_start=846,
     mass_pca_start=90,
-    initOption=0)                                                              annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
+    initOption=0,
+    applyGrindingDelay=true)                                                   annotation (Placement(transformation(extent={{-178,-112},{-158,-92}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=10,
     offset=1.50,
@@ -1685,7 +1689,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     length=12,
     z_aux=1,
     level_rel_start=0.51,
-    equalPressures=false,
+    equalPressures=true,
     absorbInflow=0.75,
     Tau_cond=1,
     Tau_evap=10)                                    annotation (Placement(transformation(extent={{944,-208},{1004,-188}})));
@@ -1770,8 +1774,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         extent={{10,6},{-10,-6}},
         rotation=90,
         origin={812,-100})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model
-      PressureLoss =
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveControl_preheater_HP(openingInputIsActive=true, redeclare model PressureLoss =
         Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
         m_flow_nom=NOM.valve2_HP.m_flow,

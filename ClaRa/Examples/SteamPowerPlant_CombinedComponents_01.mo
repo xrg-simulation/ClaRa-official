@@ -96,7 +96,8 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
                                        sh_4_out_T(unitOption=2)
     annotation (Placement(transformation(extent={{378,184},{398,206}})));
   ClaRa.Components.Mills.HardCoalMills.VerticalMill_L3 mill1(T_out_start=846,
-                                                             initOption=1) annotation (Placement(transformation(extent={{-14,-164},{-34,-144}})));
+    initOption=0,
+    applyGrindingDelay=true)                                               annotation (Placement(transformation(extent={{-14,-164},{-34,-144}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=10,
     offset=1.50,
@@ -447,7 +448,7 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
     length=12,
     z_aux=1,
     level_rel_start=0.51,
-    equalPressures=false,
+    equalPressures=true,
     absorbInflow=0.75,
     Tau_cond=1,
     Tau_evap=10)                                    annotation (Placement(transformation(extent={{700,-208},{760,-188}})));
@@ -1634,11 +1635,14 @@ model SteamPowerPlant_CombinedComponents_01 "A steam power plant model based on 
     m_flow_nom_FTW=NOM.eco.m_flow_vle_wall_in,
     Delta_p_nom_FTW=NOM.brnr1.Delta_p_vle_wall_nom) annotation (Placement(transformation(extent={{-88,-164},{-148,-144}})));
   Components.Mills.HardCoalMills.VerticalMill_L3       mill4(T_out_start=846,
-                                                             initOption=1) annotation (Placement(transformation(extent={{-14,-86},{-34,-66}})));
+    initOption=0,
+    applyGrindingDelay=true)                                               annotation (Placement(transformation(extent={{-14,-86},{-34,-66}})));
   Components.Mills.HardCoalMills.VerticalMill_L3       mill3(T_out_start=846,
-                                                             initOption=1) annotation (Placement(transformation(extent={{-14,-112},{-34,-92}})));
+    initOption=0,
+    applyGrindingDelay=true)                                               annotation (Placement(transformation(extent={{-14,-112},{-34,-92}})));
   Components.Mills.HardCoalMills.VerticalMill_L3       mill2(T_out_start=846,
-                                                             initOption=1) annotation (Placement(transformation(extent={{-14,-138},{-34,-118}})));
+    initOption=0,
+    applyGrindingDelay=true)                                               annotation (Placement(transformation(extent={{-14,-138},{-34,-118}})));
   SubSystems.Furnace.BurnerSlice_L4 burner2(
     redeclare model GasHeatTransfer_Wall = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_advanced_L2 (
         CF_fouling=CF_fouling_rad_glob,
