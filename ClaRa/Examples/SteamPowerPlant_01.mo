@@ -1,10 +1,10 @@
 ﻿within ClaRa.Examples;
 model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with a detailed boiler model (coal dust fired Benson boiler) without controls"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -75,11 +75,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     T_slag=600 + 273.15,
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_out={18.5},
         z_in={11.318},
         height=abs(burner1.geo.z_out[1] - burner1.geo.z_in[1]),
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
     redeclare model ReactionZone = ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone,
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
@@ -104,11 +106,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model ReactionZone = ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone,
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_in={burner1.geo.z_out[1]},
         z_out={24},
         height=burner2.geo.z_out[1] - burner2.geo.z_in[1],
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
@@ -132,11 +136,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model ReactionZone = ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone,
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_in={burner2.geo.z_out[1]},
         z_out={29.5},
         height=burner3.geo.z_out[1] - burner3.geo.z_in[1],
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
@@ -165,11 +171,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         diameter_mean_coke=40e-6,
         Q_mean_abs_coke=0.65),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_in={burner4.geo.z_out[1]},
         z_out={41.334},
         height=flameRoom_evap_1.geo.z_out[1] - flameRoom_evap_1.geo.z_in[1],
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=1.2),
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=15),
     Tau=0.01,
@@ -203,7 +211,9 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_4.geo.z_out[1]},
         z_out={71.45},
+        height_fill=-1,
         width=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical,
         tubeOrientation=0,
         height=flameRoom_rh_2.geo.z_out[1] - flameRoom_rh_2.geo.z_in[1],
         length=14.576,
@@ -225,11 +235,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model ReactionZone = ClaRa.Components.Furnace.ChemicalReactions.CoalReactionZone,
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_in={burner3.geo.z_out[1]},
         z_out={35},
         height=burner4.geo.z_out[1] - burner4.geo.z_in[1],
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=0.5),
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed,
     Tau=0.01,
@@ -291,11 +303,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
         origin={-90,-200})));
   ClaRa.Components.Furnace.FlameRoom.FlameRoom_L2_Dynamic flameRoom_evap_2(
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         z_in={flameRoom_evap_1.geo.z_out[1]},
         z_out={56.342},
         height=flameRoom_evap_2.geo.z_out[1] - flameRoom_evap_2.geo.z_in[1],
-        length=14.576),
+        length=14.576,
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     redeclare model Burning_time = ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime.ConstantBurningTime (Tau_burn_const=1.2),
     redeclare model ParticleMigration = ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration.MeanMigrationSpeed (w_initial=15),
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
@@ -326,6 +340,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_evap_2.geo.z_out[1]},
         z_out={59.36},
+        height_fill=-1,
         width=14.576,
         tubeOrientation=0,
         height=flameRoom_sh_1.geo.z_out[1] - flameRoom_sh_1.geo.z_in[1],
@@ -355,6 +370,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_1.geo.z_out[1]},
         z_out={63.91},
+        height_fill=-1,
         width=14.576,
         tubeOrientation=0,
         height=flameRoom_sh_2.geo.z_out[1] - flameRoom_sh_2.geo.z_in[1],
@@ -381,6 +397,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_2.geo.z_out[1]},
         z_out={67.89},
+        height_fill=-1,
         width=14.576,
         tubeOrientation=0,
         height=flameRoom_sh_4.geo.z_out[1] - flameRoom_sh_4.geo.z_in[1],
@@ -407,6 +424,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_rh_2.geo.z_out[1]},
         z_out={75.18},
+        height_fill=-1,
         width=14.576,
         tubeOrientation=0,
         height=flameRoom_sh_3.geo.z_out[1] - flameRoom_sh_3.geo.z_in[1],
@@ -435,6 +453,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_sh_3.geo.z_out[1]},
         z_out={82.9},
+        height_fill=-1,
         width=14.576,
         tubeOrientation=0,
         diameter_t=rh_1_wall.diameter_o,
@@ -463,6 +482,7 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubesAndCarrierTubes (
         z_in={flameRoom_rh_1.geo.z_out[1]},
         z_out={85.6},
+        height_fill=-1,
         width=14.576,
         diameter_t=eco_wall.diameter_o,
         height=flameRoom_eco.geo.z_out[1] - flameRoom_eco.geo.z_in[1],
@@ -478,11 +498,13 @@ model SteamPowerPlant_01 "A steam power plant model based on SteamCycle_02 with 
   ClaRa.Components.Furnace.Hopper.Hopper_L2 hopper(
     redeclare model HeatTransfer_Top = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2 (suspension_calculationType="Calculated"),
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (
+        height_fill=-1,
         width=14.576,
         length=14.576,
         height=abs(hopper.geo.z_out[1] - hopper.geo.z_in[1]),
         z_out={burner1.geo.z_in[1]},
-        z_in={4.03}),
+        z_in={4.03},
+        flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical),
     T_slag=600 + 273.15,
     m_flow_nom=1000,
     Tau=0.01,

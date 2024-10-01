@@ -2,10 +2,10 @@ within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.1                           //
+  // Component of the ClaRa library, version: 1.8.2                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-  // Copyright  2013-2023, ClaRa development team.                            //
+  // Copyright  2013-2024, ClaRa development team.                            //
   //                                                                          //
   // The ClaRa development team consists of the following partners:           //
   // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -56,8 +56,7 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
     variable_p=true,
     h_const=2700e3,
     p_const=100000) annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                             m_flow_nom=if ((100) > 0) then (100) else 10, Delta_p_nom=if ((0.1) <> 0) then (0.1) else 1000)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveLinear_1_XRG1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=100, Delta_p_nom=0.1))                                                                annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={-30,50})));

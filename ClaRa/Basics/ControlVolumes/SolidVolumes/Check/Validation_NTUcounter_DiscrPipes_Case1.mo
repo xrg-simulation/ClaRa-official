@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -19,6 +19,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
 
   import SI = ClaRa.Basics.Units;
   import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_h_dew = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_phxi;
+
   parameter Units.Temperature T_i_in=100 + 273.15 "Temperature of cold side";
   parameter Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
   parameter Units.MassFlowRate m_flow_i=10 "Mass flow of cold side";
@@ -60,7 +62,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   Units.HeatCapacityMassSpecific cp_i_[N_cv];
 
   Real x[N_cv];
-  Real val=pipe_InnerSide.summary.fluid.h_dew[1];
+  Real val = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_phxi(pipe_InnerSide.summary.fluid.p[1],pipe_InnerSide.summary.fluid.h[1],noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i[1].vleFluidPointer);
+  //Real val = pipe_InnerSide.summary.fluid.h_dew[1];
   Integer Cell_hv "Zelle bei der Phasenwechsel auftritt";
   Integer Cells_hv_p1=Cell_hv + 1;
 

@@ -2,10 +2,10 @@ within ClaRa.SubSystems.Furnace;
 model ConvectiveSlice_L4 "Convective furnaces slice"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -140,7 +140,7 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
 /// CarrierTubes///
 
   parameter Boolean CTisCooled = true "True if carrier tubes are cooled (else omitted)" annotation (choices(checkBox=true), Dialog(tab="Carrier Tubes (CT)", group="Fundamental Definitions"));
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_CT=pipeFlow_CT.simCenter.fluid1 "CT medium model" annotation (choicesAllMatching, Dialog(enable=CTisCooled,
+  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_CT=simCenter.fluid1             "CT medium model" annotation (choicesAllMatching, Dialog(enable=CTisCooled,
       tab="Carrier Tubes (CT)",
       group="Fundamental Definitions",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/CarrierTubesSketch.png"));
   replaceable model Material_CT = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "CT material" annotation (choicesAllMatching, Dialog(tab="Carrier Tubes (CT)", group="Fundamental Definitions", enable=CTisCooled));
@@ -208,7 +208,7 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
     length=length_FTW*N_passes_FTW,
     N_tubes=N_tubes_FTW,
     T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
-        medium_FTW,
+        pipeFlow_TB.medium,
         p_start_FTW[i],
         h_start_FTW[i]) + 5 for i in 1:N_cv_FTW},
     suppressChattering="False")
@@ -244,6 +244,7 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
         N_outlet=1,
         z_in={z_in_furnace},
         z_out={z_out_furnace},
+        height_fill=-1,
         height=abs(z_in_furnace - z_out_furnace),
         width=width_furnace,
         length=length_furnace,
@@ -380,7 +381,7 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
     length=length_CT*N_passes_CT,
     N_tubes=N_tubes_CT,
     T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
-        pipeFlow_CT.medium,
+        pipeFlow_TB.medium,
         p_start_CT,
         h_start_CT) + 5},
     suppressChattering="False") if CTisCooled                                     annotation (Placement(transformation(
@@ -496,8 +497,7 @@ equation
 <b>Acknowledgements:</b>
 <p>This model contribution is sponsored by Lausitz Energie Kraftwerke AG.</p>
 
-<p><a href=\"http://
-<a href=\"http://www.leag.de\">www.leag.de</a> </p>
+<p><a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
 <p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
 <p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>

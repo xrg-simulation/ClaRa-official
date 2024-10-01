@@ -2,10 +2,10 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_BU_simple
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -43,9 +43,11 @@ model Test_HEXvle2vle_L3_1ph_BU_simple
     N_tubes=200,
     N_passes=5,
     N_rows=30,
-    initOptionShell=1,
-    initOptionTubes=1,
-    initOptionWall=1) annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
+    initOptionShell=0,
+    initOptionTubes=0,
+    T_w_start=ones(3)*540,
+    initOptionWall=213)
+                      annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
 
   ClaRa.Components.Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{16,2},{36,22}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Temp_Shell_out annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));

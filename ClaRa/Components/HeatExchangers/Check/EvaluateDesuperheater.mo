@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers.Check;
 model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 featuring part load. Comparing against an EBSILON model"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -21,7 +21,7 @@ model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 f
   Real Q_flow1=-desuperheater_1.summary.outline.Q_flow;
   Real Q_flow2=-desuperheater_2.summary.outline.Q_flow;
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveCompressible(openingInputIsActive=false, redeclare model PressureLoss =
-        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                                        m_flow_nom=if ((416) > 0) then (416) else 10, Delta_p_nom=if ((0.020e5) <> 0) then (0.020e5) else 1000)) annotation (Placement(transformation(extent={{10,-30},{-10,-18}})));
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                                        m_flow_nom=if ((416) > 0) then (416) else 10, Delta_p_nom=if ((2000) <> 0) then (2000) else 1000)) annotation (Placement(transformation(extent={{10,-30},{-10,-18}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource(
     variable_m_flow=true,
@@ -83,7 +83,7 @@ model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 f
     redeclare model HeatTransfer_Shell = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2,
     redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0.01,0.5025; 0.4,0.6; 0.6,0.8; 1,1], alpha_nom=62.5),
     redeclare model HeatExchangerType = Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes.CrossFlow,
-    initOptionShell=1,
+    initOptionShell=0,
     initOptionTubes=0,
     wall(stateLocation=2))
                        annotation (Placement(transformation(
@@ -94,7 +94,7 @@ model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 f
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveCompressible2(
     openingInputIsActive=false,
     checkValve=true,
-    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((416) > 0) then (416) else 10, Delta_p_nom=if ((0.020e5) <> 0) then (0.020e5) else 1000)) annotation (Placement(transformation(extent={{10,-94},{-10,-82}})));
+    redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=if ((416) > 0) then (416) else 10, Delta_p_nom=if ((2000) <> 0) then (2000) else 1000)) annotation (Placement(transformation(extent={{10,-94},{-10,-82}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource2(
     variable_m_flow=true,
     h_const=1161.8e3,
@@ -137,7 +137,7 @@ model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 f
     p_start_shell=250000,
     p_nom_tubes=40000000,
     p_start_tubes=32000000,
-    initOptionShell=1,
+    initOptionShell=0,
     initOptionWall=0,
     initOptionTubes=0)
                       annotation (Placement(transformation(

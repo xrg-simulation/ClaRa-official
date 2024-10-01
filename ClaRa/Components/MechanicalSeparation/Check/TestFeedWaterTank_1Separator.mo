@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation.Check;
 model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and FeedWaterTank_3"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -107,6 +107,7 @@ model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and Fee
     z_vent=0.1,
     Tau_cond=0.001,
     z_tapping=0.2,
+    initOptionWall=213,
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={2e5*423/14,1000*400/423,1000*23/423}),
     levelOutput=true,
     showLevel=true,

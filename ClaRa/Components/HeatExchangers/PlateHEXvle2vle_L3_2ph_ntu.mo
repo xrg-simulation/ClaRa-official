@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -315,13 +315,13 @@ equation
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.summary.outlet.s/1000;
+   eye_int1.s=flow_a.fluidOut.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 
    eye_int2.m_flow=-flow_b.outlet.m_flow;
    eye_int2.T=flow_b.summary.outlet.T-273.15;
-   eye_int2.s=flow_b.summary.outlet.s/1000;
+   eye_int2.s=flow_b.fluidOut.s/1000;
    eye_int2.h=flow_b.summary.outlet.h/1000;
    eye_int2.p=flow_b.summary.outlet.p/100000;
 

@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type |"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -274,13 +274,31 @@ public
         rotation=90,
         origin={33.5,0})));
 
-  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then tubes.summary.outline.level_abs else tubes.summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+//   Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then tubes.summary.outline.level_abs else tubes.summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=270,
+//         origin={80,-110})));
+
+
+  Modelica.Blocks.Interfaces.RealOutput level_abs_ = tubes.summary.outline.level_abs;
+  Modelica.Blocks.Interfaces.RealOutput level_rel_ = tubes.phaseBorder.level_rel;
+
+  Modelica.Blocks.Interfaces.RealOutput level if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
+
+//   Modelica.Blocks.Sources.RealExpression level_abs_(y=tubes.summary.outline.level_abs);
+//   Modelica.Blocks.Sources.RealExpression level_rel_(y=tubes.phaseBorder.level_rel);
+
 equation
   assert(diameter_o > diameter_i,
     "Outer diameter of tubes must be greater than inner diameter");
+  if outputAbs then
+    connect(level_abs_, level);
+  else
+      connect(level_rel_, level);
+  end if;
 
   eye_int[1].m_flow = tubes.summary.outlet.m_flow;
   eye_int[1].T = tubes.summary.outlet.T - 273.15;
@@ -319,7 +337,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2023.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

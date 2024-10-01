@@ -1,9 +1,10 @@
-within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
+﻿within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
 model Test_Desulfurization_ideal
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Desulfurization_L2_ideal deSO_ideal_L1_1(
     m_flow_nom=530,
-    redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
+    redeclare model PressureLoss =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     initOption=0,
     T_start=300,
     p_start=101800,
@@ -41,6 +42,5 @@ equation
           textString="________________________________________________________________
 PURPOSE:
 >>Tester for the Desulfurization component")}),
-                                          Commands(file="../../plot_DeSO.mos" "plot_DeSO"),
     experiment(StopTime=10));
 end Test_Desulfurization_ideal;

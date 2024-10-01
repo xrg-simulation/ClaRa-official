@@ -2,10 +2,10 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_2ph_CH_ntu
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.1                           //
+  // Component of the ClaRa library, version: 1.8.2                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-  // Copyright  2013-2023, ClaRa development team.                            //
+  // Copyright  2013-2024, ClaRa development team.                            //
   //                                                                          //
   // The ClaRa development team consists of the following partners:           //
   // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -21,7 +21,7 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
     mass_struc=1,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticParallelZones_L3,
+    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3,
     z_in_shell=10,
     redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L2 (alpha_nom=5000),
     p_start_tubes=250e5,
@@ -38,7 +38,7 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
     m_flow_nom_tubes=416,
     z_out_shell=0.1,
     level_rel_start=0.2,
-    redeclare model HeatCapacityAveraging = Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
+    redeclare model HeatCapacityAveraging = ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
     N_tubes=300,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1000,5000}),
     initOptionTubes=0,
@@ -72,7 +72,8 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=2100000,
     variable_p=true)                                                                  annotation (Placement(transformation(extent={{-92,-98},{-72,-78}})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph1(h_const=2000e3, p_const=25000000,
-    variable_p=true)                                                                     annotation (Placement(transformation(
+    variable_p=true,
+    Delta_p=10)                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-82,-60})));

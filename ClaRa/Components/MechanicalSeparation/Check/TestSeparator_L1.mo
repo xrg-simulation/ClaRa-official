@@ -2,10 +2,10 @@ within ClaRa.Components.MechanicalSeparation.Check;
 model TestSeparator_L1 "Check of normal operation and dry operation (Benson operation) is supported"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -19,7 +19,9 @@ model TestSeparator_L1 "Check of normal operation and dry operation (Benson oper
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
-  Real diff = steamSeparator.summary.inlet.H_flow - steamSeparator.summary.outlet1.H_flow - steamSeparator.summary.outlet2.H_flow;
+  //Real diff = steamSeparator.summary.inlet.H_flow - steamSeparator.summary.outlet1.H_flow - steamSeparator.summary.outlet2.H_flow;
+  Real diff = steamSeparator.inlet.m_flow*steamSeparator.fluidIn.h - (-steamSeparator.outlet1.m_flow*steamSeparator.fluidOut1.h) - (-steamSeparator.outlet2.m_flow*steamSeparator.fluidOut2.h);
+
   ClaRa.Components.MechanicalSeparation.SteamSeparatorVLE_L1 steamSeparator(eta_vap=0.96, eta_liq=0.98) annotation (Placement(transformation(extent={{24,0},{44,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(variable_m_flow=true, variable_h=true) annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(variable_p=true) annotation (Placement(transformation(extent={{-36,60},{-16,80}})));

@@ -50,7 +50,8 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
     from(version="1.6.0",to="1.6.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom160_to_161.mos"),
     from(version="1.6.1",to="1.7.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom161_to_170.mos"),
     from(version="1.7.0",to="1.8.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom170_to_180.mos"),
-    from(version="1.8.0",to="1.8.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom180_to_181.mos")),
+    from(version="1.8.0",to="1.8.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom180_to_181.mos"),
+    from(version="1.8.1",to="1.8.2", script="modelica://ClaRa/Resources/Scripts/ConvertFrom181_to_182.mos")),
   Documentation(info="<html>
 <p><img src=\"modelica://ClaRa/Resources/Images/ClaRaLibraryInfo.png\"/></p>
 <p><h4> Coordinating developers:</h4></p>

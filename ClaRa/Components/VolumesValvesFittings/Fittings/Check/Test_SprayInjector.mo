@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_SprayInjector
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.1                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2023, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -16,8 +16,11 @@ model Test_SprayInjector
 //__________________________________________________________________________//
 
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
-Real chk = injector.mixingZone.summary.inlet1.H_flow +    injector.mixingZone.summary.inlet2.H_flow    - injector.mixingZone.summary.outlet.H_flow;
-Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.summary.inlet[2].H_flow - injector1.mixingZone.summary.outlet[1].H_flow;
+// Real chk = injector.mixingZone.summary.inlet1.H_flow +    injector.mixingZone.summary.inlet2.H_flow    - injector.mixingZone.summary.outlet.H_flow;
+// Real chk1= injector1.mixingZone.summary.inlet[1].H_flow + injector1.mixingZone.summary.inlet[2].H_flow - injector1.mixingZone.summary.outlet[1].H_flow;
+  Real chk = injector.mixingZone.fluidIn1.h*injector.mixingZone.inlet1.m_flow +    injector.mixingZone.fluidIn2.h*injector.mixingZone.inlet2.m_flow    - (-injector.mixingZone.fluidOut.h*injector.mixingZone.outlet.m_flow);
+  Real chk1 = injector1.inlet1.m_flow*injector1.mixingZone.fluidIn[1].h +    injector1.inlet2.m_flow*injector1.valve.summary.inlet.h    - (-injector1.outlet.m_flow*injector1.mixingZone.fluidOut[1].h);
+
   SprayInjectorVLE_L3 injector(
     p_nom(displayUnit="Pa") = 12e5,
     m_flow_nom_main=150,
