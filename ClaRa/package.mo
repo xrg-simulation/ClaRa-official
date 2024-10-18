@@ -28,8 +28,8 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
 
   annotation (preferedView="info",version="1.8.2",
                            uses(
-    Modelica(version="4.0.0"), TILMedia(version="1.8.1 ClaRa"),SMArtIInt(version="0.2.2")),
-                                       Icon(graphics,
+    Modelica(version="4.0.0"),                                 SMArtIInt(version="0.2.2"),
+    TILMedia(version="1.8.2 ClaRa")),  Icon(graphics,
                                       coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}})),
   conversion(from(version="0.0",to="0.1 alpha",  script="modelica://ClaRa/Resources/Scripts/ConvertFrom000.mos"),
