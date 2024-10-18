@@ -10,7 +10,7 @@ The open-source Modelica library ClaRa provides its users with the capability to
 
 Licensed by the ClaRa development team under the 3-clause BSD License.
 
-Copyright  2013-2023, ClaRa development team.
+Copyright  2013-2024, ClaRa development team.
 
 The ClaRa development team consists of the following partners: 
 * TLK-Thermo GmbH (Braunschweig, Germany)
@@ -25,10 +25,10 @@ Please read the following steps for a successful usage.
 Installation:
 ******************************
 
-1. Copy the unzipped library files to your preferred folder
+1. Download the libraries (ClaRa, TILMediaClaRa, SMArtIInt and eventually ClaRa_Obsolete) to your preferred folder
 
-Currently, only DYMOLA provides full suppport of ClaRa. The development team has tested all models carefully using DYMOLA 2023x Refresh 1 which we therefore recommend to use it. However, we are committed to ensuring its compatibility with the OpenModelica (OM) environment (https://openmodelica.org/) and have made significant progress in this regard thanks to OM development
-team. More than half of the examples can now run in OM, and we will continue our efforts to expand this compatibility. For other tools' support please contact us via mail at info@powerplantsimulation.com.  
+Currently, only DYMOLA provides full suppport of ClaRa. The development team has tested all models carefully using DYMOLA 2024x Refresh 1 which we therefore recommend to use it. However, we are committed to ensuring its compatibility with the OpenModelica (OM) environment (https://openmodelica.org/) and have made significant progress in this regard thanks to OM development
+team. More than 90% of the examples can now run in OM as well as in Modelon Impact (https://modelon.com/modelon-impact/), and we will continue our efforts to expand this compatibility. For other tools' support please contact us via mail at info@powerplantsimulation.com.  
 
 
 2. Get Access to the Library from DYMOLA
