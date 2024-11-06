@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Valve_dp_nom4 "Valve || par.: dp_nom || yellow | yellow"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

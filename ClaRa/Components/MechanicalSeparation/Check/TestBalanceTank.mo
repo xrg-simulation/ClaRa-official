@@ -1,4 +1,4 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestBalanceTank
 
 //__________________________________________________________________________//

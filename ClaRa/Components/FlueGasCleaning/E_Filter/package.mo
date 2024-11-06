@@ -1,4 +1,4 @@
-within ClaRa.Components.FlueGasCleaning;
+﻿within ClaRa.Components.FlueGasCleaning;
 package E_Filter
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

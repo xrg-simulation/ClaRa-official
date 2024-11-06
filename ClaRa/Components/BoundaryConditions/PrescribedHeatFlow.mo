@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedHeatFlow "Prescribed heat flow boundary condition 1D"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

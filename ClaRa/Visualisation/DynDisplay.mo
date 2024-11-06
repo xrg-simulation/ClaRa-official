@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model DynDisplay "Dynamic Display of one variable"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

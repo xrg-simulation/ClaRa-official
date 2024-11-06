@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fundamentals;
+﻿within ClaRa.StaticCycles.Fundamentals;
 connector FlueGasSignal_base "Signal-based flue gas connector || basic||"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

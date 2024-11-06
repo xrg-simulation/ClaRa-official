@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.HardCoalMills;
+﻿within ClaRa.Components.Mills.HardCoalMills;
 package Check
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

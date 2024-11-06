@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

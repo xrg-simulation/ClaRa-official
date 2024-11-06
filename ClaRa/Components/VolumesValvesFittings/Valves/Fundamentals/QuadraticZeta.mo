@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticZeta "Quadratic | zeta definition | unchoked flow | incompressible"
 
 //__________________________________________________________________________//

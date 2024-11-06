@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Sink_brown
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

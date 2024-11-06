@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Transport_Velocity;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Transport_Velocity;
 model Transport_complex "Coal transport velocity depending on pile friction angle"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

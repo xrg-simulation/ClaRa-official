@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model TestThreeWayValve
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.PowerPlantControl;
+﻿within ClaRa.Components.Control.PowerPlantControl;
 model LiveSteamTemperature "A simple controller for the live steam temperature based on Strauss: \"Kraftwerkstechnik\", 5th edition, 2006."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

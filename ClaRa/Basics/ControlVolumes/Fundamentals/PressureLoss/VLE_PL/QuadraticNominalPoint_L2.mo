@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model QuadraticNominalPoint_L2 "All geo || Quadratic pressure loss || nominal point || density dependent "
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

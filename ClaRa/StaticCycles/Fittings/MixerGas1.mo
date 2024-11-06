@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model MixerGas1 "orange | purple | orange"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

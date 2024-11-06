@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_2ph_BU_simple
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Desulfurization_L2 "Gas || L2 || Desulfurization"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

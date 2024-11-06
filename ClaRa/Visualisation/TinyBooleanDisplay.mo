@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 block TinyBooleanDisplay "A tiny Boolean display"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

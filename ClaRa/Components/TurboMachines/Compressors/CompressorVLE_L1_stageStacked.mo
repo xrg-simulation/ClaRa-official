@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorVLE_L1_stageStacked "Advanced compressor or fan for VLE mixtures using the stage stacking method  according to N. Gasparovic"
   import ClaRa;
 //__________________________________________________________________________//

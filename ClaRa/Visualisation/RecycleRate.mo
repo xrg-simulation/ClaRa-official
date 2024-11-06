@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model RecycleRate "Diplays fraction of input mass flows"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_O2 "Ideal O2 concentration sensor | rel. to dry/wet gas."
 
 //__________________________________________________________________________//

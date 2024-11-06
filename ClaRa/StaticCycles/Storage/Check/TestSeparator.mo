@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Storage.Check;
+﻿within ClaRa.StaticCycles.Storage.Check;
 model TestSeparator
   //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

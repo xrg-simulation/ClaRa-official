@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT;
 partial model HeatTransferGas "Partial heat transfer model for Gas-type models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

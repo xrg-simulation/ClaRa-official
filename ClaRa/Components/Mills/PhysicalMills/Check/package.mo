@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills;
+﻿within ClaRa.Components.Mills.PhysicalMills;
 package Check
 
 //__________________________________________________________________________//
@@ -14,7 +14,7 @@ package Check
 // Contents published in ClaRa have been contributed by different authors   //
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
-//__________________________________________________________________________//  
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.PackageIcons.Componentsb60;
 

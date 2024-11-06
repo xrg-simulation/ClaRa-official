@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes;
 model Dryer "Aerosol component | dryer | for replaceable coal drying processes | respects thermal losses"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

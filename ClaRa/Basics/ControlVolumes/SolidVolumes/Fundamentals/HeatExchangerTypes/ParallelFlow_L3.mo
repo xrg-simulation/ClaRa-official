@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes;
 model ParallelFlow_L3 "Pure parallel flow heatexchanger L3"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

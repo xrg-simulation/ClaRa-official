@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 partial model HeatTransfer_L4 "Gas || HT Base Class"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

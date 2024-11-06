@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_CompressorGas_L1_simple
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

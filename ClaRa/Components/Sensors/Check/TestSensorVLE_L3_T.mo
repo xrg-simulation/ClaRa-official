@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors.Check;
+﻿within ClaRa.Components.Sensors.Check;
 model TestSensorVLE_L3_T
 
 //__________________________________________________________________________//

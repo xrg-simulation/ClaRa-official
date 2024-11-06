@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.PredictorModels_3508;
+﻿within ClaRa.Components.Control.PredictorModels_3508;
 model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using characteristic lines and transfer functions"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

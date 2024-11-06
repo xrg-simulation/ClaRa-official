@@ -1,4 +1,4 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestSixtuple
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   Sixtuple                         sixtuple(decimalSpaces(s=3, e=2), vleFluid=1) annotation (Placement(transformation(extent={{16,-18},{46,-8}})));

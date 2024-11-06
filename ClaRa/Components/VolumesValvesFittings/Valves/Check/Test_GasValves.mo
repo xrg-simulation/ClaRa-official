@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_GasValves
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

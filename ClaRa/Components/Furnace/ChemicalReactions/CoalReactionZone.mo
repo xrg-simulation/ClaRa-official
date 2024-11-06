@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.ChemicalReactions;
+﻿within ClaRa.Components.Furnace.ChemicalReactions;
 model CoalReactionZone
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

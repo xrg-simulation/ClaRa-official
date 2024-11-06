@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
 record iCom_Grinder
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

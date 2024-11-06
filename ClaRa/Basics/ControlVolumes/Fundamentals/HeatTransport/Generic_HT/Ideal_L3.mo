@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model Ideal_L3 "All geo || L3 || Ideal HT"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

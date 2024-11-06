@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 package Fundamentals
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

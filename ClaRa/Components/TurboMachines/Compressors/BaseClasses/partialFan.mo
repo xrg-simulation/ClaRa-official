@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.BaseClasses;
+﻿within ClaRa.Components.TurboMachines.Compressors.BaseClasses;
 partial model partialFan
 
 //__________________________________________________________________________//

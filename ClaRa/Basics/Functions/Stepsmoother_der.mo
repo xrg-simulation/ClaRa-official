@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function Stepsmoother_der "Time derivative of continouus interpolation for x"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.PowerPlantControl;
+﻿within ClaRa.Components.Control.PowerPlantControl;
 package Check
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

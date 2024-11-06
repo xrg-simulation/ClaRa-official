@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_flatWall_L2 "All Geo || L2 || Convection Flat Wall"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

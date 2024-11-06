@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector GasMassSpecific "A connector featuring T,p,X,m_dot"
 
   TILMedia.GasTypes.BaseGas                 Medium "Medium model";

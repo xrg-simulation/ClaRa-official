@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L3_Y "A Y-join with non-ideal mixing"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

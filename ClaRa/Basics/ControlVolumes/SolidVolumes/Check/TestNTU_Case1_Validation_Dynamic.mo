@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.TestNTU_Case2"
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.Check;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.Check;
 model Test_SmoothedDeltaTmean_log
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

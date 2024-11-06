@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
 model Radiation_gas2Gas_advanced_L2 "All Geo || L2 || Radiation Between Gas Volumes (Advanced)"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

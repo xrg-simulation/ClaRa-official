@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
 record FuelClassification_example_11classes "11 classes | geometric progression | p = 2 | starting at 46.08e-3 m | according to Kerstig (1986)"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

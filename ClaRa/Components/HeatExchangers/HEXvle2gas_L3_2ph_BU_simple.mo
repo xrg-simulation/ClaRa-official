@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type |"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

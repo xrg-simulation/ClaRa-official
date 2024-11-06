@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Valve_cutPressure1 "Valve || green | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

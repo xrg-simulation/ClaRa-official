@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 model QuadraticNominalPoint_L4 "Gas || Quadratic PL based on nominal values"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

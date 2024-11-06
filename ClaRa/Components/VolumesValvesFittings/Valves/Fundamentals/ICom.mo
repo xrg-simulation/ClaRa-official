@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 record ICom
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.SubSystems.Furnace;
+﻿within ClaRa.SubSystems.Furnace;
 model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block StepSmootherGain "Smoothly activate and deactivate a Real signal"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

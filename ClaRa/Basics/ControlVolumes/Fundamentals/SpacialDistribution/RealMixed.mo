@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model RealMixed "Mixing | Real | outlet states depending volume fractions | All geometries"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

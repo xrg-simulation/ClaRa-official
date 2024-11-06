@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelFunctions;
+﻿within ClaRa.Basics.Media.FuelFunctions;
 function waterMassFraction_xi "Mass fraction of water as function xi"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

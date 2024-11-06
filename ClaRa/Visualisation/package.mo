@@ -1,4 +1,4 @@
-within ClaRa;
+﻿within ClaRa;
 package Visualisation "Visualisation of State of Process"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

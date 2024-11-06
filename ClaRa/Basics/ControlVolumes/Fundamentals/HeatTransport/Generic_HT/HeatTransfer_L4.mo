@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 partial model HeatTransfer_L4 "Medium independent || HT Base Class"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

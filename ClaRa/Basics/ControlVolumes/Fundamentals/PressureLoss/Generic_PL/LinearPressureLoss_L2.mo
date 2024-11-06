@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearPressureLoss_L2 "All geo || Linear pressure loss || Nominal pressure difference"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

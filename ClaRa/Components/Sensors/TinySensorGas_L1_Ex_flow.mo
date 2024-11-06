@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_Ex_flow "Sensor that calculates exergy flow"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

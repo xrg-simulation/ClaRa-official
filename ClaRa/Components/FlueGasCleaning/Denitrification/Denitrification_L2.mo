@@ -1,4 +1,4 @@
-within ClaRa.Components.FlueGasCleaning.Denitrification;
+﻿within ClaRa.Components.FlueGasCleaning.Denitrification;
 model Denitrification_L2 "Model for a simple ammonia denitrification with fixed separation ratio"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

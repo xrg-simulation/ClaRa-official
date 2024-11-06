@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Check;
+﻿within ClaRa.StaticCycles.Check;
 model TestStacy3
 
 //__________________________________________________________________________//

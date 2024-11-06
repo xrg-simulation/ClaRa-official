@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Tube_FlueGas_L2_Simple
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

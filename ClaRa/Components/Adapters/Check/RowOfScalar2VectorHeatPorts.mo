@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters.Check;
+﻿within ClaRa.Components.Adapters.Check;
 model RowOfScalar2VectorHeatPorts
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

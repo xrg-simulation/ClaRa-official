@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model FlameRoomNaturalCirculation " Natural circulation heating surfaces with drum || blue | green"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

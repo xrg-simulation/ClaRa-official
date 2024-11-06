@@ -1,4 +1,4 @@
-within ClaRa;
+﻿within ClaRa;
 model SimCenter
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_Y "A join for two inputs"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

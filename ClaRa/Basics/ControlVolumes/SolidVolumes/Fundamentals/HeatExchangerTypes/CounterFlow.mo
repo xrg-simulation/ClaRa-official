@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes;
 model CounterFlow "Pure counter flow heatexchanger"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

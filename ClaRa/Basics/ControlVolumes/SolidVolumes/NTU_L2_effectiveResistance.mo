@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L2_effectiveResistance "NTU  using an effective nominal  value for the product of heat transport coefficient and the heat transfer area"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
 model EfficiencyCurves_Q1 "Losses by efficiency | normal operation | "
 
 //__________________________________________________________________________//

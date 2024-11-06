@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector EyeOutGas
   import SI = ClaRa.Basics.Units;
    parameter TILMedia.GasTypes.BaseGas medium annotation(HideResult=false);

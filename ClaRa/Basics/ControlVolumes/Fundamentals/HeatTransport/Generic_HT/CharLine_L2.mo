@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L2 "All Geo || L2 || HTC || Characteristic Line"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

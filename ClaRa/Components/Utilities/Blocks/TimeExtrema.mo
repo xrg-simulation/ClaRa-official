@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model TimeExtrema "Calculates the minimum and maximum value in a given period of time"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

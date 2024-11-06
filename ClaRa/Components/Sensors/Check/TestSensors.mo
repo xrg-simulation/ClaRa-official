@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors.Check;
+﻿within ClaRa.Components.Sensors.Check;
 model TestSensors
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

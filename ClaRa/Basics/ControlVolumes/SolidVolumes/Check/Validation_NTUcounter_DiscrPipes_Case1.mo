@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

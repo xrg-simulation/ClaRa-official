@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Drying;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Drying;
 model Drying_base
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

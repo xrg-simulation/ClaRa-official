@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4_advanced "An array of  gas cells with dynamic momentum balance."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

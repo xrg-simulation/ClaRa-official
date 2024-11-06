@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearParallelZones_L3 "All geo | L3 | linear | parallel zones | nominal point"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

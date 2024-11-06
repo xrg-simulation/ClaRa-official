@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model ComplexityLevel "Displays the complexity level inside model icon "
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                            //

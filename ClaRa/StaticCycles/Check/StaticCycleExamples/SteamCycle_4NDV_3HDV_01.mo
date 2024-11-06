@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Check.StaticCycleExamples;
+﻿within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model SteamCycle_4NDV_3HDV_01 "Helps you to find reasonable start values for steam cycles"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

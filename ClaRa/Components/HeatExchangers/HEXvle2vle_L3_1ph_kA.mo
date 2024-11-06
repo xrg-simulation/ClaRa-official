@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geometry | effective kA"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

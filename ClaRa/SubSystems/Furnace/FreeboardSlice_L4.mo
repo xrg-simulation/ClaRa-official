@@ -1,4 +1,4 @@
-within ClaRa.SubSystems.Furnace;
+﻿within ClaRa.SubSystems.Furnace;
 model FreeboardSlice_L4 "Furnace slice of freeboard with cooled walls"
 
 //__________________________________________________________________________//

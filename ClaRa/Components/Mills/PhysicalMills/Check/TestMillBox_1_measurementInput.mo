@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Check;
+﻿within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_1_measurementInput
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

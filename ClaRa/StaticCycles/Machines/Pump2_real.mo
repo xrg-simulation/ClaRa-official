@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Pump2_real "Real Pump || par.: efficiency, pressure ratio || blue | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

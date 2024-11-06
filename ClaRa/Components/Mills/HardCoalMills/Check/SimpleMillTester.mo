@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.HardCoalMills.Check;
+﻿within ClaRa.Components.Mills.HardCoalMills.Check;
 model SimpleMillTester
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

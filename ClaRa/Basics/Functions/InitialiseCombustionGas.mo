@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function InitialiseCombustionGas "A simple function to find feasible start values for combustion product gases"
  //___________________________________________________________________________//
  // Component of the ClaRa library, version: 1.8.2                            //

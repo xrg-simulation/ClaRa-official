@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveVLE_L1_simple "Three way valve for vle media | no reverse flow | no pressure dependeny |"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

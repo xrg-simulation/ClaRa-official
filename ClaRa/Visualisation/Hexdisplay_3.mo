@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model Hexdisplay_3 "Area-temperature diagram for HEX with three zones"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

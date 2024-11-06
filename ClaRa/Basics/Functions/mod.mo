@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function mod "Modulus of a number"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

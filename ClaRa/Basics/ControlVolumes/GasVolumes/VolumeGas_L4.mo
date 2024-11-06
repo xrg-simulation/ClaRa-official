@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4 "An array of flue gas cells."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

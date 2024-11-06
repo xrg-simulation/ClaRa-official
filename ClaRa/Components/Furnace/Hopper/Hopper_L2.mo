@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.Hopper;
+﻿within ClaRa.Components.Furnace.Hopper;
 model Hopper_L2 "Model for a hopper section of a combustion chamber"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

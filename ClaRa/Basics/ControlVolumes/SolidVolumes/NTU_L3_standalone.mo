@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3_standalone "A three-zonal NTU cell model with internally calculated zone size"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

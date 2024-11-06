@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_hxim_flow "A boundary defining mass flow composition and enthalpy"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowGas_L4_Advanced "A 1D tube-shaped control volume considering heat transfer in a straight pipe with dynamic momentum balance and simple energy balance."
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                            //

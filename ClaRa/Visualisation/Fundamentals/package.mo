@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 package Fundamentals "Base classe for visualisation"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

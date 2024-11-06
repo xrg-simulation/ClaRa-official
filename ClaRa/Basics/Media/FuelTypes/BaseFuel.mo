@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelTypes;
+﻿within ClaRa.Basics.Media.FuelTypes;
 record BaseFuel "Chose fuel below:"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

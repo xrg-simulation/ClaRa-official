@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.MassDefect;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.MassDefect;
 model Test_Pipe_L2_Simple
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Modelica.Blocks.Sources.Trapezoid MassFlow(

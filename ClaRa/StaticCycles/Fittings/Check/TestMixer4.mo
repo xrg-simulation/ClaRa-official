@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings.Check;
+﻿within ClaRa.StaticCycles.Fittings.Check;
 model TestMixer4
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

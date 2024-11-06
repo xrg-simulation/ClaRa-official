@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

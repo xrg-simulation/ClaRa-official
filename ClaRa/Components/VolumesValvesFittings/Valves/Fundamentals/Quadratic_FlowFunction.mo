@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model Quadratic_FlowFunction "Quadratic | Area and Kd/zeta definition | choked flow | compressible"
 
 //__________________________________________________________________________//

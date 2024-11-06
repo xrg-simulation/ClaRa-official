@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveGas_L1 "Valve for gas flows with replaceable flow models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_2ph_CH_simple_shutoff "Quickly reduce the steam mass flow from full load to near zero. Vary liquid pressure state location"
 
 //__________________________________________________________________________//

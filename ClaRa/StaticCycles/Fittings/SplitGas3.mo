@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model SplitGas3 "brown | brown | brown"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

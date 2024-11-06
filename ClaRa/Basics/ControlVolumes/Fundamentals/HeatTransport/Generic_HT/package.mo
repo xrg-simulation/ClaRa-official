@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
 package Generic_HT "Heat transfer models for arbitrary geometries and media"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

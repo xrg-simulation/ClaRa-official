@@ -1,4 +1,4 @@
-within ClaRa.Basics;
+﻿within ClaRa.Basics;
 package Media "Media data (properties of air, water, steam, ...)"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

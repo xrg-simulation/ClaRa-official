@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_stageStacked "Advanced compressor or fan for ideal gas mixtures using the stage stacking method according to N. Gasparovic"
   import ClaRa;
 //__________________________________________________________________________//

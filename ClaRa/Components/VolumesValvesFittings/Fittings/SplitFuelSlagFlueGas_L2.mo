@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitFuelSlagFlueGas_L2 "A split for fuel flue gas and slag with gas volume"
   //__________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                           //

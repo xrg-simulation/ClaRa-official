@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency;
 model RayCorrelation "Semi-empirical correlation | Shaft speed and isentropic enthalpy drop dependent"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_simple "Simple compressor or fan for gas"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_pT "A source defining pressure and temperature"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

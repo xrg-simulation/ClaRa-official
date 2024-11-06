@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block VarGain "Output the product of a variable gain value with the input signal"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

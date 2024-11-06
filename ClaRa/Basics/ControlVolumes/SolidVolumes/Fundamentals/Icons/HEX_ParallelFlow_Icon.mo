@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Icons;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Icons;
 model HEX_ParallelFlow_Icon
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

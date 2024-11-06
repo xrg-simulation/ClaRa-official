@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_p "Ideal TINY one port pressure sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 

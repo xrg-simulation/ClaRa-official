@@ -1,4 +1,4 @@
-within ClaRa.Components.Electrical;
+﻿within ClaRa.Components.Electrical;
 model AsynchronousMotor_L2 "A simple asynchronous e-motor"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

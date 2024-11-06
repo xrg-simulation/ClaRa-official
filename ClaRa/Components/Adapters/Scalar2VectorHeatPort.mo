@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters;
+﻿within ClaRa.Components.Adapters;
 model Scalar2VectorHeatPort "Connect a scalar heat port with a vectorised heat port"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

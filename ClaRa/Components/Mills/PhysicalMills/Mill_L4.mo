@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills;
+﻿within ClaRa.Components.Mills.PhysicalMills;
 model Mill_L4 "Aerosol component | box module to capsule mill components"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

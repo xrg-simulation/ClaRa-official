@@ -1,4 +1,4 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestSeparator_L1 "Check of normal operation and dry operation (Benson operation) is supported"
 
 //__________________________________________________________________________//

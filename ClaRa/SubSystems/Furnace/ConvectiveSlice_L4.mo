@@ -1,4 +1,4 @@
-within ClaRa.SubSystems.Furnace;
+﻿within ClaRa.SubSystems.Furnace;
 model ConvectiveSlice_L4 "Convective furnaces slice"
 
 //__________________________________________________________________________//

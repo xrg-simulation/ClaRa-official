@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block shape | U-type | NTU Ansatz"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

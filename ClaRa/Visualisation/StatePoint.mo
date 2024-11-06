@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model StatePoint "State Point of fluid without visualisation"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

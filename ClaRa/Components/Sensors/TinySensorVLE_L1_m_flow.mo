@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_m_flow "Ideal TINY one port mass flow sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 

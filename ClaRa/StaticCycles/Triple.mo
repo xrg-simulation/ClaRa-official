@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles;
+﻿within ClaRa.StaticCycles;
 model Triple "Visualise static cycle results"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

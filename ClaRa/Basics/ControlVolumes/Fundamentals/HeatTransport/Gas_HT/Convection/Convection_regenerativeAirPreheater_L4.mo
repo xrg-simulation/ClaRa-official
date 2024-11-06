@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_regenerativeAirPreheater_L4 "Gas || Convection Air Preheater Channels"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

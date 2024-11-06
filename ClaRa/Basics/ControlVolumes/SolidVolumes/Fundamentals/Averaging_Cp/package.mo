@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals;
 package Averaging_Cp
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

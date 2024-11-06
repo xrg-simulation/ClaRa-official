@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
 partial model TubeTypeVLE_L2 "Partial heat transfer model for tube-type models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

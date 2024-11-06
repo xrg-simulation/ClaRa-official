@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model HEX02
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                            //

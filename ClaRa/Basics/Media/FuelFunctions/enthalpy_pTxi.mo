@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelFunctions;
+﻿within ClaRa.Basics.Media.FuelFunctions;
 function enthalpy_pTxi "Specific enthalpy as function of p,T,xi"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

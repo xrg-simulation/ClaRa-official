@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CH_ntu "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | Header type | simple HT"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

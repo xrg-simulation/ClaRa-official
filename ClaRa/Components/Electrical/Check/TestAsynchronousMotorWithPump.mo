@@ -1,4 +1,4 @@
-within ClaRa.Components.Electrical.Check;
+﻿within ClaRa.Components.Electrical.Check;
 model TestAsynchronousMotorWithPump
 
 //__________________________________________________________________________//

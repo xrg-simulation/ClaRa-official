@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes.Check;
 model TestFlueGasCell_chem
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

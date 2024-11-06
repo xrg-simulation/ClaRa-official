@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions.TestCases;
+﻿within ClaRa.Basics.Functions.TestCases;
 model TestLogMean
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.Burner;
+﻿within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic_fuelDrying "Model for a burner section inside a combustion chamber which is able to regard drying of unburnt fuel which contained water at burner inlet"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

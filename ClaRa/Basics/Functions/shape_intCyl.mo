@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function shape_intCyl "Horizontal area of a cylinder vertically intersecting a horizontal cylinder of large diameter discretised output"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

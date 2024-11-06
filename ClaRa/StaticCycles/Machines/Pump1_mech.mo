@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Pump1_mech "Pump mith machanical flanges || par.: efficiency || green | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

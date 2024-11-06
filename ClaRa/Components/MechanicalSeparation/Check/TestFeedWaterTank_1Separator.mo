@@ -1,4 +1,4 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and FeedWaterTank_3"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

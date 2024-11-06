@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model QuadraticNominalPoint_L4 "Medium independent || Nominal point, property independent"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

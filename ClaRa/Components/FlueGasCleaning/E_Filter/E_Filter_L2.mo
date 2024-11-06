@@ -1,4 +1,4 @@
-within ClaRa.Components.FlueGasCleaning.E_Filter;
+﻿within ClaRa.Components.FlueGasCleaning.E_Filter;
 model E_Filter_L2 "Model for an e-filter with different separation models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

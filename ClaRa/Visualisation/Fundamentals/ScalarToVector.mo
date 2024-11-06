@@ -1,4 +1,4 @@
-within ClaRa.Visualisation.Fundamentals;
+﻿within ClaRa.Visualisation.Fundamentals;
 model ScalarToVector
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

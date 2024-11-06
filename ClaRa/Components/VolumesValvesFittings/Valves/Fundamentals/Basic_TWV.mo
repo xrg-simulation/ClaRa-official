@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 partial model Basic_TWV "Basic pressure loss model for three way valves"
 
 //__________________________________________________________________________//

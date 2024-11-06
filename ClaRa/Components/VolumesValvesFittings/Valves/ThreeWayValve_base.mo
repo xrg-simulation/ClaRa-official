@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 partial model ThreeWayValve_base
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

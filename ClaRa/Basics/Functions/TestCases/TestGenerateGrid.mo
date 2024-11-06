@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions.TestCases;
+﻿within ClaRa.Basics.Functions.TestCases;
 model TestGenerateGrid "simple test for the GenerateGrid function"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

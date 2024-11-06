@@ -345,8 +345,9 @@ PURPOSE:
         Rectangle(
           extent={{-100,100},{320,-220}},
           lineColor={115,150,0},
+          lineThickness=0.5)}
 
-          lineThickness=0.5)}),
+),
 
     Icon(graphics,
          coordinateSystem(

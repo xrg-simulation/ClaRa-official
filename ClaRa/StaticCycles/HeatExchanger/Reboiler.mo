@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.HeatExchanger;
+﻿within ClaRa.StaticCycles.HeatExchanger;
 model Reboiler "Reboiler || par.: p_reb, m_flow_reb || red | green"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

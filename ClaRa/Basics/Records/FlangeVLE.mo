@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 connector FlangeVLE "A summary of flange flow properties"
   extends Icons.RecordIcon;
 

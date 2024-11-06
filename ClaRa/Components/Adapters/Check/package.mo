@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters;
+﻿within ClaRa.Components.Adapters;
 package Check
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

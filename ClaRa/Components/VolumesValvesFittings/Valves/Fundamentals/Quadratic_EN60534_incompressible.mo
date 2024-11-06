@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model Quadratic_EN60534_incompressible "Quadratic | Kv definition | choked flow | incompressible |EN60534"
 
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
+﻿within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
 model MeanMigrationSpeed "Determines the mean migration speed in dependence of the fluegas flow rates"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

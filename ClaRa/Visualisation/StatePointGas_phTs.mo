@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model StatePointGas_phTs "Complete state definition for visualisation in ph, TS, hs-diagrams"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

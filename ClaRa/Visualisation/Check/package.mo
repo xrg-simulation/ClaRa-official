@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 package Check "Check and Test Classes"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

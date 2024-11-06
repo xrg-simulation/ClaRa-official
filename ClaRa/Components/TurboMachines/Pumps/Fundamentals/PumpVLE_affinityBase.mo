@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   //
 //__________________________________________________________________________//

@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedHeatFlowVLE "A heat flow anchor with prescribed heat flow rate"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelTypes;
+﻿within ClaRa.Basics.Media.FuelTypes;
 record Fuel_verbandsformel_v1 "LHV acc. Verbandsformel | former 'Coal_v1' | C,H,O,N,S,ash,H2O"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

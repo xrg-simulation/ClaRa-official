@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_finnedTubes_L2 "Shell Geo || L2 || Convection Finned Tube Bank VDI WA"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

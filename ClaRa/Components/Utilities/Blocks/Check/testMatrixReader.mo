@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks.Check;
+﻿within ClaRa.Components.Utilities.Blocks.Check;
 model testMatrixReader "Two ways how to read a matrix from file"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

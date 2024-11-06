@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticFrictionFlowAreaSymetric_TWV "| Quadratic Pressure Dependency | Flow Area Definition | Opening Characteristics | Symetrical |"
 
 //__________________________________________________________________________//

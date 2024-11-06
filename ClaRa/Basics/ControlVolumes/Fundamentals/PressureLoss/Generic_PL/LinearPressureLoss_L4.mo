@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearPressureLoss_L4 "Medium independent || Linear PL with const. PL coeff"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

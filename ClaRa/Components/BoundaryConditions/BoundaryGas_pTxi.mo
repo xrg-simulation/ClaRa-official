@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryGas_pTxi "A gas source defining pressure, Temperature and composition"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

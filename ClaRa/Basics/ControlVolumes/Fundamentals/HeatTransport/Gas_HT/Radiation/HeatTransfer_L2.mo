@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
 partial model HeatTransfer_L2
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

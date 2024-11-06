@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
 partial model PressureLossBaseFlatTubeFinnedGas_L4 "Partial pressure loss model for plate geometry Gas-type models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

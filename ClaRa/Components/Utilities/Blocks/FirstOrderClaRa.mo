@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block FirstOrderClaRa "First order transfer function block (= 1 pole, allows Tau = 0)"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_MassFlow_VIGVControlled
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

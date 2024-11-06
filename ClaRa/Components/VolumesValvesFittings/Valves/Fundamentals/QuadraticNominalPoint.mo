@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticNominalPoint "Quadratic|Nominal operation point | subcritical flow"
 
 //__________________________________________________________________________//

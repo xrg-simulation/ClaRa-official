@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_affinity "A gas compressor or fan based on affinity laws"
 
 //__________________________________________________________________________//

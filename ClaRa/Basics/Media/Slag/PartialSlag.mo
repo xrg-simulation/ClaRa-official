@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Slag;
+﻿within ClaRa.Basics.Media.Slag;
 record PartialSlag "Base class for solid type media definition"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

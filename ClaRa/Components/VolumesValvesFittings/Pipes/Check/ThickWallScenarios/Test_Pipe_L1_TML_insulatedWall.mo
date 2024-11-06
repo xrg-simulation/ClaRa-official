@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.ThickWallScenarios;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.ThickWallScenarios;
 model Test_Pipe_L1_TML_insulatedWall
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

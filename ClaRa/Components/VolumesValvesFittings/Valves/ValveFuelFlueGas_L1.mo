@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

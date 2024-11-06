@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model GenericGeometry_N_cv "Dicretized geometry base class|| All shapes"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

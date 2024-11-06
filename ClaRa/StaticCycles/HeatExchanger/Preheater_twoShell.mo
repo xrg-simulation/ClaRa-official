@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.HeatExchanger;
+﻿within ClaRa.StaticCycles.HeatExchanger;
 model Preheater_twoShell "Two cascade preheater || bubble state at shell outlets || par.: shell pressures, shell m_flows"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

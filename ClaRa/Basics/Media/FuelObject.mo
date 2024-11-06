@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media;
+﻿within ClaRa.Basics.Media;
 model FuelObject
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_Txim_flow "A boundary defining temperature, composition and mass flow"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

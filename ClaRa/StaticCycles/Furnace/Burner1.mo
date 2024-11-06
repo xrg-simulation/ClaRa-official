@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model Burner1
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

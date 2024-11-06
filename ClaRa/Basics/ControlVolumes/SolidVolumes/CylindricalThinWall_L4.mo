@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

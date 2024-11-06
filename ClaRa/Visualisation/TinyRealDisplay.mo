@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 block TinyRealDisplay "A tiny display indecating high and low values"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

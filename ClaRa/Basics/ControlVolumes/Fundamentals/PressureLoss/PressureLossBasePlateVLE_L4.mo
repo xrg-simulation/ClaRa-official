@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
 partial model PressureLossBasePlateVLE_L4 "Partial pressure loss model for plate geometry VLE-type models L4"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

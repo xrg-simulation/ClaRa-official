@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorVLE_L1_p "Ideal one port pressure sensor"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
 
 //__________________________________________________________________________//

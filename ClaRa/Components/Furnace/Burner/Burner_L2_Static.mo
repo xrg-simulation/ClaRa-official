@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.Burner;
+﻿within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Static "Model for a burner section inside a combustion chamber"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

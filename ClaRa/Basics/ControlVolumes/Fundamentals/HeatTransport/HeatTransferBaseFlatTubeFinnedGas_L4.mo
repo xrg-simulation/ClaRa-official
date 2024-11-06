@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
 partial model HeatTransferBaseFlatTubeFinnedGas_L4 "Partial heat transfer model for flat tube finned geometry Gas-type models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

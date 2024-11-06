@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block RealInputMultiplyer "Distributes a single real input into N real outputs having the same value"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

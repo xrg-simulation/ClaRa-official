@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block VariableGradientLimiter "Limit the range of a signal with variable limits"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveVLE_L1 "Three way valve for vle media, not suitable for back flows!"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

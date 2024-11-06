@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.HeatExchanger;
+﻿within ClaRa.StaticCycles.HeatExchanger;
 model Condenser "Condenser || par.: pressure, level_abs || blue |green"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

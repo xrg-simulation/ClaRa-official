@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Check.StaticCycleExamples;
+﻿within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model InitSteamPowerPlant_01
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
 partial model BaseEnergetics
 
 //__________________________________________________________________________//

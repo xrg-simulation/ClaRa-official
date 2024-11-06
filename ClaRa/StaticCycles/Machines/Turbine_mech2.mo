@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Turbine_mech2 "Turbine mith machanical flanges || par.: efficiency || yellow | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

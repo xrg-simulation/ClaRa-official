@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 package Check
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

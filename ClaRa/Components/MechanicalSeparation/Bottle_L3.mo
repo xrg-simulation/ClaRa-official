@@ -1,4 +1,4 @@
-within ClaRa.Components.MechanicalSeparation;
+﻿within ClaRa.Components.MechanicalSeparation;
 model Bottle_L3 "A bottle"
   extends ClaRa.Basics.Icons.Bottle;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");

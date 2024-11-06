@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model IdeallyStirred "Volume is ideally stirred"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

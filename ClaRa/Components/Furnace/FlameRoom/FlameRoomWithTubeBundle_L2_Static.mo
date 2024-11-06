@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.FlameRoom;
+﻿within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomWithTubeBundle_L2_Static "Model for a combustion chamber section with inner tube bundle heating surfaces"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

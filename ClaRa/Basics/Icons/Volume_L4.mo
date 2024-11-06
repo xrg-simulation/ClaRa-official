@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model Volume_L4
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                            //

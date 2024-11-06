@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model SprayAttemperator2 "Mixer || blue | yellow | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

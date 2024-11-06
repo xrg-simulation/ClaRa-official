@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model Noise "Adds a normally distributed noise to a given mean value"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

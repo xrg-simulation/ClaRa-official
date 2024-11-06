@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Pump2_mech "Real Pump with mechanical flange  || par.: efficiency, pressure ratio || blue | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

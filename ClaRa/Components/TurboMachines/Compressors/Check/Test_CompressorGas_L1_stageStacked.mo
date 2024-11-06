@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_CompressorGas_L1_stageStacked
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 0.1 alpha                        //

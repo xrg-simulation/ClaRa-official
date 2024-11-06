@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheaterPrimaryAndSecondaryAir_L4 "Model for a regenerative air preheater with primary and secondary air"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

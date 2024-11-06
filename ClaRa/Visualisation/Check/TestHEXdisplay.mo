@@ -1,4 +1,4 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestHEXdisplay "Illustrates the capabilities of the HEXdisplay"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

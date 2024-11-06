@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

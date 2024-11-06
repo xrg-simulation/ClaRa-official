@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.HardCoalMills;
+﻿within ClaRa.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

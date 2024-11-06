@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model FlameRoom_woBundle "Fixed fluid outlet temperature | blue | blue || brown | brown"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_Y "A voluminous split for 2 outputs"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

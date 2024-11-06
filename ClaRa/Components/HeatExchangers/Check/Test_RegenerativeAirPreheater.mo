@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_RegenerativeAirPreheater
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

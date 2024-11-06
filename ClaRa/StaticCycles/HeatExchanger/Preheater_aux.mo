@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.HeatExchanger;
+﻿within ClaRa.StaticCycles.HeatExchanger;
 model Preheater_aux "Preheater || bubble state at shell outlet || par.: shell pressure, shell m_flow || cond: blue | blue || tap: red | green || aux: blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

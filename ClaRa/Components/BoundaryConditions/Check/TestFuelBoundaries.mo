@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions.Check;
+﻿within ClaRa.Components.BoundaryConditions.Check;
 model TestFuelBoundaries
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

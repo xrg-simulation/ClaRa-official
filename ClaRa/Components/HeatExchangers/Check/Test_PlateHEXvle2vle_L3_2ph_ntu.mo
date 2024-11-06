@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_PlateHEXvle2vle_L3_2ph_ntu "Test_PlateHEXvle2vle_L2"
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 

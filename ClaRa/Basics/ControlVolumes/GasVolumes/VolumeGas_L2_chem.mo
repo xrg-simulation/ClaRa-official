@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactions"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

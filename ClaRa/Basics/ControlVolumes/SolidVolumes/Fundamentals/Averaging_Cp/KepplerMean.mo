@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
 model KepplerMean "Apply Keppler's (or Simpson's) rule"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

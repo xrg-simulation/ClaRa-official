@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L2 "NTU-based heat transfer resistance"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

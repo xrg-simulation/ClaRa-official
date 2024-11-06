@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.Check;
+﻿within ClaRa.Components.Furnace.Check;
 model Test_CombustionChamber_control
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

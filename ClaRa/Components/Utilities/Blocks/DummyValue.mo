@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model DummyValue "A dummy connection for Real inputs"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

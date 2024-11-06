@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Pumps;
+﻿within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

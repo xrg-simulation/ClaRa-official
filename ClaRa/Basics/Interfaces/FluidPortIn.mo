@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector FluidPortIn
 
   TILMedia.VLEFluidTypes.BaseVLEFluid  Medium "Medium model";

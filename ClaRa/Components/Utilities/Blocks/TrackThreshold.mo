@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model TrackThreshold "A state based threshold observation with one possible switch"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

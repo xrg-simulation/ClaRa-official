@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters.Check;
+﻿within ClaRa.Components.Adapters.Check;
 model TestGasSensorAdapter
 
 //__________________________________________________________________________//

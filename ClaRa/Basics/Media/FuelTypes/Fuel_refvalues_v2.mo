@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelTypes;
+﻿within ClaRa.Basics.Media.FuelTypes;
 record Fuel_refvalues_v2 "{fuel_waf, ash, h2o } |  former 'Coal_v2'  | C,H,O,N,S,Ash,H2O"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

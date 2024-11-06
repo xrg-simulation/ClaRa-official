@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Source_green "Green source"
   // Green output:  Values of m_flow and h are known in component and provided FOR neighbor component.
 

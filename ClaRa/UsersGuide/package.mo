@@ -1,4 +1,4 @@
-within ClaRa;
+﻿within ClaRa;
 package UsersGuide "User's guide"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

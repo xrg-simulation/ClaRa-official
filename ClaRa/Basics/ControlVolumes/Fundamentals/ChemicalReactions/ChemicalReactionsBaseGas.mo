@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model ChemicalReactionsBaseGas "Gas || L2 || Chemical Reactions Base Class"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

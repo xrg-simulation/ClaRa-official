@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks.Fundamentals;
+﻿within ClaRa.Components.Utilities.Blocks.Fundamentals;
 function random
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

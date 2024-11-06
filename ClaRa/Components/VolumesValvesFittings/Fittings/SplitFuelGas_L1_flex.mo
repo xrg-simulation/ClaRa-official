@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitFuelGas_L1_flex "A split for fuel dust"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

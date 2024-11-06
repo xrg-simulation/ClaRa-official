@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model GasCompositionByVolFractions "set (flue) gas composition graphically by volume fractions"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

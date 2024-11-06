@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Turbines;
+﻿within ClaRa.Components.TurboMachines.Turbines;
 model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

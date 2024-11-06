@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

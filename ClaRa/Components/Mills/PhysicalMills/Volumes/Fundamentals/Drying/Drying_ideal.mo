@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Drying;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Drying;
 model Drying_ideal "Ideal coal drying process to desired residual water content| driven by H2O concentration difference"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

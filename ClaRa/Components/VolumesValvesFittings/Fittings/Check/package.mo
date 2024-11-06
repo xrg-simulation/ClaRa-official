@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 package Check "Check and test fittings"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

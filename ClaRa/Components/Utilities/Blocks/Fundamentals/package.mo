@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 package Fundamentals "Fundamentals for the block package, containing the random package from Peter Fristzson's book"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

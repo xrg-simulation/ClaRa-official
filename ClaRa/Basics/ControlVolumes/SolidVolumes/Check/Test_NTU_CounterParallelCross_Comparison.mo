@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Test_NTU_CounterParallelCross_Comparison "Comparison of NTU counter cross and parallel flow models"
   extends ClaRa.Visualisation.Check.TestHEXdisplay;
   annotation (experiment(

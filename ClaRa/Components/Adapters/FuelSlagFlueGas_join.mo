@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters;
+﻿within ClaRa.Components.Adapters;
 model FuelSlagFlueGas_join
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
 model Header "A header (distribution pipe) e.g. for superheater."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

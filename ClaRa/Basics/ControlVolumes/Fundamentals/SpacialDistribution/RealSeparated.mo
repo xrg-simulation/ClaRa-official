@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model RealSeparated "Separation | Real | outlet states depending on filling Level | All geometries"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Fundamentals;
 record IComTurbine
 
 //__________________________________________________________________________//

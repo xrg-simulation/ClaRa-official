@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model Scope "Dynamic graphical display of one variable"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

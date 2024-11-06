@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model ReadMatrixFromFile "Read a 2D matrix from file  || *.csv and *.mat(-v4) are supported"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

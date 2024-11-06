@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model TestFuelSplit
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

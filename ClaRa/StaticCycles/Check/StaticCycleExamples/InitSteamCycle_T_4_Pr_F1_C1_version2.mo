@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Check.StaticCycleExamples;
+﻿within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model InitSteamCycle_T_4_Pr_F1_C1_version2
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

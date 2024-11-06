@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Compressors.Fundamentals;
 model GetInputsHydraulic "Get enabled inputs and parameters of disabled inputs"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

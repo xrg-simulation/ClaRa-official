@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 package Check "Check sensors"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

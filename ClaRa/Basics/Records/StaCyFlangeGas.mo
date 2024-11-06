@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 model StaCyFlangeGas "A summary record for gas flanges"
     extends ClaRa.Basics.Icons.RecordIcon;
     replaceable parameter TILMedia.GasTypes.BaseGas mediumModel "Used medium model" annotation(Dialog(tab="System"));

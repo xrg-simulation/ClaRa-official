@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.ChemicalReactions;
+﻿within ClaRa.Components.Furnace.ChemicalReactions;
 partial model PartialReactionZone "Model to regard chemical reactions"
   extends ClaRa.Basics.Icons.Box;
 

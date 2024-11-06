@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveGas_L1_simple "Three way valve for flue gas with controllable mass fraction"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

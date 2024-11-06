@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Transport_Velocity;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Transport_Velocity;
 model Transport_constant "Constant radial transport velocity of coal on table"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

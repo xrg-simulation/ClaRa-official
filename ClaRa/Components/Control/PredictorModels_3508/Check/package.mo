@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.PredictorModels_3508;
+﻿within ClaRa.Components.Control.PredictorModels_3508;
 package Check "Test cases for the predictors"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

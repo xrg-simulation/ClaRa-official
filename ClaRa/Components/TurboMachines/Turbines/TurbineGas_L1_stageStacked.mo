@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Turbines;
+﻿within ClaRa.Components.TurboMachines.Turbines;
 model TurbineGas_L1_stageStacked "Advanced gas turbine model using the stage stacking method according to N. Gasparovic"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

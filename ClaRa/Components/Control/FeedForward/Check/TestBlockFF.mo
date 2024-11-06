@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.FeedForward.Check;
+﻿within ClaRa.Components.Control.FeedForward.Check;
 model TestBlockFF
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

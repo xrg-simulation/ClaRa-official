@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorElectric_L1_P "Ideal TINY one port power sensor"
 
 //__________________________________________________________________________//

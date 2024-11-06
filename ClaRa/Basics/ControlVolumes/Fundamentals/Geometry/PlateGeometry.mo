@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.Geometry;
 model PlateGeometry "Plate || Tube type"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

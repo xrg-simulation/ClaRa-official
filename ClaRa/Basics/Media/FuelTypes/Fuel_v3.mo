@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelTypes;
+﻿within ClaRa.Basics.Media.FuelTypes;
 record Fuel_v3 "Fuel1, Fuel2, ash, H2O"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

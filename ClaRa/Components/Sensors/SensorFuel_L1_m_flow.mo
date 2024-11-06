@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorFuel_L1_m_flow "Ideal two port mass flow sensor"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

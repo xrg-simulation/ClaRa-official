@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model ThinPlateWall_L4 "A thin wall with discretisation in axial direction"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

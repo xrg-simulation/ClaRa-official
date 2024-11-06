@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Adapters;
+﻿within ClaRa.StaticCycles.Adapters;
 model GainVLE1 "blue | blue"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 model QuadraticFrictionNominalPointSymetric_TWV "| Quadratic Pressure Dependency | Nominal Point | Opening Characteristics | Symetrical |"
 
 //__________________________________________________________________________//

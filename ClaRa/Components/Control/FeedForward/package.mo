@@ -1,4 +1,4 @@
-within ClaRa.Components.Control;
+﻿within ClaRa.Components.Control;
 package FeedForward "Feed forward control elements including target limiting"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

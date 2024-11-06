@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 package Fundamentals "valve fundamental models based on the iCom concept"
 
 //__________________________________________________________________________//

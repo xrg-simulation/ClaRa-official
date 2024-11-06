@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_2ph_shell "Validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Ja 13 Example 2"
   //__________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                           //

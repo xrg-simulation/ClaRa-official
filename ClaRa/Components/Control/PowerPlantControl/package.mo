@@ -1,4 +1,4 @@
-within ClaRa.Components.Control;
+﻿within ClaRa.Components.Control;
 package PowerPlantControl "Distinct controllers like Livesteam temperature control or fuel control"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

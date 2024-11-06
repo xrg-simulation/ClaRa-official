@@ -1,4 +1,4 @@
-within ClaRa.Examples;
+﻿within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

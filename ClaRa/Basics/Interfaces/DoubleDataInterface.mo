@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 model DoubleDataInterface "Two data connectors named dat1 and dat2"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorGas_L1_xi_i "Ideal one port gas composition sensor"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

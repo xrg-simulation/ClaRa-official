@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function ThermoRoot "Numerical square root function"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

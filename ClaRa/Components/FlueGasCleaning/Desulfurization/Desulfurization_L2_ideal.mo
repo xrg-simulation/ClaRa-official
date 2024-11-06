@@ -1,4 +1,4 @@
-within ClaRa.Components.FlueGasCleaning.Desulfurization;
+﻿within ClaRa.Components.FlueGasCleaning.Desulfurization;
 model Desulfurization_L2_ideal "Model for an idealised desulfurization with chalk washing"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

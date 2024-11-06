@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency;
 model TableVolumeFlow "Table based | Volume flow rate dependent"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

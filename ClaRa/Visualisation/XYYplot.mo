@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model XYYplot "Same as ClaRa's XY plot but with one additional line"
   //__________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                           //

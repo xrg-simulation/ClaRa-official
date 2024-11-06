@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model Mixer4 "Mixer || yellow | yellow | yellow"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

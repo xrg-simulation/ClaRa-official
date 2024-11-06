@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 model Convert2StateDiscrete "Converts a flaoting value to a discrete one. Value is changed when a certain threshold is violated"
   //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

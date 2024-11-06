@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
+﻿within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
 model FixedMigrationSpeed_simple "Assuming a fixed migration speed"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

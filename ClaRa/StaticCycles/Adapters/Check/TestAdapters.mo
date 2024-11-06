@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Adapters.Check;
+﻿within ClaRa.StaticCycles.Adapters.Check;
 model TestAdapters
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

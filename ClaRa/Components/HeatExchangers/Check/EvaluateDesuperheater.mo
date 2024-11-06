@@ -1,4 +1,4 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model EvaluateDesuperheater "An evaluation scenario for the ShellAndTube_HEX_1 featuring part load. Comparing against an EBSILON model"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
 record FuelClassification_example_05classes "5 classes | geometric progression | p = 3 | starting at 6.6e-3 m | according to Steinmetz (1991)"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

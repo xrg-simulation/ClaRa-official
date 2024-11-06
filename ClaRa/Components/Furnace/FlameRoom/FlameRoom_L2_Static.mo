@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.FlameRoom;
+﻿within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Static "Model for a flame room section inside a combustion chamber"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

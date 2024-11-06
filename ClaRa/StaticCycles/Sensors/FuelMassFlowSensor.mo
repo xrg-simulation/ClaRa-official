@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Sensors;
+﻿within ClaRa.StaticCycles.Sensors;
 model FuelMassFlowSensor "Visualise static cycle results of fuel connectors"
  //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

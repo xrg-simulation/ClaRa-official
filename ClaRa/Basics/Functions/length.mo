@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function length "= size(vector, 1)"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

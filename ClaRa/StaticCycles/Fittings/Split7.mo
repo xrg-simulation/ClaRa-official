@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model Split7 "Split || red | red | red"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.FuelFunctions;
+﻿within ClaRa.Basics.Media.FuelFunctions;
 function heatCapacity_pTxi "Heat capacity as function of p, T and xi"
   //___________________________________________________________________________//
   // Component of the ClaRa library, version: 1.8.2                            //

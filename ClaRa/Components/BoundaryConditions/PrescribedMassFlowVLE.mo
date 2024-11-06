@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

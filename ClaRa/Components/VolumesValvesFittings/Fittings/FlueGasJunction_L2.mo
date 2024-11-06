@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model FlueGasJunction_L2 "Adiabatic junction volume"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

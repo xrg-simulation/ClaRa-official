@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Turbines;
+﻿within ClaRa.Components.TurboMachines.Turbines;
 partial model SteamTurbine_base "Base class for steam turbines"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

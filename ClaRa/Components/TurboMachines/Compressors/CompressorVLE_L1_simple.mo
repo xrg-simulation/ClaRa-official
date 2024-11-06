@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorVLE_L1_simple "A compressor for VLE mixtures with a volume flow rate depending on drive power and pressure difference only"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

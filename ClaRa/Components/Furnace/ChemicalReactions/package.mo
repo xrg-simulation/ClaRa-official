@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace;
+﻿within ClaRa.Components.Furnace;
 package ChemicalReactions
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

@@ -1,4 +1,4 @@
-within ClaRa.Components;
+﻿within ClaRa.Components;
 package Adapters "Adapters to be compatible to ThermoPower and Modelica Fluid"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
 model ArithmeticMean "Use arithmetic mean, i.e. (In1 + In2)/2"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

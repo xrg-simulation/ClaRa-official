@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model NoFriction_L4 "Medium independent || No pressure loss due to friction"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //

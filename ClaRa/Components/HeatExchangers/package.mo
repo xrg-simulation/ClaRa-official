@@ -1,4 +1,4 @@
-within ClaRa.Components;
+﻿within ClaRa.Components;
 package HeatExchangers "Heat Exchangers of various shape"
 //__________________________________________________________________________//
 // Package of the ClaRa library, version: 1.8.2                             //

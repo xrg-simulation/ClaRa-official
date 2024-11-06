@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Breakage_Function;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Breakage_Function;
 model Breakage_Steinmetz "Breakage matrix according to Broabent-Calcott (1956) modified by Gardener a. Austin (1962)"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
