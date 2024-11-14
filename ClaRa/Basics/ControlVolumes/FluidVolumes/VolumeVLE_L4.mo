@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
+within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with static momentum balance and simple energy balance."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -243,7 +243,7 @@ protected
     each computeTransportProperties=true,
     xi=xi)                                annotation (Placement(transformation(extent={{-10,-40},{10,-20}}, rotation=0)));
 
-public
+
   inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     computeSurfaceTension=false,
     p=inlet.p,
@@ -260,7 +260,7 @@ public
     computeTransportProperties=true,
     xi=xi_outlet)                    annotation (Placement(transformation(extent={{70,-30},{90,-10}}, rotation=0)));
 
-protected
+
   inner Basics.Records.IComVLE_L3_OnePort iCom(
     mediumModel=medium,
     N_cv=geo.N_cv,
