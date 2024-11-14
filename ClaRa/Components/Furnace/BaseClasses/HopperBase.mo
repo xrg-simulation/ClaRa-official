@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Furnace.BaseClasses;
+within ClaRa.Components.Furnace.BaseClasses;
 partial model HopperBase
 
 //## P A R A M E T E R S #######################################################################################
@@ -52,7 +52,7 @@ partial model HopperBase
 
   //__________________________/ Geometry \______________________________________________
   replaceable model Geometry =
-  ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock(flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical, height_fill=-1) constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry   "1st: choose geometry definition | 2nd: edit corresponding record"
+  ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock(flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical) constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry(height_fill=-1)   "1st: choose geometry definition | 2nd: edit corresponding record"
     annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   //__________________/ Parameter \_______________________________________________
 
@@ -165,7 +165,8 @@ public
   Basics.Interfaces.EyeOutGas
                            eyeOut(medium=flueGas) annotation (Placement(transformation(extent={{-286,78},
             {-314,102}}),         iconTransformation(extent={{-290,70},{-310,90}})));
-protected  Basics.Interfaces.EyeInGas
+protected
+           Basics.Interfaces.EyeInGas
                                    eye_int[1](each medium=flueGas)
                                 annotation (Placement(transformation(extent={{-254,84},
             {-266,96}}),      iconTransformation(extent={{240,-64},{232,-56}})));

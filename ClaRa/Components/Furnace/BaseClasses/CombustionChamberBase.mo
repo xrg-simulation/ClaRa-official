@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Furnace.BaseClasses;
+within ClaRa.Components.Furnace.BaseClasses;
 partial model CombustionChamberBase
   import ClaRa;
 
@@ -42,8 +42,8 @@ partial model CombustionChamberBase
                                              annotation (Dialog(tab="Combustion Settings",group="Combustion"), choicesAllMatching=true);
 
   //__________________________/ Geometry \______________________________________________
-  replaceable model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical, height_fill=-1)
-                                                                                                                                                     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry   "1st: choose geometry definition | 2nd: edit corresponding record"
+  replaceable model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical)
+                                                                                                                                                     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry(height_fill=-1)   "1st: choose geometry definition | 2nd: edit corresponding record"
     annotation (Dialog(group="Geometry"), choicesAllMatching=true);
 
   //__________________________/ Pressure Loss \______________________________________________
@@ -203,7 +203,8 @@ public
   ClaRa.Basics.Interfaces.EyeOutGas
                            eyeOut(medium=flueGas) annotation (Placement(transformation(extent={{-280,78},
             {-308,102}}),         iconTransformation(extent={{-290,70},{-310,90}})));
-protected  ClaRa.Basics.Interfaces.EyeInGas
+protected
+           ClaRa.Basics.Interfaces.EyeInGas
                                    eye_int[1](each medium=flueGas)
                                 annotation (Placement(transformation(extent={{-254,84},
             {-266,96}}),      iconTransformation(extent={{240,-64},{232,-56}})));
