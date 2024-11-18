@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.HeatExchangers;
+within ClaRa.Components.HeatExchangers;
 model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -358,7 +358,7 @@ equation
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.fluidOutlet.s/1000;
+   eye_int1.s=flow_a.summary.outlet.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 
