@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
+within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_advanced "A 0-d control volume for flue gas with dynamic momentum balance"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -102,7 +102,7 @@ protected
 public
   HeatTransferOuter heatTransferOuter(heatSurfaceAlloc=heatSurfaceOuter)
     annotation (Placement(transformation(extent={{-32,60},{-12,80}})));
-  HeatTransferOuter heatTransferInner(heatSurfaceAlloc=heatSurfaceInner) if use2HeatPorts
+  HeatTransferInner heatTransferInner(heatSurfaceAlloc=heatSurfaceInner)
     annotation (Placement(transformation(extent={{-74,60},{-54,80}})));
   inner Geometry geo "Cell geometry"   annotation (Placement(transformation(extent={{44,60},{64,80}})));
 
@@ -128,7 +128,6 @@ public
   ClaRa.Basics.Interfaces.HeatPort_a heatOuter "heat port" annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   ClaRa.Basics.Interfaces.HeatPort_b  heatInner if use2HeatPorts "heat port"
     annotation (Placement(transformation(extent={{-54,90},{-34,110}})));
-  ClaRa.Basics.Interfaces.HeatPort_b  heatInnerInternal "Internal heat port";
 
   //Summary
 
@@ -159,7 +158,7 @@ end Summary;
       volume_tot=geo.volume,
       A_heatOuter=geo.A_heat[heatSurfaceOuter],
       A_heatInner=geo.A_heat[heatSurfaceInner],
-      Q_flow_tot=heatOuter.Q_flow + heatInnerInternal.Q_flow,
+      Q_flow_tot=heatTransferOuter.heat.Q_flow+heatTransferInner.heat.Q_flow,
       Delta_p=inlet.p - outlet.p,
       mass=mass,
       T=bulk.T,
@@ -234,10 +233,9 @@ outlet.xi_outflow = xi;
 
   //-------------------------------------------
   //Heat flows through heat ports
-  Q_flows = if use2HeatPorts then heatOuter.Q_flow + heatInnerInternal.Q_flow else heatOuter.Q_flow;
-  if not use2HeatPorts then
-    heatInnerInternal.Q_flow = 0;
-  end if;
+
+  Q_flows = if use2HeatPorts then heatTransferOuter.heat.Q_flow + heatTransferInner.heat.Q_flow else heatTransferOuter.heat.Q_flow;
+
   //-------------------------------------------
   //-------------------------------------------
   //Fluid mass in cells
@@ -304,12 +302,7 @@ equation
       points={{-12,70},{0,70},{0,100}},
       color={167,25,48},
       thickness=0.5));
-//   connect(heatTransferInner.heat, heatInner) annotation (Line(
-//       points={{-54,70},{-44,70},{-44,100}},
-//       color={167,25,48},
-//       thickness=0.5));
-  connect(heatInnerInternal, heatInner);
-  connect(heatInnerInternal, heatTransferInner.heat);
+  connect(heatTransferInner.heat, heatInner);
   annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
