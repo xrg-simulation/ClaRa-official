@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_flatWall_L2 "All Geo || L2 || Convection Flat Wall"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -56,7 +56,7 @@ equation
 
   w = (abs(iCom.V_flow_in) + abs(iCom.V_flow_out))/(2*(geo.A_cross + geo.A_front)/2);
   //mean velocity
-  Re = properties.d*w*length_char/(properties.transp.eta);
+  Re = max(eps,properties.d*w*length_char/(properties.transp.eta));
 
   Nu_lam = 0.664*sqrt(Re)*(properties.transp.Pr)^(1/3);
   Nu_turb = (0.037*(Re)^(0.8)*properties.transp.Pr)/(1 + 2.443*(Re)^(-0.1)*(properties.transp.Pr^(2/3) - 1));
