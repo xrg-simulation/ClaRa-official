@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Utilities.Blocks;
+within ClaRa.Components.Utilities.Blocks;
 block SlidingMean "Sliding  mean value"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -20,7 +20,7 @@ block SlidingMean "Sliding  mean value"
   parameter ClaRa.Basics.Units.Time Tau_mean=1 "Time interval for averaging";
 
 protected
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_Int = SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_Int = SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real integral "Integral of u over time at time";
   Real integral_old(start=0) "Integral of at time - Tau_mean";
   parameter Real u_start(fixed=false) "Assumed u between time=[-Tau_mean, 0]";
