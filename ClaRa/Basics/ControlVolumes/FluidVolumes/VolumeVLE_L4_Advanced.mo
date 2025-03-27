@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
+within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with detailed dynamic momentum and energy balance."
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -267,7 +267,7 @@ public
          origin={0,40})));
 //___Instantiation of Replaceable Models___________________________________________________________________________
 
-  inner TILMedia.VLEFluid_ph  fluid[geo.N_cv](
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluid[geo.N_cv](
     each computeSurfaceTension=false,
     p=p,
     h=h,
@@ -276,7 +276,7 @@ public
     xi=xi)                       annotation (Placement(transformation(extent={{-10,-50},
             {10,-30}},                                                                                                   rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidInlet(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     computeSurfaceTension=false,
     p=inlet.p,
     xi={(inStream(inlet.xi_outflow[i])+inlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
@@ -284,7 +284,7 @@ public
     h=if useHomotopy then homotopy(h_in, inStream(inlet.h_outflow)) else h_in) "if useHomotopy then homotopy(inStream(inlet.h_outflow), h_in) else h_in" annotation (Placement(transformation(extent={{-90,
             -30},{-70,-10}}, rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidOutlet(
+  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOutlet(
     computeSurfaceTension=false,
     p=outlet.p,
     xi={(inStream(outlet.xi_outflow[i])+outlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
