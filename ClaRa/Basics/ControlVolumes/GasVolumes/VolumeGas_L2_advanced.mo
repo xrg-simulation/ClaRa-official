@@ -157,7 +157,7 @@ end Summary;
     outline(
       volume_tot=geo.volume,
       A_heatOuter=geo.A_heat[heatSurfaceOuter],
-      A_heatInner=geo.A_heat[heatSurfaceInner],
+      A_heatInner=if use2HeatPorts then geo.A_heat[heatSurfaceInner] else -1,
       Q_flow_tot=heatTransferOuter.heat.Q_flow+heatTransferInner.heat.Q_flow,
       Delta_p=inlet.p - outlet.p,
       mass=mass,
