@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
+within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -321,7 +321,6 @@ equation
 // der(xi_gas) = zeros(gasType.nc-1);//
   for i in 1:medium.nc-1 loop
     der(xi_liq[i]) = noEvent( if mass_liq >1e-6 then (sum(inlet.m_flow.*xi_in[:,i]) + sum(outlet.m_flow.*xi_out[:,i])
-        + volume_liq*der(p) + p*der(volume_liq)
         - xi_liq[i]*volume_liq*drho_liqdt
         - liq.d*xi_liq[i]*der(volume_liq))/mass_liq else 0);
   end for;
