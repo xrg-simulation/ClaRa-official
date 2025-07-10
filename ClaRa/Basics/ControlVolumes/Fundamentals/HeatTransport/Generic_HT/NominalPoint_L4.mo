@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
+within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model NominalPoint_L4 "Medium independent || Nominal HTC with simple m_flow dependency"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -16,6 +16,8 @@ model NominalPoint_L4 "Medium independent || Nominal HTC with simple m_flow depe
 //__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L4;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBasePlateVLE_L4;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseFlatTubeFinnedGas_L4;
 
   parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha[iCom.N_cv];

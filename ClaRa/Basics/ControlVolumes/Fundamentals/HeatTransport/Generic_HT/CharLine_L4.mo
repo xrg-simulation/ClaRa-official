@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
+within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L4 "Medium independent || Characteristic Line"
 //__________________________________________________________________________//
 // Component of the ClaRa library, version: 1.8.2                           //
@@ -16,6 +16,8 @@ model CharLine_L4 "Medium independent || Characteristic Line"
 //__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L4;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBasePlateVLE_L4;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseFlatTubeFinnedGas_L4;
 
   parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));
 
