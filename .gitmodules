@@ -1,3 +1,6 @@
 [submodule "TILMediaClaRa"]
 	path = TILMediaClaRa
 	url = https://github.com/TLK-Thermo/TILMediaClaRa
+[submodule "SMArtInt"]
+	path = SMArtInt
+	url = https://github.com/xrg-simulation/SMArtInt
