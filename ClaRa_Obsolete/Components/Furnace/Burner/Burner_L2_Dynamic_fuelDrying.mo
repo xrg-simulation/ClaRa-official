@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace.Burner;
+﻿within ClaRa_Obsolete.Components.Furnace.Burner;
 model Burner_L2_Dynamic_fuelDrying "Model for a burner section inside a combustion chamber which is able to regard drying of unburnt fuel which contained water at burner inlet"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -53,23 +53,28 @@ public
 
 //_____________________/ Media Objects \_________________________________
 protected
-     TILMedia.Gas_pT    primaryAir_inlet(p=fuelFlueGas_inlet.flueGas.p, T=actualStream(fuelFlueGas_inlet.flueGas.T_outflow), xi=actualStream(
-        fuelFlueGas_inlet.flueGas.xi_outflow),
-     gasType=flueGas)
-     annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
-     TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= actualStream(outlet.flueGas.T_outflow),xi=actualStream(outlet.flueGas.xi_outflow),
-        gasType=flueGas)
-        annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  TILMedia.Gas.Gas_pT primaryAir_inlet(
+    p=fuelFlueGas_inlet.flueGas.p,
+    T=actualStream(fuelFlueGas_inlet.flueGas.T_outflow),
+    xi=actualStream(fuelFlueGas_inlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=outlet.flueGas.p,
+    T=actualStream(outlet.flueGas.T_outflow),
+    xi=actualStream(outlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
-  TILMedia.Gas_ph inlet_GasMix(p=inlet.flueGas.p,xi=xi_flueGasMix_del,gasType=flueGas,h(start = 1.0E4)=h_flueGasMix_del)
-     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+  TILMedia.Gas.Gas_ph inlet_GasMix(
+    p=inlet.flueGas.p,
+    xi=xi_flueGasMix_del,
+    gasType=flueGas,
+    h(start=1.0E4) = h_flueGasMix_del) annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 public
-    TILMedia.Gas_ph bulk(
+  TILMedia.Gas.Gas_ph bulk(
     p(start=p_start_flueGas_out) = outlet.flueGas.p,
     xi=xi_flueGas_del,
     gasType=flueGas,
-    h=h_flueGas_out_del)
-      annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
 
 //___________________// Chemistry \\__________
 replaceable model ReactionZone_out =
@@ -175,8 +180,8 @@ public
   ClaRa.Basics.Units.MassFraction xi_flueGas_id_out[flueGas.nc - 1];
 
 protected
-  TILMedia.VLEFluid H2O_props_in(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
-  TILMedia.VLEFluid H2O_props_out(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
+  TILMedia.VLEFluid.VLEFluid H2O_props_in(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater vleFluidType);
+  TILMedia.VLEFluid.VLEFluid H2O_props_out(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater vleFluidType);
 
 initial equation
 
@@ -340,9 +345,23 @@ equation
   else
     - xi_fuel_out * outlet.fuel.m_flow = xi_fuel_in*(inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow -m_flow_fuel_burned);
     m_flow_evap = (inlet.fuel.m_flow + fuelFlueGas_inlet.fuel.m_flow -m_flow_fuel_burned) *(1-sum(xi_fuel_in));
-    h_fuel_water_in = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(fuelFlueGas_inlet.fuel.p,inStream(fuelFlueGas_inlet.fuel.T_outflow), {1}, H2O_props_in.vleFluidPointer);
-    h_fuel_water_out = TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(fuelFlueGas_inlet.fuel.p,bulk.T, {1}, H2O_props_out.vleFluidPointer);
-    Delta_h_fuel_water_evap =  TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(inStream(fuelFlueGas_inlet.fuel.T_outflow), {1}, H2O_props_in.vleFluidPointer) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(inStream(fuelFlueGas_inlet.fuel.T_outflow), {1}, H2O_props_in.vleFluidPointer);
+    h_fuel_water_in =TILMedia.VLEFluid.ObjectFunctions.specificEnthalpy_pTxi(
+      fuelFlueGas_inlet.fuel.p,
+      inStream(fuelFlueGas_inlet.fuel.T_outflow),
+      {1},
+      H2O_props_in.vleFluidPointer);
+    h_fuel_water_out =TILMedia.VLEFluid.ObjectFunctions.specificEnthalpy_pTxi(
+      fuelFlueGas_inlet.fuel.p,
+      bulk.T,
+      {1},
+      H2O_props_out.vleFluidPointer);
+    Delta_h_fuel_water_evap =TILMedia.VLEFluid.ObjectFunctions.dewSpecificEnthalpy_Txi(
+      inStream(fuelFlueGas_inlet.fuel.T_outflow),
+      {1},
+      H2O_props_in.vleFluidPointer) - TILMedia.VLEFluid.ObjectFunctions.bubbleSpecificEnthalpy_Txi(
+      inStream(fuelFlueGas_inlet.fuel.T_outflow),
+      {1},
+      H2O_props_in.vleFluidPointer);
     if fuelFlueGas_inlet.fuel.LHV_calculationType == "predefined" and inlet.fuel.LHV_calculationType == "predefined" then
      // LHV_out = (LHV + Delta_h_fuel_water_evap*(1-sum(xi_fuel_in)))/sum(xi_fuel_in);
       LHV_out = (LHV + Delta_h_fuel_water_evap*(1-sum(xi_fuel_in)))*(1-(1-sum(xi_fuel_out)))/(1-(1-sum(xi_fuel_in))) - Delta_h_fuel_water_evap*(1-sum(xi_fuel_out));//Effenberger, lower heating value after drying
@@ -354,8 +373,17 @@ equation
     end if;
 
     //cp_out = (cp +  TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fuelFlueGas_inlet.fuel.p,bulk.T, {1}, H2O_props_out) * (1-sum(xi_fuel_in)))/sum(xi_fuel_in);
-    cp_out = cp - ((1-sum(xi_fuel_in)) - (1-sum(xi_fuel_out)))*(TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fuelFlueGas_inlet.fuel.p,bulk.T, {1}, H2O_props_out.vleFluidPointer) - cp_dc_in);
-    cp_dc_in = (cp - (1-sum(xi_fuel_in))*TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(fuelFlueGas_inlet.fuel.p,bulk.T, {1}, H2O_props_out.vleFluidPointer))/(sum(xi_fuel_in));
+    cp_out =cp - ((1 - sum(xi_fuel_in)) - (1 - sum(xi_fuel_out)))*(
+      TILMedia.VLEFluid.ObjectFunctions.specificIsobaricHeatCapacity_pTxi(
+      fuelFlueGas_inlet.fuel.p,
+      bulk.T,
+      {1},
+      H2O_props_out.vleFluidPointer) - cp_dc_in);
+    cp_dc_in =(cp - (1 - sum(xi_fuel_in))*TILMedia.VLEFluid.ObjectFunctions.specificIsobaricHeatCapacity_pTxi(
+      fuelFlueGas_inlet.fuel.p,
+      bulk.T,
+      {1},
+      H2O_props_out.vleFluidPointer))/(sum(xi_fuel_in));
     m_flow_flueGas_id_out = (m_flow_fuel_id*(1 - xi_fuel_out[6]*reactionZone_out.xi_slag));
     xi_flueGas_id_out = 1/m_flow_flueGas_id_out*reactionZone_out.prod_comp;
     //Delta_h_f_out - LHV_out =m_flow_flueGas_id_out*((ideal_combustion.h_i)*cat(1,xi_flueGas_id,{1 - sum(xi_flueGas_id)})) + xi_fuel_out[6]*reactionZone.xi_slag*outlet.slagType.cp*T_0;//formation enthalpy of used fuel

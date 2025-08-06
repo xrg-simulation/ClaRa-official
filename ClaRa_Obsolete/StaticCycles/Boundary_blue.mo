@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 model Boundary_blue "Blue boundary"
   // Blue output:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
 

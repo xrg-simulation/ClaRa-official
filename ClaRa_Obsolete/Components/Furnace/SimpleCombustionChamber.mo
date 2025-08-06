@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace;
+﻿within ClaRa_Obsolete.Components.Furnace;
 model SimpleCombustionChamber
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -52,7 +52,8 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
  parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType=simCenter.fuelModel1 "Coal elemental composition used for combustion"
                                                                                               annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
  parameter ClaRa.Basics.Media.Slag.PartialSlag slagType = simCenter.slagModel "Slag properties" annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
- inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //___________________________/ Parameters \_________________________________________________________
  parameter ClaRa.Basics.Units.Temperature T_flueGas_out = 573.15 "Temeperature of fluegas leaving the combustion chamber towards deNOx-Filter"
@@ -83,12 +84,16 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
 
 //________________________/ Fluegas Media Objects \_____________________________________________
 protected
-  TILMedia.Gas_pT     gasInlet(p=inlet.flueGas.p, T= inStream(inlet.flueGas.T_outflow), xi=
-        flueGas_outlet.xi_outflow,                                                                                    gasType = medium)
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  TILMedia.Gas_pT     flueGasOutlet(p=flueGas_outlet.p, T=T_flueGas_out, xi=
-        flueGas_outlet.xi_outflow, gasType = medium)
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+  TILMedia.Gas.Gas_pT gasInlet(
+    p=inlet.flueGas.p,
+    T=inStream(inlet.flueGas.T_outflow),
+    xi=flueGas_outlet.xi_outflow,
+    gasType=medium) annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=flueGas_outlet.p,
+    T=T_flueGas_out,
+    xi=flueGas_outlet.xi_outflow,
+    gasType=medium) annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
 //_____________/ Calculated quantities \_________________________________
 

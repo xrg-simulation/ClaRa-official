@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.Interfaces;
+﻿within ClaRa_Obsolete.Basics.Interfaces;
 connector Fuel_outlet
   extends ClaRa_Obsolete.Basics.Interfaces.Fuel_inlet;
   annotation (Icon(graphics={

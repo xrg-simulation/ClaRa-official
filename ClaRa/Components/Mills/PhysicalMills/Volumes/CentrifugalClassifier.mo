@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.Mills.PhysicalMills.Volumes;
 model CentrifugalClassifier "Aerosol component | centrifugal classifier | for replaceable centrifugal classifying processes | discretised fuel mass balance"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -98,7 +98,8 @@ model CentrifugalClassifier "Aerosol component | centrifugal classifier | for re
   //-------------------------------------------------------------------------------
 
   //fundamental definitions
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Medium model" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Medium model"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Coal elemental composition used for combustion" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Fundamentals.Records.FuelClassification_base classification=Fundamentals.Records.FuelClassification_example_21classes() annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
 
@@ -197,27 +198,24 @@ public
   ClaRa.Basics.Interfaces.GasPortIn gasInlet(Medium=gas) annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   ClaRa.Basics.Interfaces.GasPortOut gasOutlet(Medium=gas) annotation (Placement(transformation(extent={{90,10},{110,30}})));
 
-  TILMedia.Gas_pT     gasIn(
-     gasType=gas,
-     p=gasInlet.p,
-     T=noEvent(actualStream(gasInlet.T_outflow)),
-     xi=noEvent(actualStream(gasInlet.xi_outflow)))
-     annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=gas,
+    p=gasInlet.p,
+    T=noEvent(actualStream(gasInlet.T_outflow)),
+    xi=noEvent(actualStream(gasInlet.xi_outflow))) annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
 
-  TILMedia.Gas_pT     gasOut(
-     T=noEvent(actualStream(gasOutlet.T_outflow)),
-     gasType=gas,
-     p=gasOutlet.p,
-     xi=noEvent(actualStream(gasOutlet.xi_outflow)))
-     annotation (Placement(transformation(extent={{60,8},{80,28}})));
+  TILMedia.Gas.Gas_pT gasOut(
+    T=noEvent(actualStream(gasOutlet.T_outflow)),
+    gasType=gas,
+    p=gasOutlet.p,
+    xi=noEvent(actualStream(gasOutlet.xi_outflow))) annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
-  TILMedia.Gas_pT gasBulk(
+  TILMedia.Gas.Gas_pT gasBulk(
     T=T,
     gasType=gas,
     p=p,
     xi=xi_gas,
-    computeTransportProperties=true)
-                annotation (Placement(transformation(extent={{-10,8},{10,28}})));
+    computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,8},{10,28}})));
 
   // Classifier Input: -------------------------------------------------------------------------------
   Modelica.Blocks.Interfaces.RealInput inputClassifier annotation (Placement(transformation(

@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.FlueGasCleaning.Denitrification.Fundamentals;
+﻿within ClaRa_Obsolete.Components.FlueGasCleaning.Denitrification.Fundamentals;
 model Denitrification_controlVolume
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.0                            //
@@ -20,8 +20,8 @@ model Denitrification_controlVolume
 
 //## P A R A M E T E R S #######################################################################################
 //_____________defintion of medium used in cell__________________________________________________________
-  inner parameter TILMedia.GasTypes.BaseGas               medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                 annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Modelica.Units.SI.Temperature T_NH3_O2_mixture=273.15 + 200 "Temperature of ammonia oxygen inlet";
 parameter Real separationRate(min = 0, max = 1) = 0.995 "Efficiency of NOx separation";
@@ -56,27 +56,24 @@ parameter Real separationRate(min = 0, max = 1) = 0.995 "Efficiency of NOx separ
             {110,10}})));
 
   //_____________________Media Objects_________________________________
-  TILMedia.Gas_pT     flueGasInlet(p=inlet.p,
-  T=inStream(inlet.T_outflow),
-  xi=inStream(inlet.xi_outflow),
-  gasType = medium)
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+  TILMedia.Gas.Gas_pT flueGasInlet(
+    p=inlet.p,
+    T=inStream(inlet.T_outflow),
+    xi=inStream(inlet.xi_outflow),
+    gasType=medium) annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
 
-    TILMedia.Gas_pT     NH3_O2_in(
+  TILMedia.Gas.Gas_pT NH3_O2_in(
     p=inlet.p,
     T=T_NH3_O2_mixture,
     xi=NH3_O2_in_xi,
-    gasType = medium)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  TILMedia.Gas_ph     flueGasMixture(xi=flueGasMixture_xi,
-    gasType = medium)
+    gasType=medium) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  TILMedia.Gas.Gas_ph flueGasMixture(xi=flueGasMixture_xi, gasType=medium)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  TILMedia.Gas_pT     flueGasOutlet(
+  TILMedia.Gas.Gas_pT flueGasOutlet(
     p=inlet.p,
     T=outlet.T_outflow,
     xi=outlet.xi_outflow,
-    gasType = medium)
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    gasType=medium) annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
     Real test;
 equation
   test =(-flueGasMixture.xi[8]*flueGasMixture_m_flow - flueGasMixture.xi[5]*flueGasMixture_m_flow)*Delta_R_H/(-(4.0*flueGasMixture.M_i[5] + 6*flueGasMixture.M_i[8]));

@@ -19,8 +19,9 @@ model Denitrification_NH3port_controlVolume
   outer ClaRa.SimCenter simCenter;
 //## P A R A M E T E R S #######################################################################################
 //_____________defintion of medium used in cell__________________________________________________________
-   parameter TILMedia.GasTypes.BaseGas               medium = simCenter.flueGasModel "Medium to be used"
-                        annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"),
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used" annotation (
+    choicesAllMatching,
+    Dialog(group="Fundamental Definitions"),
     Placement(transformation(extent={{80,80},{100,100}})));
 
 // standard formation enthalpy (T = 298.15K /p = 1.0 bar) for  components involved in deNOx catalysis
@@ -75,16 +76,27 @@ Real h_CatalysisOut "Specific enthalpy of gas mixture at catalysis outlet";
             {110,10}})));
 
 //_____________________Media Objects_________________________________
-  TILMedia.Gas_pT     gasMixture_a(gasType = medium,p = flueGas_a.p, T =  actualStream(flueGas_a.T_outflow),  xi = actualStream(flueGas_a.xi_outflow))
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
-  TILMedia.Gas_pT     gasMixture_NH3in(gasType = medium, p = NH3_inlet.p, T = actualStream(NH3_inlet.T_outflow),xi = actualStream(NH3_inlet.xi_outflow))
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  TILMedia.Gas.Gas_pT gasMixture_a(
+    gasType=medium,
+    p=flueGas_a.p,
+    T=actualStream(flueGas_a.T_outflow),
+    xi=actualStream(flueGas_a.xi_outflow)) annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+  TILMedia.Gas.Gas_pT gasMixture_NH3in(
+    gasType=medium,
+    p=NH3_inlet.p,
+    T=actualStream(NH3_inlet.T_outflow),
+    xi=actualStream(NH3_inlet.xi_outflow)) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  TILMedia.Gas_ph     gasMixture_idealMixture(gasType = medium, p = flueGas_a.p, h = h_idealMixture, xi = xi_idealMixture)
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  TILMedia.Gas_ph     gasMixture_CatalysisOut(
-    gasType = medium, p = flueGas_b.p,  h = h_CatalysisOut, xi = xi_CatalysisOut)
-    annotation (Placement(transformation(extent={{66,-70},{86,-50}})));
+  TILMedia.Gas.Gas_ph gasMixture_idealMixture(
+    gasType=medium,
+    p=flueGas_a.p,
+    h=h_idealMixture,
+    xi=xi_idealMixture) annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  TILMedia.Gas.Gas_ph gasMixture_CatalysisOut(
+    gasType=medium,
+    p=flueGas_b.p,
+    h=h_CatalysisOut,
+    xi=xi_CatalysisOut) annotation (Placement(transformation(extent={{66,-70},{86,-50}})));
 
 equation
   // Think about correct usage of stream operator

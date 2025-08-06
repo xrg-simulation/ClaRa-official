@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 model Boundary_yellow "Yellow boundary"
 
   parameter Boolean source = true "True if boundary is source else sink";

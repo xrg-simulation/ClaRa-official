@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.MechanicalSeparation.Check;
+﻿within ClaRa_Obsolete.Components.MechanicalSeparation.Check;
 model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and FeedWaterTank_3"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -18,7 +18,8 @@ model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and Fee
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
 
-  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, showExpertSummary=true) annotation (Placement(transformation(extent={{-100,-240},{-60,-220}})));
+  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_InterpolatedWater fluid1,
+      showExpertSummary=true) annotation (Placement(transformation(extent={{-100,-240},{-60,-220}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1000,
     height=-5,

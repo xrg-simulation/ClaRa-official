@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace.FlameRoom;
+﻿within ClaRa_Obsolete.Components.Furnace.FlameRoom;
 model FlameRoomWithTubeBundle_L2_Static "Model for a combustion chamber section with inner tube bundle heating surfaces"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -27,9 +27,11 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
 //## P A R A M E T E R S #######################################################################################
 inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
-inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas_del,
-      gasType=flueGas, h=h_flueGas_out_del)
-      annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  inner TILMedia.Gas.Gas_ph flueGasOutlet(
+    p(start=p_start_flueGas_out) = outlet.flueGas.p,
+    xi=xi_flueGas_del,
+    gasType=flueGas,
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
 //## V A R I A B L E   P A R T##################################################################################
 //___________________/ iCom record \\__________________

@@ -66,8 +66,8 @@ package Desulfurization
    end Summary;
 
   //_____________defintion of medium used in cell__________________________________________________________
-    inner parameter TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                   annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+    inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+      annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
     parameter Real SOx_separationRate = 0.95 "Sulphur separation rate" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
     parameter ClaRa.Basics.Units.Temperature T_in_H2O = 313.15 "Temperature of water inlet" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -178,9 +178,13 @@ package Desulfurization
   protected
     ClaRa.Basics.Interfaces.EyeIn eye_int annotation (Placement(transformation(extent={{32,-68},{48,-52}}), iconTransformation(extent={{90,-84},{84,-78}})));
   public
-    TILMedia.Gas GasPointer(gasType=medium) annotation (Placement(transformation(extent={{-10,48},{10,68}})));
+    TILMedia.Gas.Gas GasPointer(gasType=medium) annotation (Placement(transformation(extent={{-10,48},{10,68}})));
   equation
-    V_flow_std = inlet.m_flow / TILMedia.GasObjectFunctions.density_pTxi(1.01325e5,273.15,inStream(inlet.xi_outflow),GasPointer.gasPointer);
+    V_flow_std =inlet.m_flow/TILMedia.Gas.ObjectFunctions.density_pTxi(
+        1.01325e5,
+        273.15,
+        inStream(inlet.xi_outflow),
+        GasPointer.gasPointer);
     P_el = specificPowerConsumption * V_flow_std;
 
     //______________Eye port variable definition________________________
@@ -300,8 +304,8 @@ package Desulfurization
 
       outer ClaRa.SimCenter simCenter;
 
-      inner parameter TILMedia.GasTypes.BaseGas  medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                     annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+      inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+        annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
       ClaRa.Basics.Interfaces.GasPortIn inlet(Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
       ClaRa.Basics.Interfaces.GasPortOut outlet(Medium=medium) annotation (Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
@@ -351,18 +355,17 @@ package Desulfurization
     ClaRa.Basics.Units.EnthalpyMassSpecific h_out "Specific enthalpy at outlet";
     //ClaRa.Basics.Units.EnthalpyMassSpecific h_out_del "Pseudo state for specific enthalpy at outlet";
 
-      TILMedia.Gas_pT     flueGasInlet(p=inlet.p,
-      T=inStream(inlet.T_outflow),
-      xi=inStream(inlet.xi_outflow),
-      gasType = medium)
-        annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
+      TILMedia.Gas.Gas_pT flueGasInlet(
+        p=inlet.p,
+        T=inStream(inlet.T_outflow),
+        xi=inStream(inlet.xi_outflow),
+        gasType=medium) annotation (Placement(transformation(extent={{-78,-12},{-58,8}})));
 
-      TILMedia.Gas_ph     flueGasOutlet(
-      gasType = medium,
+      TILMedia.Gas.Gas_ph flueGasOutlet(
+        gasType=medium,
         p=inlet.p,
         h=h_out,
-        xi(start= xi_start)=outlet.xi_outflow)
-        annotation (Placement(transformation(extent={{62,-12},{82,8}})));
+        xi(start=xi_start) = outlet.xi_outflow) annotation (Placement(transformation(extent={{62,-12},{82,8}})));
 
     initial equation
       - m_flow_aux= inlet.m_flow - m_flow_SOx_sep + m_flow_O2_req - m_flow_O2_sep + m_flow_H2O_req + m_flow_CO2_prod + m_flow_CaCO3_req - m_flow_CaSO4_H2O_out;

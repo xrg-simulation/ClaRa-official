@@ -37,13 +37,17 @@ Real Q_boiler;
     superheater3(Delta_x=ones(SH.superheater3.N_cv)*SH.length_SH3/SH.superheater3.N_cv),
     superheater2(Delta_x=ones(SH.superheater2.N_cv)*SH.length_SH2/SH.superheater2.N_cv),
     superheater1(Delta_x=ones(SH.superheater1.N_cv)*SH.length_SH1/SH.superheater1.N_cv),
-    redeclare model HeatTransfer_SH2 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (alpha_nom=5000),
-    redeclare model HeatTransfer_SH3 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (alpha_nom=5000),
+    redeclare model HeatTransfer_SH2 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (
+          alpha_nom=5000),
+    redeclare model HeatTransfer_SH3 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (
+          alpha_nom=5000),
     m_flow_nomSpray1=30,
     m_flow_nomSpray2=30,
-    redeclare model HeatTransfer_SH1 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.NominalPoint_L4 (alpha_nom=1000),
+    redeclare model HeatTransfer_SH1 =
+        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.NominalPoint_L4 (alpha_nom=1000),
     superheater4(Delta_x=ones(SH.superheater4.N_cv)*SH.length_SH4/SH.superheater4.N_cv),
-    redeclare model HeatTransfer_SH4 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (alpha_nom=5000),
+    redeclare model HeatTransfer_SH4 = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L4 (
+          alpha_nom=5000),
     h_nomSH4_in=3400e3,
     h_nomSH4_out=3500e3,
     SH4_wall(Delta_x=ones(SH.superheater4.N_cv)*SH.length_SH4/SH.superheater4.N_cv, initOption=1),
@@ -55,9 +59,11 @@ Real Q_boiler;
     h_startSH2_in=3000e3,
     h_startSH3_in=3070e3,
     h_startSH4_in=3140e3,
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
-    redeclare model PressureLoss_SH1 = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
-    redeclare model PressureLoss_SH2 = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
+    redeclare model PressureLoss_SH1 =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
+    redeclare model PressureLoss_SH2 =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     p_nomSH1_in=30260000,
     p_nomSH1_out=29540000,
     p_startSH1_in=30260000,
@@ -67,13 +73,15 @@ Real Q_boiler;
     Delta_p_nomSH2=140000,
     p_startSH2_in=29330000,
     p_startSH2_out=29050000,
-    redeclare model PressureLoss_SH3 = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
+    redeclare model PressureLoss_SH3 =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     p_nomSH3_in=28910000,
     p_nomSH3_out=28500000,
     Delta_p_nomSH3=140000,
     p_startSH3_in=28910000,
     p_startSH3_out=28500000,
-    redeclare model PressureLoss_SH4 = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
+    redeclare model PressureLoss_SH4 =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     p_nomSH4_in=28300000,
     p_nomSH4_out=28000000,
     Delta_p_nomSH4=410000,
@@ -95,7 +103,8 @@ Real Q_boiler;
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG2(h_const=1363e3, p_const=32000000) annotation (Placement(transformation(extent={{102,9},{78,31}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi pressureSink_XRG3(h_const=1363e3, p_const=32000000) annotation (Placement(transformation(extent={{102,-10},{78,12}})));
-  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_InterpolatedWater fluid1)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   ClaRa.Components.BoundaryConditions.PrescribedHeatFlow heating_SH1(
     N_axial=n_Axial,
     Delta_x=SH.superheater1.Delta_x,

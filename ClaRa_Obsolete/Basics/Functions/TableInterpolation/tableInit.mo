@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.Functions.TableInterpolation;
+﻿within ClaRa_Obsolete.Basics.Functions.TableInterpolation;
 function tableInit "Initialize 1-dim. table defined by matrix (for details see: Modelica/Resources/C-Sources/ModelicaTables.h)"
   input String tableName;
   input String fileName;

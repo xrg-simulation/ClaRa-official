@@ -18,7 +18,8 @@ model Boiler "Boiler || liveSteam: blue |green || RH: blue |green"
   // Green output: Values of p, m_flow and h are known in component and provided FOR neighbor component.
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "|Fundamental Definitions|Medium in the component";
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1
+    "|Fundamental Definitions|Medium in the component";
 
   outer parameter Real P_target_ "Target power in p.u.";
   outer parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom;
@@ -57,12 +58,12 @@ public
    final parameter Real Q_RS_ = 1 - Q_LS_ "Heat release in reheated steam at current load";
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_out=
-      TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+      TILMedia.VLEFluid.Functions.specificEnthalpy_pTxi(
       medium,
       p_LS_out,
       T_LS_nom) "Outlet specific enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_out=
-      TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(
+      TILMedia.VLEFluid.Functions.specificEnthalpy_pTxi(
       medium,
       p_RS_out,
       T_RS_nom) "Outlet specific enthalpy";

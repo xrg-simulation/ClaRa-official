@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions.Check;
+﻿within ClaRa.Components.BoundaryConditions.Check;
 model TestPrescribedHeatFlow
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(

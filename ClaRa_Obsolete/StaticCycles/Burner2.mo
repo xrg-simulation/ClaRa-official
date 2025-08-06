@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 model Burner2
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.1.0                            //
@@ -69,8 +69,10 @@ model Burner2
 
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid vleMedium = simCenter.fluid1 "Medium in the component" annotation(Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType=simCenter.fuelModel1 "Coal elemental composition used for combustion" annotation(Dialog(group="Fundamental Definitions"));
   parameter Real lambda= 1 "Stoichiometric air ratio" annotation(Dialog(group="Fundamental Definitions"));
 
@@ -105,18 +107,18 @@ model Burner2
   final parameter Real kA = Q_flow /(1e-5+Delta_T_mean) "Rprt: Heat Flow Resistance";
   final parameter ClaRa.Basics.Units.Pressure p_wall[N_cv_wall] = ClaRa.Basics.Functions.pressureInterpolation(p_vle_wall_in, p_vle_wall_out, Delta_x_wall, frictionAtInlet_wall, frictionAtOutlet_wall) "Rprt: Discretisised pressure at tube bundle";
 
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in = TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in = TILMedia.VLEFluid.Functions.temperature_phxi(
       vleMedium,
       p_vle_wall_in,
       h_vle_wall_in) "Rprt: VLE medium's inlet temperature";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out = TILMedia.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out = TILMedia.VLEFluid.Functions.temperature_phxi(
       vleMedium,
       p_vle_wall_out,
       h_vle_wall_out) "VLE  medium's outlet temperature";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub = TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub = TILMedia.VLEFluid.Functions.bubbleSpecificEnthalpy_pxi(
       vleMedium,
       p_vle_wall_out) "Rprt: Bubble enthalpy at vle outlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew = TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew = TILMedia.VLEFluid.Functions.dewSpecificEnthalpy_pxi(
       vleMedium,
       p_vle_wall_out) "Rprt: Dew enthalpy at vle outlet";
 
@@ -153,26 +155,26 @@ model Burner2
   final parameter ClaRa.Basics.Units.MassFraction xi_fg_mix_in[flueGas.nc-1] = (xi_fg_in * m_flow_fg_in + xi_pa_in * m_flow_pa_in)/(m_flow_fg_in+m_flow_pa_in) "Inlet mixed composition flue gas";
 
   final parameter ClaRa.Basics.Units.Temperature T_fg_mix_in=
-      TILMedia.GasFunctions.temperature_phxi(
+      TILMedia.Gas.Functions.temperature_phxi(
       flueGas,
       p_fg_out,
       h_fg_mix_in,
       xi_fg_mix_in) "Inlet mixed temperature flue gas";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_out=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_out=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       flueGas,
       p_fg_out,
       T_fg_out,
       xi_fg_in) "Outlet specific enthalpy flue gas";
 
    final parameter ClaRa.Basics.Units.Temperature T_fg_in=
-      TILMedia.GasFunctions.temperature_phxi(
+      TILMedia.Gas.Functions.temperature_phxi(
       flueGas,
       p_fg_out,
       h_fg_in,
       xi_fg_in) "Inlet temperature flue gas";
 
-   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_pa_in=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_pa_in=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       flueGas,
       p_fg_out,
       T_pa_in,
@@ -180,7 +182,8 @@ model Burner2
 
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(vleMedium.nc - 1) "VLE composition in component, pure fluids supported only!";
   final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=
-    TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_vle_wall_out, h_vle_wall_out, xi) * Modelica.Constants.g_n * ( z_wall_out - z_wall_in) "Geostatic pressure difference";
+    TILMedia.VLEFluid.Functions.density_phxi(
+                                            vleMedium, p_vle_wall_out, h_vle_wall_out, xi) * Modelica.Constants.g_n * ( z_wall_out - z_wall_in) "Geostatic pressure difference";
 
   final parameter ClaRa.Basics.Units.Pressure p_vle_wall_in=p_vle_wall_out + Delta_p_vle + Delta_p_geo "Inlet pressure";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_in=(m_flow_fg_out*h_fg_out-m_flow_vle_wall_out*h_vle_wall_in+m_flow_vle_wall_out*h_vle_wall_out-m_flow_fuel*LHV-m_flow_pa_in*h_pa_in)/m_flow_fg_in "Inlet specific enthalpy flue gas";

@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components;
+﻿within ClaRa_Obsolete.Components;
 package BoundaryConditions
       extends ClaRa.Basics.Icons.PackageIcons.Components80;
 

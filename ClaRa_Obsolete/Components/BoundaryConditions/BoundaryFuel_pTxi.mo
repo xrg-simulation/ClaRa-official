@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.BoundaryConditions;
+﻿within ClaRa_Obsolete.Components.BoundaryConditions;
 model BoundaryFuel_pTxi "A source defining pressure, temperature and composition"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //

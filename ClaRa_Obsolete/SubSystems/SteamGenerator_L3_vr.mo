@@ -28,11 +28,11 @@ model SteamGenerator_L3_vr "A steam generation and reaheater model using lumped 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nomLS=419 "Nominal life steam flow rate" annotation (Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_F_nom=1340e6 "Nominal firing power" annotation (Dialog(group="Nominal values"));
 protected
-  parameter Modelica.Units.SI.Density rho_nom_HP=TILMedia.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Density rho_nom_HP=TILMedia.VLEFluid.Functions.density_phxi(
       medium,
       p_LS_nom,
       h_LS_nom) "Nominal density";
-  parameter Modelica.Units.SI.Density rho_nom_IP=TILMedia.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Density rho_nom_IP=TILMedia.VLEFluid.Functions.density_phxi(
       medium,
       p_RH_nom,
       h_RH_nom) "Nominal density";
@@ -100,10 +100,14 @@ public
       initType=Modelica.Blocks.Types.Init.NoInit) "comprehends the coal supply, the heat release and the steam generation"
     annotation (Placement(transformation(extent={{-66,-56},{-46,-36}})));
   Modelica.Blocks.Tables.CombiTable1Dv convert2PressureDrop_HP(columns={2}, table=CL_Delta_pHP_mLS) annotation (Placement(transformation(extent={{-6,108},{14,128}})));
-  TILMedia.VLEFluid_ph liveSteam(vleFluidType =    medium,       p=p_HP,
+  TILMedia.VLEFluid.VLEFluid_ph liveSteam(
+    vleFluidType=medium,
+    p=p_HP,
     h=(h_HP*(-m_flow_heatedHP) + HPInjection.m_flow*h_sprayHP)/(-livesteam.m_flow))
     annotation (Placement(transformation(extent={{-10,144},{10,164}})));
-  TILMedia.VLEFluid_ph reheatedSteam(vleFluidType =    medium,   p=p_IP,
+  TILMedia.VLEFluid.VLEFluid_ph reheatedSteam(
+    vleFluidType=medium,
+    p=p_IP,
     h=(h_IP*(-m_flow_heatedIP) + IPInjection.m_flow*h_sprayIP)/(-reheat_out.m_flow))
     annotation (Placement(transformation(extent={{50,144},{70,164}})));
 
@@ -144,7 +148,7 @@ public
 protected
   ClaRa.Basics.Interfaces.EyeIn eye_intRH annotation (Placement(transformation(extent={{85,171},{87,173}})));
 public
-  TILMedia.VLEFluid_ph evapSteam(
+  TILMedia.VLEFluid.VLEFluid_ph evapSteam(
     vleFluidType=medium,
     p=p_HP,
     h=(h_HP*(-m_flow_heatedHP) + HPInjection.m_flow*h_sprayHP)/(-livesteam.m_flow))

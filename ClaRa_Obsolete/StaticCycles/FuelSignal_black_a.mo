@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 connector FuelSignal_black_a "Signal-based fuel connector"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.1.0                            //

@@ -2,7 +2,7 @@
 partial model PartialReactionZone "Model to regard chemical reactions"
   extends ClaRa.Basics.Icons.Box;
 
-parameter TILMedia.GasTypes.BaseGas flueGas;
+  parameter TILMedia.Gas.Types.BaseGas flueGas;
 parameter ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelModel;
 
 

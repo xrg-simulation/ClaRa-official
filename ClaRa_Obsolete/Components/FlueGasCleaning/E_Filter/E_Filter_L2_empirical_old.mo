@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter;
+﻿within ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter;
 model E_Filter_L2_empirical_old "Model for an electrical dust filter based on the Deutsch-Equation for the separation rate with empirical numbers for the partical migration speed"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.0                            //
@@ -47,7 +47,8 @@ end Summary;
 
 //## P A R A M E T E R S #######################################################################################
 //_____________defintion of medium used in cell__________________________________________________________
-  inner parameter TILMedia.GasTypes.BaseGas               medium = simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Modelica.Units.SI.Velocity w_m=0.15 "Migration speed of dust particles in the E-field" annotation (Dialog(group="Fundamental Definitions"));
   parameter Real specific_powerConsumption(unit="W.h/m3") = 0.15 "Specific power consumption" annotation (Dialog(group="Fundamental Definitions"));
@@ -83,7 +84,11 @@ protected
    ClaRa.Basics.Units.EnthalpyMassSpecific h_out "Specific enthalpy at outlet";
    ClaRa.Basics.Units.EnthalpyMassSpecific h_in "Specific enthalpy at inlet";
    ClaRa.Basics.Units.EnthalpyMassSpecific h_dust "Specific enthalpy of separated dust";
-   inner ClaRa.Basics.Units.EnthalpyMassSpecific h(start=TILMedia.GasFunctions.specificEnthalpy_pTxi(simCenter.flueGasModel, p_start, T_start, xi_start)) "Specific enthalpy of gas";
+  inner ClaRa.Basics.Units.EnthalpyMassSpecific h(start=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
+        simCenter.flueGasModel,
+        p_start,
+        T_start,
+        xi_start)) "Specific enthalpy of gas";
    Real drhodt "Density derivative";
   Modelica.Units.SI.Mass mass "Mass in component";
   Modelica.Units.SI.Pressure p(start=p_start) "Pressure in component";
@@ -131,31 +136,34 @@ public
 
 //_____________________Media Objects_________________________________
 protected
-  TILMedia.Gas_pT     flueGasInlet(p=inlet.p,
-  T=noEvent(actualStream(inlet.T_outflow)),
-  xi=noEvent(actualStream(inlet.xi_outflow)),
-  gasType = medium)
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  TILMedia.Gas_pT     flueGasOutlet(p=outlet.p,
-  T=noEvent(actualStream(outlet.T_outflow)),
-  xi=noEvent(actualStream(outlet.xi_outflow)),
-  gasType = medium)
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  TILMedia.Gas.Gas_pT flueGasInlet(
+    p=inlet.p,
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi=noEvent(actualStream(inlet.xi_outflow)),
+    gasType=medium) annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=outlet.p,
+    T=noEvent(actualStream(outlet.T_outflow)),
+    xi=noEvent(actualStream(outlet.xi_outflow)),
+    gasType=medium) annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
-  inner TILMedia.Gas_ph     bulk(
+  inner TILMedia.Gas.Gas_ph bulk(
     computeTransportProperties=false,
-    gasType = medium,p=p,h=h,xi=xi,
-    stateSelectPreferForInputs=true)
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+    gasType=medium,
+    p=p,
+    h=h,
+    xi=xi,
+    stateSelectPreferForInputs=true) annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
 public
-   TILMedia.Gas_pT     dust(
+  TILMedia.Gas.Gas_pT dust(
     computeTransportProperties=false,
-    gasType = medium,
+    gasType=medium,
     stateSelectPreferForInputs=true,
     p=bulk.p,
     T=bulk.T,
-    xi(start={if i==1 then 0.99999 else if i==5 then 0.00001 else 0 for i in 1:medium.nc-1})={if i==1  then 0.99999 else if i==5 then 0.00001 else 0 for i in 1:medium.nc-1})
+    xi(start={if i == 1 then 0.99999 else if i == 5 then 0.00001 else 0 for i in 1:medium.nc - 1}) = {if i == 1 then
+      0.99999 else if i == 5 then 0.00001 else 0 for i in 1:medium.nc - 1})
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
 Summary summary(outline(

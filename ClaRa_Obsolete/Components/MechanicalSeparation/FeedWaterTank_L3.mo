@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.MechanicalSeparation;
+﻿within ClaRa_Obsolete.Components.MechanicalSeparation;
 model FeedWaterTank_L3 "Feedwater tank : separated volume approach | level-dependent phase separation"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -20,9 +20,13 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
   parameter ClaRa.Basics.Units.Length thickness_wall=0.005*diameter "Thickness of the cylinder wall"  annotation(Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FeedWaterTank_L3.png"));
   parameter ClaRa.Basics.Units.Length thickness_insulation= 0.02 "Thickness of the insulation"
                                                                                               annotation(Dialog(group="Geometry", enable=includeInsulation));
-  replaceable model material = TILMedia.SolidTypes.TILMedia_Steel constrainedby TILMedia.SolidTypes.TILMedia_Aluminum "Material of the walls"  annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching);
+  replaceable model material = TILMedia.Solid.Types.TILMedia_Steel
+                                                                  constrainedby TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                                                                      "Material of the walls"  annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching);
   parameter Boolean includeInsulation=false  "True, if insulation is included" annotation(Dialog(group="Fundamental Definitions"));
-  replaceable model insulationMaterial=TILMedia.SolidTypes.TILMedia_StainlessSteel constrainedby TILMedia.SolidTypes.BaseSolid "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
+  replaceable model insulationMaterial=TILMedia.Solid.Types.TILMedia_StainlessSteel
+                                                                                   constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                               "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
   parameter Modelica.Units.SI.Length radius_flange=0.05 "Flange radius" annotation (Dialog(group="Geometry"));
   parameter ClaRa.Basics.Units.Time Tau_cond=10 "Time constant of condensation" annotation (Dialog(tab="Phase Separation", group="Mass Transfer Between Phases"));
@@ -38,8 +42,10 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "Smoothness of table interpolation for calculation of filling level" annotation(Dialog(tab="Phase Separation", group="Numerical Robustness"));
   parameter Modelica.Units.SI.Length z_in=1 "Height of inlet ports" annotation (Dialog(group="Geometry"));
   parameter Modelica.Units.SI.Length z_out=1 "Height of outlet ports" annotation (Dialog(group="Geometry"));
-  parameter Modelica.Units.SI.SpecificEnthalpy h_liq_start=TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial liquid specific enthalpy";
-  parameter Modelica.Units.SI.SpecificEnthalpy h_vap_start=TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "|Initialisation||Initial vapour specific enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_liq_start=TILMedia.VLEFluid.Functions.bubbleSpecificEnthalpy_pxi(
+                                                                                                                 medium, p_start) "|Initialisation||Initial liquid specific enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_vap_start=TILMedia.VLEFluid.Functions.dewSpecificEnthalpy_pxi(
+                                                                                                              medium, p_start) "|Initialisation||Initial vapour specific enthalpy";
   replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3 "Pressure loss model"
@@ -89,30 +95,33 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
  end Summary;
 
   Summary summary(
-    outline(level_abs=volume.phaseBorder.level_abs, level_rel=volume.phaseBorder.level_rel,Q_loss = wall.outerPhase.Q_flow),
+    outline(
+      level_abs=volume.phaseBorder.level_abs,
+      level_rel=volume.phaseBorder.level_rel,
+      Q_loss=wall.outerPhase.Q_flow),
     wall(T_wall=wall.T),
     tapping(
       showExpertSummary=showExpertSummary,
       m_flow=heatingSteam.m_flow,
       p=heatingSteam.p,
       h=actualStream(heatingSteam.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.VLEFluid.ObjectFunctions.temperature_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.VLEFluid.ObjectFunctions.specificEntropy_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
           volume.fluidIn.vleFluidPointer),
       H_flow=heatingSteam.m_flow*actualStream(heatingSteam.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.VLEFluid.ObjectFunctions.density_phxi(
           heatingSteam.p,
           actualStream(heatingSteam.h_outflow),
           actualStream(heatingSteam.xi_outflow),
@@ -122,23 +131,23 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
       m_flow=condensate.m_flow,
       p=condensate.p,
       h=actualStream(condensate.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.VLEFluid.ObjectFunctions.temperature_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.VLEFluid.ObjectFunctions.specificEntropy_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
           volume.fluidIn.vleFluidPointer),
       H_flow=condensate.m_flow*actualStream(condensate.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.VLEFluid.ObjectFunctions.density_phxi(
           condensate.p,
           actualStream(condensate.h_outflow),
           actualStream(condensate.xi_outflow),
@@ -148,23 +157,23 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_2;
       m_flow=-outlet.m_flow,
       p=outlet.p,
       h=actualStream(outlet.h_outflow),
-      T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(
+      T=TILMedia.VLEFluid.ObjectFunctions.temperature_phxi(
           outlet.p,
           actualStream(outlet.h_outflow),
           actualStream(outlet.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(
+      s=TILMedia.VLEFluid.ObjectFunctions.specificEntropy_phxi(
           outlet.p,
           actualStream(outlet.h_outflow),
           actualStream(outlet.xi_outflow),
           volume.fluidIn.vleFluidPointer),
-      steamQuality=TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+      steamQuality=TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
           outlet.p,
           actualStream(outlet.h_outflow),
           actualStream(outlet.xi_outflow),
           volume.fluidIn.vleFluidPointer),
       H_flow=-outlet.m_flow*actualStream(outlet.h_outflow),
-      rho=TILMedia.VLEFluidObjectFunctions.density_phxi(
+      rho=TILMedia.VLEFluid.ObjectFunctions.density_phxi(
           outlet.p,
           actualStream(outlet.h_outflow),
           actualStream(outlet.xi_outflow),

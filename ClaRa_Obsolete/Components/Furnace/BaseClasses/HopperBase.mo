@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace.BaseClasses;
+﻿within ClaRa_Obsolete.Components.Furnace.BaseClasses;
 partial model HopperBase
 extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
 
@@ -9,7 +9,8 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
                                                                                             Dialog(group="Media Definitions"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation(choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"),
                                                                                             Dialog(group="Media Definitions"));
-  inner parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(choicesAllMatching, Dialog(group="Media Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (choicesAllMatching, Dialog(group="Media Definitions"));
   parameter Integer slagTemperature_calculationType=1 "Calculation type of outflowing slag temperature" annotation (Dialog(group="Slag temperature definitions"), choices(
       choice=1 "Fixed slag temperature",
       choice=2 "Outlet flue gas temperature",
@@ -72,7 +73,7 @@ extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
                                                                                             annotation(Dialog(tab="Initialisation"));
   //   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in_start=1 annotation(Dialog(tab="Initialisation"));
 //  parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_out_start=-15 "Start volume flow at outlet" annotation(Dialog(tab="Initialisation"));
-  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       flueGas,
       p_start_flueGas_out,
       T_start_flueGas_out,
@@ -136,13 +137,17 @@ public
 
    //_____________________/ Media Objects \_________________________________
 
-     TILMedia.Gas_pT     flueGasInlet(p=inlet.flueGas.p, T= actualStream(inlet.flueGas.T_outflow), xi=actualStream(inlet.flueGas.xi_outflow),
-       gasType=flueGas)
-       annotation (Placement(transformation(extent={{-130,-88},{-110,-68}})));
+  TILMedia.Gas.Gas_pT flueGasInlet(
+    p=inlet.flueGas.p,
+    T=actualStream(inlet.flueGas.T_outflow),
+    xi=actualStream(inlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,-88},{-110,-68}})));
 
-      TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= actualStream(outlet.flueGas.T_outflow),xi=actualStream(outlet.flueGas.xi_outflow),
-        gasType=flueGas)
-        annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=outlet.flueGas.p,
+    T=actualStream(outlet.flueGas.T_outflow),
+    xi=actualStream(outlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
 //________________________/ replaceable models for heat transfer, pressure loss and geometry \_________________________
 
@@ -160,8 +165,7 @@ public
             {52,70}})));
 
   ClaRa.Basics.Interfaces.EyeOutGas eyeOut annotation (Placement(transformation(extent={{-286,78},{-314,102}}), iconTransformation(extent={{-290,70},{-310,90}})));
-protected
-           ClaRa.Basics.Interfaces.EyeInGas eye_int[1] annotation (Placement(transformation(extent={{-254,84},{-266,96}}), iconTransformation(extent={{240,-64},{232,-56}})));
+protected  ClaRa.Basics.Interfaces.EyeInGas eye_int[1] annotation (Placement(transformation(extent={{-254,84},{-266,96}}), iconTransformation(extent={{240,-64},{232,-56}})));
 public
   parameter Boolean showData = false "True, if characteristic data shall be visualised in model icon"  annotation(Dialog(tab="Summary and Visualisation"));
 

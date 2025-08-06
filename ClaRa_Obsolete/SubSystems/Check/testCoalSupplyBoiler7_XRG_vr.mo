@@ -51,7 +51,8 @@ model testCoalSupplyBoiler7_XRG_vr
     rho_nom=74.2585,
     Pi=28e5/240e5,
     p_nom=24000000) annotation (Placement(transformation(extent={{78,-74},{90,-58}})));
-  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{180,180},{200,200}})));
+  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_InterpolatedWater fluid1)
+    annotation (Placement(transformation(extent={{180,180},{200,200}})));
   ClaRa.Components.Control.PredictorModels_3508.TurbinesAndReheat_01_XRG turbinesAndReheat_01_XRG(
     p_nom=2800000,
     P_G_nom=507.7e6,

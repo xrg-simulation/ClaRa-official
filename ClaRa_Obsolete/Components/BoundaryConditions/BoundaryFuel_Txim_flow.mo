@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.BoundaryConditions;
+﻿within ClaRa_Obsolete.Components.BoundaryConditions;
 model BoundaryFuel_Txim_flow "A source defining mass flow, temperature and composition"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //

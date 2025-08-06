@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components;
+﻿within ClaRa_Obsolete.Components;
 package Adapters
     extends ClaRa.Basics.Icons.PackageIcons.Components80;
 

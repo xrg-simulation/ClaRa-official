@@ -1,5 +1,5 @@
 ﻿within ClaRa_Obsolete.UsersGuide;
-package Revisions 
+package Revisions  
 //___________________________________________________________________________//
 // Package of the ClaRa library, version: 1.0.0                          //
 // Models of the ClaRa library are tested under DYMOLA v2013 FD01.           //

@@ -1,5 +1,5 @@
 ﻿within ClaRa_Obsolete.Basics.Functions;
-package TableInterpolation 
+package TableInterpolation  
 //___________________________________________________________________________//
 // Package of the ClaRa library, version: 1.1.2                              //
 // Models of the ClaRa library are tested under DYMOLA v2016 FD01.           //

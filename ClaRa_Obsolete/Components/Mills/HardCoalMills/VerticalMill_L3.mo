@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Mills.HardCoalMills;
+﻿within ClaRa_Obsolete.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -29,7 +29,8 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
 ////////////////// PARAMETERS /////////////////////////
 //________Materials and Media_______
   parameter ClaRa.Basics.Media.Fuel.PartialFuel coal=simCenter.fuelModel1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.GasTypes.BaseGas  gas= simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //________Mill definition___________
   parameter ClaRa.Components.Mills.HardCoalMills.Fundamentals.RollerBowlMillDefinition  millKoeff=
@@ -109,7 +110,7 @@ protected
 
   Real grindingStatus_;
 protected
-  TILMedia.VLEFluid H2O_props(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
+  TILMedia.VLEFluid.VLEFluid H2O_props(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater vleFluidType);
 public
   Modelica.Blocks.Interfaces.RealOutput Delta_p_mill(unit="Pa") "Pressure Difference between inlet and outlet connector"
                                                     annotation(Placement(transformation(extent={{100,50},
@@ -118,12 +119,11 @@ public
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,108})));
-  TILMedia.Gas_pT     gasIn(
+  TILMedia.Gas.Gas_pT gasIn(
     p=inlet.flueGas.p,
     T=inStream(inlet.flueGas.T_outflow),
     xi=inStream(inlet.flueGas.xi_outflow),
-    gasType=gas)
-    annotation (Placement(transformation(extent={{-88,-70},{-68,-50}})));
+    gasType=gas) annotation (Placement(transformation(extent={{-88,-70},{-68,-50}})));
 
   ClaRa.Components.Mills.HardCoalMills.Fundamentals.SummaryMill summary(
     T_coal_in=T_coal_in,
@@ -147,12 +147,11 @@ public
   Basics.Interfaces.FuelFlueGas_inlet inlet(flueGas(Medium=gas), fuelType=coal) "Combined gas-and-coal(raw, wet) inlet" annotation (Placement(transformation(extent={{-110,-8},{-90,12}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=gas), fuelType=coal) "Combined gas-and-coal(pulverised, dry) outlet" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  TILMedia.Gas_pT     gasOut(
+  TILMedia.Gas.Gas_pT gasOut(
     p=outlet.flueGas.p,
     T=T_out,
     gasType=gas,
-    xi=xi_air_out)
-    annotation (Placement(transformation(extent={{70,-68},{90,-48}})));
+    xi=xi_air_out) annotation (Placement(transformation(extent={{70,-68},{90,-48}})));
   Modelica.Blocks.Interfaces.RealOutput P_mills(unit="W") "Mill power of all parallel mills"
                                                     annotation(Placement(transformation(extent={{100,22},
             {140,62}})));
@@ -184,8 +183,18 @@ initial equation
 equation
 ////////////////////////////////////////////
 /// Additional Media Data                ///
-  Delta_h_evap = TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer) - TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer);
-  cp_w = TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(inlet.fuel.p, T_coal_in, {1}, H2O_props.vleFluidPointer);
+  Delta_h_evap =TILMedia.VLEFluid.ObjectFunctions.dewSpecificEnthalpy_Txi(
+    T_coal_in,
+    {1},
+    H2O_props.vleFluidPointer) - TILMedia.VLEFluid.ObjectFunctions.bubbleSpecificEnthalpy_Txi(
+    T_coal_in,
+    {1},
+    H2O_props.vleFluidPointer);
+  cp_w =TILMedia.VLEFluid.ObjectFunctions.specificIsobaricHeatCapacity_pTxi(
+    inlet.fuel.p,
+    T_coal_in,
+    {1},
+    H2O_props.vleFluidPointer);
 
 ////////////////////////////////////////////
 /// Grinding Process                     ///

@@ -15,7 +15,8 @@ model Test_Denitrification_NH3port
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow idealGasFlowSource_XRG1(
     m_flow_const=10,
     variable_m_flow=true,

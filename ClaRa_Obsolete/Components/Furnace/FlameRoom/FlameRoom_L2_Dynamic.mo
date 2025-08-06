@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace.FlameRoom;
+﻿within ClaRa_Obsolete.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Dynamic "Model for a flame room section inside a combustion chamber"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -37,16 +37,17 @@ ClaRa.Basics.Units.MassFlowRate m_flow_out_del "Pseudo state for outlet mass flo
 
 //_____________________/ Media Objects \_________________________________
 protected
-TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= actualStream(outlet.flueGas.T_outflow),xi=actualStream(outlet.flueGas.xi_outflow),
-        gasType=flueGas)
-        annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=outlet.flueGas.p,
+    T=actualStream(outlet.flueGas.T_outflow),
+    xi=actualStream(outlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 public
-    TILMedia.Gas_ph bulk(
+  TILMedia.Gas.Gas_ph bulk(
     p(start=p_start_flueGas_out) = outlet.flueGas.p,
     xi=xi_flueGas_del,
     gasType=flueGas,
-    h=h_flueGas_out_del)
-      annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
 //___________________/ iCom record \\__________________
 protected
   inner ClaRa.Basics.Records.IComGas_L2 iCom(

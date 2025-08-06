@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa_Obsolete.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -56,7 +56,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
     Outlet outlet;
   end Summary;
 
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Flue gas model used in component"
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Flue gas model used in component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType=simCenter.fuelModel1 "Coal elemental composition used for combustion"
                                                      annotation (choices(choice=
@@ -107,16 +107,17 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
   Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=medium), final fuelType=fuelType) "Outlet port" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  TILMedia.Gas_pT gasOut(gasType=medium,
+  TILMedia.Gas.Gas_pT gasOut(
+    gasType=medium,
     p=outlet.flueGas.p,
     T=if checkValve == true then outlet.flueGas.T_outflow else actualStream(outlet.flueGas.T_outflow),
     xi=if checkValve == true then outlet.flueGas.xi_outflow else actualStream(outlet.flueGas.xi_outflow))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
-  TILMedia.Gas_pT      gasIn(gasType=medium,
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=medium,
     p=inlet.flueGas.p,
-    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else actualStream(
-        inlet.flueGas.T_outflow),
+    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else actualStream(inlet.flueGas.T_outflow),
     xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else actualStream(inlet.flueGas.xi_outflow))
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 

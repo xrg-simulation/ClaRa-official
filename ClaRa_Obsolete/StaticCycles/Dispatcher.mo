@@ -26,7 +26,8 @@ model Dispatcher "Ideal fuel dispatcher"
   parameter ClaRa.Basics.Units.MassFraction xi_fuel[fuelType.nc-1] = fuelType.defaultComposition "Fuel composition" annotation(Dialog(group="Fundamental Definitions"));
   parameter Integer N_burner_levels "Number of burner levels" annotation(Dialog(group="Fundamental Definitions"));
 
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Combustion Air"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Combustion Air"));
   parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc-1] = {0,0,0,0,0.77,0.23,0,0,0} "Primary air inlet composition" annotation(Dialog(group="Combustion Air"));
   parameter Real lambda = 1.15 "Excess air" annotation(Dialog(group="Combustion Air"));
 

@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 partial model PressureLossPlate_L4 "VLE || PL Base Class || Plate Geo"
 
   extends ClaRa.Basics.Icons.Delta_p;

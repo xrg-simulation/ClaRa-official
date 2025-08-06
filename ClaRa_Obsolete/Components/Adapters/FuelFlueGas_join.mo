@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Adapters;
+﻿within ClaRa_Obsolete.Components.Adapters;
 model FuelFlueGas_join
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -22,8 +22,8 @@ model FuelFlueGas_join
   inner parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType=simCenter.fuelModel1 "Fuel elemental composition used for combustion"
                                                      annotation(choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
 
-  inner parameter TILMedia.GasTypes.BaseGas               flueGas = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
 
   Basics.Interfaces.Fuel_inlet fuel_inlet(final fuelType=fuelType) annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   ClaRa.Basics.Interfaces.GasPortIn flueGas_inlet(Medium=flueGas)

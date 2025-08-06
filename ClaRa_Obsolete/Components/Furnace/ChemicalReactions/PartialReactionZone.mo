@@ -1,8 +1,8 @@
-within ClaRa_Obsolete.Components.Furnace.ChemicalReactions;
+﻿within ClaRa_Obsolete.Components.Furnace.ChemicalReactions;
 partial model PartialReactionZone "Model to regard chemical reactions"
   extends ClaRa.Basics.Icons.Box;
 extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;
-outer parameter TILMedia.GasTypes.BaseGas flueGas;
+  outer parameter TILMedia.Gas.Types.BaseGas flueGas;
 outer parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType;
 input ClaRa.Basics.Units.MassFraction xi_fuel_in[fuelType.nc - 1];
 ClaRa.Basics.Units.MassFraction prod_comp[flueGas.nc - 1] "Resulting composition of products";

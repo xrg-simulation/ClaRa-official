@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.FlueGasCleaning;
+﻿within ClaRa_Obsolete.Components.FlueGasCleaning;
 package Denitrification
     extends ClaRa.Basics.Icons.PackageIcons.Components60;
 
@@ -49,7 +49,8 @@ package Denitrification
 
   //## P A R A M E T E R S #######################################################################################
   //_____________defintion of medium used in cell__________________________________________________________
-    inner parameter TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+    inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+      annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   //  parameter Real separationRate(max = 0.99995) = 0.9995 "Separation rate" annotation (Dialog(group="Fundamental Definitions"));
 
@@ -155,9 +156,9 @@ package Denitrification
             H_flow = -flueGasCell.flueGasOutlet.h*outlet.m_flow)) annotation (Placement(transformation(extent={{-98,
               -100},{-78,-80}})));
 
-public
+  public
     ClaRa.Basics.Interfaces.EyeOut eyeOut annotation (Placement(transformation(extent={{80,-78},{120,-42}}), iconTransformation(extent={{90,-50},{110,-30}})));
-protected
+  protected
     ClaRa.Basics.Interfaces.EyeIn eye_int annotation (Placement(transformation(extent={{48,-68},{32,-52}}), iconTransformation(extent={{90,-84},{84,-78}})));
   equation
 
@@ -275,7 +276,8 @@ protected
 
   //## P A R A M E T E R S #######################################################################################
   //_____________defintion of medium used in cell__________________________________________________________
-    inner parameter TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+    inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+      annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
     parameter Real separationRate(max = 0.99995) = 0.9995 "Separation rate" annotation (Dialog(group="Fundamental Definitions"));
 
@@ -373,9 +375,9 @@ protected
             H_flow = -flueGasCell.flueGasOutlet.h*outlet.m_flow)) annotation (Placement(transformation(extent={{-100,
               -114},{-80,-94}})));
 
-public
+  public
     ClaRa.Basics.Interfaces.EyeOut eyeOut if showData annotation (Placement(transformation(extent={{80,-78},{120,-42}}), iconTransformation(extent={{90,-50},{110,-30}})));
-protected
+  protected
     ClaRa.Basics.Interfaces.EyeIn eye_int annotation (Placement(transformation(extent={{48,-68},{32,-52}}), iconTransformation(extent={{90,-84},{84,-78}})));
 
   equation

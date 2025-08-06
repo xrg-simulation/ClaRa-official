@@ -20,11 +20,12 @@ model SprayInjector_L3_advanced "A spray injector for i.e. temperature control"
   outer ClaRa.SimCenter simCenter;
 
 ///_______________Fundamental Definitions__________________________________________________
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=
-                                                      simCenter.fluid1 "Medium in the component"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Material of the cylinder"
                                annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model PressureLoss =
@@ -59,7 +60,7 @@ model SprayInjector_L3_advanced "A spray injector for i.e. temperature control"
   inner parameter Integer initOptionFluid = 211 "Type of initialisation of fluid"
     annotation (Dialog(tab= "Initialisation", group="Fluid"), choices(choice = 0 "Use guess values", choice = 209 "Steady in vapour pressure, enthalpies and vapour volume", choice=201 "Steady vapour pressure", choice = 202 "Steady enthalpy", choice=204 "Fixed volume fraction",  choice=211 "Fixed values in level, enthalpies and vapour pressure"));
 
-  parameter Modelica.Units.SI.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluidFunctions.temperature_phxi(
+  parameter Modelica.Units.SI.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluid.Functions.temperature_phxi(
       medium,
       p_start,
       h_start_main) "|Initialisation|Wall|Start values of wall temperature";

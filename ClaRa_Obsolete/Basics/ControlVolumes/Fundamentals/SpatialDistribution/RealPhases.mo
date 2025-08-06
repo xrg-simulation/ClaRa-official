@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.ControlVolumes.Fundamentals.SpatialDistribution;
+﻿within ClaRa_Obsolete.Basics.ControlVolumes.Fundamentals.SpatialDistribution;
 partial model RealPhases "The phases are NOT in ideal thermodynamic equilibrium"
 
   extends ClaRa.Basics.Icons.RealPhases;

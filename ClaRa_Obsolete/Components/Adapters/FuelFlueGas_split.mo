@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Adapters;
+﻿within ClaRa_Obsolete.Components.Adapters;
 model FuelFlueGas_split
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -24,8 +24,8 @@ model FuelFlueGas_split
                                                      annotation(choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
   inner parameter ClaRa.Basics.Media.Slag.PartialSlag slag=simCenter.slagModel "Slag properties"
                       annotation(choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
-  inner parameter TILMedia.GasTypes.BaseGas               flueGas = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Medium Definitions"));
 
   Basics.Interfaces.Fuel_outlet fuel_outlet(final fuelType=fuelType) annotation (Placement(transformation(extent={{90,50},{110,70}})));
   ClaRa.Basics.Interfaces.GasPortOut flueGas_outlet(Medium=flueGas)

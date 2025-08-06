@@ -24,7 +24,8 @@ model test_E_Filter_ideal "with flue gas model that includes argon"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-18})));
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Sources.Ramp massFlowRate(
     startTime=5,
     duration=1,

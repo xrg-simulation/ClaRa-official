@@ -16,9 +16,9 @@ model CharLine_AR_L4 "Obsolete HT Model || Heat transfer coefficient defined by 
   //___________________________________________________________________________//
 
   import Modelica.Constants.eps;
-  outer TILMedia.VLEFluid_ph fluidInlet;
-  outer TILMedia.VLEFluid_ph fluidOutlet;
-  outer TILMedia.VLEFluid_ph fluid[iCom.N_cv];
+  outer TILMedia.VLEFluid.VLEFluid_ph fluidInlet;
+  outer TILMedia.VLEFluid.VLEFluid_ph fluidOutlet;
+  outer TILMedia.VLEFluid.VLEFluid_ph fluid[iCom.N_cv];
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L4;
   extends Icons.Obsolete_v1_1;
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer alpha_nom=10 "Constant heat transfer coefficient" annotation (Dialog(group="Heat Transfer"));

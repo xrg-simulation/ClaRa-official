@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 partial model PressureLossFlatTubeFinned_L4 "Gas || PL Base Class || FlatTubeFinned Geo"
   extends ClaRa.Basics.Icons.Delta_p;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseFlatTubeFinnedGas_L4;

@@ -31,12 +31,12 @@ equation
   m_flow_outliq = {(2 - zoneAlloc_out[i])*iCom.m_flow_out[i] for i in 1:geo.N_outlet};
   m_flow_outvap = {(zoneAlloc_out[i] - 1)*iCom.m_flow_out[i] for i in 1:geo.N_outlet};
   //_________________________Calculattion of additional media data_________________
-  steamQuality_in = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_in ={TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
     iCom.p_in[i],
     iCom.h_in[i],
     iCom.xi_in[i, :],
     iCom.fluidPointer_in[i]) for i in 1:iCom.N_inlet};
-  steamQuality_out = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_out ={TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
     iCom.p_out[i],
     iCom.h_out[i],
     iCom.xi_out[i, :],

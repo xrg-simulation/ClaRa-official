@@ -1,12 +1,12 @@
-within ;
+﻿within ;
 package ClaRa_Obsolete "ClaRa obsolete models package"
   import SI = ClaRa_Obsolete.Basics.Units;
 
 
-annotation (preferedView="info",version="1.8.2",
+annotation (preferedView="info",version="1.9.0",
                            uses(
-    ClaRa(version="1.8.2"),
-    TILMedia(version="1.8.1 ClaRa"),
+    ClaRa(version="1.9.0"),
+    TILMedia(version="1.9.0 ClaRa"),
     Modelica(version="4.0.0")),  Icon(coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}}),
                                       graphics={Bitmap(

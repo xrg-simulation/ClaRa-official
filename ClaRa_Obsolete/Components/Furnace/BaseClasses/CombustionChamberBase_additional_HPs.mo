@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace.BaseClasses;
+﻿within ClaRa_Obsolete.Components.Furnace.BaseClasses;
 partial model CombustionChamberBase_additional_HPs
   import ClaRa;
 extends ClaRa_Obsolete.Basics.Icons.Obsolete_v1_3;

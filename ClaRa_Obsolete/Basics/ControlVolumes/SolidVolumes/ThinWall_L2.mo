@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa_Obsolete.Basics.ControlVolumes.SolidVolumes;
 model ThinWall_L2 "A thin wall involving one volume element in heat flow direction"
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 1.2.2                            //
@@ -16,7 +16,9 @@ model ThinWall_L2 "A thin wall involving one volume element in heat flow directi
 //___________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.WallThin;
- replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+ replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                "Material of the cylinder"
                                                                                             annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   input Real CF_lambda=1 "Time-dependent correction factor for thermal conductivity" annotation(Dialog(group="Fundamental Definitions"));
 
@@ -45,8 +47,8 @@ public
                                    outerPhase "outer side of the cylinder"
                                  annotation (Placement(transformation(extent={{-10,40},
             {10,60}}),      iconTransformation(extent={{-10,40},{10,60}})));
-   TILMedia.Solid solid(redeclare each replaceable model SolidType = Material, T=T)
-     annotation (Placement(transformation(extent={{48,8},{68,28}})));
+  TILMedia.Solid.Solid solid(redeclare each replaceable model SolidType = Material, T=T)
+    annotation (Placement(transformation(extent={{48,8},{68,28}})));
   ClaRa.Basics.Interfaces.HeatPort_b innerPhase "Inner side of the cylinder"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}}),
         iconTransformation(extent={{-10,-60},{10,-40}})));

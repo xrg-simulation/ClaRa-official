@@ -48,12 +48,12 @@ model ConvectiveHeatingPart_4SH "A set of convective heat exchangers including 3
         rotation=90,
         origin={0,-190})));
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid
-                                      medium=simCenter.fluid1 "Medium in the component"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder" annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder" annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
     parameter Integer N_ax=3 "Number of axial cells in flow direction" annotation(Dialog(group="Fundamental Definitions"));
     parameter Integer N_rad=3 "Number of axial cells in radial direction" annotation(Dialog(group="Fundamental Definitions"));

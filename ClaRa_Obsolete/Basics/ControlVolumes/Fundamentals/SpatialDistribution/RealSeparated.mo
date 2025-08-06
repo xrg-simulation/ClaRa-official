@@ -104,17 +104,17 @@ equation
     zoneAlloc_out[i] - 1) for i in 1:geo.N_outlet};
 
   //_________________________Calculation of additional media data_________________
-  rho = {TILMedia.VLEFluidObjectFunctions.density_phxi(
+  rho ={TILMedia.VLEFluid.ObjectFunctions.density_phxi(
     iCom.p[i],
     iCom.h[i],
     iCom.xi[i, :],
     iCom.fluidPointer[i]) for i in 1:iCom.N_cv};
-  steamQuality_in = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_in ={TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
     iCom.p_in[i],
     iCom.h_in[i],
     iCom.xi_in[i, :],
     iCom.fluidPointer_in[i]) for i in 1:iCom.N_inlet};
-  steamQuality_out = {TILMedia.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_out ={TILMedia.VLEFluid.ObjectFunctions.steamMassFraction_phxi(
     iCom.p_out[i],
     iCom.h_out[i],
     iCom.xi_out[i, :],

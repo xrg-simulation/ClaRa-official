@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.Interfaces;
+﻿within ClaRa_Obsolete.Basics.Interfaces;
 connector FuelSlagFlueGas_outlet "Port describing Coal,Slag and FlueGas flow"
 
  parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType;

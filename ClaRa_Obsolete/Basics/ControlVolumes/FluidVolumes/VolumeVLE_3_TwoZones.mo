@@ -51,7 +51,7 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
   end Summary;
   //_____________________________________________________
   //_______________replaceable models____________________
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
@@ -91,14 +91,18 @@ model VolumeVLE_3_TwoZones "A volume element balancing liquid and vapour phase"
 
   inner parameter Modelica.Units.SI.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.Units.SI.Density rho_liq_nom=TILMedia.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
-  final parameter Modelica.Units.SI.Density rho_vap_nom=TILMedia.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_liq_nom=TILMedia.VLEFluid.Functions.bubbleDensity_pxi(
+                                                                                                     medium, p_nom) "Nominal density";
+  final parameter Modelica.Units.SI.Density rho_vap_nom=TILMedia.VLEFluid.Functions.dewDensity_pxi(
+                                                                                                  medium, p_nom) "Nominal density";
 
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 +
-      TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
+      TILMedia.VLEFluid.Functions.bubbleSpecificEnthalpy_pxi(
+                                                            medium, p_start) "Start value of sytsem specific enthalpy"
     annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 +
-      TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy"
+      TILMedia.VLEFluid.Functions.dewSpecificEnthalpy_pxi(
+                                                         medium, p_start) "Start value of sytsem specific enthalpy"
     annotation (Dialog(tab="Initialisation"));
   parameter Modelica.Units.SI.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling level"
@@ -151,29 +155,24 @@ public
         rotation=90,
         origin={0,100})));
 
-  TILMedia.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     final p=inlet.p,
-    final h=if useHomotopy then homotopy(actualStream(inlet.h_outflow),
-        inStream(inlet.h_outflow)) else actualStream(inlet.h_outflow))
-                  annotation (Placement(transformation(extent={{-90,-10},{-70,
-            10}}, rotation=0)));
-  TILMedia.VLEFluid_ph fluidOut(
+    final h=if useHomotopy then homotopy(actualStream(inlet.h_outflow), inStream(inlet.h_outflow)) else actualStream(
+        inlet.h_outflow)) annotation (Placement(transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
+  TILMedia.VLEFluid.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     final p=outlet.p,
-    final h=if useHomotopy then homotopy(actualStream(outlet.h_outflow),
-        inStream(outlet.h_outflow)) else actualStream(outlet.h_outflow))
-                   annotation (Placement(transformation(extent={{70,-10},{90,10}},
-          rotation=0)));
+    final h=if useHomotopy then homotopy(actualStream(outlet.h_outflow), inStream(outlet.h_outflow)) else actualStream(
+        outlet.h_outflow)) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 
 protected
-  inner TILMedia.VLEFluid_ph liq(
+  inner TILMedia.VLEFluid.VLEFluid_ph liq(
     vleFluidType=medium,
     h=h_liq,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
-    p=p) annotation (Placement(transformation(extent={{-10,-20},{10,0}},
-          rotation=0)));
+    p=p) annotation (Placement(transformation(extent={{-10,-20},{10,0}}, rotation=0)));
 public
   HeatTransfer heattransfer(
   final heatSurfaceAlloc=heatSurfaceAlloc)
@@ -186,13 +185,12 @@ public
     annotation (Placement(transformation(extent={{12,60},{32,80}})));
 
 protected
-  inner TILMedia.VLEFluid_ph vap(
+  inner TILMedia.VLEFluid.VLEFluid_ph vap(
     vleFluidType=medium,
     p=p,
     h=h_vap,
     computeTransportProperties=true,
-    computeVLETransportProperties=true) annotation (Placement(transformation(
-          extent={{-10,8},{10,28}}, rotation=0)));
+    computeVLETransportProperties=true) annotation (Placement(transformation(extent={{-10,8},{10,28}}, rotation=0)));
 protected
   inner ClaRa.Basics.Records.IComVLE_L3_OnePort
                                         iCom(

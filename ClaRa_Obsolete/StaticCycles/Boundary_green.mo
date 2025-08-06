@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 model Boundary_green "Green boundary"
 
   parameter Boolean source = true "True if boundary is source else sink";

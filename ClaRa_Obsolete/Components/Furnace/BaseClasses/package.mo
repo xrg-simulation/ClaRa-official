@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Components.Furnace;
+﻿within ClaRa_Obsolete.Components.Furnace;
 package BaseClasses
 //___________________________________________________________________________//
 // Package of the ClaRa library, version: 1.2.2                              //

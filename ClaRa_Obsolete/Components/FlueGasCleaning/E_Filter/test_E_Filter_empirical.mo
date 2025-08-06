@@ -26,7 +26,8 @@ model test_E_Filter_empirical
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-18})));
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Sources.Ramp massFlowRate(
     offset=1,
     startTime=5,

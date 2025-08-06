@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.StaticCycles;
+﻿within ClaRa_Obsolete.StaticCycles;
 model StaCyFlangeFuel "A summary record for fuel flanges"
     extends ClaRa.Basics.Icons.RecordIcon;
   replaceable parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelModel "Used medium model" annotation (Dialog(tab="System"));

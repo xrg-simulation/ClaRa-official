@@ -23,7 +23,9 @@ model NTU_L2_advanced "NTU-based heat transfer resistance"
   extends Icons.Obsolete_v1_1;
 //_____________fundamental definitions_________________________________________//
 
- replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+ replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                "Material of the cylinder"
                                annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
   replaceable model HeatExchangerType =
       ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes.CounterFlow
@@ -123,8 +125,8 @@ public
                                          annotation (Placement(transformation(
           extent={{-10,-100},{10,-80}},
                                       rotation=0)));
-   TILMedia.Solid solid(redeclare replaceable model SolidType = Material, T=(T_w_i+T_w_a)/2)
-     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  TILMedia.Solid.Solid solid(redeclare replaceable model SolidType = Material, T=(T_w_i + T_w_a)/2)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   HeatExchangerType heatExchangerType(NTU_1=NTU_1, R_1=R_1) annotation (Placement(transformation(extent={{20,20},{40,40}},   rotation=0)));
   Summary summary(showExpertSummary=showExpertSummary,C_flow_low=C_flow_1,C_flow_high=C_flow_2,NTU_1=NTU_1,NTU_2=NTU_2,A_mean=A_heat_m,T_i_out=T_i_out,T_o_out=T_a_out,kA=kA,effectiveness=effectiveness,Q_flow=Q_flow_NTU_1, cp_mean_i=cp_mean_i,cp_mean_a=cp_mean_a, d=solid.d)

@@ -1,5 +1,5 @@
 ﻿within ClaRa_Obsolete.Components.FlueGasCleaning.Denitrification;
-package Fundamentals 
+package Fundamentals  
 //___________________________________________________________________________//
 // Package of the ClaRa library, version: 1.2.0                              //
 // Models of the ClaRa library are tested under DYMOLA v2016 FD01.           //

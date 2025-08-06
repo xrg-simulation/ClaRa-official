@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.Interfaces;
+﻿within ClaRa_Obsolete.Basics.Interfaces;
 expandable connector ControlBus "A bus"
   extends Modelica.Icons.SignalBus;
   extends Icons.ObsoleteConnector_v1_1;

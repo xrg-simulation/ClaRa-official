@@ -27,7 +27,8 @@ model test_E_Filter_detailed
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,-30})));
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,60},{100,80}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   ClaRa_Obsolete.Components.FlueGasCleaning.E_Filter.E_Filter_L2_detailed_old e_Filter_dynamic(redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry, use_dynamicMassbalance=true) annotation (Placement(transformation(extent={{-44,-40},{-24,-20}})));
 
   Modelica.Blocks.Sources.Ramp U_applied(

@@ -1,4 +1,4 @@
-within ClaRa_Obsolete.Basics.Interfaces;
+﻿within ClaRa_Obsolete.Basics.Interfaces;
 connector FuelFlueGas_inlet "Port describing Coal and CombustionAir flow"
 
  parameter ClaRa.Basics.Media.Fuel.PartialFuel fuelType;
