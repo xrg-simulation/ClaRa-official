@@ -220,7 +220,7 @@ public
    SI.EnthalpyMassSpecific h_in;
    SI.EnthalpyMassSpecific h_out;
    final parameter ClaRa.Basics.Units.Time Tau_T_ps=1e-4 "Time constant for pseudo state for temperature.";
-   SI.Temperature T_ps[geo.N_cv](nominal=293.15,start=T_start) "Temperature pseudo state";
+   SI.Temperature T_ps[geo.N_cv](each nominal=293.15,start=T_start) "Temperature pseudo state";
 //____Pressure__________________________________________________________________________________________________
 protected
   SI.DensityMassSpecific[geo.N_cv + 1] rho_FM "Density at flow model states";
