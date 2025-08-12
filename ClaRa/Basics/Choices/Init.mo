@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Choices;
+within ClaRa.Basics.Choices;
 type Init = enumeration(
     noInit "Free initialisation, use guess values",
     steadyState "Steady state in pressure and enthalpy",

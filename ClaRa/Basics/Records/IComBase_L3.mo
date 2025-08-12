@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 record IComBase_L3
   extends ClaRa.Basics.Icons.IComIcon;
   import SI = ClaRa.Basics.Units;

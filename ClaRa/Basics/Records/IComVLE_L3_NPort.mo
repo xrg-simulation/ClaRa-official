@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 record IComVLE_L3_NPort
   extends IComVLE_L3;
 annotation (Documentation(info="<html>

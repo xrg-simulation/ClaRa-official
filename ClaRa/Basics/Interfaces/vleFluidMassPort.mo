@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 connector vleFluidMassPort
   flow Units.Mass mass_fluid "Accumulated fluid mass";
     annotation (Documentation(info="<html>

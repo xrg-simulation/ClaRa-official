@@ -1,4 +1,4 @@
-﻿within ClaRa.StaticCycles.Boundaries;
+within ClaRa.StaticCycles.Boundaries;
 model Sink_blue "Blue sink"
   // Blue input:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
 

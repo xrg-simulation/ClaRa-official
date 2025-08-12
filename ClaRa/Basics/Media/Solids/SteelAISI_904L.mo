@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model SteelAISI_904L "SteelAISI_904L - 1.4539"
    //Source: http://www.pxprecimet.ch/data/documents/fiches-techniques/DE/904L.pdf"
 

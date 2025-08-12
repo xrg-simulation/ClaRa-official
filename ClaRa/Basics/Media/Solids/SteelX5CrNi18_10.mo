@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model SteelX5CrNi18_10 "SteelX5CrNi18_10 - 1.4301"
   // Source: http://www.thyssenkrupp.at/files/rohre/Werkstoffdatenblaetter/1.4301.pdf"
 

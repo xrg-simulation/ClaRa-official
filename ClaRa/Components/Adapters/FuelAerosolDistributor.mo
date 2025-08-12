@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Adapters;
+within ClaRa.Components.Adapters;
 model FuelAerosolDistributor "fuel2aerosol-interface, defines particle diameter classes and mass fractions of aerosol flow"
 
   extends ClaRa.Basics.Icons.Adapter2_fw;

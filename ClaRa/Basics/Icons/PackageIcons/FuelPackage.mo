@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons.PackageIcons;
+within ClaRa.Basics.Icons.PackageIcons;
 model FuelPackage "Usable fuels below:"
 
   annotation (Icon(graphics={

@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Utilities.Blocks.Check;
+within ClaRa.Components.Utilities.Blocks.Check;
 model TestStepsmootherGain
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 

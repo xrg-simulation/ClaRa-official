@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model Fireclay "Fireclay material"
   //VDI Waermeatlas for 400°C
   extends ClaRa.Basics.Media.Solids.BaseSolid(

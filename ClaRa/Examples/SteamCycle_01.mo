@@ -1,8 +1,8 @@
-﻿within ClaRa.Examples;
+within ClaRa.Examples;
 model SteamCycle_01 "A closed steam cycle with a simple boiler model including single reheat, feedwater tank, LP and HP preheaters"
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //

@@ -1,2 +1,2 @@
-﻿within ClaRa.Basics.Units;
+within ClaRa.Basics.Units;
 type InternalEnergy = Energy;

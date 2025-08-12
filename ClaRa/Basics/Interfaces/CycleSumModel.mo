@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 model CycleSumModel
   ClaRa.Basics.Interfaces.CycleSumPort cycleSumPort;
       annotation (Documentation(info="<html>

@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Sensors;
+within ClaRa.Components.Sensors;
 model SensorVLE_L3_T
   extends ClaRa.Basics.Icons.Sensor1;
 

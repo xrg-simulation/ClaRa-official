@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Electrical;
+within ClaRa.Components.Electrical;
 model SimpleGenerator "A simple active power generator"
 // This core of this model is taken over from Francesco Casella's Modelica library ThermoPower.
 // The ClaRa developer's team appreciates this input

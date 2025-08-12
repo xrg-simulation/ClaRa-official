@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 connector CycleSumPort
 //    flow SI.Mass mass_fluid "Accumulated fluid mass";
   flow Units.Power power_in;

@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model Homogeneous_L4 "Both phases are in mechanical equilibrium"
     extends ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.MechanicalEquilibrium_L4;
 

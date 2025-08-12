@@ -1,4 +1,4 @@
-﻿within ClaRa.StaticCycles.Boundaries;
+within ClaRa.StaticCycles.Boundaries;
 model Source_blue "Blue boundary"
   // Blue output:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));

@@ -1,7 +1,7 @@
-﻿within ClaRa.StaticCycles.ValvesConnects;
+within ClaRa.StaticCycles.ValvesConnects;
 model FlowAnchor_constPressure1 "Flow Anchour || par.: m_flow_nom || red | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

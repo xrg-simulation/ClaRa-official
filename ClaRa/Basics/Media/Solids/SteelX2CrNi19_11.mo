@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model SteelX2CrNi19_11 "SteelX2CrNi19_11 - 1.4306"
    //Source: http://www.thyssenkrupp.at/files/rohre/Werkstoffdatenblaetter/1.4306.pdf
 

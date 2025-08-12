@@ -1,8 +1,8 @@
-﻿within ClaRa.SubSystems.Furnace;
+within ClaRa.SubSystems.Furnace;
 model FreeboardSlice_L4 "Furnace slice of freeboard with cooled walls"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

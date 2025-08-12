@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media;
+within ClaRa.Basics.Media;
 package Slag
 extends ClaRa.Basics.Icons.PackageIcons.Basics60;
 

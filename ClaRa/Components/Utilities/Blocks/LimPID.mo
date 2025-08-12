@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Utilities.Blocks;
+within ClaRa.Components.Utilities.Blocks;
 block LimPID "P, PI, PD, and PID controller with limited output, anti-windup compensation and delayed, smooth activation"
   import InitPID =
          Modelica.Blocks.Types.Init;

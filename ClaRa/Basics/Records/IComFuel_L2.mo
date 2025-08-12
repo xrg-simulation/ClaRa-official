@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 record IComFuel_L2 "Basic internal communication record for heat transfer"
   extends ClaRa.Basics.Records.IComBase_L2;
 

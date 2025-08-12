@@ -1,7 +1,7 @@
-﻿within ClaRa.SubSystems.Furnace;
+within ClaRa.SubSystems.Furnace;
 model HopperSlice_L4 "Furnace slice of hopper with cooled walls"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

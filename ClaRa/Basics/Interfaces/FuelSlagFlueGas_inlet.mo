@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 connector FuelSlagFlueGas_inlet "Port describing Coal,Slag and FlueGas flow"
 
   // Media properties of coal and slag

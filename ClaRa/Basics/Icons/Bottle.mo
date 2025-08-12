@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons;
+within ClaRa.Basics.Icons;
 model Bottle
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,500}}, initialScale=0.1), graphics={Bitmap(
           extent={{-100,-100},{100,500}},

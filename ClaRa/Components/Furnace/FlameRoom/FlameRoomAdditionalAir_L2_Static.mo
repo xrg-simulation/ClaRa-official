@@ -1,7 +1,7 @@
-﻿within ClaRa.Components.Furnace.FlameRoom;
+within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomAdditionalAir_L2_Static "Model for a flame room section with additional secondary air inlet inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

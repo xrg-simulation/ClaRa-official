@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 partial model MechanicalEquilibrium_L4
   extends ClaRa.Basics.Icons.MechanicalEquilibriumIcon;
   outer ClaRa.Basics.Records.IComVLE_L3 iCom;

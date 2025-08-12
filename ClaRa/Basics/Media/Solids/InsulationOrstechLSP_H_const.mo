@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model InsulationOrstechLSP_H_const "Orstech Insulation"
   extends ClaRa.Basics.Media.Solids.BaseSolid(
     final d = 100.0,

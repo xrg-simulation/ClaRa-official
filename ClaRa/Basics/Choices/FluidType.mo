@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Choices;
+within ClaRa.Basics.Choices;
 type FluidType = enumeration(
     Steam "Steam",
     Condensate "Condensate",

@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.TurboMachines.Compressors.Fundamentals;
+within ClaRa.Components.TurboMachines.Compressors.Fundamentals;
 type PresetVariableType
   extends String;
   annotation(choices(

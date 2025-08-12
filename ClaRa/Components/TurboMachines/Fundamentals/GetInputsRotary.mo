@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.TurboMachines.Fundamentals;
+within ClaRa.Components.TurboMachines.Fundamentals;
 model GetInputsRotary "Get enabled inputs and parameters of disabled inputs"
   extends Modelica.Blocks.Icons.Block;
 

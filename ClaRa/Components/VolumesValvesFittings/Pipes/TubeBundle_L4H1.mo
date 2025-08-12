@@ -1,7 +1,7 @@
-﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
+within ClaRa.Components.VolumesValvesFittings.Pipes;
 model TubeBundle_L4H1 "Discretised tube bundle with scalar heat port"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

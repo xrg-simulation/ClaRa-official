@@ -165,8 +165,7 @@ public
   Basics.Interfaces.EyeOutGas
                            eyeOut(medium=flueGas) annotation (Placement(transformation(extent={{-286,78},
             {-314,102}}),         iconTransformation(extent={{-290,70},{-310,90}})));
-protected
-           Basics.Interfaces.EyeInGas
+protected  Basics.Interfaces.EyeInGas
                                    eye_int[1](each medium=flueGas)
                                 annotation (Placement(transformation(extent={{-254,84},
             {-266,96}}),      iconTransformation(extent={{240,-64},{232,-56}})));

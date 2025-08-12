@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 connector FuelFlueGas_outlet "Port describing Coal and CombustionAir flow"
 
 extends ClaRa.Basics.Interfaces.FuelFlueGas_inlet;

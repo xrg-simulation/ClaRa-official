@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons;
+within ClaRa.Basics.Icons;
 model MechanicalEquilibriumIcon
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
           extent={{-100,-100},{100,100}},

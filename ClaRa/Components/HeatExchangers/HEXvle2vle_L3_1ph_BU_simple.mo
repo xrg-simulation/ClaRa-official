@@ -1,7 +1,7 @@
-﻿within ClaRa.Components.HeatExchangers;
+within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_BU_simple "VLE 2 VLE | L3 | 1 phase at shell side | Block shape |  U-type | simple HT"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

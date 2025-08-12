@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 model FlangeGas "A summary record for gas flanges"
 
     extends ClaRa.Basics.Icons.RecordIcon;

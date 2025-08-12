@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Fuel;
+within ClaRa.Basics.Media.Fuel;
 record PartialFuel "Base class for solid type media definition"
   extends ClaRa.Basics.Media.FuelTypes.EmptyFuel;
 constant Integer nc(min=1);

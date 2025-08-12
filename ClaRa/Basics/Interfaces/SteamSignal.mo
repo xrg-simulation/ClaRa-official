@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Interfaces;
+within ClaRa.Basics.Interfaces;
 expandable connector SteamSignal "Signal bus featuring pressure, specific enthalpy and mass flow rate"
 
 

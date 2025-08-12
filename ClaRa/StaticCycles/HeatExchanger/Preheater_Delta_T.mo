@@ -1,7 +1,7 @@
-﻿within ClaRa.StaticCycles.HeatExchanger;
+within ClaRa.StaticCycles.HeatExchanger;
 model Preheater_Delta_T "1ph preheater || par.: shell pressure, shell m_flow, Delta_T"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

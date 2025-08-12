@@ -1,4 +1,4 @@
-﻿within ClaRa;
+within ClaRa;
 package StaticCycles "Prepare initialisation even more easy!"
   extends ClaRa.Basics.Icons.PackageIcons.CycleInit100;
 

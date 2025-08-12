@@ -1,4 +1,4 @@
-﻿within ClaRa.StaticCycles.Fundamentals;
+within ClaRa.StaticCycles.Fundamentals;
 connector SteamSignal_red_b "Signal-based steam connector"
 
   TILMedia.VLEFluidTypes.BaseVLEFluid  Medium "Medium model";

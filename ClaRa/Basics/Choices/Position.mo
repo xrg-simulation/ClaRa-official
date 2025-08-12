@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Choices;
+within ClaRa.Basics.Choices;
 type Position = enumeration(
     TopLeft "Top left",
     TopMid "Top middle",

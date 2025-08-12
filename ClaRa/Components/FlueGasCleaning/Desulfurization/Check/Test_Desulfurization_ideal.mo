@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
+within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
 model Test_Desulfurization_ideal
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Desulfurization_L2_ideal deSO_ideal_L1_1(

@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 record IComGas_L3
   extends IComBase_L3;
 

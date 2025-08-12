@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
+within ClaRa.Components.VolumesValvesFittings.Fittings;
 package Fundamentals
   extends ClaRa.Basics.Icons.PackageIcons.Components50;
 

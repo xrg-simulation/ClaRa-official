@@ -1,4 +1,4 @@
-﻿within ClaRa.Visualisation;
+within ClaRa.Visualisation;
 model XYplot
 
   record DecimalSpaces

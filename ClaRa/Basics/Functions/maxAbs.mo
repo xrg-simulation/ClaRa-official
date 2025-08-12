@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Functions;
+within ClaRa.Basics.Functions;
 function maxAbs "Returns signed maximum of the absolute input values"
   extends ClaRa.Basics.Icons.Function;
   input Real x1 "Real input 1";

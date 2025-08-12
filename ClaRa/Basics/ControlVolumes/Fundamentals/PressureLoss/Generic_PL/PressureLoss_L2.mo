@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 partial model PressureLoss_L2
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L2;

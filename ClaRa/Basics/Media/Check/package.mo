@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media;
+within ClaRa.Basics.Media;
 package Check
   extends ClaRa.Basics.Icons.PackageIcons.Basicsb50;
 

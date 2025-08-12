@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Fuel;
+within ClaRa.Basics.Media.Fuel;
 record Coal_v2 " {C,H,O,N,S,Ash,H2O} a coal with 6.8 percent of water"
  extends ClaRa.Basics.Media.Fuel.PartialFuel(
     final nc=7,

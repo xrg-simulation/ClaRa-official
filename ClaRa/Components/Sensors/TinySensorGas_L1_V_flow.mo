@@ -1,9 +1,9 @@
-﻿within ClaRa.Components.Sensors;
+within ClaRa.Components.Sensors;
 model TinySensorGas_L1_V_flow "Ideal two port volume flow sensor, allowing for normalisation to normal conditions (0°C | 1013.25 mbar)"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

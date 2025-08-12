@@ -1,4 +1,4 @@
-﻿within ClaRa.Visualisation.Check;
+within ClaRa.Visualisation.Check;
 model TestXYplot
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   XYplot xYplot(

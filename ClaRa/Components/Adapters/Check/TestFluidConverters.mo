@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Adapters.Check;
+within ClaRa.Components.Adapters.Check;
 model TestFluidConverters
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Fluid2ClaRa fluid2ClaRa

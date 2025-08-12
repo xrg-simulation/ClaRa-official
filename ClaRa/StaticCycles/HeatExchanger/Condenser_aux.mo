@@ -1,7 +1,7 @@
-﻿within ClaRa.StaticCycles.HeatExchanger;
+within ClaRa.StaticCycles.HeatExchanger;
 model Condenser_aux "Condenser || par.: pressure, level_abs || blue || blue  |green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2022, ClaRa development team.                            //

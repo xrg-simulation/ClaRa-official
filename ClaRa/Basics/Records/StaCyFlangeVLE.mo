@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 model StaCyFlangeVLE "A summary of flange flow properties for StaCy components"
   extends Icons.RecordIcon;
 

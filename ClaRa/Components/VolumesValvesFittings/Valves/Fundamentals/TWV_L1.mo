@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
+within ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals;
 partial model TWV_L1
 
 

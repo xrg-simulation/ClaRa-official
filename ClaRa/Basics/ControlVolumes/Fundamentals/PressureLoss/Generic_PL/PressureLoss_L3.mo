@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
+within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 partial model PressureLoss_L3 "Generic pressure loss models for type L3 models"
 
   extends ClaRa.Basics.Icons.Delta_p;

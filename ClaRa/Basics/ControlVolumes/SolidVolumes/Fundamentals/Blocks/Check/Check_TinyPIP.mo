@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Blocks.Check;
+within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Blocks.Check;
 model Check_TinyPIP "Final test of tiny PI controller with anti wind-up compensation"
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Real control_y = stopablePI.y;

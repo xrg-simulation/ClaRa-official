@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons.PackageIcons;
+within ClaRa.Basics.Icons.PackageIcons;
 partial class Visualisation50
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

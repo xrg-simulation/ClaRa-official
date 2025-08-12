@@ -1,4 +1,4 @@
-﻿within ClaRa.StaticCycles.Boundaries;
+within ClaRa.StaticCycles.Boundaries;
 model Sink_green "Green boundary"
   // Green input:  Values of m_flow and h are unknown in component and provided BY neighbor component.
 

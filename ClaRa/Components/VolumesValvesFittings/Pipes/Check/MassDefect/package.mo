@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check;
+within ClaRa.Components.VolumesValvesFittings.Pipes.Check;
 package MassDefect
 extends ClaRa.Basics.Icons.PackageIcons.Componentsb50;
 

@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.BoundaryConditions;
+within ClaRa.Components.BoundaryConditions;
 model BoundaryElectricFrequency
   extends ClaRa.Basics.Icons.FlowSink;
 

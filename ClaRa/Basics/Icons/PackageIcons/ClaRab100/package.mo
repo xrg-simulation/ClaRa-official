@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons.PackageIcons;
+within ClaRa.Basics.Icons.PackageIcons;
 package ClaRab100
 
   annotation (Icon(graphics={Bitmap(

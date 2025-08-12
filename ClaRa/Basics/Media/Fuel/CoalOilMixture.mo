@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Fuel;
+within ClaRa.Basics.Media.Fuel;
 record CoalOilMixture "Coal, oil, ash, H2O"
 extends ClaRa.Basics.Media.FuelTypes.BaseFuel(
   N_c=4,

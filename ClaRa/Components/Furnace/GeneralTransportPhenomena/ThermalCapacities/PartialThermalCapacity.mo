@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities;
+within ClaRa.Components.Furnace.GeneralTransportPhenomena.ThermalCapacities;
 partial model PartialThermalCapacity
   import ClaRa;
   ClaRa.Basics.Interfaces.HeatPort_a   heat_in

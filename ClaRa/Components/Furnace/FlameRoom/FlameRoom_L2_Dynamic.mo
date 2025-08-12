@@ -1,7 +1,7 @@
-﻿within ClaRa.Components.Furnace.FlameRoom;
+within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoom_L2_Dynamic "Model for a flame room section inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

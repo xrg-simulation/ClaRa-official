@@ -1,4 +1,4 @@
-﻿within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
+within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
 model Test_FlueGasCleaning
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 

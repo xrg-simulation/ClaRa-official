@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Icons.PackageIcons;
+within ClaRa.Basics.Icons.PackageIcons;
 model ExecutableExampleb60
 
   annotation (Icon(graphics={Bitmap(

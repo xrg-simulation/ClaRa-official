@@ -1,4 +1,4 @@
-﻿within ClaRa.Examples;
+within ClaRa.Examples;
 model VapourCycle_01 "A closed vapour cycle using discretised plate heat exchanger and discretised flat tube finned heat exhanger."
    extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)

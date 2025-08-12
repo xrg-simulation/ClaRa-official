@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 model Steel16Mo3 "Steel16Mo3 - 1.5415"
   //source: http://www.thyssenkrupp-stahlkontor.de/tl_files/ThyssenKrupp/pdf/16Mo3.pdf"
 

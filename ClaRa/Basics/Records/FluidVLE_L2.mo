@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Records;
+within ClaRa.Basics.Records;
 model FluidVLE_L2 "A record for basic VLE fluid data from L2-type models"
   extends Icons.RecordIcon;
   parameter Boolean showExpertSummary= false;

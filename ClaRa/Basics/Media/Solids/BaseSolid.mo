@@ -1,4 +1,4 @@
-﻿within ClaRa.Basics.Media.Solids;
+within ClaRa.Basics.Media.Solids;
 partial model BaseSolid
   extends TILMedia.SolidTypes.BaseSolid;
 
